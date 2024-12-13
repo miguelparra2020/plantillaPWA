@@ -5,13 +5,14 @@ import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
 import compress from "astro-compress"
 import { VitePWA } from "vite-plugin-pwa"
-
+import react from "@astrojs/react"; 
 // Helper imports
 import { manifest, seoConfig } from "./utils/seoConfig"
 
 export default defineConfig({
 	site: seoConfig.baseURL,
 	integrations: [
+		react(),
 		tailwind({
 			config: {
 				applyBaseStyles: false,
