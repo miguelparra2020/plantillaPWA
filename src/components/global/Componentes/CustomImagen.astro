@@ -1,0 +1,33 @@
+---
+import ImagenDefault from '@img/default.png';
+
+const { 
+  src = ImagenDefault,       
+  alt = 'Imagen por defecto',            
+  widths = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 2000],             
+  sizes = '(max-width: 600px) 100vw, 50vw',
+  loading = 'lazy',                     
+  formats = ['avif', 'webp', 'jpeg', 'png'], 
+  quality = 85,
+  width = undefined,
+  height = undefined,
+  class: className = '',  
+} = Astro.props;
+
+---
+<picture class:list={className}>
+  {formats.map(format => (
+    <source
+      srcset={widths.map(w => `${src}?w=${w}&q=${quality}&format=${format} ${w}w`).join(', ')}
+      sizes={sizes}
+      type={`image/${format}`}
+    />
+  ))}
+  <img
+    src={`${src}?w=${widths[0]}&q=${quality}`}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+  />
+</picture>
