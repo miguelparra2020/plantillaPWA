@@ -53,7 +53,3 @@ export const manifest: Partial<ManifestOptions> = {
 }
 
 
-export const generalConfig = {
-	name: "Mi compañía",
-	
-}

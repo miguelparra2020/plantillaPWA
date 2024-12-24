@@ -1,19 +1,9 @@
 ---
-import {   Layout, LayoutGeneral } from "@globals"
-import { generalConfig } from "@util/seoConfig"
-const path = Astro.url.pathname.slice(1)
-const capitalizeFirstLetter = (str) => {
-  if (!str) return str;
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-const formattedPath = capitalizeFirstLetter(path);
-const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name;
+import {   LayoutGeneral } from "@globals"
 ---
 
-<Layout title={pathTitle}>
     <LayoutGeneral>
-	<div>
-        {formattedPath}
-    </div>
+    <div>
+          El resto de la página
+      </div>
     </LayoutGeneral>
-</Layout>

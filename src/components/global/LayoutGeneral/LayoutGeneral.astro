@@ -1,7 +1,19 @@
 ---
-import { Header } from '@globals'
+import {   Layout, Header } from "@globals"
+import { generalConfig } from "@util/generalConfig"
+const path = Astro.url.pathname.slice(1)
+const capitalizeFirstLetter = (str) => {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const formattedPath = capitalizeFirstLetter(path);
+const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name;
 ---
-<main class="flex flex-1 flex-col h-[100%] w-full">
+
+<Layout title={pathTitle}>
     <Header/>
-    <slot />
-</main>
+    <div>
+        {formattedPath}
+    </div>
+        <slot />
+</Layout>
