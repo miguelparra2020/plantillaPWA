@@ -1,7 +1,17 @@
 ---
-import { Layout, ButtonGeneral } from "@globals"
+import {   Layout, LayoutGeneral, ButtonGeneral } from "@globals"
+import { generalConfig } from "@util/seoConfig"
+const path = Astro.url.pathname.slice(1)
+const capitalizeFirstLetter = (str) => {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const formattedPath = capitalizeFirstLetter(path);
+const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name;
 ---
-<Layout title="Astro PWA Starter">
+
+<Layout title={pathTitle}>
+    <LayoutGeneral>
 <!-- Buttons -->
 <div >
     <div class="flex flex-row items-center justify-center m-5">
@@ -112,4 +122,6 @@ import { Layout, ButtonGeneral } from "@globals"
     </div> 
      
 </div>
+<!-- Buttons -->
+    </LayoutGeneral>
 </Layout>

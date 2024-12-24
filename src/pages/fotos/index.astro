@@ -7,7 +7,7 @@ const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const formattedPath = capitalizeFirstLetter(path);
-const pathTitle = formattedPath + " - " + generalConfig.name;
+const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name;
 ---
 
 <Layout title={pathTitle}>
