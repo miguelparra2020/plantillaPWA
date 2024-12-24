@@ -1,6 +1,7 @@
 export { Header } from "./Header"
 export { Footer } from "./Footer"
 export { Layout } from "./Layout"
+export { LayoutGeneral } from "./LayoutGeneral"
 export { ButtonRouter } from "./Componentes"
 export { ButtonGeneral } from "./Componentes"
 export { CustomImagen } from "./Componentes"
