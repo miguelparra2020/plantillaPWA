@@ -1,11 +1,19 @@
 ---
 import {   Layout, LayoutGeneral } from "@globals"
+import { generalConfig } from "@util/seoConfig"
+const path = Astro.url.pathname.slice(1)
+const capitalizeFirstLetter = (str) => {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const formattedPath = capitalizeFirstLetter(path);
+const pathTitle = formattedPath + " - " + generalConfig.name;
 ---
 
-<Layout title="Astro PWA Starter">
+<Layout title={pathTitle}>
     <LayoutGeneral>
 	<div>
-        Eventos
+    {formattedPath}
     </div>
     </LayoutGeneral>
 </Layout>

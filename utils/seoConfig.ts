@@ -5,19 +5,19 @@ import type { ManifestOptions } from "vite-plugin-pwa"
  * Defines the default SEO configuration for the website.
  */
 export const seoConfig = {
-	baseURL: "https://example.com", // Change this to your production URL.
+	baseURL: "https://elparaisodemisabuelos.com", // Change this to your production URL.
 	description:
-		"Astro PWA Starter is an opionated Astro starter for building robust static websites.", // Change this to be your website's description.
+		"Queremos dar la más cordial bienvenida a todos los visitantes del sitio, brindándoles un cálido recibimiento y una atención excepcional, para que puedan sumergirse en la belleza y tranquilidad de este lugar lleno de paz y naturaleza. Aquí, aquellos que nos visitan tienen la oportunidad de desconectar de la tecnología y el estrés de la ciudad, y en su lugar, disfrutar del canto de las aves, el murmullo del agua y la alegría que llena el alma al interactuar con los animales y la naturaleza.", // Change this to be your website's description.
 	type: "website",
 	image: {
 		url: "https://picsum.photos/1200/630", // Change this to your website's thumbnail.
-		alt: "OpenGraph thumbnail description.", // Change this to your website's thumbnail description.
+		alt: "Fotografía del paraiso de mis abuelos", // Change this to your website's thumbnail description.
 		width: 1200,
 		height: 630
 	},
-	siteName: "Astro PWA Starter", // Change this to your website's name,
+	siteName: "El paraiso de mis abuelos", // Change this to your website's name,
 	twitter: {
-		card: "summary_large_image"
+		card: "Queremos dar la más cordial bienvenida a todos los visitantes del sitio, brindándoles un cálido recibimiento y una atención excepcional, para que puedan sumergirse en la belleza y tranquilidad de este lugar lleno de paz y naturaleza. Aquí, aquellos que nos visitan tienen la oportunidad de desconectar de la tecnología y el estrés de la ciudad, y en su lugar, disfrutar del canto de las aves, el murmullo del agua y la alegría que llena el alma al interactuar con los animales y la naturaleza."
 	}
 }
 
@@ -25,10 +25,10 @@ export const seoConfig = {
  * Defines the configuration for PWA webmanifest.
  */
 export const manifest: Partial<ManifestOptions> = {
-	name: "Astro PWA Starter", // Change this to your website's name.
-	short_name: "Astro PWA Starter", // Change this to your website's short name.
+	name: "El paraiso de mis abuelos", // Change this to your website's name.
+	short_name: "El paraiso", // Change this to your website's short name.
 	description:
-		"Astro PWA Starter is an opionated Astro starter for building robust static websites.", // Change this to your websites description.
+		"Queremos dar la más cordial bienvenida a todos los visitantes del sitio, brindándoles un cálido recibimiento y una atención excepcional, para que puedan sumergirse en la belleza y tranquilidad de este lugar lleno de paz y naturaleza. Aquí, aquellos que nos visitan tienen la oportunidad de desconectar de la tecnología y el estrés de la ciudad, y en su lugar, disfrutar del canto de las aves, el murmullo del agua y la alegría que llena el alma al interactuar con los animales y la naturaleza.", // Change this to your websites description.
 	theme_color: "#30E130", // Change this to your primary color.
 	background_color: "#ffffff", // Change this to your background color.
 	display: "minimal-ui",
@@ -50,4 +50,10 @@ export const manifest: Partial<ManifestOptions> = {
 			purpose: "any maskable"
 		}
 	]
+}
+
+
+export const generalConfig = {
+	name: "El paraiso de mis abuelos",
+	
 }
