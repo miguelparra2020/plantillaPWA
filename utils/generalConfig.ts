@@ -1,7 +1,7 @@
 import ImagenCompany from '@img/user.png';
 export const generalConfig = {
 	name: "Mi compañía",
-  NavBar: {
+    NavBar: {
         nameCompany : "Mi compañía",
         className: "text-gray-800  hover:text-green-600",
         logoCompany: ImagenCompany,
@@ -45,6 +45,6 @@ export const generalConfig = {
               path2:""
             }],
         classUserCar: "bg-white hover:bg-green-600 rounded-full hover:rounded-full",
-  }
+    }
 	
 }

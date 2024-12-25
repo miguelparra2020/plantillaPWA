@@ -3,6 +3,7 @@ import {CustomImagen} from "@globals"
 import ImagenUser from '@img/user.png';
 import CarShopping from '@img/carShopping.png';
 import { generalConfig } from "@util/generalConfig"
+const classLinks = "text-gray-800  hover:text-green-600"
 ---
 
 
@@ -24,7 +25,7 @@ import { generalConfig } from "@util/generalConfig"
 <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1">
   
   <a href="/usuario"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
-  ${generalConfig.NavBar.classUserCar}`}>
+  ${classLinks}`}>
   <CustomImagen src={ImagenUser} width={40} height={40} class="rounded-full bg-white" alt="usuario"/>
   <span class="sr-only">Notifications</span>
     <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
@@ -32,7 +33,7 @@ import { generalConfig } from "@util/generalConfig"
     </div>
   </a>
   <a href="/carrito"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
-    ${generalConfig.NavBar.classUserCar}`}>
+    ${classLinks}`}>
     <CustomImagen src={CarShopping} width={40} height={40} class="rounded-full bg-white" alt="Carrito de compras"/>
     <span class="sr-only">Notifications</span>
       <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
@@ -45,7 +46,7 @@ import { generalConfig } from "@util/generalConfig"
   <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
     {generalConfig.NavBar.linksPages.map(link => ( <>
       {link.active && 
-      <li class:list={`flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${generalConfig.NavBar.classLinks}`}>
+      <li class:list={`flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${classLinks}`}>
         {link.icon && (
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class:list={['bi', link.icon]} viewBox="0 0 16 16">
             <path d={link.path1}/>
