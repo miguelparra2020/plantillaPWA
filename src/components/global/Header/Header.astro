@@ -2,6 +2,7 @@
 import {CustomImagen} from "@globals"
 import ImagenUser from '@img/user.png';
 import CarShopping from '@img/carShopping.png';
+import { generalConfig } from "@util/generalConfig"
 
 const configNav = {
   name: "Mi compañía",
@@ -42,30 +43,40 @@ const links = [
 
 
 
-<nav class="bg-white border-gray-200 ">
+<nav class="bg-white border-gray-200 shadow-sm">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <div class="flex items-center space-x-3 rtl:space-x-reverse">
       <div class="rounded-full overflow-hidden">
-        <CustomImagen width={40} height={40} />
+        <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} class:list={generalConfig.NavBar.classLogo} alt="Logo de la compañia"/>
       </div>
         
-        <span class="self-center text-2xl font-semibold whitespace-nowrap ">{configNav.name}</span>
+        <span class:list=`self-center text-2xl font-semibold whitespace-nowrap ${generalConfig.NavBar.className}`>{generalConfig.NavBar.nameCompany}</span>
 </div>
-<div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
-  <a href="/usuario" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" aria-expanded="false">
-    <span class="sr-only">Ir al perfil</span>
-    <CustomImagen src={ImagenUser} width={40} height={40} class="rounded-full bg-white" alt="usario"/>
+<div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1">
+  
+  <a href="/usuario"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
+  ${generalConfig.NavBar.classUserCar}`}>
+  <CustomImagen src={ImagenUser} width={40} height={40} class="rounded-full bg-white" alt="usuario"/>
+  <span class="sr-only">Notifications</span>
+    <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+      20
+    </div>
   </a>
-  <a href="/usuario" type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" aria-expanded="false">
-    <span class="sr-only">Ir al carrito de compras</span>
+  <a href="/usuario"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
+    ${generalConfig.NavBar.classUserCar}`}>
     <CustomImagen src={CarShopping} width={40} height={40} class="rounded-full bg-white" alt="Carrito de compras"/>
-  </a>
+    <span class="sr-only">Notifications</span>
+      <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+        20
+      </div>
+    </a>
+    
 </div>
 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
   <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
     {links.map(link => ( <>
       {link.active && 
-      <li class:list={`flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${configNav.classLinks}`}>
+      <li class:list={`flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${generalConfig.NavBar.classLinks}`}>
         {link.icon && (
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class:list={['bi', link.icon]} viewBox="0 0 16 16">
             <path d={link.path1}/>

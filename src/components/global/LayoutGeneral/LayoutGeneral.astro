@@ -1,5 +1,5 @@
 ---
-import {   Layout, Header } from "@globals"
+import {   Layout, Header, Footer } from "@globals"
 import { generalConfig } from "@util/generalConfig"
 const path = Astro.url.pathname.slice(1)
 const capitalizeFirstLetter = (str) => {
@@ -16,4 +16,5 @@ const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.n
         {formattedPath}
     </div>
         <slot />
+    <Footer/>
 </Layout>
