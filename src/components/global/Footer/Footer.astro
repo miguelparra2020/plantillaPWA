@@ -7,6 +7,7 @@ const currentUrl = Astro.request.url;
 const currentPath = new URL(currentUrl).pathname;
 const lastSegment = currentPath.split('/').filter(Boolean).pop();
 ---
+currentUrl: {currentPath}
 <div class="relative w-full">
   <!-- Botón Menú -->
   <div class="fixed bottom-16 right-4 z-50">
