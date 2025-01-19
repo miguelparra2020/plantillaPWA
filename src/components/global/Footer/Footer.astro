@@ -5,7 +5,7 @@ const currentUrl = Astro.request.url;
 
 // Extrae la ruta sin el dominio y protocolo
 const currentPath = new URL(currentUrl).pathname;
-
+console.log(currentPath)
 ---
 <div class="relative w-full">
   <!-- Botón Menú -->
