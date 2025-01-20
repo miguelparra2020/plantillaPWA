@@ -12,8 +12,8 @@ const MenuView = () => {
     <div>
       <div className="fixed bottom-16 right-4 z-50" >
       <button onClick={toggleMenu} type="button" className="inline-flex items-center justify-center w-12 h-12 
-      font-medium bg-gray-600 rounded-full hover:bg-gray-700 group focus:ring-4 focus:ring-gray-300 
-      focus:outline-none dark:focus:ring-gray-800">
+      font-medium bg-gray-600 rounded-full hover:bg-gray-700 group ring-4 focus:ring-4 ring-gray-200  focus:ring-gray-500
+      focus:outline-none ">
         <svg className="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
         </svg>
