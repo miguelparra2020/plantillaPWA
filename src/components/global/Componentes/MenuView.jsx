@@ -43,8 +43,8 @@ const MenuView = () => {
                 {item.active && 
                     <li>
                     <a href={item.href} className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                        <svg className:list={['bi', item.icon]}
-                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+                      className={['bi', item.icon]} viewBox="0 0 16 16">
 
                             <path d={item.path1}/>
                             <path d={item.path2}/>
