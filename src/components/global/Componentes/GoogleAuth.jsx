@@ -19,7 +19,7 @@ const GoogleAuth = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId="TU_CLIENT_ID">
+    <GoogleOAuthProvider clientId="389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com">
       <div style={{ textAlign: "center", margin: "20px" }}>
         <h1>Iniciar sesión con Google</h1>
         {!user ? (
