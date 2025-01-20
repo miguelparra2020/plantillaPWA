@@ -23,7 +23,7 @@ const MenuView = () => {
 
 {openMenu && (
     <div id="menu-content" >
-    <div id="drawer-navigation" class="h-[100vh] p-4 overflow-y-auto transition-transform z-2000  bg-gray-100 
+    <div id="drawer-navigation" class="h-[80vh] p-4  overflow-y-auto transition-transform z-2000  bg-gray-100 
     w-[100%] " aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase ">Menu</h5>
         <button onClick={toggleMenu} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
