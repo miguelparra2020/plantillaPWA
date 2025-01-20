@@ -23,10 +23,10 @@ const MenuView = () => {
 
 {openMenu && (
     <div id="menu-content" >
-    <div id="drawer-navigation" class="h-[100vh] p-4 overflow-y-auto transition-transform z-50 bg-gray-100 
+    <div id="drawer-navigation" class="h-[100vh] p-4 overflow-y-auto transition-transform z-2000  bg-gray-100 
     w-[100%] dark:bg-gray-800" aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
-        <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
+        <button onClick={toggleMenu} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 
         absolute top-2.5 end-2.5 inline-flex items-center justify-center">
         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
