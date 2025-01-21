@@ -45,18 +45,39 @@ const GoogleAuth = () => {
 
   return (
     <GoogleOAuthProvider clientId={generalConfig.GoogleAuth.clientId}>
-      <div style={{ textAlign: "center", margin: "20px" }}>
-        <h1>Iniciar sesión con Google</h1>
-        {!user ? (
+
+
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <div class="flex flex-col justify-center">
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none
+             text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Bienvenido a nuestro aplicativo web</h1>
+            <p class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+              Iniciar sesión es necesario para acceder a los contenidos relacionados con el usuario.
+            </p>
+        </div>
+        <div>
+            <div class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    Iniciar sesión con tu cuenta de Google
+                </h2>
+                <form class="mt-8 space-y-6" action="#">
+                {!user && (
           <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-        ) : (
-          <div>
+        )}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+      {/* <div>
             <h2>Bienvenido, {user.name}!</h2>
             <p>Email: {user.email}</p>
+
             <button onClick={handleLogout}>Cerrar sesión</button>
-          </div>
-        )}
-      </div>
+          </div> */}
     </GoogleOAuthProvider>
   );
 };
