@@ -6,7 +6,6 @@ const GoogleAuth = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
-  // Al montar el componente, restaurar la sesión desde localStorage
   useEffect(() => {
     const savedToken = localStorage.getItem("googleToken");
     const savedUser = localStorage.getItem("googleUser");
