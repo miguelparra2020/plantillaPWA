@@ -26,6 +26,7 @@ const GoogleAuth = () => {
     // Guardar la sesión en localStorage
     localStorage.setItem("googleToken", userToken);
     localStorage.setItem("googleUser", JSON.stringify(userInfo));
+    window.location.reload();
   };
 
   const handleError = () => {
@@ -40,7 +41,7 @@ const GoogleAuth = () => {
     localStorage.removeItem("googleToken");
     localStorage.removeItem("googleUser");
 
-    console.log("Sesión cerrada");
+    window.location.reload();
   };
 
   return (
@@ -63,7 +64,7 @@ const GoogleAuth = () => {
               </h2>
               <form className="mt-8 space-y-6" action="#">
               {!user && (
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+              <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
       )}
               </form>
           </div>
