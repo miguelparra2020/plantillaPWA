@@ -14,7 +14,8 @@ const ProductsAll = () => {
     const ratings = [1, 2, 3, 4, 5]
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-screen-lg mx-auto">
+        <div className="d-flex flex-col w-full items-center justify-center">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-screen-lg mx-auto items-center justify-center justify-items-center">
             {products && products.map((product, index) => (
                 <div key={index} className="w-[92%] mt-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="/">
@@ -49,6 +50,8 @@ const ProductsAll = () => {
                 </div>
             ))}
         </div>
+        </div>
+        
     );
 };
 
