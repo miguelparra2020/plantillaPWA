@@ -23,14 +23,14 @@ const ProductsAll = () => {
   <div className="flex">
     <label
       htmlFor="search-dropdown"
-      className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+      className="mb-2 text-sm font-medium text-gray-900 sr-only"
     >
       Buscar
     </label>
     <button
       id="dropdown-button"
       data-dropdown-toggle="dropdown"
-      className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+      className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100    "
       type="button"
     >
       All categories
@@ -52,16 +52,16 @@ const ProductsAll = () => {
     </button>
     <div
       id="dropdown"
-      className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+      className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 "
     >
       <ul
-        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+        className="py-2 text-sm text-gray-700 "
         aria-labelledby="dropdown-button"
       >
         <li>
           <button
             type="button"
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 "
           >
             Mockups
           </button>
@@ -69,7 +69,7 @@ const ProductsAll = () => {
         <li>
           <button
             type="button"
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 "
           >
             Templates
           </button>
@@ -77,7 +77,7 @@ const ProductsAll = () => {
         <li>
           <button
             type="button"
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 "
           >
             Design
           </button>
@@ -85,7 +85,7 @@ const ProductsAll = () => {
         <li>
           <button
             type="button"
-            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            className="inline-flex w-full px-4 py-2 hover:bg-gray-100 "
           >
             Logos
           </button>
@@ -96,13 +96,13 @@ const ProductsAll = () => {
       <input
         type="search"
         id="search-dropdown"
-        className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+        className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
         placeholder="Buscar producto..."
         required
       />
       <button
         type="submit"
-        className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
       >
         <svg
           className="w-4 h-4"
@@ -128,13 +128,13 @@ const ProductsAll = () => {
 
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-screen-lg mx-auto items-center justify-center justify-items-center mt-14">
             {products && products.map((product, index) => (
-                <div key={index} className="w-[92%] mt-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div key={index} className="w-[92%] mt-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
                     <a href="/">
                         <img className="p-8 rounded-t-lg w-[300px] h-[300px] object-fill" src={product.img} alt="Imagen de producto" width={"300px"} height={"300px"}/>
                     </a>
                     <div className="px-5 pb-5">
                         <a href="#">
-                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 ">
                                 {product.name.length > 20 ? product.name.slice(0, 25) + "..." : product.name}</h5>
                         </a>
                         <div class="flex items-center mt-2.5 mb-5">
@@ -142,7 +142,7 @@ const ProductsAll = () => {
                     {ratings.map((rating, index) => (
                             <svg
                             key={index}
-                            className={`w-4 h-4 ${rating <= 4 ? "text-yellow-300" : "text-gray-200 dark:text-gray-600"}`}
+                            className={`w-4 h-4 ${rating <= 4 ? "text-yellow-300" : "text-gray-200 "}`}
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -152,7 +152,7 @@ const ProductsAll = () => {
                             </svg>
                         ))}
                     </div>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">5.0</span>
                     </div>
                         <div className="flex items-center justify-between">
                             <span className="text-xl font-bold text-gray-900">
@@ -162,7 +162,7 @@ const ProductsAll = () => {
                                         : parseFloat(product.price)
                                 )}
                             </span>
-                            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ver producto...</a>
+                            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Ver producto...</a>
                         </div>
                     </div>
                 </div>
