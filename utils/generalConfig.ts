@@ -165,8 +165,13 @@ export const generalConfig = {
       },
       ],
 
+  },  
+  Inicio:{
+    Company:"Dinastía Digital",
+    Description:"Somos una empresa que impulsa la venta de tecnología a través de alianzas con proveedores regionales y la prestación de servicios en tecnólogia",
+    color_bg_bienvenida: "blue"
   },
   GoogleAuth: {
     clientId: '389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com'
-  }	
+  },
 }
