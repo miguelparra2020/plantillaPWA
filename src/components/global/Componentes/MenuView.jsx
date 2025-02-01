@@ -55,7 +55,7 @@ const MenuView = () => {
 
 {openMenu && (
     <div id="menu-content" >
-    <div id="drawer-navigation" className="h-[80vh] p-4  overflow-y-auto transition-transform z-2000  bg-gray-100 
+    <div id="drawer-navigation" className="h-[88vh] p-4  overflow-y-auto transition-transform z-2000  bg-gray-100 
     w-[100%] " aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" className="text-base font-semibold text-gray-500 uppercase ">Menu</h5>
         <button onClick={toggleMenu} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
@@ -67,7 +67,7 @@ const MenuView = () => {
         <span className="sr-only">Close menu</span>
         </button>
         <div className="py-4 overflow-y-auto">
-        <ul className="space-y-2 font-medium">
+        <ul className="space-y-2 font-medium mb-10">
 
             {generalConfig.GeneralMenu.linksPages.map((item) => (
                 <>
@@ -95,7 +95,7 @@ const MenuView = () => {
 )}
     {openChat && (
     <div id="menu-content" >
-    <div id="drawer-navigation" className="h-[80vh] p-4  overflow-y-auto transition-transform z-2000  bg-gray-100 
+    <div id="drawer-navigation" className="h-[88vh] p-4  overflow-y-auto transition-transform z-2000  bg-gray-100 
     w-[100%] " aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" className="text-base font-semibold text-gray-500 uppercase ">Chat</h5>
         <button onClick={toggleChat} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
@@ -107,7 +107,7 @@ const MenuView = () => {
         <span className="sr-only">Close menu</span>
         </button>
         <iframe src="https://cdn.botpress.cloud/webchat/v2.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/22/23/20250122234411-45T0QKRT.json" title="Botpress Webchat"
-          className="width: 100%; height: 500px;"
+          
           style={{width: "100%", height: "400px"}}
           fillRule
           ></iframe>
