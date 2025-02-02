@@ -1,4 +1,8 @@
 ---
-import { generalConfig } from "@util/generalConfig";
-return Astro.redirect(generalConfig.idioma.length > 0 ? generalConfig.idioma+'productos' : '/es/productos')
+import {   LayoutGeneral, ProductsAll } from "@globals"
+
 ---
+
+    <LayoutGeneral>
+      <ProductsAll client:idle />
+    </LayoutGeneral>

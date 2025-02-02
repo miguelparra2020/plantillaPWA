@@ -1,65 +1,71 @@
 ---
+// Importaciones
 import {CustomImagen, GetImgPerfil} from "@globals"
 import CarShopping from '@img/carShopping.png';
 import { generalConfig } from "@util/generalConfig"
+
+// Estilos
 const classLinks = "text-gray-800  hover:text-blue-600"
+const styleNav = "bg-white border-gray-200 shadow-sm"
+const styleDiv1Nav = "bg-white border-gray-200 shadow-sm flex items-center justify-around flex-row pt-5 pb-5"
+const styleDiv2Nav = "flex items-center space-x-3 rtl:space-x-reverse"
+const styleSpan1Nav = `self-center text-lg max-w-xl font-semibold whitespace-nowrap ${classLinks}`
+const styleDiv4Nav = "flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1"
+const styleA1Nav = `relative inline-flex items-center p-1 text-sm font-medium text-center ${classLinks}` 
+const styleSpan2Nav = "sr-only"
+const styleDiv5Nav = "absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2"
+const styleImg1Nav = "rounded-full bg-white"
+const styleDiv6Nav = "items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
+const styleUl1Nav = "flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white"
+const styleLi1Nav = `flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${classLinks}`
 ---
 
-<nav class="bg-white border-gray-200 shadow-sm">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<nav class:list={styleNav}>
+    <div class:list={styleDiv1Nav}>
       <a href="/">
-    <div class="flex items-center space-x-3 rtl:space-x-reverse">
-      
-      <div class="rounded-full overflow-hidden">
-        
-        <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} alt="Logo de la compañia"/>
+        <div class:list={styleDiv2Nav}>
+          <div class:list={styleDiv2Nav}>            
+            <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} alt="Logo de la compañia"/>
+          </div>          
+          <span class:list={styleSpan1Nav}>
+            {generalConfig.NavBar.nameCompany.length > 18 
+              ? generalConfig.NavBar.nameCompany.slice(0, 18)  
+              : generalConfig.NavBar.nameCompany}
+          </span>      
+        </div>
+      </a>
+      <div class:list={styleDiv4Nav}>      
+        <a href="/usuario"type="button" class:list={styleA1Nav}>
+        <GetImgPerfil client:idle/>
+        <span class:list={styleSpan2Nav}>Notifications</span>
+          <div class:list={styleDiv5Nav}>
+            20
+          </div>
+        </a>
+        <a href="/carrito"type="button" class:list={styleA1Nav}>
+          <CustomImagen src={CarShopping} width={40} height={40} class:list={styleImg1Nav} alt="Carrito de compras"/>
+          <span class:list={styleSpan2Nav}>Notifications</span>
+            <div class:list={styleDiv5Nav}>
+              20
+            </div>
+        </a>
       </div>
-        
-      <span class:list={`self-center text-lg max-w-xl font-semibold whitespace-nowrap ${classLinks}`}>
-        {generalConfig.NavBar.nameCompany.length > 18 
-          ? generalConfig.NavBar.nameCompany.slice(0, 18)  
-          : generalConfig.NavBar.nameCompany}
-      </span>
-      
-      
+      <div class:list={styleDiv6Nav} id="navbar-user">
+          <ul class:list={styleUl1Nav}>
+            {generalConfig.NavBar.linksPages.map(link => ( <>
+              {link.active && 
+              <li class:list={styleLi1Nav}>
+                {link.icon && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class:list={['bi', link.icon]} viewBox="0 0 16 16">
+                    <path d={link.path1}/>
+                    <path d={link.path2}/>
+                  </svg>
+                )}
+                <a href={link.href} aria-current={link.text === "Inicio" ? "page" : undefined}>{link.text}</a>
+              </li>}</>
+            ))}
+          </ul>
       </div>
-    </a>
-<div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1">
-  
-  <a href="/usuario"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
-  ${classLinks}`}>
-  <GetImgPerfil client:idle/>
-  <span class="sr-only">Notifications</span>
-    <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-      20
-    </div>
-  </a>
-  <a href="/carrito"type="button" class:list={`relative inline-flex items-center p-1 text-sm font-medium text-center 
-    ${classLinks}`}>
-    <CustomImagen src={CarShopping} width={40} height={40} class="rounded-full bg-white" alt="Carrito de compras"/>
-    <span class="sr-only">Notifications</span>
-      <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
-        20
-      </div>
-    </a>
-    
-  </div>
-    <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-user">
-      <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
-        {generalConfig.NavBar.linksPages.map(link => ( <>
-          {link.active && 
-          <li class:list={`flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${classLinks}`}>
-            {link.icon && (
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class:list={['bi', link.icon]} viewBox="0 0 16 16">
-                <path d={link.path1}/>
-                <path d={link.path2}/>
-              </svg>
-            )}
-            <a href={link.href} aria-current={link.text === "Inicio" ? "page" : undefined}>{link.text}</a>
-          </li>}</>
-        ))}
-      </ul>
-    </div>
     </div>
   </nav>
   
