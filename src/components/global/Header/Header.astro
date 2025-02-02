@@ -2,7 +2,7 @@
 import {CustomImagen, GetImgPerfil} from "@globals"
 import CarShopping from '@img/carShopping.png';
 import { generalConfig } from "@util/generalConfig"
-const classLinks = "text-gray-800  hover:text-green-600"
+const classLinks = "text-gray-800  hover:text-blue-600"
 ---
 
 <nav class="bg-white border-gray-200 shadow-sm">
@@ -12,10 +12,15 @@ const classLinks = "text-gray-800  hover:text-green-600"
       
       <div class="rounded-full overflow-hidden">
         
-        <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} class:list={generalConfig.NavBar.classLogo} alt="Logo de la compañia"/>
+        <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} alt="Logo de la compañia"/>
       </div>
         
-        <span class:list=`self-center text-2xl font-semibold whitespace-nowrap ${generalConfig.NavBar.className}`>{generalConfig.NavBar.nameCompany}</span>
+      <span class:list={`self-center text-lg max-w-xl font-semibold whitespace-nowrap ${classLinks}`}>
+        {generalConfig.NavBar.nameCompany.length > 18 
+          ? generalConfig.NavBar.nameCompany.slice(0, 18)  
+          : generalConfig.NavBar.nameCompany}
+      </span>
+      
       
       </div>
     </a>
@@ -38,7 +43,7 @@ const classLinks = "text-gray-800  hover:text-green-600"
       </div>
     </a>
     
-</div>
+  </div>
     <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="navbar-user">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         {generalConfig.NavBar.linksPages.map(link => ( <>
