@@ -65,6 +65,28 @@ const getTranslation = (key: string): string => {
   return translationsLinksPages[idioma][key] || key;
 }
 
+const translationHome = {
+  "/en/": {
+    Bienvenido: "Welcome to",
+    DescriptionWellcome: "We are a company that promotes the sale of technology through alliances with regional suppliers and the provision of technology services"
+  }, 
+  "/es/": {
+    Bienvenido: "Bienvenido a",
+    DescriptionWellcome: "Somos una empresa que promete la venta de tecnología mediante alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
+  },
+  "/pt/": {
+    Bienvenido: "Bem-vindo a",
+    DescriptionWellcome: "Somos uma empresa que promove a venda de tecnologia por meio de alianças com fornecedores regionais e prestação de serviços de tecnologia"
+  },
+  "/fr/": {
+    Bienvenido: "Bienvenue à",
+    DescriptionWellcome: "Nous sommes une entreprise qui promeut la vente de technologie à travers des alliances avec des fournisseurs régionaux et la fourniture de services technologiques"
+  },
+}
+const getTranslationHome = (key: string): string => {
+  return translationHome[idioma][key] || key;
+}
+
 // Paths Iconos 
 const pathsIconos = {
   path1downloadApp:"M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z",
@@ -292,27 +314,11 @@ export const generalConfig = {
       ],
 
   },  
-  Inicio:{
-    Bienvenida:{
-      Bienvenido: (() => {
-        switch (idioma) {
-          case "/en/": return "Welcome to"
-          case "/es/": return "Bienvenido a"
-          case "/pt/": return "Bem-vindo a"
-          case "/fr/": return "Bienvenue à"
-          default: return "Bienvenido a"
-        }
-      })(),
+  Home:{
+    Wellcome:{
+      Wellcome: getTranslationHome("Bienvenido"),
       Company:"Dinastía Digital",
-      Description:(() => {
-        switch (idioma) {
-          case "/en/": return "We are a company that promotes the sale of technology through alliances with regional suppliers and the provision of technology services"
-          case "/es/": return "Somos una empresa que impulsa la venta de tecnología a través de alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
-          case "/pt/": return "Somos uma empresa que promove a venda de tecnologia por meio de alianças com fornecedores regionais e prestação de serviços de tecnologia"
-          case "/fr/": return "Nous sommes une entreprise qui promeut la vente de technologie à travers des alliances avec des fournisseurs régionaux et la fourniture de services technologiques"
-          default: return "Somos una empresa que impulsa la venta de tecnología a través de alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
-        }
-      })(),
+      DescriptionWellcome:getTranslationHome("DescriptionWellcome"),
     }
   },
   GoogleAuth: {
