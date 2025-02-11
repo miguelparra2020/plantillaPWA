@@ -8,8 +8,8 @@ import ImagenBienvenida from '@img/inicio/bienvenida.png';
 const colorBgBienvenida = "bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0"
 const bgSesionBienvenida = `bg-white bg-opacity-40 bg-[url('/bgInicioBienvenida1.svg')]`
 const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative"
-const styleTitleBienvenida = "mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
-const styleDescripcionBienvenida = "mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"
+const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"
 
 // 
 ---
@@ -23,11 +23,11 @@ const styleDescripcionBienvenida = "mb-8 text-lg font-normal text-gray-500 lg:te
                     "{generalConfig.Home.Wellcome.DescriptionWellcome}"
                 </p>
             </div>
-            <div class:list={colorBgBienvenida}></div>
             <div class="w-full flex items-center justify-center text-center">
                 <img class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] rounded-lg" 
                      src={ImagenBienvenida}
                      alt="Imagen de bienvenida">
-            </div>            
+            </div>   
+            <div class:list={colorBgBienvenida}></div>                     
         </section>
         
