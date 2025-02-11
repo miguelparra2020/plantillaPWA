@@ -68,19 +68,19 @@ const getTranslation = (key: string): string => {
 const translationHome = {
   "/en/": {
     Bienvenido: "Welcome to",
-    DescriptionWellcome: "We are a company that promotes the sale of technology through alliances with regional suppliers and the provision of technology services"
+    DescriptionWellcome: "We are an e-commerce company that promises the sale of technological products through partnerships with regional suppliers and the provision of technology services."
   }, 
   "/es/": {
     Bienvenido: "Bienvenido a",
-    DescriptionWellcome: "Somos una empresa de comercio electrónico que promete la venta de productos tecnologicos mediante alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
+    DescriptionWellcome: "Somos una empresa de comercio electrónico que promete la venta de productos tecnológicos mediante alianzas con proveedores regionales y la prestación de servicios en tecnología"
   },
   "/pt/": {
     Bienvenido: "Bem-vindo a",
-    DescriptionWellcome: "Somos uma empresa que promove a venda de tecnologia por meio de alianças com fornecedores regionais e prestação de serviços de tecnologia"
+    DescriptionWellcome: "Somos uma empresa de comércio eletrônico que promete a venda de produtos tecnológicos por meio de parcerias com fornecedores regionais e a prestação de serviços em tecnologia."
   },
   "/fr/": {
     Bienvenido: "Bienvenue à",
-    DescriptionWellcome: "Nous sommes une entreprise qui promeut la vente de technologie à travers des alliances avec des fournisseurs régionaux et la fourniture de services technologiques"
+    DescriptionWellcome: "Nous sommes une entreprise de commerce électronique qui s'engage à vendre des produits technologiques grâce à des partenariats avec des fournisseurs régionaux et à la prestation de services technologiques."
   },
 }
 const getTranslationHome = (key: string): string => {
