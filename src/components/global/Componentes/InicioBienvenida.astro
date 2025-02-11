@@ -1,7 +1,7 @@
 ---
 // Importaciones
 import { generalConfig } from "@util/generalConfig";
-
+import ImagenBienvenida from '@img/inicio/bienvenida.png';
 // Estilos
 
 // Bienvenida
@@ -24,4 +24,10 @@ const styleDescripcionBienvenida = "mb-8 text-lg font-normal text-gray-500 lg:te
                 </p>
             </div>
             <div class:list={colorBgBienvenida}></div>
+            <div class="w-full flex items-center justify-center text-center">
+                <img class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] rounded-lg" 
+                     src={ImagenBienvenida}
+                     alt="Imagen de bienvenida">
+            </div>            
         </section>
+        

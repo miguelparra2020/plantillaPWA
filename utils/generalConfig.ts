@@ -72,7 +72,7 @@ const translationHome = {
   }, 
   "/es/": {
     Bienvenido: "Bienvenido a",
-    DescriptionWellcome: "Somos una empresa que promete la venta de tecnología mediante alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
+    DescriptionWellcome: "Somos una empresa de comercio electrónico que promete la venta de productos tecnologicos mediante alianzas con proveedores regionales y la prestación de servicios en tecnólogia"
   },
   "/pt/": {
     Bienvenido: "Bem-vindo a",
