@@ -1,31 +1,11 @@
 ---
 // Importaciones
-import {   LayoutGeneral } from "@globals"
-import { generalConfig } from "@util/generalConfig";
-
-// Estilos
-
-// Bienvenida
-const colorBgBienvenida = "bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0"
-const bgSesionBienvenida = `bg-white bg-opacity-40 bg-[url('/bgInicioBienvenida1.svg')]`
-const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative"
-const styleTitleBienvenida = "mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
-const styleDescripcionBienvenida = "mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"
-
-// 
+import {   LayoutGeneral, InicioBienvenida, InicioCarrusel } from "@globals"
 ---
 
     <LayoutGeneral>   
         <!-- Bienvenida -->
-        <section class:list={bgSesionBienvenida}>
-            <div class:list={styleDivSesionBienvenida}>
-                <h1 class:list={styleTitleBienvenida}>{generalConfig.Home.Wellcome.Wellcome} {generalConfig.Home.Wellcome.Company}                    
-                </h1>
-                <p class:list={styleDescripcionBienvenida}>
-                    "{generalConfig.Home.Wellcome.DescriptionWellcome}"
-                </p>
-            </div>
-            <div class:list={colorBgBienvenida}></div>
-        </section>
+        <InicioBienvenida/>
         <!-- Carrusel -->
+        <InicioCarrusel client:idle/>
     </LayoutGeneral>

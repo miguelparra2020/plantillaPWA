@@ -1,6 +1,6 @@
 import ImagenCompany from '@img/user.png';
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
-const idioma: Idioma = "/en/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
+const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
 
 // Traducciones
 const translationsLinksPages = {
