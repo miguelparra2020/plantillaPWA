@@ -1,15 +1,8 @@
 ---
 // Importaciones
 import { generalConfig } from "@util/generalConfig"
-import ImagenGrandeAvif from '@img/inicio/imagen-grande-bienvenida.avif'
-import ImagenGrandeWebp from '@img/inicio/imagen-grande-bienvenida.webp'
-import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
-import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
-import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
-import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-import ImagenPequenaAvif from '@img/inicio/imagen-pequena-bienvenida.avif'
-import ImagenPequenaWebp from '@img/inicio/imagen-pequena-bienvenida.webp'
-import ImagenPequenaJpg from '@img/inicio/imagen-pequena-bienvenida.jpg'
+
+
 
 // Estilos
 
@@ -17,8 +10,8 @@ import ImagenPequenaJpg from '@img/inicio/imagen-pequena-bienvenida.jpg'
 const colorBgBienvenida = "bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0"
 const bgSesionBienvenida = `bg-white bg-[url('/bgInicioBienvenida1.svg')]`
 const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative"
-const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
-const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"
+const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-blue-900"
+const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
 
 // 
 ---
@@ -36,17 +29,17 @@ const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl
             <div class="w-full flex items-center justify-center text-center relative z-10">
                 <picture class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10">
                     <!-- 16:9 -> 1024 × 576 px -> 600 × 338 px -> 360 × 203 px -->
-                    <source srcset={ImagenGrandeAvif} type="image/avif" media="(min-width: 1024px)" class="rounded-lg">
-                    <source srcset={ImagenGrandeWebp} type="image/webp" media="(min-width: 1024px)" class="rounded-lg">
-                    <source srcset={ImagenGrandeJpg} media="(min-width: 1024px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenGrandeAvif} type="image/avif" media="(min-width: 1024px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenGrandeWebp} type="image/webp" media="(min-width: 1024px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} media="(min-width: 1024px)" class="rounded-lg">
 
-                    <source srcset={ImagenMedianaAvif} type="image/avif" media="(min-width: 600px)" class="rounded-lg">
-                    <source srcset={ImagenMedianaWebp} type="image/webp" media="(min-width: 600px)" class="rounded-lg">
-                    <source srcset={ImagenMedianaJpg} media="(min-width: 600px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenMedianaAvif} type="image/avif" media="(min-width: 600px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenMedianaWebp} type="image/webp" media="(min-width: 600px)" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenMedianaJpg} media="(min-width: 600px)" class="rounded-lg">
 
-                    <source srcset={ImagenPequenaAvif} type="image/avif" class="rounded-lg">
-                    <source srcset={ImagenPequenaWebp} type="image/webp" class="rounded-lg">
-                    <img src={ImagenPequenaJpg} alt="Imagen Bienvenida" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenMedianaAvif} type="image/avif" class="rounded-lg">
+                    <source srcset={generalConfig.Home.Wellcome.ImagenMedianaWebp} type="image/webp" class="rounded-lg">
+                    <img src={generalConfig.Home.Wellcome.ImagenMedianaJpg} alt="Imagen Bienvenida" class="rounded-lg">
                 </picture>
             </div>   
             <div class:list={colorBgBienvenida} style="z-index: -1;"></div>                     

@@ -1,6 +1,15 @@
 import ImagenCompany from '@img/user.png';
+import ImagenGrandeAvif from '@img/inicio/imagen-grande-bienvenida.avif'
+import ImagenGrandeWebp from '@img/inicio/imagen-grande-bienvenida.webp'
+import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
+import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
+import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
+import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
 const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
+const company = {
+  name: "Dinastía Digital",
+}
 
 // Traducciones
 const translationsLinksPages = {
@@ -65,26 +74,26 @@ const getTranslation = (key: string): string => {
   return translationsLinksPages[idioma][key] || key;
 }
 
-const translationHome = {
+const translationHomeWellcome = {
   "/en/": {
-    Bienvenido: "Welcome to",
+    Wellcome: "Welcome to",
     DescriptionWellcome: "We are an e-commerce company that promises the sale of technological products through partnerships with regional suppliers and the provision of technology services."
   }, 
   "/es/": {
-    Bienvenido: "Bienvenido a",
+    Wellcome: "Bienvenido a",
     DescriptionWellcome: "Somos una empresa de comercio electrónico que promete la venta de productos tecnológicos mediante alianzas con proveedores regionales y la prestación de servicios en tecnología"
   },
   "/pt/": {
-    Bienvenido: "Bem-vindo a",
+    Wellcome: "Bem-vindo a",
     DescriptionWellcome: "Somos uma empresa de comércio eletrônico que promete a venda de produtos tecnológicos por meio de parcerias com fornecedores regionais e a prestação de serviços em tecnologia."
   },
   "/fr/": {
-    Bienvenido: "Bienvenue à",
+    Wellcome: "Bienvenue à",
     DescriptionWellcome: "Nous sommes une entreprise de commerce électronique qui s'engage à vendre des produits technologiques grâce à des partenariats avec des fournisseurs régionaux et à la prestation de services technologiques."
   },
 }
-const getTranslationHome = (key: string): string => {
-  return translationHome[idioma][key] || key;
+const getTranslationHomeWelcome = (key: string): string => {
+  return translationHomeWellcome[idioma][key] || key;
 }
 
 // Paths Iconos 
@@ -118,7 +127,7 @@ const pathsIconos = {
 
 export const generalConfig = {
   idioma: idioma,
-  name: "Dinastía Digital",
+  name: company.name,
   NavBar: {
     nameCompany: "Dinastía Digital", // Máximo 18 caracteres
     logoCompany: ImagenCompany,
@@ -316,9 +325,18 @@ export const generalConfig = {
   },  
   Home:{
     Wellcome:{
-      Wellcome: getTranslationHome("Bienvenido"),
-      Company:"Dinastía Digital",
-      DescriptionWellcome:getTranslationHome("DescriptionWellcome"),
+      Wellcome: getTranslationHomeWelcome("Wellcome"),
+      Company:company.name,
+      DescriptionWellcome:getTranslationHomeWelcome("DescriptionWellcome"),
+      ImagenGrandeAvif:  ImagenGrandeAvif,
+      ImagenGrandeWebp: ImagenGrandeWebp,
+      ImagenGrandeJpg: ImagenGrandeJpg,
+      ImagenMedianaAvif: ImagenMedianaAvif,
+      ImagenMedianaWebp: ImagenMedianaWebp,
+      ImagenMedianaJpg: ImagenMedianaJpg
+    },
+    homeProducts:{
+
     }
   },
   GoogleAuth: {
