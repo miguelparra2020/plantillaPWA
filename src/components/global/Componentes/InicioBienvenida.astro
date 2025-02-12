@@ -1,7 +1,16 @@
 ---
 // Importaciones
-import { generalConfig } from "@util/generalConfig";
-import ImagenBienvenida from '@img/inicio/bienvenida.png';
+import { generalConfig } from "@util/generalConfig"
+import ImagenGrandeAvif from '@img/inicio/imagen-grande-bienvenida.avif'
+import ImagenGrandeWebp from '@img/inicio/imagen-grande-bienvenida.webp'
+import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
+import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
+import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
+import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
+import ImagenPequenaAvif from '@img/inicio/imagen-pequena-bienvenida.avif'
+import ImagenPequenaWebp from '@img/inicio/imagen-pequena-bienvenida.webp'
+import ImagenPequenaJpg from '@img/inicio/imagen-pequena-bienvenida.jpg'
+
 // Estilos
 
 // Bienvenida
@@ -24,9 +33,24 @@ const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl
                 </p>
             </div>
             <div class="w-full flex items-center justify-center text-center">
-                <img class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] rounded-lg" 
-                     src={ImagenBienvenida}
-                     alt="Imagen de bienvenida">
+                <picture class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] rounded-lg" >
+                    <!-- 16:9 -> 1024 × 576 px -> 600 × 338 px -> 360 × 203 px -->
+                    <!-- Imagen AVIF para pantallas grandes -->
+                    <source srcset={ImagenGrandeAvif} type="image/avif" media="(min-width: 1024px)" class="rounded-lg">
+                    <source srcset={ImagenGrandeWebp} type="image/webp" media="(min-width: 1024px)" class="rounded-lg">
+                    <source srcset={ImagenGrandeJpg} media="(min-width: 1024px)" class="rounded-lg">
+                  
+                    <!-- Imagen AVIF para pantallas medianas -->
+                    <source srcset={ImagenMedianaAvif} type="image/avif" media="(min-width: 600px)" class="rounded-lg">
+                    <source srcset={ImagenMedianaWebp} type="image/webp" media="(min-width: 600px)" class="rounded-lg">
+                    <source srcset={ImagenMedianaJpg} media="(min-width: 600px)" class="rounded-lg">
+                  
+                    <!-- Imagen por defecto (para pantallas pequeñas o navegadores sin soporte) -->
+                     <source srcset={ImagenPequenaAvif} type="image/avif" class="rounded-lg">
+                     <source srcset={ImagenPequenaWebp} type="image/webp" class="rounded-lg">
+                     <img src={ImagenPequenaJpg} alt="Imagen Bienvenida" class="rounded-lg">
+                  </picture>
+                
             </div>   
             <div class:list={colorBgBienvenida}></div>                     
         </section>
