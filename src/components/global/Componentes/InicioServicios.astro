@@ -1,0 +1,58 @@
+---
+import { IconGeneral } from "@globals";
+
+const services = [
+  {
+    id: 1,
+    title: "Consultoría Estratégica",
+    description: "Optimiza tu negocio con soluciones personalizadas",
+    icon: "trending-up",
+    image: "https://api.a0.dev/assets/image?text=business%20consultancy%20meeting%20professional%20modern&aspect=16:9"
+  },
+  {
+    id: 2,
+    title: "Desarrollo Digital",
+    description: "Transforma tu presencia en línea",
+    icon: "devices",
+    image: "https://api.a0.dev/assets/image?text=digital%20development%20modern%20tech%20workspace&aspect=16:9"
+  },
+  {
+    id: 3,
+    title: "Marketing Digital",
+    description: "Alcanza a tu audiencia ideal",
+    icon: "rocket-launch",
+    image: "https://api.a0.dev/assets/image?text=digital%20marketing%20strategy%20creative&aspect=16:9"
+  }
+];
+---
+
+<section class="relative py-16 bg-gradient-to-b from-blue-50 to-white">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl font-extrabold text-blue-900">Servicios Profesionales</h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
+      Potencia tu negocio con nuestras soluciones integrales
+    </p>
+  </div>
+  
+  <div class="flex overflow-x-auto space-x-6 px-6 md:justify-center scrollbar-hide mb-6">
+    {services.map((service) => (
+      <div class="w-72 bg-white shadow-lg rounded-xl overflow-hidden mb-6">
+        <img src={service.image} alt={service.title} class="w-full h-40 object-cover" />
+        <div class="p-4">
+          <div class="text-blue-600 text-2xl mb-2">
+            <i class="material-icons">{service.icon}</i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800">{service.title}</h3>
+          <p class="text-gray-600 text-sm mt-2">{service.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <div class="text-center mt-6">
+    <a href="/servicios" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition">
+      Explorar todos los servicios
+      <IconGeneral params={{ color: "white", size: "20", className: "ml-2" }} />
+    </a>
+  </div>
+</section>

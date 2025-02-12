@@ -1,4 +1,6 @@
 ---
+import { IconGeneral } from "@globals";
+
 const categories = [
   {
     title: "Novedades",
@@ -40,7 +42,10 @@ const categories = [
     ))}
   </div>
 
-  <a href="/productos" class="mt-8 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition">
-    Ver Todos los Productos
-  </a>
+  <div class="text-center mt-12">
+    <a href="/servicios" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition">
+      Ver todos los productos
+      <IconGeneral params={{ color: "white", size: "20", className: "ml-2" }} />
+    </a>
+  </div>
 </section>
