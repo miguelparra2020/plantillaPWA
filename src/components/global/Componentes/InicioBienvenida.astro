@@ -15,7 +15,7 @@ import ImagenPequenaJpg from '@img/inicio/imagen-pequena-bienvenida.jpg'
 
 // Bienvenida
 const colorBgBienvenida = "bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0"
-const bgSesionBienvenida = `bg-white bg-opacity-40 bg-[url('/bgInicioBienvenida1.svg')]`
+const bgSesionBienvenida = `bg-white bg-[url('/bgInicioBienvenida1.svg')]`
 const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative"
 const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
 const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200"
@@ -24,34 +24,33 @@ const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl
 ---
 
         <!-- Bienvenida -->
-        <section class:list={bgSesionBienvenida}>
+        <section class:list={`${bgSesionBienvenida} relative`}>
             <div class:list={styleDivSesionBienvenida}>
-                <h1 class:list={styleTitleBienvenida}>{generalConfig.Home.Wellcome.Wellcome} {generalConfig.Home.Wellcome.Company}                    
+                <h1 class:list={styleTitleBienvenida}>
+                    {generalConfig.Home.Wellcome.Wellcome} {generalConfig.Home.Wellcome.Company}
                 </h1>
                 <p class:list={styleDescripcionBienvenida}>
                     "{generalConfig.Home.Wellcome.DescriptionWellcome}"
                 </p>
             </div>
-            <div class="w-full flex items-center justify-center text-center">
-                <picture class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] rounded-lg" >
+            <div class="w-full flex items-center justify-center text-center relative z-10">
+                <picture class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10">
                     <!-- 16:9 -> 1024 × 576 px -> 600 × 338 px -> 360 × 203 px -->
-                    <!-- Imagen AVIF para pantallas grandes -->
                     <source srcset={ImagenGrandeAvif} type="image/avif" media="(min-width: 1024px)" class="rounded-lg">
                     <source srcset={ImagenGrandeWebp} type="image/webp" media="(min-width: 1024px)" class="rounded-lg">
                     <source srcset={ImagenGrandeJpg} media="(min-width: 1024px)" class="rounded-lg">
-                  
-                    <!-- Imagen AVIF para pantallas medianas -->
+
                     <source srcset={ImagenMedianaAvif} type="image/avif" media="(min-width: 600px)" class="rounded-lg">
                     <source srcset={ImagenMedianaWebp} type="image/webp" media="(min-width: 600px)" class="rounded-lg">
                     <source srcset={ImagenMedianaJpg} media="(min-width: 600px)" class="rounded-lg">
-                  
-                    <!-- Imagen por defecto (para pantallas pequeñas o navegadores sin soporte) -->
-                     <source srcset={ImagenPequenaAvif} type="image/avif" class="rounded-lg">
-                     <source srcset={ImagenPequenaWebp} type="image/webp" class="rounded-lg">
-                     <img src={ImagenPequenaJpg} alt="Imagen Bienvenida" class="rounded-lg">
-                  </picture>
-                
+
+                    <source srcset={ImagenPequenaAvif} type="image/avif" class="rounded-lg">
+                    <source srcset={ImagenPequenaWebp} type="image/webp" class="rounded-lg">
+                    <img src={ImagenPequenaJpg} alt="Imagen Bienvenida" class="rounded-lg">
+                </picture>
             </div>   
-            <div class:list={colorBgBienvenida}></div>                     
+            <div class:list={colorBgBienvenida} style="z-index: -1;"></div>                     
         </section>
+
+
         

@@ -276,11 +276,11 @@ export const generalConfig = {
         path1:pathsIconos.path1photos,
         path2:pathsIconos.path2photos
       },
-      { href: "/publicaciones", id: "publications", text: getTranslation("photos"), 
-        icon: "bi-journal-text", active: true,
-        path1:pathsIconos.path1publications,
-        path2:pathsIconos.path2publications
-      },
+      // { href: "/publicaciones", id: "publications", text: getTranslation("publications"), 
+      //   icon: "bi-journal-text", active: true,
+      //   path1:pathsIconos.path1publications,
+      //   path2:pathsIconos.path2publications
+      // },
       { href: "/eventos", id: "events", text: getTranslation("events"), 
         icon: "bi-calendar-event", active: true,
         path1:pathsIconos.path1events,
