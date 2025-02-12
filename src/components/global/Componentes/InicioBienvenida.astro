@@ -7,7 +7,9 @@ import { generalConfig } from "@util/generalConfig"
 // Estilos
 
 // Bienvenida
-const colorBgBienvenida = "bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0"
+const colorBgBienvenida1 = `bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
+const colorBgBienvenida2 = `bg-gradient-to-b from-green-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
+const colorBgBienvenida = generalConfig.principalColor === "blue" ? colorBgBienvenida1 : colorBgBienvenida2
 const bgSesionBienvenida = `bg-white bg-[url('/bgInicioBienvenida1.svg')]`
 const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative"
 const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-blue-900"
@@ -42,7 +44,7 @@ const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl
                     <img src={generalConfig.Home.Wellcome.ImagenMedianaJpg} alt="Imagen Bienvenida" class="rounded-lg">
                 </picture>
             </div>   
-            <div class:list={colorBgBienvenida} style="z-index: -1;"></div>                     
+            <div class:list={colorBgBienvenida} style="z-index: 0;"></div>                     
         </section>
 
 

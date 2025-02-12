@@ -7,8 +7,10 @@ import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
 const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
+
 const company = {
   name: "Dinastía Digital",
+  principalColor: "blue"
 }
 
 // Traducciones
@@ -128,6 +130,7 @@ const pathsIconos = {
 export const generalConfig = {
   idioma: idioma,
   name: company.name,
+  principalColor:company.principalColor,
   NavBar: {
     nameCompany: "Dinastía Digital", // Máximo 18 caracteres
     logoCompany: ImagenCompany,
