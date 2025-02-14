@@ -9,8 +9,35 @@ type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
 const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
 
 const company = {
-  name: "Dinastía Digital",
-  principalColor: "blue"
+  
+  // Colores principales
+  // red       50 100 200 300 400 500 600 700 800 900 950
+  // orange    50 100 200 300 400 500 600 700 800 900 950
+  // amber     50 100 200 300 400 500 600 700 800 900 950
+  // yellow    50 100 200 300 400 500 600 700 800 900 950
+  // lime      50 100 200 300 400 500 600 700 800 900 950
+  // green     50 100 200 300 400 500 600 700 800 900 950
+  // emerald   50 100 200 300 400 500 600 700 800 900 950
+  // teal      50 100 200 300 400 500 600 700 800 900 950
+  // cyan      50 100 200 300 400 500 600 700 800 900 950
+  // sky       50 100 200 300 400 500 600 700 800 900 950
+  // blue      50 100 200 300 400 500 600 700 800 900 950
+  // indigo    50 100 200 300 400 500 600 700 800 900 950
+  // violet    50 100 200 300 400 500 600 700 800 900 950
+  // purple    50 100 200 300 400 500 600 700 800 900 950
+  // fuchsia   50 100 200 300 400 500 600 700 800 900 950
+  // pink      50 100 200 300 400 500 600 700 800 900 950
+  // rose      50 100 200 300 400 500 600 700 800 900 950
+  // slate     50 100 200 300 400 500 600 700 800 900 950
+  // gray      50 100 200 300 400 500 600 700 800 900 950
+  // zinc      50 100 200 300 400 500 600 700 800 900 950
+  // neutral   50 100 200 300 400 500 600 700 800 900 950
+  // stone     50 100 200 300 400 500 600 700 800 900 950
+  name: "Mi Comercio Electrónico",
+  principalColorTitles: "cyan",
+  principalColorTextOaragraphs: "blue",
+  principalColorButtonsBg: "blue",
+  principalColorButtonsText: "white",
 }
 
 // Traducciones
@@ -98,6 +125,24 @@ const getTranslationHomeWelcome = (key: string): string => {
   return translationHomeWellcome[idioma][key] || key;
 }
 
+const translationHomeServices = {
+  "/en/": {
+    title: "Professional Services"
+  }, 
+  "/es/": {
+    title: "Servicios Profesionales"
+  },
+  "/pt/": {
+    title: "Serviços Profissionais"
+  },
+  "/fr/": {
+    title: "Services Professionnels"
+  },
+}
+const getTranslationHomeServices = (key: string): string => {
+  return translationHomeServices[idioma][key] || key;
+}
+
 // Paths Iconos 
 const pathsIconos = {
   path1downloadApp:"M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z",
@@ -130,9 +175,9 @@ const pathsIconos = {
 export const generalConfig = {
   idioma: idioma,
   name: company.name,
-  principalColor:company.principalColor,
+  principalColorTitles:company.principalColorTitles,
   NavBar: {
-    nameCompany: "Dinastía Digital", // Máximo 18 caracteres
+    nameCompany: company.name, // Máximo 18 caracteres
     logoCompany: ImagenCompany,
     linksPages: [
       { href: "/descargar", id:"downloadApp", text: getTranslation("downloadApp"), 
@@ -340,6 +385,9 @@ export const generalConfig = {
     },
     homeProducts:{
 
+    },
+    homeServices:{
+      title:getTranslationHomeServices("title"),
     }
   },
   GoogleAuth: {

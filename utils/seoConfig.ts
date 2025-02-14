@@ -25,8 +25,8 @@ export const seoConfig = {
  * Defines the configuration for PWA webmanifest.
  */
 export const manifest: Partial<ManifestOptions> = {
-	name: "Mi compañía", // Change this to your website's name.
-	short_name: "Mi compañía", // Change this to your website's short name.
+	name: "Dinastía Digital", // Change this to your website's name.
+	short_name: "Dinastía Digital", // Change this to your website's short name.
 	description:
 		"Descripción de la actividad de la compañía", // Change this to your websites description.
 	theme_color: "#30E130", // Change this to your primary color.

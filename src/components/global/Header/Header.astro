@@ -7,9 +7,9 @@ import { generalConfig } from "@util/generalConfig"
 // Estilos
 const classLinks = "text-blue-900  hover:text-blue-600"
 const styleNav = "bg-white border-gray-200 shadow-sm"
-const styleDiv1Nav = "bg-white border-gray-200 shadow-sm flex items-center justify-around flex-row pt-5 pb-5"
+const styleDiv1Nav = "bg-white border-gray-200 shadow-sm flex items-center justify-around flex-row pt-5 pb-5 px-4 md:px-6 lg:px-8"
 const styleDiv2Nav = "flex items-center space-x-3 rtl:space-x-reverse"
-const styleSpan1Nav = `self-center text-lg max-w-xl font-semibold whitespace-nowrap ${classLinks}`
+const styleSpan1Nav = `text-lg font-semibold ${classLinks}`
 const styleDiv4Nav = "flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1"
 const styleA1Nav = `relative inline-flex items-center p-1 text-sm font-medium text-center ${classLinks}` 
 const styleSpan2Nav = "sr-only"
@@ -27,11 +27,10 @@ const styleLi1Nav = `flex flex-row items-center justify-center gap-2 py-2 px-3 m
           <div class:list={styleDiv2Nav}>            
             <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} alt="Logo de la compañia"/>
           </div>          
-          <span class:list={styleSpan1Nav}>
-            {generalConfig.NavBar.nameCompany.length > 18 
-              ? generalConfig.NavBar.nameCompany.slice(0, 18)  
-              : generalConfig.NavBar.nameCompany}
-          </span>      
+          <span class:list={styleSpan1Nav} style={{ wordWrap: "break-word" }}>
+            {generalConfig.NavBar.nameCompany}
+          </span>
+           
         </div>
       </a>
       <div class:list={styleDiv4Nav}>      

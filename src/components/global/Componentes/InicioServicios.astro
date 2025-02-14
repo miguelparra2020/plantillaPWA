@@ -1,5 +1,6 @@
 ---
-import { IconGeneral } from "@globals";
+import { IconGeneral, Titulos } from "@globals";
+import { generalConfig } from "@util/generalConfig";
 
 const services = [
   {
@@ -11,7 +12,7 @@ const services = [
   },
   {
     id: 2,
-    title: "Desarrollo Digital",
+    title: "Comercio Elec",
     description: "Transforma tu presencia en línea",
     icon: "devices",
     image: "https://api.a0.dev/assets/image?text=digital%20development%20modern%20tech%20workspace&aspect=16:9"
@@ -26,11 +27,11 @@ const services = [
 ];
 ---
 
-<section class="relative py-16 bg-gradient-to-b from-blue-50 to-white">
+<section class="relative py-16 ">
   <div class="text-center mb-12">
-    <h2 class="text-4xl font-extrabold text-blue-900">Servicios Profesionales</h2>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4">
-      Potencia tu negocio con nuestras soluciones integrales
+    <Titulos title={generalConfig.Home.homeServices.title}/>
+    <p class="text-lg text-cyan-600 max-w-2xl mx-auto mt-4">
+      Potencia tu negocio con estos párrafos
     </p>
   </div>
   

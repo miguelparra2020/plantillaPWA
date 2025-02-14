@@ -1,5 +1,6 @@
 ---
 // Importaciones
+import { Titulos } from "@globals"
 import { generalConfig } from "@util/generalConfig"
 
 
@@ -7,23 +8,20 @@ import { generalConfig } from "@util/generalConfig"
 // Estilos
 
 // Bienvenida
-const colorBgBienvenida1 = `bg-gradient-to-b from-blue-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
-const colorBgBienvenida2 = `bg-gradient-to-b from-green-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
-const colorBgBienvenida = generalConfig.principalColor === "blue" ? colorBgBienvenida1 : colorBgBienvenida2
+const colorBgBienvenida1 = `bg-gradient-to-b from-sky-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
+const colorBgBienvenida2 = `bg-gradient-to-b from-sky-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
+const colorBgBienvenida = generalConfig.principalColorTitles === "blue" ? colorBgBienvenida1 : colorBgBienvenida2
 const bgSesionBienvenida = `bg-white bg-[url('/bgInicioBienvenida1.svg')]`
 const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative"
-const styleTitleBienvenida = "text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-blue-900"
-const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
 
-// 
+const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
 ---
 
         <!-- Bienvenida -->
         <section class:list={`${bgSesionBienvenida} relative`}>
             <div class:list={styleDivSesionBienvenida}>
-                <h1 class:list={styleTitleBienvenida}>
-                    {generalConfig.Home.Wellcome.Wellcome} {generalConfig.Home.Wellcome.Company}
-                </h1>
+                <Titulos title={generalConfig.Home.Wellcome.Wellcome + " " + generalConfig.Home.Wellcome.Company}/>
+                <br/>
                 <p class:list={styleDescripcionBienvenida}>
                     "{generalConfig.Home.Wellcome.DescriptionWellcome}"
                 </p>
