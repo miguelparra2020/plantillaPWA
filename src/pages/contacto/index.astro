@@ -1,5 +1,9 @@
 ---
 import {   LayoutGeneral } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Contact) {
+  return Astro.redirect('/crear');
+}
 import CarShopping from '@img/carShopping.png';
 ---
 

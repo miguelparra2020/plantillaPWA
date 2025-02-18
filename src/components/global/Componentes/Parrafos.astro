@@ -1,0 +1,38 @@
+---
+// Importaciones
+import { generalConfig } from "@util/generalConfig"
+
+const styleParrafo1 = "text-lg text-red-600 max-w-2xl mx-auto mt-4"
+const styleParrafo2 = "text-lg text-orange-600 max-w-2xl mx-auto mt-4"
+const styleParrafo3 = "text-lg text-amber-600 max-w-2xl mx-auto mt-4"
+const styleParrafo4 = "text-lg text-yellow-600 max-w-2xl mx-auto mt-4"
+const styleParrafo5 = "text-lg text-lime-600 max-w-2xl mx-auto mt-4"
+const styleParrafo6 = "text-lg text-green-600 max-w-2xl mx-auto mt-4"
+const styleParrafo7 = "text-lg text-emerald-600 max-w-2xl mx-auto mt-4"
+const styleParrafo8 = "text-lg text-teal-600 max-w-2xl mx-auto mt-4"
+const styleParrafo9 = "text-lg text-cyan-600 max-w-2xl mx-auto mt-4"
+const styleParrafo10 = "text-lg text-sky-600 max-w-2xl mx-auto mt-4"
+const styleParrafo11 = "text-lg text-blue-600 max-w-2xl mx-auto mt-4"
+const styleParrafo12 = "text-lg text-indigo-600 max-w-2xl mx-auto mt-4"
+const styleParrafo13 = "text-lg text-violet-600 max-w-2xl mx-auto mt-4"
+const styleParrafo14 = "text-lg text-purple-600 max-w-2xl mx-auto mt-4"
+const styleParrafo15 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo16 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo17 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo18 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo19 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo20 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo21 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo22 = "text-lg text-stone-600 max-w-2xl mx-auto mt-4"
+const styleParrafo = generalConfig.principalColorParrafos === "red" ? styleParrafo1 : generalConfig.principalColorParrafos === "orange" ? styleParrafo2 : generalConfig.principalColorParrafos === "amber" ? styleParrafo3 : generalConfig.principalColorParrafos === "yellow" ? styleParrafo4 : generalConfig.principalColorParrafos === "lime" ? styleParrafo5 : generalConfig.principalColorParrafos === "green" ? styleParrafo6 : generalConfig.principalColorParrafos === "emerald" ? styleParrafo7 : generalConfig.principalColorParrafos === "teal" ? styleParrafo8 : generalConfig.principalColorParrafos === "cyan" ? styleParrafo9 : generalConfig.principalColorParrafos === "sky" ? styleParrafo10 : generalConfig.principalColorParrafos === "blue" ? styleParrafo11 : generalConfig.principalColorParrafos === "indigo" ? styleParrafo12 : generalConfig.principalColorParrafos === "violet" ? styleParrafo13 : generalConfig.principalColorParrafos === "purple" ? styleParrafo14 : generalConfig.principalColorParrafos === "fuchsia" ? styleParrafo15 : generalConfig.principalColorParrafos === "pink" ? styleParrafo16 : generalConfig.principalColorParrafos === "rose" ? styleParrafo17 : generalConfig.principalColorParrafos === "slate" ? styleParrafo18 : generalConfig.principalColorParrafos === "zinc" ? styleParrafo19 : generalConfig.principalColorParrafos === "gray" ? styleParrafo20 : generalConfig.principalColorParrafos === "neutral" ? styleParrafo21 : generalConfig.principalColorParrafos === "stone" ? styleParrafo22 : styleParrafo21
+
+interface Props {
+    texto: string
+}
+
+const { texto } = Astro.props
+---
+
+<h1 class:list={styleParrafo}>
+    { texto }
+</h1>

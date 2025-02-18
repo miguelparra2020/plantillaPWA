@@ -1,5 +1,9 @@
 ---
 import {   LayoutGeneral } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Car) {
+  return Astro.redirect('/crear');
+}
 ---
 
     <LayoutGeneral>

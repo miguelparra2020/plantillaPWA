@@ -1,6 +1,10 @@
 ---
 // Importaciones
 import {   LayoutGeneral, InicioBienvenida, InicioProductos, InicioServicios } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Home) {
+  return Astro.redirect('/nofound');
+}
 ---
 
     <LayoutGeneral>   

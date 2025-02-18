@@ -1,0 +1,44 @@
+---
+interface Props {
+    image?: string
+    color?: string
+}
+const { image, color } = Astro.props;
+const colorBg1 = `absolute inset-0 bg-gradient-to-b from-red-50 to-transparent`
+const colorBg2 = `absolute inset-0 bg-gradient-to-b from-orange-50 to-transparent`
+const colorBg3 = `absolute inset-0 bg-gradient-to-b from-amber-50 to-transparent`
+const colorBg4 = `absolute inset-0 bg-gradient-to-b from-yellow-50 to-transparent`
+const colorBg5 = `absolute inset-0 bg-gradient-to-b from-lime-50 to-transparent`
+const colorBg6 = `absolute inset-0 bg-gradient-to-b from-green-50 to-transparent`
+const colorBg7 = `absolute inset-0 bg-gradient-to-b from-emerald-50 to-transparent`
+const colorBg8 = `absolute inset-0 bg-gradient-to-b from-teal-50 to-transparent`
+const colorBg9 = `absolute inset-0 bg-gradient-to-b from-cyan-50 to-transparent`
+const colorBg10 = `absolute inset-0 bg-gradient-to-b from-sky-50 to-transparent`
+const colorBg11 = `absolute inset-0 bg-gradient-to-b from-blue-50 to-transparent`
+const colorBg12 = `absolute inset-0 bg-gradient-to-b from-indigo-50 to-transparent`
+const colorBg13 = `absolute inset-0 bg-gradient-to-b from-violet-50 to-transparent`
+const colorBg14 = `absolute inset-0 bg-gradient-to-b from-purple-50 to-transparent`
+const colorBg15 = `absolute inset-0 bg-gradient-to-b from-fuchsia-50 to-transparent`
+const colorBg16 = `absolute inset-0 bg-gradient-to-b from-pink-50 to-transparent`
+const colorBg17 = `absolute inset-0 bg-gradient-to-b from-rose-50 to-transparent`
+const colorBg18 = `absolute inset-0 bg-gradient-to-b from-slate-50 to-transparent`
+const colorBg19 = `absolute inset-0 bg-gradient-to-b from-gray-50 to-transparent`
+const colorBg20 = `absolute inset-0 bg-gradient-to-b from-zinc-50 to-transparent`
+const colorBg21 = `absolute inset-0 bg-gradient-to-b from-neutral-50 to-transparent`
+const colorBg22 = `absolute inset-0 bg-gradient-to-b from-stone-50 to-transparent`
+const colorBg23 = `absolute inset-0 bg-gradient-to-b to-transparent`
+const colorBg = color === "red" ? colorBg1 : color === "orange" ? colorBg2 : color === "amber" ? colorBg3 : color === "yellow" ? colorBg4 : color === "lime" ? colorBg5 : color === "green" ? colorBg6 : color === "emerald" ? colorBg7 : color === "teal" ? colorBg8 : color === "cyan" ? colorBg9 : color === "sky" ? colorBg10 : color === "blue" ? colorBg11 : color === "indigo" ? colorBg12 : color === "violet" ? colorBg13 : color === "purple" ? colorBg14 : color === "fuchsia" ? colorBg15 : color === "pink" ? colorBg16 : color === "rose" ? colorBg17 : color === "slate" ? colorBg18 : color === "gray" ? colorBg19 : color === "zinc" ? colorBg20 : color === "neutral" ? colorBg21 : color === "stone" ? colorBg22 : colorBg23
+---
+
+<section class:list={`relative w-full`}>
+  <!-- Imagen de fondo -->
+  <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url(${image})`}></div>
+
+  <!-- Gradiente encima de la imagen -->
+  <div class:list={colorBg}></div>
+
+  <!-- Contenido dinámico -->
+  <div class="relative z-10 w-full">
+    <slot />
+  </div>
+</section>

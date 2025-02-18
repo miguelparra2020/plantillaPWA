@@ -1,6 +1,9 @@
 ---
 import {   LayoutGeneral, ProductsAll } from "@globals"
-
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Products) {
+  return Astro.redirect('/crear');
+}
 ---
 
     <LayoutGeneral>

@@ -5,12 +5,9 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
-const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
 
-const company = {
-  
-  // Colores principales
+
+ // Colores principales
   // red       50 100 200 300 400 500 600 700 800 900 950
   // orange    50 100 200 300 400 500 600 700 800 900 950
   // amber     50 100 200 300 400 500 600 700 800 900 950
@@ -33,15 +30,43 @@ const company = {
   // zinc      50 100 200 300 400 500 600 700 800 900 950
   // neutral   50 100 200 300 400 500 600 700 800 900 950
   // stone     50 100 200 300 400 500 600 700 800 900 950
+
+
+// Configuraciones del comercio electrónico
+
+// Idioma del proyecto
+type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
+export const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
+
+// Modulos que estarán activos
+
+export const ModuelesActives = {
+  Home: true, //Inicio
+  Car: true, //Carrito
+  User: true, //Usuario
+  Us: true, //Nosotros
+  Services: true, //Servicios
+  Products: true, //Productos
+  Publications: true, //Publicaciones
+  Contact: true, //Contacto
+  Location: true, //Ubicación
+  Reservation: true, //Reservas
+  Quotes: true, //Citas
+  Events: true, //Eventos,
+  Photos: true, //Fotos
+  DownloadApp: true, //Descargar
+}
+
+export const company = {
   name: "Mi Comercio Electrónico",
   principalColorTitles: "cyan",
-  principalColorTextOaragraphs: "blue",
+  principalColorParrafos: "slate",
   principalColorButtonsBg: "blue",
   principalColorButtonsText: "white",
 }
 
 // Traducciones
-const translationsLinksPages = {
+export const translationsLinksPages = {
   "/en/": {
     downloadApp: "Download App",
     home: "Home",
@@ -99,11 +124,11 @@ const translationsLinksPages = {
     contact: "Contact",
   },
 }
-const getTranslation = (key: string): string => {
+export const getTranslation = (key: string): string => {
   return translationsLinksPages[idioma][key] || key;
 }
 
-const translationHomeWellcome = {
+export const translationHomeWellcome = {
   "/en/": {
     Wellcome: "Welcome to",
     DescriptionWellcome: "We are an e-commerce company that promises the sale of technological products through partnerships with regional suppliers and the provision of technology services."
@@ -121,11 +146,11 @@ const translationHomeWellcome = {
     DescriptionWellcome: "Nous sommes une entreprise de commerce électronique qui s'engage à vendre des produits technologiques grâce à des partenariats avec des fournisseurs régionaux et à la prestation de services technologiques."
   },
 }
-const getTranslationHomeWelcome = (key: string): string => {
+export  const getTranslationHomeWelcome = (key: string): string => {
   return translationHomeWellcome[idioma][key] || key;
 }
 
-const translationHomeServices = {
+export  const translationHomeServices = {
   "/en/": {
     title: "Professional Services"
   }, 
@@ -139,12 +164,12 @@ const translationHomeServices = {
     title: "Services Professionnels"
   },
 }
-const getTranslationHomeServices = (key: string): string => {
+export  const getTranslationHomeServices = (key: string): string => {
   return translationHomeServices[idioma][key] || key;
 }
 
 // Paths Iconos 
-const pathsIconos = {
+export const pathsIconos = {
   path1downloadApp:"M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1z",
   path2downloadApp: "M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z",
   path1home: "M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5",
@@ -171,13 +196,15 @@ const pathsIconos = {
   path2contact: "",
 
 }
+            
 
 export const generalConfig = {
   idioma: idioma,
   name: company.name,
   principalColorTitles:company.principalColorTitles,
+  principalColorParrafos:company.principalColorParrafos,
   NavBar: {
-    nameCompany: company.name, // Máximo 18 caracteres
+    nameCompany: company.name,
     logoCompany: ImagenCompany,
     linksPages: [
       { href: "/descargar", id:"downloadApp", text: getTranslation("downloadApp"), 
@@ -371,13 +398,18 @@ export const generalConfig = {
       ],
 
   },  
+  // Configuración del Inicio
   Home:{
     Wellcome:{
-      Wellcome: getTranslationHomeWelcome("Wellcome"),
-      Company:company.name,
-      DescriptionWellcome:getTranslationHomeWelcome("DescriptionWellcome"),
-      ImagenGrandeAvif:  ImagenGrandeAvif,
-      ImagenGrandeWebp: ImagenGrandeWebp,
+      WellcomeActive: true, // Bienvenida activa o inactiva true o false
+      colorBgSesion: "blue", // Color de fondo de la bienvenida red, blue, orange, yellow, lime, green, etc...
+      urlImgBgSesion: "/bgSesion1.svg",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
+      WellcomeTypePosition: "vertical", // estilo "vertical", "horizontal"
+      Wellcome: getTranslationHomeWelcome("Wellcome"), // Bienvenido traducido en todos los idiomas
+      Company:company.name, // Nombre de la empresa
+      DescriptionWellcome:getTranslationHomeWelcome("DescriptionWellcome"), // Descripción de la empresa traducida
+      ImagenGrandeAvif:  ImagenGrandeAvif, // Imagen grande de la empresa de Bienvenida
+      ImagenGrandeWebp: ImagenGrandeWebp,  // 16:9 grande -> 1024 × 576 px -> 600 × 338 px 
       ImagenGrandeJpg: ImagenGrandeJpg,
       ImagenMedianaAvif: ImagenMedianaAvif,
       ImagenMedianaWebp: ImagenMedianaWebp,
@@ -394,3 +426,4 @@ export const generalConfig = {
     clientId: '389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com'
   },
 }
+

@@ -1,5 +1,9 @@
 ---
 import { CustomImagen, LayoutGeneral } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Photos) {
+  return Astro.redirect('/crear');
+}
 import image1 from '@img/fotos/1.jpg';
 import image2 from '@img/fotos/2.jpg';
 import image3 from '@img/fotos/3.jpg';

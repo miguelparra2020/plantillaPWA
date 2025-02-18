@@ -1,6 +1,9 @@
 ---
 import {   LayoutGeneral, GoogleAuth } from "@globals"
-
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.User) {
+  return Astro.redirect('/crear');
+}
 ---
 
     <LayoutGeneral>

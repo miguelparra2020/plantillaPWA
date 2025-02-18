@@ -1,5 +1,9 @@
 ---
 import {   LayoutGeneral, IconGeneral } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Location) {
+  return Astro.redirect('/crear');
+}
 ---
 
     <LayoutGeneral>

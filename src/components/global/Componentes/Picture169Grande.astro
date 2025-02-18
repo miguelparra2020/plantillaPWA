@@ -1,0 +1,74 @@
+---
+import DefaultPicture169Grande from '@img/imgsGenerales/Picture169Grande.jpg'
+import { getImage } from 'astro:assets'
+interface Props {
+    ImagenGrandeAvif?: any
+    ImagenGrandeWebp?: any
+    ImagenGrandeJpg?: any
+    ImagenMedianaAvif?: any
+    ImagenMedianaWebp?: any
+    ImagenMedianaJpg?: any
+}
+
+const { ImagenGrandeAvif,ImagenGrandeWebp, ImagenGrandeJpg, ImagenMedianaAvif,ImagenMedianaWebp, ImagenMedianaJpg=DefaultPicture169Grande } = Astro.props
+
+const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10"
+const stylePictureGrande = "aspect-video"
+const stylePictureMediana = "aspect-video"
+---
+
+<picture class:list={stylePicture} style="width: 100%; height: auto;">
+    <source 
+      srcset={ImagenGrandeAvif} 
+      type="image/avif" 
+      media="(min-width: 1024px)" 
+      style="width: 1024px; height: 576px;"
+    >
+    <source 
+      srcset={ImagenGrandeWebp} 
+      type="image/webp" 
+      media="(min-width: 1024px)" 
+      style="width: 1024px; height: 576px;"
+    >
+    <source 
+      srcset={ImagenGrandeJpg} 
+      media="(min-width: 1024px)" 
+      style="width: 1024px; height: 576px;"
+    >
+  
+    <source 
+      srcset={ImagenMedianaAvif} 
+      type="image/avif" 
+      media="(min-width: 600px)" 
+      style="width: 600px; height: 338px;"
+    >
+    <source 
+      srcset={ImagenMedianaWebp} 
+      type="image/webp" 
+      media="(min-width: 600px)" 
+      style="width: 600px; height: 338px;"
+    >
+    <source 
+      srcset={ImagenMedianaJpg} 
+      media="(min-width: 600px)" 
+      style="width: 600px; height: 338px;"
+    >
+  
+    <source 
+      srcset={ImagenMedianaAvif} 
+      type="image/avif" 
+      style="width: 600px; height: 338px;"
+    >
+    <source 
+      srcset={ImagenMedianaWebp} 
+      type="image/webp" 
+      style="width: 600px; height: 338px;"
+    >
+  
+    <img 
+      src={ImagenMedianaJpg} 
+      alt="Imagen Genérica" 
+      style="width: 600px; height: 338px;" 
+    >
+  </picture>
+  
