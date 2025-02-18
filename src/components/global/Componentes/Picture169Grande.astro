@@ -1,6 +1,5 @@
 ---
 import DefaultPicture169Grande from '@img/imgsGenerales/Picture169Grande.jpg'
-import { getImage } from 'astro:assets'
 interface Props {
     ImagenGrandeAvif?: any
     ImagenGrandeWebp?: any
@@ -12,12 +11,10 @@ interface Props {
 
 const { ImagenGrandeAvif,ImagenGrandeWebp, ImagenGrandeJpg, ImagenMedianaAvif,ImagenMedianaWebp, ImagenMedianaJpg=DefaultPicture169Grande } = Astro.props
 
-const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10"
-const stylePictureGrande = "aspect-video"
-const stylePictureMediana = "aspect-video"
+const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video"
 ---
 
-<picture class:list={stylePicture} style="width: 100%; height: auto;">
+<picture class:list={stylePicture} >
     <source 
       srcset={ImagenGrandeAvif} 
       type="image/avif" 

@@ -2,14 +2,6 @@
 // Importaciones
 import { Titulos, Sesion, DivVertical, Parrafos, Picture169Grande } from "@globals"
 import { generalConfig } from "@util/generalConfig"
-// Bienvenida
-const colorBgBienvenida1 = `bg-gradient-to-b from-sky-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
-const colorBgBienvenida2 = `bg-gradient-to-b from-sky-50 to-transparent  w-full h-full absolute top-0 left-0 z-0`
-const colorBgBienvenida = generalConfig.principalColorTitles === "blue" ? colorBgBienvenida1 : colorBgBienvenida2
-
-const styleDivSesionBienvenida = "py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8 z-10 relative"
-
-const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
 ---
 
 {generalConfig.Home.Wellcome.WellcomeActive && <>
@@ -23,19 +15,4 @@ const styleDescripcionBienvenida = "text-lg font-normal text-gray-500 lg:text-xl
     </Sesion>
     </>
 }
-<!-- <div class="w-full flex items-center justify-center text-center relative z-10">
-    <picture class="h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10"><source srcset={generalConfig.Home.Wellcome.ImagenGrandeAvif} type="image/avif" media="(min-width: 1024px)" class="rounded-lg">
-        <source srcset={generalConfig.Home.Wellcome.ImagenGrandeWebp} type="image/webp" media="(min-width: 1024px)" class="rounded-lg">
-        <source srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} media="(min-width: 1024px)" class="rounded-lg">
-
-        <source srcset={generalConfig.Home.Wellcome.ImagenMedianaAvif} type="image/avif" media="(min-width: 600px)" class="rounded-lg">
-        <source srcset={generalConfig.Home.Wellcome.ImagenMedianaWebp} type="image/webp" media="(min-width: 600px)" class="rounded-lg">
-        <source srcset={generalConfig.Home.Wellcome.ImagenMedianaJpg} media="(min-width: 600px)" class="rounded-lg">
-
-        <source srcset={generalConfig.Home.Wellcome.ImagenMedianaAvif} type="image/avif" class="rounded-lg">
-        <source srcset={generalConfig.Home.Wellcome.ImagenMedianaWebp} type="image/webp" class="rounded-lg">
-        <img src={generalConfig.Home.Wellcome.ImagenMedianaJpg} alt="Imagen Bienvenida" class="rounded-lg"> 
-    </picture>
-</div> -->
-
         
