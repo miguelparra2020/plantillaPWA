@@ -1,4 +1,3 @@
-// components/Counter.jsx
 import { useState } from "react";
 import { generalConfig } from "@util/generalConfig";
 

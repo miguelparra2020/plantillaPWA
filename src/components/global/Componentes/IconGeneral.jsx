@@ -6,7 +6,7 @@ const IconGeneral = ({ params: { color = "currentColor", size = "40", className=
   <path d={path}/>
 </svg>
 
-);
-};
+)
+}
 
-export default IconGeneral;
+export default IconGeneral

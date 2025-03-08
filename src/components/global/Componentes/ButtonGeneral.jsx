@@ -1,5 +1,5 @@
-import React from 'react';
-import {  IconGeneral } from "@globals";
+import React from 'react'
+import {  IconGeneral } from "@globals"
 
 const   ButtonGeneral = ({
   as = 'button', // Define si será <button> o <a>
@@ -17,17 +17,17 @@ const   ButtonGeneral = ({
 
   if (as === 'a' && href) {
     return (
-      <a href={href} target={target} className={className} type={type}>
+      <a href={href} target={target} className={className} type={type} onClick={onClick}>
         {children} {iconActive &&  <IconGeneral params={{color:iconColor,  size: iconSize, className: "ml-2" }}/>} 
       </a>
-    );
+    )
   }
 
   return (
     <button type={type} onClick={onClick} className={className}>
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default ButtonGeneral;
+export default ButtonGeneral
