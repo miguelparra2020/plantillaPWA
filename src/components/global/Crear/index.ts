@@ -1,1 +1,7 @@
-export { default as Crear } from "./Crear.jsx"
+export { default as Crear } from "./Crear"
+export { default as PaginateStages } from "./components/PaginateStages"
+export { default as Stage1 } from "./components/Stage1"
+export { default as Stage2 } from "./components/Stage2"
+export { default as Stage3 } from "./components/Stage3"
+export { default as Stage4 } from "./components/Stage4"
+export { default as Stage5 } from "./components/Stage5"

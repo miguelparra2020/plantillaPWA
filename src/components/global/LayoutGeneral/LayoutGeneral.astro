@@ -4,13 +4,15 @@ import { generalConfig } from "@util/generalConfig"
 const path = Astro.url.pathname.slice(1)
 const capitalizeFirstLetter = (str) => {
   if (!str) return str;
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-const formattedPath = capitalizeFirstLetter(path);
-const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name;
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+const formattedPath = capitalizeFirstLetter(path)
+const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name
+import { LanguageProvider } from '../Context/LanguageContext'
+import LanguageSelector from "../Componentes/LanguageSelector";
 ---
 
-
+<LanguageProvider>
 <Layout title={pathTitle}>
     <div class="header-overlay">
         <Header  />
@@ -22,8 +24,9 @@ const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.n
     <div class="footer-overlay"  >
         <Footer />
     </div>
-    
+    <LanguageSelector client:idle />
 </Layout>
+</LanguageProvider>
 
 <style>
     /* Estilo para el header */
