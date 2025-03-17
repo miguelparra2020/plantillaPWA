@@ -439,7 +439,11 @@ export const generalConfig = {
     }
   },
   Crear: {
-
+    stage:"Etapa",
+    stage1:{
+      title: "Bienvenido a la creación personalizada del ecommerce",
+      Subtitle: "Comienza tu viaje hacia el éxito digital en minutos"
+    },
   },
   GoogleAuth: {
     clientId: '389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com'
