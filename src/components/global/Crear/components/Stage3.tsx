@@ -6,7 +6,7 @@ import { Card, CardContent } from "./ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import CardGeneral from "./CardGeneral"
 import { ColorSettings, StageProps } from "../interfaces/models"
-import { colorOptions } from "../helpers/helpers"
+import { colorOptionsTitles } from "../helpers/helpers"
 
 
 
@@ -29,15 +29,15 @@ const Stage3 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext, 
 
   // Función para obtener la clase de color de Tailwind
   const getColorClass = (color: string, isTitle: boolean) => {
-    const colorOption = colorOptions.find((option) => option.value === color)
+    const colorOption = colorOptionsTitles.find((option) => option.value === color)
     if (!colorOption) return ""
     const shade = isTitle ? colorOption.titleShade : colorOption.paragraphShade
     return `bg-${color}-${shade}`
   }
 
  //  Ejemplo de cómo se verían los títulos y párrafos con los colores seleccionados
-  const titleColorClass = `text-${settings.titleColor}-${colorOptions.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
-  const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptions.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
+  const titleColorClass = `text-${settings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
+  const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
 
   const divChildren = (
     <div>
@@ -60,7 +60,7 @@ const Stage3 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext, 
                      </div>
                    </SelectTrigger>
                    <SelectContent className="max-h-[300px] bg-white">
-                     {colorOptions.map((color) => (
+                     {colorOptionsTitles.map((color) => (
                        <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                          <div className="flex items-center gap-2">
                            <div className={`w-4 h-4 rounded-full bg-${color.value}-${color.titleShade}`}></div>
@@ -89,7 +89,7 @@ const Stage3 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext, 
                      </div>
                    </SelectTrigger>
                    <SelectContent className="max-h-[300px] bg-white">
-                     {colorOptions.map((color) => (
+                     {colorOptionsTitles.map((color) => (
                        <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                          <div className="flex items-center gap-2">
                            <div className={`w-4 h-4 rounded-full bg-${color.value}-${color.paragraphShade}`}></div>

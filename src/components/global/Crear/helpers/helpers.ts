@@ -1,4 +1,4 @@
-export const colorOptions = [
+export const colorOptionsTitles = [
     { name: "Red", value: "red", titleShade: 700, paragraphShade: 600 },
     { name: "Orange", value: "orange", titleShade: 700, paragraphShade: 600 },
     { name: "Amber", value: "amber", titleShade: 700, paragraphShade: 600 },
