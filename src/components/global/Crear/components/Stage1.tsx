@@ -5,6 +5,7 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import CardGeneral from "./CardGeneral"
+import { StageProps } from "../interfaces/models"
 
 interface EcommerceSettings {
     storeName: string
@@ -14,14 +15,9 @@ interface EcommerceSettings {
     colorScheme: string
 }
 
-interface Stage1Props {
-  totalStages: number
-  currentStage: number
-  handleNext: () => void
-}
 
 
-const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage, handleNext }) => {
+const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }) => {
 
     const progressPorcent = (currentStage / totalStages) * 100
     const [settings, setSettings] = useState<EcommerceSettings>({
