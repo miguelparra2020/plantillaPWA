@@ -32,7 +32,7 @@ const Crear = () => {
   const renderStage = () => {
     switch (currentStage) {
       case 1:
-        return <Stage1 totalStages={TotalStages} currentStage={currentStage}/>
+        return <Stage1 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext}/>
       case 2:
         return <Stage2 totalStages={TotalStages} currentStage={currentStage}/>
       case 3:
@@ -40,9 +40,9 @@ const Crear = () => {
       case 4:
         return <Stage4 />
       case 5:
-        return <Stage5 />
+        return <Stage5 totalStages={TotalStages} currentStage={currentStage}/>
       default:
-        return <Stage1 totalStages={TotalStages} currentStage={currentStage}/>
+        return <Stage1 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext}/>
     }
   }
 

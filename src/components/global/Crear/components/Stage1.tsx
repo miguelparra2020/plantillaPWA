@@ -1,7 +1,6 @@
 import React from "react"
 import { useState } from "react"
 import { Sparkles, Store, Globe, FileText } from "lucide-react"
-import { Card, CardContent } from "./ui/card"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
@@ -18,16 +17,13 @@ interface EcommerceSettings {
 interface Stage1Props {
   totalStages: number
   currentStage: number
+  handleNext: () => void
 }
 
 
-const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage }) => {
+const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage, handleNext }) => {
 
     const progressPorcent = (currentStage / totalStages) * 100
-
-    const [showForm, setShowForm] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-    const [isLoading, setIsLoading] = useState(false)
     const [settings, setSettings] = useState<EcommerceSettings>({
         storeName: "",
         description: "",
@@ -35,27 +31,6 @@ const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage }) => {
         theme: "modern",
         colorScheme: "light",
     })
-      const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setShowForm(false)
-        setIsLoading(true)
-        setError(null)
-    
-        try {
-          // Simulate API call
-          await new Promise((resolve) => setTimeout(resolve, 3000))
-          setShowForm(false)
-        } catch (err) {
-          setError("Error al procesar su solicitud. Por favor intente nuevamente.")
-        } finally {
-          setIsLoading(false)
-        }
-      }
-    
-      const handleBackToSettings = () => {
-        setShowForm(true)
-        setError(null)
-      }
     
       const handleSettingsChange = (key: keyof EcommerceSettings, value: string) => {
         setSettings((prev) => ({
@@ -66,7 +41,7 @@ const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage }) => {
 
       const divChildren = (
         <div>
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1 p-4 justify-between">
+                  <form className="flex flex-col gap-4 flex-1 p-4 justify-between">
                         <div className="space-y-4">
                           {/* Nombre de la empresa */}
                 <div className="space-y-2">
@@ -118,8 +93,9 @@ const Stage1 : React.FC<Stage1Props> = ({ totalStages, currentStage }) => {
                  </div>
             <br />
                         <button
-                          type="submit"
-                          className="w-full z-10 h-10 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors self-end"
+                          type="button"
+                          onClick={handleNext}
+                          className="w-full z-10 h-10 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium rounded-xl transition-colors self-end"
                         >
                           <Sparkles className="w-4 h-4" />
                           Empezar
