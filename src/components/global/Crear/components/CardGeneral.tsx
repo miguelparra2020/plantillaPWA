@@ -15,7 +15,7 @@ const CardGeneral: React.FC<CardProps> = ({ title, subtitle, progress, children 
                 <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">{title}</h3>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-2">{subtitle}</p>
                 <div
-                className="bg-gray-400 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full"
+                className={`${progress >= 0 && progress <= 25 ? "bg-gray-400" : progress > 25 && progress <= 50 ? "bg-blue-400" : progress > 50 && progress <= 70 ? "bg-yellow-400" : "bg-green-400"}  text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full`}
                 style={{ width: `${progress}%` }}
             >
                 {progress}%

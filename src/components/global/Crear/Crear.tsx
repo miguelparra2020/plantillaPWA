@@ -36,7 +36,7 @@ const Crear = () => {
       case 2:
         return <Stage2 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
       case 3:
-        return <Stage3 />
+        return <Stage3 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
       case 4:
         return <Stage4 />
       case 5:

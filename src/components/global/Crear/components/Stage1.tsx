@@ -11,22 +11,23 @@ interface EcommerceSettings {
     storeName: string
     description: string
     language: string
-    theme: string
-    colorScheme: string
 }
 
 
 
 const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }) => {
 
-    const progressPorcent = (currentStage / totalStages) * 100
+    
+    const progressPorcentStage = (currentStage / totalStages) * 100
+    
     const [settings, setSettings] = useState<EcommerceSettings>({
         storeName: "",
         description: "",
-        language: "español",
-        theme: "modern",
-        colorScheme: "light",
+        language: "español"
     })
+  const QuantityItemsChildren = (settings.description !== "" && settings.storeName !== "" && settings.language !== "") ? 1 : (settings.description === "" && settings.storeName !== "" && settings.language !== "") ? 2 : (settings.description !== "" && settings.storeName === "" && settings.language !== "") ? 2 : (settings.description !== "" && settings.storeName !== "" && settings.language === "") ? 2 : 3
+  const progressPorcent = Math.floor(progressPorcentStage / QuantityItemsChildren)
+
     
       const handleSettingsChange = (key: keyof EcommerceSettings, value: string) => {
         setSettings((prev) => ({
@@ -89,9 +90,10 @@ const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }
                  </div>
             <br />
                         <button
+                          disabled={settings.storeName === "" || settings.description === "" || settings.language === ""}
                           type="button"
                           onClick={handleNext}
-                          className="w-full z-10 h-10 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium rounded-xl transition-colors self-end"
+                          className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${(settings.storeName === "" || settings.description === "" || settings.language === "") ? "bg-zinc-600" : "bg-zinc-900 hover:bg-zinc-800"}  text-white text-sm font-medium rounded-xl transition-colors self-end`}
                         >
                           <Sparkles className="w-4 h-4" />
                           Empezar
