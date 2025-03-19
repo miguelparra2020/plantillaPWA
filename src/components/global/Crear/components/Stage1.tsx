@@ -6,12 +6,9 @@ import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
+import { EcommerceSettings } from "../interfaces/modelsStage1"
 
-interface EcommerceSettings {
-    storeName: string
-    description: string
-    language: string
-}
+
 
 
 
@@ -73,17 +70,17 @@ const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }
                    <div className="space-y-2">
                      <div className="flex items-center gap-2">
                        <Globe className="w-4 h-4 text-zinc-500" />
-                       <span className="text-sm text-zinc-500">Idioma de la plataforma</span>
+                       <span className="text-sm text-zinc-500">Idioma de su plataforma</span>
                      </div>
                      <Select value={settings.language} onValueChange={(value) => handleSettingsChange("language", value)}>
                        <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
                          <SelectValue placeholder="Seleccione un idioma" />
                        </SelectTrigger>
                        <SelectContent className="absolute z-[3000] mt-2 bg-white">
-                         <SelectItem value="español">Español</SelectItem>
-                         <SelectItem value="inglés">Inglés</SelectItem>
-                         <SelectItem value="francés">Francés</SelectItem>
-                         <SelectItem value="portugués">Portugués</SelectItem>
+                         <SelectItem value="español">🇪🇸 Español</SelectItem>
+                         <SelectItem value="inglés">🇺🇲 Inglés</SelectItem>
+                         <SelectItem value="francés">🇫🇷 Francés</SelectItem>
+                         <SelectItem value="portugués">🇵🇹 Portugués</SelectItem>
                        </SelectContent>
                      </Select>
                    </div>
@@ -112,7 +109,7 @@ const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }
               </div>
             </div>
                         <button
-                          disabled={settings.storeName === "" || settings.description === "" || settings.language === ""}
+                          // disabled={settings.storeName === "" || settings.description === "" || settings.language === ""}
                           type="button"
                           onClick={handleNext}
                           className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${(settings.storeName === "" || settings.description === "" || settings.language === "") ? "bg-zinc-600" : "bg-zinc-900 hover:bg-zinc-800"}  text-white text-sm font-medium rounded-xl transition-colors self-end`}

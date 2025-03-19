@@ -50,9 +50,8 @@ const Crear = () => {
     <div className="flex justify-center items-center flex-col" >
       {renderStage()}
       <br />
-      <div >
-        <PaginateStages currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev} totalStages={TotalStages}/>
-      </div>
+      <br />
+      <br />
     </div>
   )
 }
