@@ -88,7 +88,29 @@ const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }
                      </Select>
                    </div>
                  </div>
-            <br />
+            <div className="space-y-4 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50">
+              <div className="text-sm text-zinc-700 dark:text-zinc-300">
+                <p className="font-medium mb-2">¿Por qué crear su ecommerce con nosotros?</p>
+                <ul className="space-y-1 text-xs text-zinc-500 dark:text-zinc-400">
+                  <li className="flex items-center gap-1">
+                    <span className="w-1 h-1 bg-fuchsia-500 rounded-full"></span>
+                    Configuración rápida y sencilla
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <span className="w-1 h-1 bg-fuchsia-500 rounded-full"></span>
+                    Diseño profesional y personalizable
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <span className="w-1 h-1 bg-fuchsia-500 rounded-full"></span>
+                    Costos bajos y transparentes
+                  </li>
+                  <li className="flex items-center gap-1">
+                    <span className="w-1 h-1 bg-fuchsia-500 rounded-full"></span>
+                    Optimizado para dispositivos móviles, enfocado en SEO y performance 
+                  </li>
+                </ul>
+              </div>
+            </div>
                         <button
                           disabled={settings.storeName === "" || settings.description === "" || settings.language === ""}
                           type="button"
