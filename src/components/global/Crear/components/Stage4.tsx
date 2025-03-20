@@ -144,9 +144,8 @@ const borderWidthOptions = [
   ]
 
 
-  const progressPorcent = (currentStage / totalStages) * 100
+  const progressPorcent = Math.floor((currentStage / totalStages) * 100)
   const [currentStep, setCurrentStep] = useState<CustomizationStep>("initial-question")
-  console.log("currentStep", currentStep)
   const [isLoading, setIsLoading] = useState(false)
   const [cardSettings, setCardSettings] = useState<CardSettings>({
     hasBorder: true,
@@ -371,7 +370,7 @@ const borderWidthOptions = [
     ${cardSettings.rounded}
     ${cardSettings.shadow}
     ${cardSettings.hasBorder ? `${cardSettings.borderWidth} border-${cardSettings.borderColor}-${cardSettings.borderShade}` : ""}
-    bg-white 
+    bg-white  w-[340px]
   `
 
   // Generar clases para el texto
@@ -524,19 +523,19 @@ const borderWidthOptions = [
 
   // Renderizar la personalización de la card
   const renderCardCustomization = () => (
-    <form  className="flex flex-col gap-4 flex-1 p-4 justify-between">
-<div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
+    <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
+<div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
         <div className="text-sm text-zinc-700 ">
           <p className="font-medium mb-2">Personzalización de card informativa</p>
           Esta tarjeta o la cantidad seleccionada aparecerá en la página de inicio de la plataforma, permitiendo a los clientes visualizar las características principales de sus productos o explorar las categorías disponibles. Estas tarjetas iniciales están diseñadas para motivar al usuario a visitar la sección de productos y descubrir más detalles.
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6  ">
         {/* Vista previa de la card */}
-        <div className={cardClasses}>
+        <div className={cardClasses }>
           {cardSettings.showImage && (
-            <div className="relative w-full h-48">
+            <div className="relative h-48">
               <img
                 src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
                 alt="Card preview"
@@ -577,11 +576,50 @@ const borderWidthOptions = [
             </div>
           </div>
 
-          {/* Icono */}
+          {/* Color del icono */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Icono</span>
+              <span className="text-sm text-zinc-500">Color del icono</span>
+            </div>
+            <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
+              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Seleccionar icono" />
+              </SelectTrigger>
+              <SelectContent>
+                {[...iconOptions, { name: "Carrito de compras", value: "shopping-cart" }].map((icon) => (
+                  <SelectItem key={icon.value} value={icon.value}>
+                    {icon.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+                {/* Color del titulo de la card */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Type className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color titulo de la card</span>
+            </div>
+            <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
+              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Seleccionar icono" />
+              </SelectTrigger>
+              <SelectContent>
+                {[...iconOptions, { name: "Carrito de compras", value: "shopping-cart" }].map((icon) => (
+                  <SelectItem key={icon.value} value={icon.value}>
+                    {icon.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Color del titulo de la card */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Type className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color detalle de la card</span>
             </div>
             <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
@@ -598,7 +636,7 @@ const borderWidthOptions = [
           </div>
 
           {/* Título */}
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Type className="w-4 h-4 text-zinc-500" />
               <span className="text-sm text-zinc-500">Título</span>
@@ -610,10 +648,10 @@ const borderWidthOptions = [
               className="w-full h-10 px-3 py-2 bg-zinc-100  border border-zinc-200  rounded-xl text-sm"
               placeholder="Título de la card"
             />
-          </div>
+          </div> */}
 
           {/* Descripción */}
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <div className="flex items-center gap-2">
               <FileText className="w-4 h-4 text-zinc-500" />
               <span className="text-sm text-zinc-500">Descripción</span>
@@ -624,7 +662,7 @@ const borderWidthOptions = [
               className="w-full px-3 py-2 bg-zinc-100  border border-zinc-200  rounded-xl text-sm min-h-[80px]"
               placeholder="Descripción de la card"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* Alineación del texto */}
@@ -875,23 +913,6 @@ const borderWidthOptions = [
       </div>
 
       <div className="w-full max-w-xs">
-        <Select
-          onValueChange={(value) => {
-            if (value === "si") {
-              setCurrentStep("areas-list")
-            }else{
-             setCurrentStep("finaly-process")
-            }
-          }}
-        >
-          <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
-            <SelectValue placeholder="Seleccione una opción" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="si">Sí, venderé productos en línea</SelectItem>
-            <SelectItem value="no">No, no venderé productos en línea</SelectItem>
-          </SelectContent>
-        </Select>
         <div className="flex flex-row items-center justify-center gap-2">
       <button
         type="button"
@@ -919,7 +940,7 @@ const borderWidthOptions = [
 
   const divChildren = (
     <div>
-      {currentStep === "initial-question" && renderInitialQuestion()}
+        {currentStep === "initial-question" && renderInitialQuestion()}
         {currentStep === "areas-list" && renderAreasList()}
         {currentStep === "card-customization" && renderCardCustomization()}
         {currentStep === "complete" && renderComplete()}

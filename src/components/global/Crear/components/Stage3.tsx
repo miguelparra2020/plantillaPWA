@@ -85,7 +85,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     { name: "Extra Large", value: "shadow-xl" },
     { name: "2XL", value: "shadow-2xl" },
   ]
-  const progressPorcent = (currentStage / totalStages) * 100
+  const progressPorcent = Math.floor((currentStage / totalStages) * 100)
 
   const [settings, setSettings] = useState<ButtonSettings>({
     bgColor: "blue",

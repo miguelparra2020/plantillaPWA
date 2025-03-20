@@ -1,6 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import {
+    ImageUpscale,
     HandPlatter,
     ArrowBigLeftDash,
     ArrowBigRightDash,
@@ -145,7 +146,7 @@ const borderWidthOptions = [
   ]
 
 
-  const progressPorcent = Math.floor((currentStage / totalStages) * 100)
+  const progressPorcent = (currentStage / totalStages) * 100
   const [currentStep, setCurrentStep] = useState<CustomizationStep>("initial-question")
   console.log("currentStep", currentStep)
   const [isLoading, setIsLoading] = useState(false)
@@ -382,12 +383,12 @@ const borderWidthOptions = [
   const renderInitialQuestion = () => (
     <div className="flex flex-col items-center justify-center h-full p-6 space-y-8">
       <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-        <HandPlatter className="w-8 h-8" />
+        <ImageUpscale className="w-8 h-8" />
       </div>
 
       <div className="text-center space-y-2">
         <h3 className="text-lg font-medium text-zinc-900">
-          ¿Va a prestar servicios a sus usuarios?
+          ¿Desea compartir nuevas publicaciones, novedades o eventos en su tienda?
         </h3>
         <p className="text-sm text-zinc-500  max-w-xs">
           Esta información nos ayudará a personalizar su experiencia de comercio electrónico.
@@ -989,7 +990,7 @@ const borderWidthOptions = [
 
   return (
     <CardGeneral 
-      title={`${currentStage} - Personalización de prestación de servicios`} 
+      title={`${currentStage} - Personalización de venta de productos`} 
       subtitle={"Transforme su tienda online con un diseño único que impulse sus ventas"} 
       progress={progressPorcent} 
       children={divChildren}

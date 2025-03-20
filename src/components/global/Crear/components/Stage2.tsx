@@ -8,7 +8,7 @@ import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 import { ColorSettingsTitles } from "../interfaces/modelsStage2"
 
 const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
-  const progressPorcent = (currentStage / totalStages) * 100
+  const progressPorcent = Math.floor((currentStage / totalStages) * 100)
 
   const [settings, setSettings] = useState<ColorSettingsTitles>({
     titleColor: "cyan",

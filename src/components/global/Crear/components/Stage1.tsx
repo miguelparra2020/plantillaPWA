@@ -15,7 +15,7 @@ import { EcommerceSettings } from "../interfaces/modelsStage1"
 const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }) => {
 
     
-    const progressPorcent = (currentStage / totalStages) * 100
+    const progressPorcent = Math.floor((currentStage / totalStages) * 100)
     
     const [settings, setSettings] = useState<EcommerceSettings>({
         storeName: "",

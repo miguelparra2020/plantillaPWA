@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DivVertical, PaginateStages, Stage1, Stage2, Stage3, Stage4, Stage5} from '@globals'
+import Stage6 from './components/Stage6'
 
 const Crear = () => {
   const [currentStage, setCurrentStage] = useState(() => {
@@ -27,7 +28,7 @@ const Crear = () => {
     })
   }
 
-  const TotalStages = 5
+  const TotalStages = 6
 
   const renderStage = () => {
     switch (currentStage) {
@@ -41,6 +42,8 @@ const Crear = () => {
         return <Stage4 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
       case 5:
         return <Stage5 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
+      case 6:
+          return <Stage6 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
       default:
         return <Stage1 totalStages={TotalStages} currentStage={currentStage} handleNext={handleNext} handlePrev={handlePrev}/>
     }
