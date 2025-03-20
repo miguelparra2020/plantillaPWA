@@ -10,6 +10,8 @@ import {
     Type,
     FileText,
     Layers,
+    ArrowBigLeftDash,
+    ArrowBigRightDash,
   } from "lucide-react"
   import { Label } from "./ui/label"
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
@@ -578,13 +580,24 @@ const Stage5: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="w-full h-10 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-100 dark:text-zinc-900 text-white text-sm font-medium rounded-xl transition-colors self-end"
-            >
-              <Sparkles className="w-4 h-4" />
-              Guardar personalización
-            </button>
+            <div className="flex flex-row items-center justify-center gap-2">
+      <button
+        type="button"
+        onClick={() => handlePrev()}
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
+      </button>
+        <button
+          type="button"
+          onClick={() => handleNext()}
+          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        >
+            <ArrowBigRightDash className="w-4 h-4" />
+            Siguiente personalización
+        </button>
+        </div>
           </form>
     </div>
   )

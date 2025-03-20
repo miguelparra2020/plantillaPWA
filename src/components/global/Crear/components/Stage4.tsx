@@ -411,7 +411,18 @@ const borderWidthOptions = [
             <SelectItem value="no">No, no venderé productos en línea</SelectItem>
           </SelectContent>
         </Select>
+        <div className="flex flex-row items-center justify-center gap-2">
+        <button
+        type="button"
+        onClick={() => handlePrev()}
+        className="w-full h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
+      </button>
+        </div>
       </div>
+      
     </div>
   )
 
@@ -514,6 +525,13 @@ const borderWidthOptions = [
   // Renderizar la personalización de la card
   const renderCardCustomization = () => (
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between">
+<div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
+        <div className="text-sm text-zinc-700 ">
+          <p className="font-medium mb-2">Personzalización de card informativa</p>
+          Esta tarjeta o la cantidad seleccionada aparecerá en la página de inicio de la plataforma, permitiendo a los clientes visualizar las características principales de sus productos o explorar las categorías disponibles. Estas tarjetas iniciales están diseñadas para motivar al usuario a visitar la sección de productos y descubrir más detalles.
+        </div>
+      </div>
+
       <div className="space-y-6">
         {/* Vista previa de la card */}
         <div className={cardClasses}>
@@ -776,13 +794,24 @@ const borderWidthOptions = [
         </div>
       </div>
 
+      <div className="flex flex-row items-center justify-center gap-2">
       <button
-        type="submit"
-        className="w-full h-10 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors self-end"
+        type="button"
+        onClick={() => setCurrentStep("initial-question")}
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
       >
-        <Sparkles className="w-4 h-4" />
-        Guardar personalización
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
       </button>
+        <button
+          type="button"
+          onClick={() => handleNext()}
+          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        >
+            <ArrowBigRightDash className="w-4 h-4" />
+            Siguiente personalización
+        </button>
+        </div>
     </form>
   )
 
@@ -841,11 +870,8 @@ const borderWidthOptions = [
 
       <div className="text-center space-y-2">
         <h3 className="text-lg font-medium text-zinc-900">
-          ¿Va a vender productos en línea a sus usuarios?
+        No, no venderé productos en línea
         </h3>
-        <p className="text-sm text-zinc-500  max-w-xs">
-          Esta información nos ayudará a personalizar su experiencia de comercio electrónico.
-        </p>
       </div>
 
       <div className="w-full max-w-xs">
@@ -866,14 +892,26 @@ const borderWidthOptions = [
             <SelectItem value="no">No, no venderé productos en línea</SelectItem>
           </SelectContent>
         </Select>
-      </div>
+        <div className="flex flex-row items-center justify-center gap-2">
+      <button
+        type="button"
+        onClick={() => setCurrentStep("initial-question")}
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
+      </button>
         <button
           type="button"
-          className="w-[90%] mt-4 p-4  flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+          onClick={() => handleNext()}
+          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
         >
             <ArrowBigRightDash className="w-4 h-4" />
-          Continuar con la siguiente personalización
+            Siguiente personalización
         </button>
+        </div>
+      </div>
+      
     </div>
     
   )
@@ -921,16 +959,7 @@ const borderWidthOptions = [
             </Card>
           </div>
         )}
-        <div className="flex flex-row items-center justify-center gap-2">
-        <button
-        type="button"
-        onClick={() => handlePrev()}
-        className="w-[80%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
-      >
-        <ArrowBigLeftDash className="w-4 h-4" />
-        atrás
-      </button>
-        </div>
+        
         <br />
     </div>
   )
