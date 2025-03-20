@@ -921,6 +921,17 @@ const borderWidthOptions = [
             </Card>
           </div>
         )}
+        <div className="flex flex-row items-center justify-center gap-2">
+        <button
+        type="button"
+        onClick={() => handlePrev()}
+        className="w-[80%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
+      </button>
+        </div>
+        <br />
     </div>
   )
 
