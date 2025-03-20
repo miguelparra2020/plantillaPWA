@@ -15,15 +15,13 @@ import { EcommerceSettings } from "../interfaces/modelsStage1"
 const Stage1 : React.FC<StageProps> = ({ totalStages, currentStage, handleNext }) => {
 
     
-    const progressPorcentStage = (currentStage / totalStages) * 100
+    const progressPorcent = (currentStage / totalStages) * 100
     
     const [settings, setSettings] = useState<EcommerceSettings>({
         storeName: "",
         description: "",
         language: "español"
     })
-  const QuantityItemsChildren = (settings.description !== "" && settings.storeName !== "" && settings.language !== "") ? 1 : (settings.description === "" && settings.storeName !== "" && settings.language !== "") ? 2 : (settings.description !== "" && settings.storeName === "" && settings.language !== "") ? 2 : (settings.description !== "" && settings.storeName !== "" && settings.language === "") ? 2 : 3
-  const progressPorcent = Math.floor(progressPorcentStage / QuantityItemsChildren)
 
     
       const handleSettingsChange = (key: keyof EcommerceSettings, value: string) => {

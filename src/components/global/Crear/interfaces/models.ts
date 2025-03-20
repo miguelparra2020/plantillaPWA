@@ -5,3 +5,7 @@ export interface StageProps {
     handlePrev?: () => void
   }
 
+  export interface ColorSettings{
+    titleColor: string
+    paragraphColor: string
+  }
