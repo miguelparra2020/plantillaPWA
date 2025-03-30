@@ -15,6 +15,7 @@ import {
     ImageIcon,
     ShoppingCart,
     Check,
+    Palette,
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Switch } from "./ui/switch"
@@ -71,6 +72,7 @@ const iconOptions = [
     { name: "Regalo", value: "gift" },
     { name: "Calendario", value: "calendar" },
     { name: "Gráfico", value: "bar-chart" },
+    { name: "Carrito de compras", value: "shopping-cart" },
   ]
   
   // Definición de colores con sus valores de Tailwind
@@ -161,18 +163,27 @@ const borderWidthOptions = [
     showImage: true,
   })
 
+  const [iconColor, setIconColor] = useState<string>('slate')
+  const [titleColor, setTitleColor] = useState<string>('slate')
+  const [detailColor, setDetailColor] = useState<string>('slate')
 
-
-
-  const handleSettingsChange = <K extends keyof CardSettings>(key: K, value: CardSettings[K]) => {
-    setCardSettings((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
+  const colorMap = {
+    amber: '#f59e0b',
+    emerald: '#10b981',
+    sky: '#0ea5e9',
+    rose: '#f43f5e',
+    slate: '#64748b',
+    zinc: '#71717a',
+    neutral: '#737373',
+    stone: '#78716c'
   }
 
-   // Renderizar el icono seleccionado
-   const renderIcon = () => {
+  const getIconColor = (color: string) => {
+    return colorMap[color as keyof typeof colorMap] || color
+  }
+
+  const renderIcon = (color: string = 'currentColor') => {
+    const iconColor = getIconColor(color)
     switch (cardSettings.icon) {
       case "star":
         return (
@@ -182,7 +193,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -199,13 +210,13 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="w-8 h-8"
           >
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path>
           </svg>
         )
       case "thumbs-up":
@@ -216,7 +227,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -234,7 +245,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -252,7 +263,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -271,7 +282,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -292,7 +303,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -312,7 +323,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -331,7 +342,7 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -350,15 +361,13 @@ const borderWidthOptions = [
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="currentColor"
+            stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             className="w-8 h-8"
           >
-            <circle cx="8" cy="21" r="1"></circle>
-            <circle cx="19" cy="21" r="1"></circle>
-            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            <circle cx="12" cy="12" r="10"></circle>
           </svg>
         )
     }
@@ -524,7 +533,7 @@ const borderWidthOptions = [
   // Renderizar la personalización de la card
   const renderCardCustomization = () => (
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
-<div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
+      <div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
         <div className="text-sm text-zinc-700 ">
           <p className="font-medium mb-2">Personzalización de card informativa</p>
           Esta tarjeta o la cantidad seleccionada aparecerá en la página de inicio de la plataforma, permitiendo a los clientes visualizar las características principales de sus productos o explorar las categorías disponibles. Estas tarjetas iniciales están diseñadas para motivar al usuario a visitar la sección de productos y descubrir más detalles.
@@ -546,14 +555,14 @@ const borderWidthOptions = [
           <div className={`p-5 ${textClasses}`}>
             <div className="flex flex-col items-start gap-4">
               {cardSettings.textAlign === "text-center" ? (
-                <div className="mx-auto">{renderIcon()}</div>
+                <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
               ) : cardSettings.textAlign === "text-right" ? (
-                <div className="ml-auto">{renderIcon()}</div>
+                <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
               ) : (
-                renderIcon()
+                <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
               )}
-              <h5 className="text-xl font-bold tracking-tight text-gray-900 ">{cardSettings.title}</h5>
-              <p className="font-normal text-gray-700 ">{cardSettings.description}</p>
+              <h5 className={`text-xl font-bold tracking-tight ${getIconColor(titleColor)}`}>{cardSettings.title}</h5>
+              <p className={`font-normal ${getIconColor(detailColor)}`}>{cardSettings.description}</p>
             </div>
           </div>
         </div>
@@ -570,6 +579,8 @@ const borderWidthOptions = [
                 <span className="text-sm text-zinc-500">Mostrar imagen</span>
               </div>
               <Switch
+                className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
+                style={{ transition: 'background-color 0.2s' }}
                 checked={cardSettings.showImage}
                 onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
               />
@@ -579,36 +590,26 @@ const borderWidthOptions = [
           {/* Color del icono */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <Type className="w-4 h-4 text-zinc-500" />
+              <Palette className="w-4 h-4 text-zinc-500" />
               <span className="text-sm text-zinc-500">Color del icono</span>
             </div>
-            <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
-              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
-                <SelectValue placeholder="Seleccionar icono" />
+            <Select
+              value={iconColor}
+              onValueChange={(value) => setIconColor(value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(iconColor) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
               </SelectTrigger>
-              <SelectContent>
-                {[...iconOptions, { name: "Carrito de compras", value: "shopping-cart" }].map((icon) => (
-                  <SelectItem key={icon.value} value={icon.value}>
-                    {icon.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-                {/* Color del titulo de la card */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color titulo de la card</span>
-            </div>
-            <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
-              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
-                <SelectValue placeholder="Seleccionar icono" />
-              </SelectTrigger>
-              <SelectContent>
-                {[...iconOptions, { name: "Carrito de compras", value: "shopping-cart" }].map((icon) => (
-                  <SelectItem key={icon.value} value={icon.value}>
-                    {icon.name}
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value) }}></div>
+                      <span>{color.name}</span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -619,16 +620,54 @@ const borderWidthOptions = [
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color detalle de la card</span>
+              <span className="text-sm text-zinc-500">Color del título de la card</span>
             </div>
-            <Select value={cardSettings.icon} onValueChange={(value) => handleSettingsChange("icon", value)}>
-              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
-                <SelectValue placeholder="Seleccionar icono" />
+            <Select
+              value={titleColor}
+              onValueChange={(value) => setTitleColor(value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(titleColor) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
               </SelectTrigger>
-              <SelectContent>
-                {[...iconOptions, { name: "Carrito de compras", value: "shopping-cart" }].map((icon) => (
-                  <SelectItem key={icon.value} value={icon.value}>
-                    {icon.name}
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value) }}></div>
+                      <span>{color.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Color del detalle de la card */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color del detalle de la card</span>
+            </div>
+            <Select
+              value={detailColor}
+              onValueChange={(value) => setDetailColor(value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(detailColor) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value) }}></div>
+                      <span>{color.name}</span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -984,6 +1023,13 @@ const borderWidthOptions = [
         <br />
     </div>
   )
+
+  const handleSettingsChange = <K extends keyof CardSettings>(key: K, value: CardSettings[K]) => {
+    setCardSettings((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
 
   return (
     <CardGeneral 

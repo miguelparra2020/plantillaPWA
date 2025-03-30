@@ -121,7 +121,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     gray: { 500: 'bg-gray-500', 600: 'bg-gray-600', 700: 'bg-gray-700' },
     neutral: { 500: 'bg-neutral-500', 600: 'bg-neutral-600', 700: 'bg-neutral-700' },
     stone: { 500: 'bg-stone-500', 600: 'bg-stone-600', 700: 'bg-stone-700' },
-  } as const;
+  } as const
 
   const hoverColorClassMap = {
     red: { 500: 'hover:bg-red-700', 600: 'hover:bg-red-800', 700: 'hover:bg-red-900' },
@@ -146,7 +146,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     gray: { 500: 'hover:bg-gray-700', 600: 'hover:bg-gray-800', 700: 'hover:bg-gray-900' },
     neutral: { 500: 'hover:bg-neutral-700', 600: 'hover:bg-neutral-800', 700: 'hover:bg-neutral-900' },
     stone: { 500: 'hover:bg-stone-700', 600: 'hover:bg-stone-800', 700: 'hover:bg-stone-900' },
-  } as const;
+  } as const
 
   const borderColorClassMap = {
     red: { 500: 'border-red-500', 600: 'border-red-600', 700: 'border-red-700' },
@@ -171,7 +171,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     gray: { 500: 'border-gray-500', 600: 'border-gray-600', 700: 'border-gray-700' },
     neutral: { 500: 'border-neutral-500', 600: 'border-neutral-600', 700: 'border-neutral-700' },
     stone: { 500: 'border-stone-500', 600: 'border-stone-600', 700: 'border-stone-700' },
-  } as const;
+  } as const
 
   const handleSettingsChange = <K extends keyof ButtonSettings>(key: K, value: ButtonSettings[K]) => {
     setSettings((prev) => ({
