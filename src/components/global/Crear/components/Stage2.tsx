@@ -38,6 +38,13 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     <div>
       <form className="flex flex-col gap-4 flex-1 p-4 justify-between">
         <div className="space-y-6">
+        <div className="p-4 border border-zinc-200  rounded-xl">
+            <h4 className={`text-lg font-medium mb-2 ${titleColorClass}`}>Vista previa de título</h4>
+            <p className={`text-sm ${paragraphColorClass}`}>
+              Este es un ejemplo de cómo se verán los párrafos en su tienda con el color seleccionado. La elección
+              de colores adecuados mejora la experiencia de usuario y refuerza su identidad de marca.
+            </p>
+          </div>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Type className="w-4 h-4 text-zinc-500" />
@@ -94,13 +101,7 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
             </Select>
           </div>
 
-          <div className="p-4 border border-zinc-200  rounded-xl">
-            <h4 className={`text-lg font-medium mb-2 ${titleColorClass}`}>Vista previa de título</h4>
-            <p className={`text-sm ${paragraphColorClass}`}>
-              Este es un ejemplo de cómo se verán los párrafos en su tienda con el color seleccionado. La elección
-              de colores adecuados mejora la experiencia de usuario y refuerza su identidad de marca.
-            </p>
-          </div>
+          
         </div>
 
         <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">

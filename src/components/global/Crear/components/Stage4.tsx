@@ -24,6 +24,8 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Card, CardContent } from "./ui/card"
 import CardGeneral from "./CardGeneral"
 import { ColorSettings, StageProps } from "../interfaces/models"
+import { ColorSettingsTitles } from "../interfaces/modelsStage2"
+import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 
 type CustomizationStep =
   | "initial-question"
@@ -166,6 +168,28 @@ const borderWidthOptions = [
   const [iconColor, setIconColor] = useState<string>('slate')
   const [titleColor, setTitleColor] = useState<string>('slate')
   const [detailColor, setDetailColor] = useState<string>('slate')
+  const [settings, setSettings] = useState<ColorSettingsTitles>({
+    titleColor: "cyan",
+    paragraphColor: "slate",
+  })
+
+  const handleSettingsChangeTitle = (key: keyof ColorSettingsTitles, value: string) => {
+    setSettings((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
+
+  const titleColorClass = `text-${settings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
+
+  const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
+
+  const getColorClass = (color: string, isTitle: boolean) => {
+    const colorOption = colorOptionsTitles.find((option) => option.value === color)
+    if (!colorOption) return ""
+    const shade = isTitle ? colorOption.titleShade : colorOption.paragraphShade
+    return colorClassMap[color as keyof typeof colorClassMap]?.[shade] || ""
+  }
 
   const colorMap = {
     amber: '#f59e0b',
@@ -178,8 +202,37 @@ const borderWidthOptions = [
     stone: '#78716c'
   }
 
+  const textColorMap = {
+    red: '#ef4444',
+    orange: '#f97316',
+    amber: '#f59e0b',
+    yellow: '#eab308',
+    lime: '#84cc16',
+    green: '#22c55e',
+    emerald: '#10b981',
+    teal: '#14b8a6',
+    cyan: '#06b6d4',
+    sky: '#0ea5e9',
+    blue: '#3b82f6',
+    indigo: '#6366f1',
+    violet: '#8b5cf6',
+    purple: '#a855f7',
+    fuchsia: '#d946ef',
+    pink: '#ec4899',
+    rose: '#f43f5e',
+    slate: '#64748b',
+    zinc: '#71717a',
+    gray: '#6b7280',
+    neutral: '#737373',
+    stone: '#78716c'
+  }
+
   const getIconColor = (color: string) => {
     return colorMap[color as keyof typeof colorMap] || color
+  }
+
+  const getTextColor = (color: string) => {
+    return textColorMap[color as keyof typeof textColorMap] || '#000000'
   }
 
   const renderIcon = (color: string = 'currentColor') => {
@@ -553,7 +606,7 @@ const borderWidthOptions = [
             </div>
           )}
           <div className={`p-5 ${textClasses}`}>
-            <div className="flex flex-col items-start gap-4">
+            <div className="flex flex-col gap-4">
               {cardSettings.textAlign === "text-center" ? (
                 <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
               ) : cardSettings.textAlign === "text-right" ? (
@@ -561,8 +614,8 @@ const borderWidthOptions = [
               ) : (
                 <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
               )}
-              <h5 className={`text-xl font-bold tracking-tight ${getIconColor(titleColor)}`}>{cardSettings.title}</h5>
-              <p className={`font-normal ${getIconColor(detailColor)}`}>{cardSettings.description}</p>
+              <span className={`text-xl font-bold ${titleColorClass}`}>{cardSettings.title}</span>
+              <p className={`font-normal ${paragraphColorClass}`}>{cardSettings.description}</p>
             </div>
           </div>
         </div>
@@ -623,20 +676,20 @@ const borderWidthOptions = [
               <span className="text-sm text-zinc-500">Color del título de la card</span>
             </div>
             <Select
-              value={titleColor}
-              onValueChange={(value) => setTitleColor(value)}
+              value={settings.titleColor}
+              onValueChange={(value) => handleSettingsChangeTitle("titleColor", value)}
             >
-              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(titleColor) }}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.titleColor, true)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
               <SelectContent className="max-h-[300px] bg-white">
-                {colorOptions.map((color) => (
+                {colorOptionsTitles.map((color) => (
                   <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value) }}></div>
+                      <div className={`w-4 h-4 rounded-full ${getColorClass(color.value, true)}`}></div>
                       <span>{color.name}</span>
                     </div>
                   </SelectItem>
@@ -652,20 +705,20 @@ const borderWidthOptions = [
               <span className="text-sm text-zinc-500">Color del detalle de la card</span>
             </div>
             <Select
-              value={detailColor}
-              onValueChange={(value) => setDetailColor(value)}
+              value={settings.paragraphColor}
+              onValueChange={(value) => handleSettingsChangeTitle("paragraphColor", value)}
             >
-              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(detailColor) }}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.paragraphColor, false)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
               <SelectContent className="max-h-[300px] bg-white">
-                {colorOptions.map((color) => (
+                {colorOptionsTitles.map((color) => (
                   <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value) }}></div>
+                      <div className={`w-4 h-4 rounded-full ${getColorClass(color.value, false)}`}></div>
                       <span>{color.name}</span>
                     </div>
                   </SelectItem>
