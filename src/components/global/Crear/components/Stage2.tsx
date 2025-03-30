@@ -20,9 +20,7 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
       ...prev,
       [key]: value,
     }))
-  }
-
- 
+  } 
 
   const getColorClass = (color: string, isTitle: boolean) => {
     const colorOption = colorOptionsTitles.find((option) => option.value === color)
@@ -32,6 +30,7 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
   }
 
   const titleColorClass = `text-${settings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
+  
   const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
 
   const divChildren = (

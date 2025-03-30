@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { DivVertical, PaginateStages, Stage1, Stage2, Stage3, Stage4, Stage5} from '@globals'
+import { Stage1, Stage2, Stage3, Stage4, Stage5} from '@globals'
 import Stage6 from './components/Stage6'
+import { CrearProvider } from './context/CrearContext'
 
 const Crear = () => {
   const [currentStage, setCurrentStage] = useState(() => {
@@ -50,12 +51,14 @@ const Crear = () => {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col" >
-      {renderStage()}
-      <br />
-      <br />
-      <br />
-    </div>
+    <CrearProvider>
+      <div className="flex justify-center items-center flex-col" >
+        {renderStage()}
+        <br />
+        <br />
+        <br />
+      </div>
+    </CrearProvider>
   )
 }
 

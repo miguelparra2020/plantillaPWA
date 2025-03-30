@@ -24,7 +24,7 @@ const CardGeneral: React.FC<CardProps> = ({ title, subtitle, progress, children 
             </div>                        
           </div>
           {children}
-      </div>
+        </div>
     )
   }
 

@@ -799,7 +799,7 @@ const borderWidthOptions = [
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
               <SelectValue placeholder="Redondeo" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {roundedOptions.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.name}
@@ -819,7 +819,7 @@ const borderWidthOptions = [
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
               <SelectValue placeholder="Sombra" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white">
               {shadowOptions.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.name}
@@ -837,6 +837,8 @@ const borderWidthOptions = [
               <span className="text-sm text-zinc-500">Borde</span>
             </div>
             <Switch
+              className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
+              style={{ transition: 'background-color 0.2s' }}
               checked={cardSettings.hasBorder}
               onCheckedChange={(checked) => handleSettingsChange("hasBorder", checked)}
             />
