@@ -11,10 +11,13 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
   const { settings, setSettings } = useCrearContext()
 
-  const handleSettingsChange = (key: keyof typeof settings, value: string) => {
+  const handleSettingsChange = (key: keyof typeof settings.Stage1, value: string) => {
     setSettings((prev) => ({
       ...prev,
-      [key]: value,
+      Stage1: {
+        ...prev.Stage1,
+        [key]: value
+      }
     }))
   }
 
@@ -31,7 +34,7 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
             <Input
               type='text'
               placeholder='Mi comercio'
-              value={settings.storeName}
+              value={settings.Stage1.storeName}
               onChange={(e) => handleSettingsChange('storeName', e.target.value)}
               className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
             />
@@ -44,7 +47,7 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
             </div>
             <Textarea
               placeholder='Somos una empresa dedicada al comercio electrónico de productos tecnológicos, etc...'
-              value={settings.description}
+              value={settings.Stage1.description}
               onChange={(e) => handleSettingsChange('description', e.target.value)}
               className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
             />
@@ -55,7 +58,7 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
               <Globe className='w-4 h-4 text-zinc-500' />
               <span className='text-sm text-zinc-500'>Idioma de su plataforma</span>
             </div>
-            <Select value={settings.language} onValueChange={(value) => handleSettingsChange('language', value)}>
+            <Select value={settings.Stage1.language} onValueChange={(value) => handleSettingsChange('language', value)}>
               <SelectTrigger className='w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl'>
                 <SelectValue placeholder='Seleccione un idioma' />
               </SelectTrigger>
@@ -94,8 +97,9 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
         <button
           type='button'
           onClick={handleNext}
+          disabled={settings.Stage1.storeName === '' || settings.Stage1.description === '' || settings.Stage1.language === ''}
           className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
-            settings.storeName === '' || settings.description === '' || settings.language === ''
+            settings.Stage1.storeName === '' || settings.Stage1.description === '' || settings.Stage1.language === ''
               ? 'bg-zinc-600'
               : 'bg-zinc-900 hover:bg-zinc-800'
           }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
