@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import CardGeneral from "./CardGeneral"
 import { ColorSettings, StageProps } from "../interfaces/models"
 import { Switch } from "./ui/switch"
+import { useCrearContext } from '../context/CrearContext'
 
 interface ButtonSettings {
   // Colores
@@ -23,6 +24,8 @@ interface ButtonSettings {
 }
 
 const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
+  const { settings, setSettings } = useCrearContext()
+
   const colorOptionsButtons = [
     { name: "Red", value: "red" },
     { name: "Orange", value: "orange" },
@@ -87,16 +90,15 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
   ]
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
 
-  const [settings, setSettings] = useState<ButtonSettings>({
-    bgColor: "blue",
-    bgShade: 500,
-    rounded: "rounded-md",
-    hasBorder: false,
-    borderColor: "gray",
-    borderShade: 500,
-    borderWidth: "border",
-    shadow: "shadow",
-  })
+  const handleSettingsChange = <K extends keyof ButtonSettings>(key: K, value: ButtonSettings[K]) => {
+    setSettings((prev) => ({
+      ...prev,
+      Stage3: {
+        ...prev.Stage3,
+        [key]: value,
+      },
+    }))
+  }
 
   const colorClassMap = {
     red: { 500: 'bg-red-500', 600: 'bg-red-600', 700: 'bg-red-700' },
@@ -173,14 +175,6 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     stone: { 500: 'border-stone-500', 600: 'border-stone-600', 700: 'border-stone-700' },
   } as const
 
-  const handleSettingsChange = <K extends keyof ButtonSettings>(key: K, value: ButtonSettings[K]) => {
-    setSettings((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  // Calcular el hover shadow (1 grado más fuerte)
   const getHoverShadow = (shadow: string) => {
     if (shadow === "shadow-none") return "shadow-sm"
     if (shadow === "shadow-sm") return "shadow"
@@ -192,16 +186,15 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     return shadow
   }
 
-  // Generar clases para el botón de vista previa
   const buttonClasses = `
     px-4 py-2 font-medium text-white
-    ${settings.rounded}
-    ${colorClassMap[settings.bgColor][settings.bgShade]}
-    ${hoverColorClassMap[settings.bgColor][settings.bgShade]}
-    ${settings.shadow}
-    hover:${getHoverShadow(settings.shadow)}
+    ${settings.Stage3.rounded}
+    ${colorClassMap[settings.Stage3.bgColor][settings.Stage3.bgShade]}
+    ${hoverColorClassMap[settings.Stage3.bgColor][settings.Stage3.bgShade]}
+    ${settings.Stage3.shadow}
+    hover:${getHoverShadow(settings.Stage3.shadow)}
     transition-all duration-200
-    ${settings.hasBorder ? `${settings.borderWidth} ${borderColorClassMap[settings.borderColor][settings.borderShade]}` : ""}
+    ${settings.Stage3.hasBorder ? `${settings.Stage3.borderWidth} ${borderColorClassMap[settings.Stage3.borderColor][settings.Stage3.borderShade]}` : ""}
   `
 
   const divChildren = (
@@ -222,10 +215,10 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   <span className="text-sm text-zinc-500">Color de fondo</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Select value={settings.bgColor} onValueChange={(value) => handleSettingsChange("bgColor", value)}>
+                  <Select value={settings.Stage3.bgColor} onValueChange={(value) => handleSettingsChange("bgColor", value)}>
                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${settings.bgColor}-${settings.bgShade}`}></div>
+                        <div className={`w-4 h-4 rounded-full bg-${settings.Stage3.bgColor}-${settings.Stage3.bgShade}`}></div>
                         <SelectValue placeholder="Color" />
                       </div>
                     </SelectTrigger>
@@ -233,7 +226,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                       {colorOptionsButtons.map((color) => (
                         <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                           <div className="flex items-center gap-2">
-                            <div className={`w-4 h-4 rounded-full bg-${color.value}-${settings.bgShade}`}></div>
+                            <div className={`w-4 h-4 rounded-full bg-${color.value}-${settings.Stage3.bgShade}`}></div>
                             <span>{color.name}</span>
                           </div>
                         </SelectItem>
@@ -242,7 +235,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   </Select>
 
                   <Select
-                    value={settings.bgShade.toString()}
+                    value={settings.Stage3.bgShade.toString()}
                     onValueChange={(value) => handleSettingsChange("bgShade", Number.parseInt(value))}
                   >
                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
@@ -258,7 +251,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   </Select>
                 </div>
                 <p className="text-xs text-zinc-500">
-                  El hover será automáticamente {settings.bgColor}-{hoverColorClassMap[settings.bgColor][settings.bgShade].split('-')[2]}
+                  El hover será automáticamente {settings.Stage3.bgColor}-{hoverColorClassMap[settings.Stage3.bgColor][settings.Stage3.bgShade].split('-')[2]}
                 </p>
               </div>
 
@@ -268,7 +261,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   <CircleDashed className="w-4 h-4 text-zinc-500" />
                   <span className="text-sm text-zinc-500">Redondeo de esquinas</span>
                 </div>
-                <Select value={settings.rounded} onValueChange={(value) => handleSettingsChange("rounded", value)}>
+                <Select value={settings.Stage3.rounded} onValueChange={(value) => handleSettingsChange("rounded", value)}>
                   <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                     <SelectValue placeholder="Redondeo" />
                   </SelectTrigger>
@@ -288,7 +281,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   <Layers className="w-4 h-4 text-zinc-500" />
                   <span className="text-sm text-zinc-500">Sombra</span>
                 </div>
-                <Select value={settings.shadow} onValueChange={(value) => handleSettingsChange("shadow", value)}>
+                <Select value={settings.Stage3.shadow} onValueChange={(value) => handleSettingsChange("shadow", value)}>
                   <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                     <SelectValue placeholder="Sombra" />
                   </SelectTrigger>
@@ -301,7 +294,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-zinc-500">
-                  El hover aumentará la sombra a {getHoverShadow(settings.shadow)}
+                  El hover aumentará la sombra a {getHoverShadow(settings.Stage3.shadow)}
                 </p>
               </div>
 
@@ -316,15 +309,15 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                   <Switch
                     className="data-[state=checked]:bg-gray-300  border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
                     style={{ transition: 'background-color 0.2s' }}
-                    checked={settings.hasBorder}
+                    checked={settings.Stage3.hasBorder}
                     onCheckedChange={(checked) => handleSettingsChange("hasBorder", checked)}
                   /> 
                 </div>
 
-                {settings.hasBorder && (
+                {settings.Stage3.hasBorder && (
                   <div className="grid grid-cols-2 gap-2 mt-2">
                     <Select
-                      value={settings.borderWidth}
+                      value={settings.Stage3.borderWidth}
                       onValueChange={(value) => handleSettingsChange("borderWidth", value)}
                     >
                       <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
@@ -340,12 +333,12 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                     </Select>
 
                     <Select
-                      value={settings.borderColor}
+                      value={settings.Stage3.borderColor}
                       onValueChange={(value) => handleSettingsChange("borderColor", value)}
                     >
                       <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                         <div className="flex items-center gap-2">
-                          <div className={`w-4 h-4 rounded-full bg-${settings.borderColor}-${settings.borderShade}`}></div>
+                          <div className={`w-4 h-4 rounded-full bg-${settings.Stage3.borderColor}-${settings.Stage3.borderShade}`}></div>
                           <SelectValue placeholder="Color" />
                         </div>
                       </SelectTrigger>
@@ -353,7 +346,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                         {colorOptionsButtons.map((color) => (
                           <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                             <div className="flex items-center gap-2">
-                              <div className={`w-4 h-4 rounded-full bg-${color.value}-${settings.borderShade}`}></div>
+                              <div className={`w-4 h-4 rounded-full bg-${color.value}-${settings.Stage3.borderShade}`}></div>
                               <span>{color.name}</span>
                             </div>
                           </SelectItem>
@@ -362,7 +355,7 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
                     </Select>
 
                     <Select
-                      value={settings.borderShade.toString()}
+                      value={settings.Stage3.borderShade.toString()}
                       onValueChange={(value) => handleSettingsChange("borderShade", Number.parseInt(value))}
                     >
                       <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">

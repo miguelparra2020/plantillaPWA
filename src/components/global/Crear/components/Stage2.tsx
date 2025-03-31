@@ -5,20 +5,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
 import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
-import { ColorSettingsTitles } from "../interfaces/modelsStage2"
+import { Stage2Settings } from '../interfaces/modelsContext'
+import { useCrearContext } from '../context/CrearContext'
 
 const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
 
-  const [settings, setSettings] = useState<ColorSettingsTitles>({
-    titleColor: "cyan",
-    paragraphColor: "slate",
-  })
-  
-  const handleSettingsChange = (key: keyof ColorSettingsTitles, value: string) => {
+  const { settings, setSettings } = useCrearContext()
+
+  const handleSettingsChange = (key: keyof Stage2Settings, value: string) => {
     setSettings((prev) => ({
       ...prev,
-      [key]: value,
+      Stage2: {
+        ...prev.Stage2,
+        [key]: value,
+      },
     }))
   } 
 
@@ -29,9 +30,9 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
     return colorClassMap[color as keyof typeof colorClassMap]?.[shade] || ""
   }
 
-  const titleColorClass = `text-${settings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
+  const titleColorClass = `text-${settings.Stage2.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage2.titleColor)?.titleShade || 700}`
   
-  const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
+  const paragraphColorClass = `text-${settings.Stage2.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage2.paragraphColor)?.paragraphShade || 600}`
 
   const divChildren = (
     <div>
@@ -50,12 +51,12 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
               <span className="text-sm text-zinc-500">Color para títulos</span>
             </div>
             <Select
-              value={settings.titleColor}
+              value={settings.Stage2.titleColor}
               onValueChange={(value) => handleSettingsChange("titleColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.titleColor, true)}`}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.Stage2.titleColor, true)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
@@ -78,12 +79,12 @@ const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
               <span className="text-sm text-zinc-500">Color para párrafos</span>
             </div>
             <Select
-              value={settings.paragraphColor}
+              value={settings.Stage2.paragraphColor}
               onValueChange={(value) => handleSettingsChange("paragraphColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.paragraphColor, false)}`}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.Stage2.paragraphColor, false)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>

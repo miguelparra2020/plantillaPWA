@@ -8,3 +8,8 @@ export interface ColorSettingsTitles {
   titleColor: string
   paragraphColor: string
 }
+
+export interface Stage2Settings {
+  titleColor: string
+  paragraphColor: string
+}

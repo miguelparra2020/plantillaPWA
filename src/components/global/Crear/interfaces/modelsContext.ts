@@ -1,4 +1,3 @@
-
 // Definir interfaces para cada etapa
 export interface Stage1Settings {
     storeName: string
@@ -7,15 +6,42 @@ export interface Stage1Settings {
   }
 
 export interface Stage2Settings {
-    // Agrega aquí los campos específicos de Stage2
-  }
-  
+  titleColor: string
+  paragraphColor: string
+}
+
 export interface Stage3Settings {
-    // Agrega aquí los campos específicos de Stage3
-  }
-  
+  backgroundColor: string
+  buttonColor: string
+  fontFamily: string
+  bgColor: string
+  bgShade: number
+  rounded: string
+  hasBorder: boolean
+  borderColor: string
+  borderShade: number
+  borderWidth: string
+  shadow: string
+}
+
+export interface cardSettings {
+  titleColor: string
+  paragraphColor: string
+  hasBorder:   boolean
+  borderColor: string
+  borderShade: number
+  borderWidth: string
+  rounded:     string
+  shadow:      string
+  textAlign:   string
+  title:       string
+  description: string
+  icon:        string
+  showImage:   boolean
+}
+
 export interface Stage4Settings {
-    // Agrega aquí los campos específicos de Stage4
+    cardSettings: cardSettings
   }
   
 export interface Stage5Settings {

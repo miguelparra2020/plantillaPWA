@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { CrearContextType, CrearSettings } from '../interfaces/modelsContext'
+import { CrearContextType, CrearSettings, Stage2Settings } from '../interfaces/modelsContext'
 
 const CrearContext = createContext<CrearContextType | null>(null)
 
@@ -11,20 +11,42 @@ export const CrearProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       language: 'español'
     },
     Stage2: {
-      // Inicializa los campos de Stage2
+      titleColor: 'cyan',
+      paragraphColor: 'slate',
     },
     Stage3: {
-      // Inicializa los campos de Stage3
+      backgroundColor: 'white',
+      buttonColor: 'blue',
+      fontFamily: 'Arial',
+      bgColor: 'blue',
+      bgShade: 500,
+      rounded: 'rounded-md',
+      hasBorder: false,
+      borderColor: 'gray',
+      borderShade: 500,
+      borderWidth: 'border',
+      shadow: 'shadow'
     },
     Stage4: {
-      // Inicializa los campos de Stage4
+
+      cardSettings: {
+        titleColor: "cyan",
+        paragraphColor: "slate",
+        hasBorder: true,
+        borderColor: "gray",
+        borderShade: 200,
+        borderWidth: "border",
+        rounded: "rounded-xl",
+        shadow: "shadow-md",
+        textAlign: "text-left",
+        title: "Nuestros Productos",
+        description: "Descubra nuestra selección de productos de alta calidad diseñados para satisfacer sus necesidades.",
+        icon: "shopping-cart",
+        showImage: true,
+      }
     },
-    Stage5: {
-      // Inicializa los campos de Stage5
-    },
-    Stage6: {
-      // Inicializa los campos de Stage6
-    }
+    Stage5: {},
+    Stage6: {}
   })
 
   return (

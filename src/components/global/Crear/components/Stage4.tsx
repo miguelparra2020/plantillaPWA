@@ -23,9 +23,9 @@ import { Label } from "./ui/label"
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
 import { Card, CardContent } from "./ui/card"
 import CardGeneral from "./CardGeneral"
-import { ColorSettings, StageProps } from "../interfaces/models"
-import { ColorSettingsTitles } from "../interfaces/modelsStage2"
+import { StageProps } from "../interfaces/models"
 import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
+import { useCrearContext } from "../context/CrearContext"
 
 type CustomizationStep =
   | "initial-question"
@@ -38,44 +38,7 @@ type CustomizationStep =
   | "complete"
   | "finaly-process"
 
-interface CardSettings {
-    // Bordes
-    hasBorder: boolean
-    borderColor: string
-    borderShade: number
-    borderWidth: string
-  
-    // Esquinas
-    rounded: string
-  
-    // Sombra
-    shadow: string
-  
-    // Alineación del texto
-    textAlign: "text-left" | "text-center" | "text-right"
-  
-    // Contenido editable para la vista previa
-    title: string
-    description: string
-    icon: string
-  
-    // Opción para mostrar imagen
-    showImage: boolean
-  }
-
 const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
-  // Opciones de iconos
-const iconOptions = [
-    { name: "Estrella", value: "star" },
-    { name: "Corazón", value: "heart" },
-    { name: "Pulgar arriba", value: "thumbs-up" },
-    { name: "Verificado", value: "check-circle" },
-    { name: "Bombilla", value: "lightbulb" },
-    { name: "Regalo", value: "gift" },
-    { name: "Calendario", value: "calendar" },
-    { name: "Gráfico", value: "bar-chart" },
-    { name: "Carrito de compras", value: "shopping-cart" },
-  ]
   
   // Definición de colores con sus valores de Tailwind
   const colorOptions = [
@@ -105,15 +68,9 @@ const iconOptions = [
   
   // Opciones de intensidad de color
   const colorShadeOptions = [
-    { name: "100", value: 100 },
-    { name: "200", value: 200 },
-    { name: "300", value: 300 },
-    { name: "400", value: 400 },
     { name: "500", value: 500 },
     { name: "600", value: 600 },
-    { name: "700", value: 700 },
-    { name: "800", value: 800 },
-    { name: "900", value: 900 },
+    { name: "700", value: 700 }
   ]
   
   // Opciones de border radius
@@ -151,38 +108,25 @@ const borderWidthOptions = [
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
   const [currentStep, setCurrentStep] = useState<CustomizationStep>("initial-question")
   const [isLoading, setIsLoading] = useState(false)
-  const [cardSettings, setCardSettings] = useState<CardSettings>({
-    hasBorder: true,
-    borderColor: "gray",
-    borderShade: 200,
-    borderWidth: "border",
-    rounded: "rounded-xl",
-    shadow: "shadow-md",
-    textAlign: "text-left",
-    title: "Nuestros Productos",
-    description: "Descubra nuestra selección de productos de alta calidad diseñados para satisfacer sus necesidades.",
-    icon: "shopping-cart",
-    showImage: true,
-  })
 
   const [iconColor, setIconColor] = useState<string>('slate')
-  const [titleColor, setTitleColor] = useState<string>('slate')
-  const [detailColor, setDetailColor] = useState<string>('slate')
-  const [settings, setSettings] = useState<ColorSettingsTitles>({
-    titleColor: "cyan",
-    paragraphColor: "slate",
-  })
+  const { settings, setSettings } = useCrearContext()
 
-  const handleSettingsChangeTitle = (key: keyof ColorSettingsTitles, value: string) => {
+  const handleSettingsChangeCardSettings = (key: keyof typeof settings.Stage4.cardSettings, value: string | boolean) => {
     setSettings((prev) => ({
       ...prev,
-      [key]: value,
+      Stage4: {
+        cardSettings: {
+          ...prev.Stage4.cardSettings,
+          [key]: value,
+        },
+      },
     }))
   }
 
-  const titleColorClass = `text-${settings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.titleColor)?.titleShade || 700}`
+  const titleColorClass = `text-${settings.Stage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage4.cardSettings.titleColor)?.titleShade || 700}`
 
-  const paragraphColorClass = `text-${settings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.paragraphColor)?.paragraphShade || 600}`
+  const paragraphColorClass = `text-${settings.Stage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
 
   const getColorClass = (color: string, isTitle: boolean) => {
     const colorOption = colorOptionsTitles.find((option) => option.value === color)
@@ -237,7 +181,7 @@ const borderWidthOptions = [
 
   const renderIcon = (color: string = 'currentColor') => {
     const iconColor = getIconColor(color)
-    switch (cardSettings.icon) {
+    switch (settings.Stage4.cardSettings.icon) {
       case "star":
         return (
           <svg
@@ -429,14 +373,14 @@ const borderWidthOptions = [
   // Generar clases para la card de vista previa
   const cardClasses = `
     overflow-hidden
-    ${cardSettings.rounded}
-    ${cardSettings.shadow}
-    ${cardSettings.hasBorder ? `${cardSettings.borderWidth} border-${cardSettings.borderColor}-${cardSettings.borderShade}` : ""}
+    ${settings.Stage4.cardSettings.rounded}
+    ${settings.Stage4.cardSettings.shadow}
+    ${settings.Stage4.cardSettings.hasBorder ? `${settings.Stage4.cardSettings.borderWidth} border-${settings.Stage4.cardSettings.borderColor}-${settings.Stage4.cardSettings.borderShade}` : ""}
     bg-white  w-[340px]
   `
 
   // Generar clases para el texto
-  const textClasses = `${cardSettings.textAlign}`
+  const textClasses = `${settings.Stage4.cardSettings.textAlign}`
 
   // Renderizar la pregunta inicial
   const renderInitialQuestion = () => (
@@ -596,7 +540,7 @@ const borderWidthOptions = [
       <div className="space-y-6  ">
         {/* Vista previa de la card */}
         <div className={cardClasses }>
-          {cardSettings.showImage && (
+          {settings.Stage4.cardSettings.showImage && (
             <div className="relative h-48">
               <img
                 src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
@@ -607,21 +551,21 @@ const borderWidthOptions = [
           )}
           <div className={`p-5 ${textClasses}`}>
             <div className="flex flex-col gap-4">
-              {cardSettings.textAlign === "text-center" ? (
+              {settings.Stage4.cardSettings.textAlign === "text-center" ? (
                 <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
-              ) : cardSettings.textAlign === "text-right" ? (
+              ) : settings.Stage4.cardSettings.textAlign === "text-right" ? (
                 <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
               ) : (
                 <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
               )}
-              <span className={`text-xl font-bold ${titleColorClass}`}>{cardSettings.title}</span>
-              <p className={`font-normal ${paragraphColorClass}`}>{cardSettings.description}</p>
+              <span className={`text-xl font-bold ${titleColorClass}`}>{settings.Stage4.cardSettings.title}</span>
+              <p className={`font-normal ${paragraphColorClass}`}>{settings.Stage4.cardSettings.description}</p>
             </div>
           </div>
         </div>
 
-        {/* Contenido de la card */}
-        <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
+          {/* Contenido de la card */}
+          <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
           <h4 className="text-sm font-medium text-zinc-900 ">Contenido de la card</h4>
 
           {/* Opción para mostrar imagen */}
@@ -634,8 +578,8 @@ const borderWidthOptions = [
               <Switch
                 className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
                 style={{ transition: 'background-color 0.2s' }}
-                checked={cardSettings.showImage}
-                onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
+                checked={settings.Stage4.cardSettings.showImage}
+                onCheckedChange={(checked) => handleSettingsChangeCardSettings("showImage", checked)}
               />
             </div>
           </div>
@@ -676,12 +620,12 @@ const borderWidthOptions = [
               <span className="text-sm text-zinc-500">Color del título de la card</span>
             </div>
             <Select
-              value={settings.titleColor}
-              onValueChange={(value) => handleSettingsChangeTitle("titleColor", value)}
+              value={settings.Stage4.cardSettings.titleColor}
+              onValueChange={(value) => handleSettingsChangeCardSettings("titleColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.titleColor, true)}`}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.Stage4.cardSettings.titleColor, true)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
@@ -705,12 +649,12 @@ const borderWidthOptions = [
               <span className="text-sm text-zinc-500">Color del detalle de la card</span>
             </div>
             <Select
-              value={settings.paragraphColor}
-              onValueChange={(value) => handleSettingsChangeTitle("paragraphColor", value)}
+              value={settings.Stage4.cardSettings.paragraphColor}
+              onValueChange={(value) => handleSettingsChangeCardSettings("paragraphColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.paragraphColor, false)}`}></div>
+                  <div className={`w-4 h-4 rounded-full ${getColorClass(settings.Stage4.cardSettings.paragraphColor, false)}`}></div>
                   <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
@@ -727,34 +671,6 @@ const borderWidthOptions = [
             </Select>
           </div>
 
-          {/* Título */}
-          {/* <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Título</span>
-            </div>
-            <input
-              type="text"
-              value={cardSettings.title}
-              onChange={(e) => handleSettingsChange("title", e.target.value)}
-              className="w-full h-10 px-3 py-2 bg-zinc-100  border border-zinc-200  rounded-xl text-sm"
-              placeholder="Título de la card"
-            />
-          </div> */}
-
-          {/* Descripción */}
-          {/* <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Descripción</span>
-            </div>
-            <textarea
-              value={cardSettings.description}
-              onChange={(e) => handleSettingsChange("description", e.target.value)}
-              className="w-full px-3 py-2 bg-zinc-100  border border-zinc-200  rounded-xl text-sm min-h-[80px]"
-              placeholder="Descripción de la card"
-            />
-          </div> */}
         </div>
 
         {/* Alineación del texto */}
@@ -764,8 +680,8 @@ const borderWidthOptions = [
             <span className="text-sm text-zinc-500">Alineación del texto</span>
           </div>
           <RadioGroup
-            value={cardSettings.textAlign}
-            onValueChange={(value) => handleSettingsChange("textAlign", value as CardSettings["textAlign"])}
+            value={settings.Stage4.cardSettings.textAlign}
+            onValueChange={(value) => handleSettingsChangeCardSettings("textAlign", value as typeof settings.Stage4.cardSettings.textAlign)}
             className="flex space-x-2"
           >
             <div className="flex items-center space-x-2">
@@ -795,7 +711,7 @@ const borderWidthOptions = [
             <CircleDashed className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Redondeo de esquinas</span>
           </div>
-          <Select value={cardSettings.rounded} onValueChange={(value) => handleSettingsChange("rounded", value)}>
+          <Select value={settings.Stage4.cardSettings.rounded} onValueChange={(value) => handleSettingsChangeCardSettings("rounded", value)}>
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
               <SelectValue placeholder="Redondeo" />
             </SelectTrigger>
@@ -815,7 +731,7 @@ const borderWidthOptions = [
             <Layers className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Sombra</span>
           </div>
-          <Select value={cardSettings.shadow} onValueChange={(value) => handleSettingsChange("shadow", value)}>
+          <Select value={settings.Stage4.cardSettings.shadow} onValueChange={(value) => handleSettingsChangeCardSettings("shadow", value)}>
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
               <SelectValue placeholder="Sombra" />
             </SelectTrigger>
@@ -839,21 +755,21 @@ const borderWidthOptions = [
             <Switch
               className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
               style={{ transition: 'background-color 0.2s' }}
-              checked={cardSettings.hasBorder}
-              onCheckedChange={(checked) => handleSettingsChange("hasBorder", checked)}
+              checked={settings.Stage4.cardSettings.hasBorder}
+              onCheckedChange={(checked) => handleSettingsChangeCardSettings("hasBorder", checked)}
             />
           </div>
 
-          {cardSettings.hasBorder && (
+          {settings.Stage4.cardSettings.hasBorder && (
             <div className="grid grid-cols-2 gap-2 mt-2">
               <Select
-                value={cardSettings.borderWidth}
-                onValueChange={(value) => handleSettingsChange("borderWidth", value)}
+                value={settings.Stage4.cardSettings.borderWidth}
+                onValueChange={(value) => handleSettingsChangeCardSettings("borderWidth", value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <SelectValue placeholder="Grosor" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   {borderWidthOptions.map((option) => (
                     <SelectItem key={option.value} value={option.value}>
                       {option.name}
@@ -863,22 +779,22 @@ const borderWidthOptions = [
               </Select>
 
               <Select
-                value={cardSettings.borderColor}
-                onValueChange={(value) => handleSettingsChange("borderColor", value)}
+                value={settings.Stage4.cardSettings.borderColor}
+                onValueChange={(value) => handleSettingsChangeCardSettings("borderColor", value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <div className="flex items-center gap-2">
                     <div
-                      className={`w-4 h-4 rounded-full bg-${cardSettings.borderColor}-${cardSettings.borderShade}`}
+                      className={`w-4 h-4 rounded-full bg-${settings.Stage4.cardSettings.borderColor}-${settings.Stage4.cardSettings.borderShade}`}
                     ></div>
                     <SelectValue placeholder="Color" />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="max-h-[300px]">
+                <SelectContent className="max-h-[300px] bg-white">
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${cardSettings.borderShade}`}></div>
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${settings.Stage4.cardSettings.borderShade}`}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -887,13 +803,13 @@ const borderWidthOptions = [
               </Select>
 
               <Select
-                value={cardSettings.borderShade.toString()}
-                onValueChange={(value) => handleSettingsChange("borderShade", Number.parseInt(value))}
+                value={settings.Stage4.cardSettings.borderShade.toString()}
+                onValueChange={(value) => handleSettingsChangeCardSettings("borderShade", Number.parseInt(value).toString())}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <SelectValue placeholder="Intensidad" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   {colorShadeOptions.map((shade) => (
                     <SelectItem key={shade.value} value={shade.value.toString()}>
                       {shade.name}
@@ -943,7 +859,7 @@ const borderWidthOptions = [
             <ArrowBigRightDash className="w-4 h-4" />
             Siguiente personalización
         </button>
-        </div>
+      </div>
     </form>
   )
 
@@ -967,19 +883,19 @@ const borderWidthOptions = [
           <div className="flex justify-between text-sm">
             <span className="text-zinc-500">Imagen</span>
             <span className="font-medium text-zinc-900 ">
-              {cardSettings.showImage ? "Visible" : "Oculta"}
+              {settings.Stage4.cardSettings.showImage ? "Visible" : "Oculta"}
             </span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-zinc-500">Redondeo</span>
             <span className="font-medium text-zinc-900 ">
-              {roundedOptions.find((r) => r.value === cardSettings.rounded)?.name}
+              {roundedOptions.find((r) => r.value === settings.Stage4.cardSettings.rounded)?.name}
             </span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-zinc-500">Sombra</span>
             <span className="font-medium text-zinc-900 ">
-              {shadowOptions.find((s) => s.value === cardSettings.shadow)?.name}
+              {shadowOptions.find((s) => s.value === settings.Stage4.cardSettings.shadow)?.name}
             </span>
           </div>
         </div>
@@ -1079,12 +995,6 @@ const borderWidthOptions = [
     </div>
   )
 
-  const handleSettingsChange = <K extends keyof CardSettings>(key: K, value: CardSettings[K]) => {
-    setCardSettings((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
 
   return (
     <CardGeneral 
