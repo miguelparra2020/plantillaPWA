@@ -51,6 +51,7 @@ export interface IcardsDetails{
 export interface cardsInicio {
   titleCardInicio: string 
   descriptionCardInicio: string
+  nameButtonCardInicio: string
   quantityCards: number
   cardsDetails: IcardsDetails[]
 }

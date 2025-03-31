@@ -49,6 +49,7 @@ export const CrearProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       cardsInicio:{
         titleCardInicio: "Descubre Nuestra Colección",
         descriptionCardInicio: "Explora una selección única de productos diseñados para ti.",
+        nameButtonCardInicio: "Ver todos los productos",
         quantityCards: 1,
         cardsDetails: [{
           titleCardCardsInicio: "Ofertas"

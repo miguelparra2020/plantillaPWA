@@ -17,6 +17,7 @@ import {
     Check,
     Palette,
     Store,
+    MousePointerClick
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Switch } from "./ui/switch"
@@ -144,6 +145,8 @@ const borderWidthOptions = [
   }
 
   const titleColorClass = `text-${settings.Stage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage4.cardSettings.titleColor)?.titleShade || 700}`
+
+  const titleColorClass2 = `text-${settings.Stage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage4.cardSettings.titleColor)?.titleShade || 700}`
 
   const paragraphColorClass = `text-${settings.Stage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
 
@@ -326,15 +329,15 @@ const borderWidthOptions = [
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="4"
+            height="4"
             viewBox="0 0 24 24"
             fill="none"
             stroke={iconColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-8 h-8"
+            className="w-2 h-2"
           >
             <circle cx="8" cy="21" r="1"></circle>
             <circle cx="19" cy="21" r="1"></circle>
@@ -368,6 +371,13 @@ const borderWidthOptions = [
     ${settings.Stage4.cardSettings.shadow}
     ${settings.Stage4.cardSettings.hasBorder ? `${settings.Stage4.cardSettings.borderWidth} border-${settings.Stage4.cardSettings.borderColor}-${settings.Stage4.cardSettings.borderShade}` : ""}
     bg-white  w-[340px]
+  `
+  const cardClasses2 = `
+    overflow-hidden
+    ${settings.Stage4.cardSettings.rounded}
+    ${settings.Stage4.cardSettings.shadow}
+    ${settings.Stage4.cardSettings.hasBorder ? `${settings.Stage4.cardSettings.borderWidth} border-${settings.Stage4.cardSettings.borderColor}-${settings.Stage4.cardSettings.borderShade}` : ""}
+    bg-white w-[70px] md:w-[120px]
   `
 
   // Generar clases para el texto
@@ -892,6 +902,105 @@ const borderWidthOptions = [
     { name: "12", value: 12 }
   ]
 
+  const hoverColorClassMap = {
+    red: { 500: 'hover:bg-red-700', 600: 'hover:bg-red-800', 700: 'hover:bg-red-900' },
+    orange: { 500: 'hover:bg-orange-700', 600: 'hover:bg-orange-800', 700: 'hover:bg-orange-900' },
+    amber: { 500: 'hover:bg-amber-700', 600: 'hover:bg-amber-800', 700: 'hover:bg-amber-900' },
+    yellow: { 500: 'hover:bg-yellow-700', 600: 'hover:bg-yellow-800', 700: 'hover:bg-yellow-900' },
+    lime: { 500: 'hover:bg-lime-700', 600: 'hover:bg-lime-800', 700: 'hover:bg-lime-900' },
+    green: { 500: 'hover:bg-green-700', 600: 'hover:bg-green-800', 700: 'hover:bg-green-900' },
+    emerald: { 500: 'hover:bg-emerald-700', 600: 'hover:bg-emerald-800', 700: 'hover:bg-emerald-900' },
+    teal: { 500: 'hover:bg-teal-700', 600: 'hover:bg-teal-800', 700: 'hover:bg-teal-900' },
+    cyan: { 500: 'hover:bg-cyan-700', 600: 'hover:bg-cyan-800', 700: 'hover:bg-cyan-900' },
+    sky: { 500: 'hover:bg-sky-700', 600: 'hover:bg-sky-800', 700: 'hover:bg-sky-900' },
+    blue: { 500: 'hover:bg-blue-700', 600: 'hover:bg-blue-800', 700: 'hover:bg-blue-900' },
+    indigo: { 500: 'hover:bg-indigo-700', 600: 'hover:bg-indigo-800', 700: 'hover:bg-indigo-900' },
+    violet: { 500: 'hover:bg-violet-700', 600: 'hover:bg-violet-800', 700: 'hover:bg-violet-900' },
+    purple: { 500: 'hover:bg-purple-700', 600: 'hover:bg-purple-800', 700: 'hover:bg-purple-900' },
+    fuchsia: { 500: 'hover:bg-fuchsia-700', 600: 'hover:bg-fuchsia-800', 700: 'hover:bg-fuchsia-900' },
+    pink: { 500: 'hover:bg-pink-700', 600: 'hover:bg-pink-800', 700: 'hover:bg-pink-900' },
+    rose: { 500: 'hover:bg-rose-700', 600: 'hover:bg-rose-800', 700: 'hover:bg-rose-900' },
+    slate: { 500: 'hover:bg-slate-700', 600: 'hover:bg-slate-800', 700: 'hover:bg-slate-900' },
+    zinc: { 500: 'hover:bg-zinc-700', 600: 'hover:bg-zinc-800', 700: 'hover:bg-zinc-900' },
+    gray: { 500: 'hover:bg-gray-700', 600: 'hover:bg-gray-800', 700: 'hover:bg-gray-900' },
+    neutral: { 500: 'hover:bg-neutral-700', 600: 'hover:bg-neutral-800', 700: 'hover:bg-neutral-900' },
+    stone: { 500: 'hover:bg-stone-700', 600: 'hover:bg-stone-800', 700: 'hover:bg-stone-900' },
+  } as const
+
+  const getHoverShadow = (shadow: string) => {
+    if (shadow === "shadow-none") return "shadow-sm"
+    if (shadow === "shadow-sm") return "shadow"
+    if (shadow === "shadow") return "shadow-md"
+    if (shadow === "shadow-md") return "shadow-lg"
+    if (shadow === "shadow-lg") return "shadow-xl"
+    if (shadow === "shadow-xl") return "shadow-2xl"
+    if (shadow === "shadow-2xl") return "shadow-2xl"
+    return shadow
+  }
+
+  const borderColorClassMap = {
+    red: { 500: 'border-red-500', 600: 'border-red-600', 700: 'border-red-700' },
+    orange: { 500: 'border-orange-500', 600: 'border-orange-600', 700: 'border-orange-700' },
+    amber: { 500: 'border-amber-500', 600: 'border-amber-600', 700: 'border-amber-700' },
+    yellow: { 500: 'border-yellow-500', 600: 'border-yellow-600', 700: 'border-yellow-700' },
+    lime: { 500: 'border-lime-500', 600: 'border-lime-600', 700: 'border-lime-700' },
+    green: { 500: 'border-green-500', 600: 'border-green-600', 700: 'border-green-700' },
+    emerald: { 500: 'border-emerald-500', 600: 'border-emerald-600', 700: 'border-emerald-700' },
+    teal: { 500: 'border-teal-500', 600: 'border-teal-600', 700: 'border-teal-700' },
+    cyan: { 500: 'border-cyan-500', 600: 'border-cyan-600', 700: 'border-cyan-700' },
+    sky: { 500: 'border-sky-500', 600: 'border-sky-600', 700: 'border-sky-700' },
+    blue: { 500: 'border-blue-500', 600: 'border-blue-600', 700: 'border-blue-700' },
+    indigo: { 500: 'border-indigo-500', 600: 'border-indigo-600', 700: 'border-indigo-700' },
+    violet: { 500: 'border-violet-500', 600: 'border-violet-600', 700: 'border-violet-700' },
+    purple: { 500: 'border-purple-500', 600: 'border-purple-600', 700: 'border-purple-700' },
+    fuchsia: { 500: 'border-fuchsia-500', 600: 'border-fuchsia-600', 700: 'border-fuchsia-700' },
+    pink: { 500: 'border-pink-500', 600: 'border-pink-600', 700: 'border-pink-700' },
+    rose: { 500: 'border-rose-500', 600: 'border-rose-600', 700: 'border-rose-700' },
+    slate: { 500: 'border-slate-500', 600: 'border-slate-600', 700: 'border-slate-700' },
+    zinc: { 500: 'border-zinc-500', 600: 'border-zinc-600', 700: 'border-zinc-700' },
+    gray: { 500: 'border-gray-500', 600: 'border-gray-600', 700: 'border-gray-700' },
+    neutral: { 500: 'border-neutral-500', 600: 'border-neutral-600', 700: 'border-neutral-700' },
+    stone: { 500: 'border-stone-500', 600: 'border-stone-600', 700: 'border-stone-700' },
+  } as const
+
+  const colorClassMap2 = {
+    red: { 500: 'bg-red-500', 600: 'bg-red-600', 700: 'bg-red-700' },
+    orange: { 500: 'bg-orange-500', 600: 'bg-orange-600', 700: 'bg-orange-700' },
+    amber: { 500: 'bg-amber-500', 600: 'bg-amber-600', 700: 'bg-amber-700' },
+    yellow: { 500: 'bg-yellow-500', 600: 'bg-yellow-600', 700: 'bg-yellow-700' },
+    lime: { 500: 'bg-lime-500', 600: 'bg-lime-600', 700: 'bg-lime-700' },
+    green: { 500: 'bg-green-500', 600: 'bg-green-600', 700: 'bg-green-700' },
+    emerald: { 500: 'bg-emerald-500', 600: 'bg-emerald-600', 700: 'bg-emerald-700' },
+    teal: { 500: 'bg-teal-500', 600: 'bg-teal-600', 700: 'bg-teal-700' },
+    cyan: { 500: 'bg-cyan-500', 600: 'bg-cyan-600', 700: 'bg-cyan-700' },
+    sky: { 500: 'bg-sky-500', 600: 'bg-sky-600', 700: 'bg-sky-700' },
+    blue: { 500: 'bg-blue-500', 600: 'bg-blue-600', 700: 'bg-blue-700' },
+    indigo: { 500: 'bg-indigo-500', 600: 'bg-indigo-600', 700: 'bg-indigo-700' },
+    violet: { 500: 'bg-violet-500', 600: 'bg-violet-600', 700: 'bg-violet-700' },
+    purple: { 500: 'bg-purple-500', 600: 'bg-purple-600', 700: 'bg-purple-700' },
+    fuchsia: { 500: 'bg-fuchsia-500', 600: 'bg-fuchsia-600', 700: 'bg-fuchsia-700' },
+    pink: { 500: 'bg-pink-500', 600: 'bg-pink-600', 700: 'bg-pink-700' },
+    rose: { 500: 'bg-rose-500', 600: 'bg-rose-600', 700: 'bg-rose-700' },
+    slate: { 500: 'bg-slate-500', 600: 'bg-slate-600', 700: 'bg-slate-700' },
+    zinc: { 500: 'bg-zinc-500', 600: 'bg-zinc-600', 700: 'bg-zinc-700' },
+    gray: { 500: 'bg-gray-500', 600: 'bg-gray-600', 700: 'bg-gray-700' },
+    neutral: { 500: 'bg-neutral-500', 600: 'bg-neutral-600', 700: 'bg-neutral-700' },
+    stone: { 500: 'bg-stone-500', 600: 'bg-stone-600', 700: 'bg-stone-700' },
+  } as const
+
+  const buttonClasses = `
+    px-2 md:py-1 md:px-4 font-medium text-white text-[6px] md:text-[8px] flex flex-row items-center justify-center
+    ${settings.Stage3.rounded}
+    ${colorClassMap2[settings.Stage3.bgColor][settings.Stage3.bgShade]}
+    ${hoverColorClassMap[settings.Stage3.bgColor][settings.Stage3.bgShade]}
+    ${settings.Stage3.shadow}
+    hover:${getHoverShadow(settings.Stage3.shadow)}
+    transition-all duration-200
+    ${settings.Stage3.hasBorder ? `${settings.Stage3.borderWidth} ${borderColorClassMap[settings.Stage3.borderColor][settings.Stage3.borderShade]}` : ""}
+  `
+
+  const paragraphColorClassCardsIni = `text-${settings.Stage2.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage2.paragraphColor)?.paragraphShade || 600}`
+
   const renderCardsInicioWebCustomization = () => (
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
       <div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
@@ -923,13 +1032,28 @@ const borderWidthOptions = [
           <div className='space-y-2'>
             <div className='flex items-center gap-2'>
               <FileText className='w-4 h-4 text-zinc-500' />
-              <span className='text-sm text-zinc-500'>Descripción de su actividad económica</span>
+              <span className='text-sm text-zinc-500'>Descripción de la sesión productos</span>
             </div>
             <Textarea
               placeholder='Ejemplo: Explora una selección única de productos diseñados para ti.'
               value={settings.Stage4.cardsInicio.descriptionCardInicio}
               onChange={(e) => handleSettingsChange('descriptionCardInicio', e.target.value)}
               className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
+            />
+          </div>
+
+          {/* Nombre de botón */}
+          <div className='space-y-2'>
+            <div className='flex items-center gap-2'>
+              <MousePointerClick className='w-4 h-4 text-zinc-500' />
+              <span className='text-sm text-zinc-500'>Nombre del botón de invitación a ver todos los productos</span>
+            </div>
+            <Input
+              type='text'
+              placeholder='Ejemplo: Descubre Nuestra Colección'
+              value={settings.Stage4.cardsInicio.nameButtonCardInicio}
+              onChange={(e) => handleSettingsChange('titleCardInicio', e.target.value)}
+              className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
             />
           </div>
 
@@ -1005,14 +1129,68 @@ const borderWidthOptions = [
       <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] w-[301px] md:h-[294px] md:w-[412px]">
     <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white">
       <div className="w-full mt-4 flex flex-col justify-center items-center">
-      <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
-
+        <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
       </div>
+      {settings.Stage4.cardsInicio.quantityCards <= 1 ? <>
+        <div className="flex flex-row items-center justify-center">
+          <div className="w-[50%] h-[120px] md:h-[224px] flex flex-col items-center justify-center"> 
+            <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+              <p className={`text-[8px] ${paragraphColorClassCardsIni}`}>{settings.Stage4.cardsInicio.descriptionCardInicio}</p>
+            </div>
+
+            <div className="w-[90%] pb-2 flex flex-col items-center justify-center text-center">
+            <button type="button" className={buttonClasses}>
+            {settings.Stage4.cardsInicio.nameButtonCardInicio} &nbsp; <ArrowBigRightDash className='w-2 md:w-3 h-4' />
+                </button>
+            </div>
+          </div>
+          <div className="w-[50%] flex flex-col items-center justify-center"> 
+            <div >
+                    {/* Vista previa de la card */}
+                    <div className={cardClasses2 }>
+                      {settings.Stage4.cardSettings.showImage && (
+                        <div className="relative ">
+                          <img
+                            src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
+                            alt="Card preview"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className={`p-1 md:p-2 ${textClasses}`}>
+                        <div className="flex flex-col gap-1 md:gap-4">
+                          {settings.Stage4.cardSettings.textAlign === "text-center" ? (
+                            <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                          ) : settings.Stage4.cardSettings.textAlign === "text-right" ? (
+                            <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                          ) : (
+                            <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
+                          )}
+                          <span className={`text-[4px] md:text-[6px] font-bold ${titleColorClass2}`}>{settings.Stage4.cardSettings.title}</span>
+                          <p className={`font-normal text-[4px] md:text-[6px] ${paragraphColorClass}`}>{settings.Stage4.cardSettings.description}</p>
+                        </div>
+                      </div>
+                    
+
+                    </div>
+            </div>
+
+          </div>
+        </div>
+        
+      </> : null}
+      {settings.Stage4.cardsInicio.quantityCards > 1 ? <>
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+              <p className={`text-[8px] ${paragraphColorClassCardsIni}`}>{settings.Stage4.cardsInicio.descriptionCardInicio}</p>
+            </div>
+        </div>
+      </> : null}
         </div>
         
 </div>
 
-<div className="relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">
+<div className="relative mx-auto bg-gray-900  rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">
     <div className="absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-800"></div>
 </div>
 
@@ -1021,16 +1199,20 @@ const borderWidthOptions = [
         </div>
 
 
-<div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+<div className="relative mx-auto border-gray-800  bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
     <div className="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
     <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
     <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
     <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
-    <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
-    <div className="w-full mt-8 flex flex-col justify-center items-center">
-      <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
-
+    <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white ">
+      <div className="w-full mt-12 flex flex-col justify-center items-center">
+        <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
       </div>
+      <div className="flex mt-2 flex-col items-center justify-center">
+          <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+              <p className={`text-[12px] ${paragraphColorClassCardsIni}`}>{settings.Stage4.cardsInicio.descriptionCardInicio}</p>
+            </div>
+        </div>
     </div>
 </div>
 
