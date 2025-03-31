@@ -16,6 +16,7 @@ import {
     ShoppingCart,
     Check,
     Palette,
+    Store,
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Switch } from "./ui/switch"
@@ -26,6 +27,8 @@ import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
 import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 import { useCrearContext } from "../context/CrearContext"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
 
 type CustomizationStep =
   | "initial-question"
@@ -33,6 +36,7 @@ type CustomizationStep =
   | "card-customization"
   | "intro-customization"
   | "product-card-customization"
+  | "cards-inicio-web"
   | "product-detail-customization"
   | "cart-item-customization"
   | "complete"
@@ -112,14 +116,29 @@ const borderWidthOptions = [
   const [iconColor, setIconColor] = useState<string>('slate')
   const { settings, setSettings } = useCrearContext()
 
-  const handleSettingsChangeCardSettings = (key: keyof typeof settings.Stage4.cardSettings, value: string | boolean) => {
+  const titleColorClassCardsInicio = `text-${settings.Stage2.titleColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage2.titleColor)?.titleShade || 700}`
+
+  const paragraphColorClassCardsInicio = `text-${settings.Stage2.paragraphColor}-${colorOptionsTitles.find((c) => c.value === settings.Stage2.paragraphColor)?.paragraphShade || 600}`
+
+  const handleSettingsChange = (
+    key: keyof typeof settings.Stage4.settingsOperative | keyof typeof settings.Stage4.cardSettings | keyof typeof settings.Stage4.cardsInicio,
+    value: string | boolean
+  ) => {
     setSettings((prev) => ({
       ...prev,
       Stage4: {
+        settingsOperative: {
+          ...prev.Stage4.settingsOperative,
+          ...(key in prev.Stage4.settingsOperative ? { [key]: value } : {}),
+        },
         cardSettings: {
           ...prev.Stage4.cardSettings,
-          [key]: value,
+          ...(key in prev.Stage4.cardSettings ? { [key]: value } : {}),
         },
+        cardsInicio: {
+          ...prev.Stage4.cardsInicio,
+          ...(key in prev.Stage4.cardsInicio ? { [key]: value } : {}),
+        }
       },
     }))
   }
@@ -146,38 +165,10 @@ const borderWidthOptions = [
     stone: '#78716c'
   }
 
-  const textColorMap = {
-    red: '#ef4444',
-    orange: '#f97316',
-    amber: '#f59e0b',
-    yellow: '#eab308',
-    lime: '#84cc16',
-    green: '#22c55e',
-    emerald: '#10b981',
-    teal: '#14b8a6',
-    cyan: '#06b6d4',
-    sky: '#0ea5e9',
-    blue: '#3b82f6',
-    indigo: '#6366f1',
-    violet: '#8b5cf6',
-    purple: '#a855f7',
-    fuchsia: '#d946ef',
-    pink: '#ec4899',
-    rose: '#f43f5e',
-    slate: '#64748b',
-    zinc: '#71717a',
-    gray: '#6b7280',
-    neutral: '#737373',
-    stone: '#78716c'
-  }
-
   const getIconColor = (color: string) => {
     return colorMap[color as keyof typeof colorMap] || color
   }
 
-  const getTextColor = (color: string) => {
-    return textColorMap[color as keyof typeof textColorMap] || '#000000'
-  }
 
   const renderIcon = (color: string = 'currentColor') => {
     const iconColor = getIconColor(color)
@@ -289,7 +280,7 @@ const borderWidthOptions = [
             <rect x="2" y="7" width="20" height="5"></rect>
             <line x1="12" y1="22" x2="12" y2="7"></line>
             <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+            <path d="M12 7h4.5a2.5 2.5 0 0 1 0-5C13 2 12 7 12 7z"></path>
           </svg>
         )
       case "calendar":
@@ -400,11 +391,12 @@ const borderWidthOptions = [
 
       <div className="w-full max-w-xs">
         <Select
+          value={settings.Stage4.settingsOperative.sellProducts ? "si" : "no"}
           onValueChange={(value) => {
-            if (value === "si") {
-              setCurrentStep("areas-list")
+            if (value === "si") { 
+              handleSettingsChange("sellProducts", true)          
             }else{
-             setCurrentStep("finaly-process")
+              handleSettingsChange("sellProducts", false)
             }
           }}
         >
@@ -420,11 +412,33 @@ const borderWidthOptions = [
         <button
         type="button"
         onClick={() => handlePrev()}
-        className="w-full h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
       >
         <ArrowBigLeftDash className="w-4 h-4" />
         atrás
       </button>
+      {settings.Stage4.settingsOperative.sellProducts ? (
+        <button
+        type="button"
+        onClick={() => setCurrentStep("areas-list")}
+        className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigRightDash className="w-4 h-4" />
+        Personalizar área de productos
+      </button>
+      ): (
+<button
+          type="button"
+          onClick={() => handleNext()}
+          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        >
+            <ArrowBigRightDash className="w-4 h-4" />
+            Siguiente personalización
+        </button>
+      )}
+      
+      
+
         </div>
       </div>
       
@@ -579,7 +593,7 @@ const borderWidthOptions = [
                 className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
                 style={{ transition: 'background-color 0.2s' }}
                 checked={settings.Stage4.cardSettings.showImage}
-                onCheckedChange={(checked) => handleSettingsChangeCardSettings("showImage", checked)}
+                onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
               />
             </div>
           </div>
@@ -621,7 +635,7 @@ const borderWidthOptions = [
             </div>
             <Select
               value={settings.Stage4.cardSettings.titleColor}
-              onValueChange={(value) => handleSettingsChangeCardSettings("titleColor", value)}
+              onValueChange={(value) => handleSettingsChange("titleColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
@@ -650,7 +664,7 @@ const borderWidthOptions = [
             </div>
             <Select
               value={settings.Stage4.cardSettings.paragraphColor}
-              onValueChange={(value) => handleSettingsChangeCardSettings("paragraphColor", value)}
+              onValueChange={(value) => handleSettingsChange("paragraphColor", value)}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                 <div className="flex items-center gap-2">
@@ -681,7 +695,7 @@ const borderWidthOptions = [
           </div>
           <RadioGroup
             value={settings.Stage4.cardSettings.textAlign}
-            onValueChange={(value) => handleSettingsChangeCardSettings("textAlign", value as typeof settings.Stage4.cardSettings.textAlign)}
+            onValueChange={(value) => handleSettingsChange("textAlign", value as typeof settings.Stage4.cardSettings.textAlign)}
             className="flex space-x-2"
           >
             <div className="flex items-center space-x-2">
@@ -711,7 +725,7 @@ const borderWidthOptions = [
             <CircleDashed className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Redondeo de esquinas</span>
           </div>
-          <Select value={settings.Stage4.cardSettings.rounded} onValueChange={(value) => handleSettingsChangeCardSettings("rounded", value)}>
+          <Select value={settings.Stage4.cardSettings.rounded} onValueChange={(value) => handleSettingsChange("rounded", value)}>
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
               <SelectValue placeholder="Redondeo" />
             </SelectTrigger>
@@ -731,7 +745,7 @@ const borderWidthOptions = [
             <Layers className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Sombra</span>
           </div>
-          <Select value={settings.Stage4.cardSettings.shadow} onValueChange={(value) => handleSettingsChangeCardSettings("shadow", value)}>
+          <Select value={settings.Stage4.cardSettings.shadow} onValueChange={(value) => handleSettingsChange("shadow", value)}>
             <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
               <SelectValue placeholder="Sombra" />
             </SelectTrigger>
@@ -756,7 +770,7 @@ const borderWidthOptions = [
               className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
               style={{ transition: 'background-color 0.2s' }}
               checked={settings.Stage4.cardSettings.hasBorder}
-              onCheckedChange={(checked) => handleSettingsChangeCardSettings("hasBorder", checked)}
+              onCheckedChange={(checked) => handleSettingsChange("hasBorder", checked)}
             />
           </div>
 
@@ -764,7 +778,7 @@ const borderWidthOptions = [
             <div className="grid grid-cols-2 gap-2 mt-2">
               <Select
                 value={settings.Stage4.cardSettings.borderWidth}
-                onValueChange={(value) => handleSettingsChangeCardSettings("borderWidth", value)}
+                onValueChange={(value) => handleSettingsChange("borderWidth", value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <SelectValue placeholder="Grosor" />
@@ -780,7 +794,7 @@ const borderWidthOptions = [
 
               <Select
                 value={settings.Stage4.cardSettings.borderColor}
-                onValueChange={(value) => handleSettingsChangeCardSettings("borderColor", value)}
+                onValueChange={(value) => handleSettingsChange("borderColor", value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <div className="flex items-center gap-2">
@@ -804,7 +818,7 @@ const borderWidthOptions = [
 
               <Select
                 value={settings.Stage4.cardSettings.borderShade.toString()}
-                onValueChange={(value) => handleSettingsChangeCardSettings("borderShade", Number.parseInt(value).toString())}
+                onValueChange={(value) => handleSettingsChange("borderShade", Number.parseInt(value).toString())}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
                   <SelectValue placeholder="Intensidad" />
@@ -846,6 +860,188 @@ const borderWidthOptions = [
       <button
         type="button"
         onClick={() => setCurrentStep("initial-question")}
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+      >
+        <ArrowBigLeftDash className="w-4 h-4" />
+        atrás
+      </button>
+        <button
+          type="button"
+          onClick={() => setCurrentStep("cards-inicio-web")}
+          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        >
+            <ArrowBigRightDash className="w-4 h-4" />
+            Siguiente personalización
+        </button>
+      </div>
+    </form>
+  )
+
+  const optionsQuantityCards = [
+    { name: "1", value: 1 },
+    { name: "2", value: 2 },
+    { name: "3", value: 3 },
+    { name: "4", value: 4 },
+    { name: "5", value: 5 },
+    { name: "6", value: 6 },
+    { name: "7", value: 7 },
+    { name: "8", value: 8 },
+    { name: "9", value: 9 },
+    { name: "10", value: 10 },
+    { name: "11", value: 11 },
+    { name: "12", value: 12 }
+  ]
+
+  const renderCardsInicioWebCustomization = () => (
+    <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
+      <div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
+        <div className="text-sm text-zinc-700 ">
+          <p className="font-medium mb-2">Personzalización visual de apariencia en el inicio web</p>
+          En este apartado podrá personalizar la forma como aparecerá en el inicio de la plataforma la card o cads que personalizó, en esta o estas cards puede indicar categorias o realizar una invitación al usuario para que ingrese al área de productos
+        </div>
+      </div>
+
+      {/* Contenido */}
+      <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
+          <h4 className="text-sm font-medium text-zinc-900 ">Contenido invitación para ingresar al área de todos los productos</h4>
+          {/* Título de la sesión de productos */}
+          <div className='space-y-2'>
+            <div className='flex items-center gap-2'>
+              <Store className='w-4 h-4 text-zinc-500' />
+              <span className='text-sm text-zinc-500'>Título de la sesión de productos</span>
+            </div>
+            <Input
+              type='text'
+              placeholder='Ejemplo: Descubre Nuestra Colección'
+              value={settings.Stage4.cardsInicio.titleCardInicio}
+              onChange={(e) => handleSettingsChange('titleCardInicio', e.target.value)}
+              className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
+            />
+          </div>
+
+          {/* Descripción */}
+          <div className='space-y-2'>
+            <div className='flex items-center gap-2'>
+              <FileText className='w-4 h-4 text-zinc-500' />
+              <span className='text-sm text-zinc-500'>Descripción de su actividad económica</span>
+            </div>
+            <Textarea
+              placeholder='Ejemplo: Explora una selección única de productos diseñados para ti.'
+              value={settings.Stage4.cardsInicio.descriptionCardInicio}
+              onChange={(e) => handleSettingsChange('descriptionCardInicio', e.target.value)}
+              className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
+            />
+          </div>
+
+          {/* Cantidad de cards */}
+          <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-zinc-500" />
+                  <span className="text-sm text-zinc-500">Cantidad de cards. "Pueden ser las categorías de los productos"</span>
+                </div>
+                <Select
+                      value={settings.Stage4.cardsInicio.quantityCards.toString()}
+                      onValueChange={(value) => handleSettingsChange("quantityCards", value)}
+                    >
+                      <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                        <SelectValue placeholder="Intensidad" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                      {optionsQuantityCards.map((item) => (
+                        <SelectItem key={item.value} value={item.value.toString()}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
+                      </SelectContent>
+                </Select>
+              </div>
+
+          {/* Cards */}
+          {settings.Stage4.cardsInicio.quantityCards > 0 ?
+          Array.from({ length: settings.Stage4.cardsInicio.quantityCards }).map((_, index) => (
+            <div key={index} >
+              <div className="space-y-4 p-4 rounded-xl border border-gray-600 ">
+                        {/* Título de la card*/}
+          <div className='space-y-2'>
+            <div className='flex items-center gap-2'>
+              <Store className='w-4 h-4 text-zinc-500' />
+              <span className='text-sm text-zinc-500'>Título de la card {index+1}</span>
+            </div>
+            <Input
+              type='text'
+              placeholder='Ejemplo: Ofertas'
+              value={settings.Stage4.cardsInicio.cardsDetails[index]?.titleCardCardsInicio || ''}
+              onChange={(e) => {
+                const newCardsDetails = [...settings.Stage4.cardsInicio.cardsDetails];
+                newCardsDetails[index] = { ...newCardsDetails[index], titleCardCardsInicio: e.target.value };
+                setSettings({
+                  ...settings,
+                  Stage4: {
+                    ...settings.Stage4,
+                    cardsInicio: {
+                      ...settings.Stage4.cardsInicio,
+                      cardsDetails: newCardsDetails.map((card) => ({
+                        ...card,
+                        titleCardCardsInicio: card.titleCardCardsInicio || ''
+                      }))
+                    }
+                  }
+                });
+              }}
+              className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
+            />
+          </div>
+          </div>
+            </div>
+  )):null}
+
+          
+      </div>
+      <div className="space-y-4 p-4 rounded-xl border border-zinc-200">
+        <div className="text-sm text-zinc-700 ">
+          <p className="font-medium mb-2">Visualización tipo WEB</p>       
+        </div>
+
+      <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] w-[301px] md:h-[294px] md:w-[412px]">
+    <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white">
+      <div className="w-full mt-4 flex flex-col justify-center items-center">
+      <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
+
+      </div>
+        </div>
+        
+</div>
+
+<div className="relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">
+    <div className="absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-800"></div>
+</div>
+
+<div className="text-sm text-zinc-700 ">
+          <p className="font-medium mb-2">Visualización tipo Móvil</p>       
+        </div>
+
+
+<div className="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px] shadow-xl">
+    <div className="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+    <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[124px] rounded-s-lg"></div>
+    <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
+    <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
+    <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800">
+    <div className="w-full mt-8 flex flex-col justify-center items-center">
+      <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
+
+      </div>
+    </div>
+</div>
+
+      </div>
+
+      
+
+      <div className="flex flex-row items-center justify-center gap-2">
+      <button
+        type="button"
+        onClick={() => setCurrentStep("card-customization")}
         className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
       >
         <ArrowBigLeftDash className="w-4 h-4" />
@@ -953,6 +1149,7 @@ const borderWidthOptions = [
         {currentStep === "initial-question" && renderInitialQuestion()}
         {currentStep === "areas-list" && renderAreasList()}
         {currentStep === "card-customization" && renderCardCustomization()}
+        {currentStep === "cards-inicio-web" && renderCardsInicioWebCustomization()}
         {currentStep === "complete" && renderComplete()}
         {currentStep === "finaly-process" && renderFinalyProcess()}
         {isLoading && (

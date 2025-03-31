@@ -40,8 +40,25 @@ export interface cardSettings {
   showImage:   boolean
 }
 
+export interface settingsOperative {
+  sellProducts: boolean | null
+}
+
+export interface IcardsDetails{
+  titleCardCardsInicio: string
+}
+
+export interface cardsInicio {
+  titleCardInicio: string 
+  descriptionCardInicio: string
+  quantityCards: number
+  cardsDetails: IcardsDetails[]
+}
+
 export interface Stage4Settings {
+    settingsOperative: settingsOperative
     cardSettings: cardSettings
+    cardsInicio: cardsInicio
   }
   
 export interface Stage5Settings {

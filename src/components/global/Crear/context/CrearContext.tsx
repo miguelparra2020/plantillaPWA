@@ -28,13 +28,15 @@ export const CrearProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       shadow: 'shadow'
     },
     Stage4: {
-
+      settingsOperative:{
+        sellProducts: null
+      },
       cardSettings: {
         titleColor: "cyan",
         paragraphColor: "slate",
         hasBorder: true,
         borderColor: "gray",
-        borderShade: 200,
+        borderShade: 500,
         borderWidth: "border",
         rounded: "rounded-xl",
         shadow: "shadow-md",
@@ -43,6 +45,14 @@ export const CrearProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         description: "Descubra nuestra selección de productos de alta calidad diseñados para satisfacer sus necesidades.",
         icon: "shopping-cart",
         showImage: true,
+      },
+      cardsInicio:{
+        titleCardInicio: "Descubre Nuestra Colección",
+        descriptionCardInicio: "Explora una selección única de productos diseñados para ti.",
+        quantityCards: 1,
+        cardsDetails: [{
+          titleCardCardsInicio: "Ofertas"
+        }]
       }
     },
     Stage5: {},
