@@ -29,7 +29,7 @@ export const CrearProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     },
     Stage4: {
       settingsOperative:{
-        sellProducts: null
+        sellProducts: true
       },
       cardSettings: {
         titleColor: "cyan",

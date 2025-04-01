@@ -380,6 +380,14 @@ const borderWidthOptions = [
     bg-white w-[70px] md:w-[120px]
   `
 
+  const cardClasses3 = `
+    overflow-hidden
+    ${settings.Stage4.cardSettings.rounded}
+    ${settings.Stage4.cardSettings.shadow}
+    ${settings.Stage4.cardSettings.hasBorder ? `${settings.Stage4.cardSettings.borderWidth} border-${settings.Stage4.cardSettings.borderColor}-${settings.Stage4.cardSettings.borderShade}` : ""}
+    bg-white w-[230px] md:w-[230px]
+  `
+
   // Generar clases para el texto
   const textClasses = `${settings.Stage4.cardSettings.textAlign}`
 
@@ -1205,13 +1213,47 @@ const borderWidthOptions = [
     <div className="h-[46px] w-[3px] bg-gray-800 absolute -start-[17px] top-[178px] rounded-s-lg"></div>
     <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
     <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white ">
-      <div className="w-full mt-12 flex flex-col justify-center items-center">
+      <div className="w-full mt-20 flex flex-col justify-center items-center">
         <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{settings.Stage4.cardsInicio.titleCardInicio}</h6>
       </div>
-      <div className="flex mt-2 flex-col items-center justify-center">
+      <div className="flex mt-4 flex-col items-center justify-center">
           <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
               <p className={`text-[12px] ${paragraphColorClassCardsIni}`}>{settings.Stage4.cardsInicio.descriptionCardInicio}</p>
             </div>
+        </div>
+        <div className="flex mt-4 flex-col items-center justify-center">
+            {/* Vista previa de la card */}
+            <div className={cardClasses3 }>
+                      {settings.Stage4.cardSettings.showImage && (
+                        <div className="relative ">
+                          <img
+                            src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
+                            alt="Card preview"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className={`p-2 md:p-4 ${textClasses}`}>
+                        <div className="flex flex-col gap-2 md:gap-4">
+                          {settings.Stage4.cardSettings.textAlign === "text-center" ? (
+                            <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                          ) : settings.Stage4.cardSettings.textAlign === "text-right" ? (
+                            <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                          ) : (
+                            <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
+                          )}
+                          <span className={`text-[6px] md:text-[8px] font-bold ${titleColorClass2}`}>{settings.Stage4.cardSettings.title}</span>
+                          <p className={`font-normal text-[6px] md:text-[8px] ${paragraphColorClass}`}>{settings.Stage4.cardSettings.description}</p>
+                        </div>
+                      </div>
+                    
+
+            </div>
+        </div>
+        <div className="w-full mt-6 pb-2 flex flex-col items-center justify-center text-center">
+            <button type="button" className={buttonClasses}>
+            {settings.Stage4.cardsInicio.nameButtonCardInicio} &nbsp; <ArrowBigRightDash className='w-4 md:w-5 h-6' />
+                </button>
         </div>
     </div>
 </div>
