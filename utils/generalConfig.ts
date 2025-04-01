@@ -5,41 +5,13 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-
-
- // Colores principales
-  // red       50 100 200 300 400 500 600 700 800 900 950
-  // orange    50 100 200 300 400 500 600 700 800 900 950
-  // amber     50 100 200 300 400 500 600 700 800 900 950
-  // yellow    50 100 200 300 400 500 600 700 800 900 950
-  // lime      50 100 200 300 400 500 600 700 800 900 950
-  // green     50 100 200 300 400 500 600 700 800 900 950
-  // emerald   50 100 200 300 400 500 600 700 800 900 950
-  // teal      50 100 200 300 400 500 600 700 800 900 950
-  // cyan      50 100 200 300 400 500 600 700 800 900 950
-  // sky       50 100 200 300 400 500 600 700 800 900 950
-  // blue      50 100 200 300 400 500 600 700 800 900 950
-  // indigo    50 100 200 300 400 500 600 700 800 900 950
-  // violet    50 100 200 300 400 500 600 700 800 900 950
-  // purple    50 100 200 300 400 500 600 700 800 900 950
-  // fuchsia   50 100 200 300 400 500 600 700 800 900 950
-  // pink      50 100 200 300 400 500 600 700 800 900 950
-  // rose      50 100 200 300 400 500 600 700 800 900 950
-  // slate     50 100 200 300 400 500 600 700 800 900 950
-  // gray      50 100 200 300 400 500 600 700 800 900 950
-  // zinc      50 100 200 300 400 500 600 700 800 900 950
-  // neutral   50 100 200 300 400 500 600 700 800 900 950
-  // stone     50 100 200 300 400 500 600 700 800 900 950
-
-
 // Configuraciones del comercio electrónico
 
 // Idioma del proyecto
-type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/";
-export const idioma: Idioma = "/es/"; //Idomas disponibles "/en/" (Inglés) , "/es/" (Español), "/pt/" (Português), "/fr/" (Frances)
+type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
+export const idioma: Idioma = "/es/" 
 
 // Modulos que estarán activos
-
 export const ModuelesActives = {
   Home: true, //Inicio
   Car: true, //Carrito
@@ -55,6 +27,7 @@ export const ModuelesActives = {
   Events: true, //Eventos,
   Photos: true, //Fotos
   DownloadApp: true, //Descargar
+  Language: true, //Idioma
 }
 
 export const company = {
@@ -81,6 +54,7 @@ export const translationsLinksPages = {
     location: "Location",
     contact: "Contact",
     crear: "Create ecommerce",
+    language: "Language",
   },
   "/es/": {
     downloadApp: "Descargar App",
@@ -96,6 +70,7 @@ export const translationsLinksPages = {
     location: "Ubicación",
     contact: "Contacto",
     crear: "Crear ecommerce",
+    language: "Idioma",
   },
   "/pt/": {
     downloadApp: "Baixar aplicativo",
@@ -111,6 +86,7 @@ export const translationsLinksPages = {
     location: "Localização",
     contact: "Contato",
     crear: "Criar ecommerce",
+    language: "Linguagem",
   },
   "/fr/": {
     downloadApp: "Télécharger l'application",
@@ -126,6 +102,7 @@ export const translationsLinksPages = {
     location: "Emplacement",
     contact: "Contact",
     crear: "Créer ecommerce",
+    language: "Langue",
   },
 }
 export const getTranslation = (key: string): string => {
@@ -351,6 +328,11 @@ export const generalConfig = {
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
+      { href: "/lenguaje", id:"language", text: getTranslation("language"), 
+        icon: "bi-box-arrow-in-down",  active: true,
+        path1:pathsIconos.path1downloadApp,
+        path2:pathsIconos.path2downloadApp
+      },
       { href: "/", id: "home", text: getTranslation("home"), 
         icon: "bi-house-door-fill", active: true,
         path1:pathsIconos.path1home,
@@ -439,6 +421,9 @@ export const generalConfig = {
     }
   },
   Crear: {
+    previewProyect:{
+      
+    },
     stage:"Etapa",
     stage1:{
       title: "Bienvenido a la creación personalizada del ecommerce",

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCrearContext } from '../../context/CrearContext'
+import { useCrearContext } from '../../../Context/CrearContext'
 import { Sparkles } from 'lucide-react'
 
 interface ButtonHandleNextStage1Props {

@@ -27,7 +27,7 @@ import { Card, CardContent } from "./ui/card"
 import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
 import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
-import { useCrearContext } from "../context/CrearContext"
+import { useCrearContext } from "../../Context/CrearContext"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 

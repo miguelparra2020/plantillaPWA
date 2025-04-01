@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import CardGeneral from "./CardGeneral"
 import { ColorSettings, StageProps } from "../interfaces/models"
 import { Switch } from "./ui/switch"
-import { useCrearContext } from '../context/CrearContext'
+import { useCrearContext } from '../../Context/CrearContext'
 
 interface ButtonSettings {
   // Colores

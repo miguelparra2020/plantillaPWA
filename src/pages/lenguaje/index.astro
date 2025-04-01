@@ -1,0 +1,13 @@
+---
+import {   LayoutGeneral } from "@globals"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Language) {
+  return Astro.redirect('/crear');
+}
+---
+
+    <LayoutGeneral>
+        Soy Lenguaje
+
+
+    </LayoutGeneral>

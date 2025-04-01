@@ -6,7 +6,7 @@ import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
 import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 import { Stage2Settings } from '../interfaces/modelsContext'
-import { useCrearContext } from '../context/CrearContext'
+import { useCrearContext } from '../../Context/CrearContext'
 
 const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)

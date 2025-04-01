@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Stage1, Stage2, Stage3, Stage4, Stage5} from '@globals'
 import Stage6 from './components/Stage6'
-import { CrearProvider } from './context/CrearContext'
+
+import { PreviewProyect } from './components/PreviewProyect'
+import { ButtonHandlePreviewProyect } from './components/components/ButtonHandlePreviewProyect'
+import { ContextosGlobales } from '../Context/ContextosGlobales'
+
 
 const Crear = () => {
+  const [showPreview, setShowPreview] = useState(false)
   const [currentStage, setCurrentStage] = useState(() => {
     const savedStage = localStorage.getItem('currentStage')
     return savedStage ? parseInt(savedStage) : 1
@@ -50,15 +55,20 @@ const Crear = () => {
     }
   }
 
+  const renderPreviewProyect = () => {
+    return <PreviewProyect />
+  }
+
   return (
-    <CrearProvider>
+    <ContextosGlobales>
       <div className="flex justify-center items-center flex-col" >
-        {renderStage()}
+        <ButtonHandlePreviewProyect showPreview={showPreview} setShowPreview={setShowPreview} />
+        {showPreview ? renderPreviewProyect() : renderStage()}        
         <br />
         <br />
         <br />
       </div>
-    </CrearProvider>
+      </ContextosGlobales>
   )
 }
 

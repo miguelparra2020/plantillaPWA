@@ -3,7 +3,7 @@ import { Store, Globe, FileText } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { useCrearContext } from '../../context/CrearContext'
+import { useCrearContext } from '../../../Context/CrearContext'
 
 export const Stage1Settings = () => {
   const { settings, setSettings } = useCrearContext()
@@ -26,7 +26,7 @@ export const Stage1Settings = () => {
           <div className='space-y-2'>
             <div className='flex items-center gap-2'>
               <Store className='w-4 h-4 text-zinc-500' />
-              <span className='text-sm text-zinc-500'>Nombre de su comercio eletrónico</span>
+              <span className='text-sm text-zinc-500'>Nombre de su comercio eletrónico o proyecto</span>
             </div>
             <Input
               type='text'

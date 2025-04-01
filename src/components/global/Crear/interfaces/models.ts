@@ -9,3 +9,8 @@ export interface StageProps {
     titleColor: string
     paragraphColor: string
   }
+
+  export interface ButtonHandlePreviewProyectProps {
+    showPreview: boolean
+    setShowPreview: (showPreview: boolean) => void
+  }

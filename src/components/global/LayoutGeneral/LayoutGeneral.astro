@@ -8,28 +8,21 @@ const capitalizeFirstLetter = (str) => {
 }
 const formattedPath = capitalizeFirstLetter(path)
 const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name
-import { LanguageProvider } from '../Context/LanguageContext'
-import LanguageSelector from "../Componentes/LanguageSelector";
+import { ContextosGlobales } from "../Context/ContextosGlobales"
 ---
-
-<LanguageProvider>
 <Layout title={pathTitle}>
+  
     <div class="header-overlay">
-        <Header  />
+      <Header />
     </div>
-    
     <div class="content">
-        <slot />
+      <slot />
     </div>
-    <div class="footer-overlay"  >
-        <Footer />
+    <div class="footer-overlay">
+      <Footer />
     </div>
-    <!-- <LanguageSelector client:idle /> -->
 </Layout>
-</LanguageProvider>
-
 <style>
-    /* Estilo para el header */
 .header-overlay {
   position: fixed;
   top: 0;
