@@ -23,7 +23,7 @@ export const FormSelectLanguage = () => {
         },
       })
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mb-10">
       <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
                 <label htmlFor="language" className="block text-gray-700 text-sm font-bold mb-2">
