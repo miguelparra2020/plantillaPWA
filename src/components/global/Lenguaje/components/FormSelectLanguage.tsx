@@ -35,7 +35,10 @@ export const FormSelectLanguage = () => {
                 <select
                 id="language"
                 name="language"
-                onChange={formik.handleChange}
+                onChange={(e) => {
+                    formik.handleChange(e);
+                    formik.handleSubmit();
+                }}
                 onBlur={formik.handleBlur}
                 value={formik.values.language}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline relative"
@@ -69,18 +72,6 @@ export const FormSelectLanguage = () => {
                 {formik.touched.language && formik.errors.language ? (
                 <div className="text-red-500 text-xs italic">{formik.errors.language}</div>
                 ) : null}
-            </div>
-            <div className="w-full flex flex-row items-center justify-between">
-            
-            <button
-                type="submit"
-                className={generalConfig.GeneralSettings.ButtonGeneralClass}
-            >
-        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.changeSelect: null }
-        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.changeSelect: null }
-        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.changeSelect: null }
-        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.changeSelect: null }
-            </button>
             </div>
         </form>
         </div>
