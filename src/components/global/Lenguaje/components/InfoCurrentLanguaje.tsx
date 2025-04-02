@@ -23,7 +23,12 @@ export const InfoCurrentLanguaje = () => {
             {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.english: null }
             {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.portuguese: null }
             {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.french: null }</h1>}
-        {errorLenguaje ? <p>Error: {errorLenguaje}</p>:null}
+        {errorLenguaje ? <p>
+            {dataLanguaje.languajeChoose === "/es/" ? generalConfig.GeneralWords.es.error:null }
+            {dataLanguaje.languajeChoose === "/en/" ? generalConfig.GeneralWords.en.error:null }
+            {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.GeneralWords.pt.error:null }
+            {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.GeneralWords.fr.error:null }
+            : {errorLenguaje}</p>:null}
         </div>
     )
 }

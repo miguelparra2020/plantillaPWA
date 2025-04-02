@@ -5,6 +5,7 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
+import { error } from 'astro/dist/core/logger/core';
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
 export const getCurrentLanguage = (languajeChoose: string): Idioma => {
@@ -192,14 +193,18 @@ export  const translationLanguage = {
       english: "English 🇺🇲",
       portuguese: "Portuguese 🇵🇹",
       french: "French 🇫🇷",
+      requiredSelect: "Select a language",
+      changeSelect: "Change Language",
   }, 
   "/es/": {
       titleSelectLanguage: "Seleccionar Idioma",
       currentLanguage: "Idioma Actual",
       spanish: "Español 🇪🇸",
       english: "Inglés 🇺🇲",
-      portuguese: "Português 🇵🇹",
+      portuguese: "Portugués 🇵🇹",
       french: "Francés 🇫🇷",
+      requiredSelect: "Selecciona un idioma",
+      changeSelect: "Cambiar Idioma",
   },
   "/pt/": {
       titleSelectLanguage: "Selecione o Idioma",
@@ -208,14 +213,18 @@ export  const translationLanguage = {
       english: "Inglês 🇺🇲",
       portuguese: "Português 🇵🇹",
       french: "Francês 🇫🇷",
+      requiredSelect: "Selecione um idioma",
+      changeSelect: "Alterar idioma",
   },
   "/fr/": {
       titleSelectLanguage: "Choisir la Langue",
       currentLanguage: "Langue Actuelle",
-      spanish: "Español 🇪🇸",
-      english: "Inglês 🇺🇲",
-      portuguese: "Português 🇵🇹",
+      spanish: "Espagnol 🇪🇸",
+      english: "Anglais 🇺🇲",
+      portuguese: "Portugais 🇵🇹",
       french: "Français 🇫🇷",
+      requiredSelect: "Sélectionnez une langue",
+      changeSelect: "Changer de langue",
   },
 }
 export  const getTranslationLanguage = (languajeChoose: string, key: string): string => {
@@ -226,15 +235,23 @@ export  const getTranslationLanguage = (languajeChoose: string, key: string): st
 export const translationGeneralWords = {
   "/en/": {
     loading: "Loading...",
+    error: "Error",
+    select: "Select",
   }, 
   "/es/": {
-    loading: "Cargando...",    
+    loading: "Cargando...",  
+    error: "Error",  
+    select: "Seleccionar",
   },
   "/pt/": {
     loading: "Carregando...",    
+    error: "Erro",
+    select: "Selecione",
   },
   "/fr/": {
-    loading: "Chargement...",    
+    loading: "Chargement...", 
+    error: "Erreur",   
+    select: "Choisir",
   }
 }
 
@@ -500,6 +517,8 @@ export const generalConfig = {
             english: getTranslationLanguage("/es/","english"),
             portuguese: getTranslationLanguage("/es/","portuguese"),
             french: getTranslationLanguage("/es/","french"),
+            requiredSelect: getTranslationLanguage("/es/","requiredSelect"),
+            changeSelect: getTranslationLanguage("/es/","changeSelect"),
         },
     en: {
             selectLanguage: getTranslationLanguage("/en/","titleSelectLanguage"),
@@ -508,6 +527,8 @@ export const generalConfig = {
             english: getTranslationLanguage("/en/","english"),
             portuguese: getTranslationLanguage("/en/","portuguese"),
             french: getTranslationLanguage("/en/","french"),
+            requiredSelect: getTranslationLanguage("/en/","requiredSelect"),
+            changeSelect: getTranslationLanguage("/en/","changeSelect"),
         },
     pt: {
             selectLanguage: getTranslationLanguage("/pt/","titleSelectLanguage"),
@@ -516,6 +537,8 @@ export const generalConfig = {
             english: getTranslationLanguage("/pt/","english"),
             portuguese: getTranslationLanguage("/pt/","portuguese"),
             french: getTranslationLanguage("/pt/","french"),
+            requiredSelect: getTranslationLanguage("/pt/","requiredSelect"),
+            changeSelect: getTranslationLanguage("/pt/","changeSelect"),
         },
     fr: {
             selectLanguage: getTranslationLanguage("/fr/","titleSelectLanguage"),
@@ -524,22 +547,36 @@ export const generalConfig = {
             english: getTranslationLanguage("/fr/","english"),
             portuguese: getTranslationLanguage("/fr/","portuguese"),
             french: getTranslationLanguage("/fr/","french"),
+            requiredSelect: getTranslationLanguage("/fr/","requiredSelect"),
+            changeSelect: getTranslationLanguage("/fr/","changeSelect"),
         },
   },
   GeneralWords:{
       es: {
           loading: getTranslationGeneralWords("/es/","loading"),
-          
+          error: getTranslationGeneralWords("/es/","error"),
+          select: getTranslationGeneralWords("/es/","select"),
       },
       en: {
           loading: getTranslationGeneralWords("/en/","loading"),
+          error: getTranslationGeneralWords("/en/","error"),
+          select: getTranslationGeneralWords("/en/","select"),
       },
       pt: {
           loading: getTranslationGeneralWords("/pt/","loading"),
+          error: getTranslationGeneralWords("/pt/","error"),
+          select: getTranslationGeneralWords("/pt/","select"),
       },
       fr: {
           loading: getTranslationGeneralWords("/fr/","loading"),
+          error: getTranslationGeneralWords("/fr/","error"),
+          select: getTranslationGeneralWords("/fr/","select"),
       },
+  },
+  GeneralSettings: {
+      ButtonGeneralClass:"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+      TitleGeneralClass:"text-2xl font-bold mb-4",
+      ParagrathGeneralClass:"text-lg mb-2",
   },  
   GoogleAuth: {
     clientId: '389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com'
