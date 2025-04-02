@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { generalConfig } from "@util/generalConfig"
 import { useStore } from "@nanostores/react"
+
 export const FormSelectLanguage = () => {
     const { data: dataLanguaje} = useStore(languajePage)
     const formik = useFormik({
@@ -22,10 +23,11 @@ export const FormSelectLanguage = () => {
         },
       })
     return (
-        <form onSubmit={formik.handleSubmit} className="max-w-sm mx-auto">
+      <div className="flex justify-center items-center">
+      <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
                 <label htmlFor="language" className="block text-gray-700 text-sm font-bold mb-2">
-        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.selectLanguage: null }
+        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.selectLanguage : null }
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.selectLanguage: null }
         {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.selectLanguage: null }
         {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.selectLanguage: null }
@@ -36,7 +38,7 @@ export const FormSelectLanguage = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.language}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline relative"
                 >
                 <option value="">
             {dataLanguaje.languajeChoose === "/es/" ? generalConfig.GeneralWords.es.select:null }
@@ -53,7 +55,7 @@ export const FormSelectLanguage = () => {
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.spanish: null }
         {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.spanish: null }
         {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.spanish: null }</option>
-                <option value="/pt/"> 
+                <option value="/pt/">
         {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.portuguese: null }
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.portuguese: null }
         {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.portuguese: null }
@@ -68,6 +70,8 @@ export const FormSelectLanguage = () => {
                 <div className="text-red-500 text-xs italic">{formik.errors.language}</div>
                 ) : null}
             </div>
+            <div className="w-full flex flex-row items-center justify-between">
+            
             <button
                 type="submit"
                 className={generalConfig.GeneralSettings.ButtonGeneralClass}
@@ -77,7 +81,8 @@ export const FormSelectLanguage = () => {
         {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.changeSelect: null }
         {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.changeSelect: null }
             </button>
+            </div>
         </form>
+        </div>
     )    
 }
-

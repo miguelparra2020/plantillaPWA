@@ -5,7 +5,6 @@ import { ModuelesActives } from "@util/generalConfig"
 if (!ModuelesActives.Home) {
   return Astro.redirect('/nofound');
 }
-import TestLanguage  from "../components/global/Componentes/TestLanguage"
 import LanguageSelector from "../components/global/Lenguaje/LanguageIndex"
 ---
 
@@ -17,5 +16,4 @@ import LanguageSelector from "../components/global/Lenguaje/LanguageIndex"
         <!-- Inicio Servicios -->
          <InicioServicios/>
         <LanguageSelector client:idle/>
-         <TestLanguage client:idle/>
     </LayoutGeneral>

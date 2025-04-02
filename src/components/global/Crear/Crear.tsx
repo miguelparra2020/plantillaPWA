@@ -63,10 +63,7 @@ const Crear = () => {
     <ContextosGlobales>
       <div className="flex justify-center items-center flex-col" >
         <ButtonHandlePreviewProyect showPreview={showPreview} setShowPreview={setShowPreview} />
-        {showPreview ? renderPreviewProyect() : renderStage()}        
-        <br />
-        <br />
-        <br />
+        {showPreview ? renderPreviewProyect() : renderStage()}   
       </div>
       </ContextosGlobales>
   )

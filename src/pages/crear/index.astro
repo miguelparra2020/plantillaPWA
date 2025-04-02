@@ -1,7 +1,13 @@
 ---
+import LanguageSelector from "@component/global/Lenguaje/LanguageIndex"
+import { ModuelesActives } from "@util/generalConfig"
+if (!ModuelesActives.Home) {
+  return Astro.redirect('/nofound');
+}
 import {   LayoutGeneral, Crear } from "@globals"
 ---
 
     <LayoutGeneral>
     <Crear client:idle/>
+    <LanguageSelector client:idle/>
     </LayoutGeneral>

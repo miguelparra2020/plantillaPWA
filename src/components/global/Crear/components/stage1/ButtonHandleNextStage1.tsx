@@ -1,12 +1,15 @@
 import React from 'react'
 import { useCrearContext } from '../../../Context/CrearContext'
 import { Sparkles } from 'lucide-react'
+import { useStore } from '@nanostores/react'
+import { languajePage } from 'src/stores/languajePage'
+import { ButtonHandleNextStage1Props } from '../../interfaces/modelsStage1'
+import { generalConfig } from "@util/generalConfig"
 
-interface ButtonHandleNextStage1Props {
-    handleNext: () => void
-}
 export const ButtonHandleNextStage1 = ({ handleNext }: ButtonHandleNextStage1Props) =>{
     const { settings } = useCrearContext()
+    const { data: dataLanguaje} = useStore(languajePage)
+    
   return (
     <div className='p-4'>
       <button
@@ -20,7 +23,10 @@ export const ButtonHandleNextStage1 = ({ handleNext }: ButtonHandleNextStage1Pro
           }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
         >
           <Sparkles className='w-4 h-4' />
-          Empezar
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.beginStage1:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.beginStage1:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.beginStage1:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.beginStage1:""}
         </button>
     </div>
   )

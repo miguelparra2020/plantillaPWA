@@ -3,3 +3,7 @@ export interface EcommerceSettings {
   description: string
   language: string
 }
+
+export interface ButtonHandleNextStage1Props {
+  handleNext: () => void
+}

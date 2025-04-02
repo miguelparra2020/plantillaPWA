@@ -5,7 +5,6 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-import { error } from 'astro/dist/core/logger/core';
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
 export const getCurrentLanguage = (languajeChoose: string): Idioma => {
@@ -189,40 +188,40 @@ export  const translationLanguage = {
   "/en/": {
       titleSelectLanguage: "Select Language",
       currentLanguage: "Current Language",
-      spanish: "Spanish 🇪🇸",
-      english: "English 🇺🇲",
-      portuguese: "Portuguese 🇵🇹",
-      french: "French 🇫🇷",
+      spanish: "Spanish 🇪🇸 👈",
+      english: "English 🇺🇲 👈",
+      portuguese: "Portuguese 🇵🇹 👈",
+      french: "French 🇫🇷 👈",
       requiredSelect: "Select a language",
       changeSelect: "Change Language",
   }, 
   "/es/": {
       titleSelectLanguage: "Seleccionar Idioma",
       currentLanguage: "Idioma Actual",
-      spanish: "Español 🇪🇸",
-      english: "Inglés 🇺🇲",
-      portuguese: "Portugués 🇵🇹",
-      french: "Francés 🇫🇷",
+      spanish: "Español 🇪🇸 👈",
+      english: "Inglés 🇺🇲 👈",
+      portuguese: "Portugués 🇵🇹 👈",
+      french: "Francés 🇫🇷 👈",
       requiredSelect: "Selecciona un idioma",
       changeSelect: "Cambiar Idioma",
   },
   "/pt/": {
       titleSelectLanguage: "Selecione o Idioma",
       currentLanguage: "Idioma Atual",
-      spanish: "Español 🇪🇸",
-      english: "Inglês 🇺🇲",
-      portuguese: "Português 🇵🇹",
-      french: "Francês 🇫🇷",
+      spanish: "Español 🇪🇸 👈",
+      english: "Inglês 🇺🇲 👈",
+      portuguese: "Português 🇵🇹 👈",
+      french: "Francês 🇫🇷 👈",
       requiredSelect: "Selecione um idioma",
       changeSelect: "Alterar idioma",
   },
   "/fr/": {
       titleSelectLanguage: "Choisir la Langue",
       currentLanguage: "Langue Actuelle",
-      spanish: "Espagnol 🇪🇸",
-      english: "Anglais 🇺🇲",
-      portuguese: "Portugais 🇵🇹",
-      french: "Français 🇫🇷",
+      spanish: "Espagnol 🇪🇸 👈",
+      english: "Anglais 🇺🇲 👈",
+      portuguese: "Portugais 🇵🇹 👈",
+      french: "Français 🇫🇷 👈",
       requiredSelect: "Sélectionnez une langue",
       changeSelect: "Changer de langue",
   },
@@ -258,6 +257,104 @@ export const translationGeneralWords = {
 export  const getTranslationGeneralWords = (languajeChoose: string, key: string): string => {
   const currentLanguage = getCurrentLanguage(languajeChoose)
   return translationGeneralWords[currentLanguage][key] || key
+}
+
+export const translationCreateProject = {
+  "/en/": {
+    editProject: "Edit project",
+    previewProject: "Preview project",
+    titleStage1: "Welcome to the customized ecommerce creation",
+    subtitleStage1: "Start your journey to digital success in minutes",
+    nameEcommerceStage1: "Name of your online store or project",
+    placeholderNameEcommerceStage1: "My store",
+    activityEcommerceStage1: "Description of your economic activity",
+    placeholderActivityEcommerceStage1: "We are a company dedicated to e-commerce of technological products, etc...",
+    languagePageStage1: "Language of your platform",
+    placeholderLanguagePageStage1: "Select a language",
+    languageEsPageStage1: "🇪🇸 Spanish",
+    languageEnPageStage1: "🇺🇲 English",
+    languagePtPageStage1: "🇵🇹 Portuguese",
+    languageFrPageStage1: "🇫🇷 French",
+    proofQuestionStage1: "Why create your ecommerce with us?",
+    proofItem1Stage1: "Quick and easy setup",
+    proofItem2Stage1: "Professional and customizable design",
+    proofItem3Stage1: "Low and transparent costs",
+    proofItem4Stage1: "Mobile-optimized, SEO and performance-focused",
+    beginStage1: "Start your project"
+  },
+  "/es/": {
+    editProject: "Editar proyecto",
+    previewProject: "Previsualizar proyecto",
+    titleStage1: "Bienvenido a la creación personalizada del ecommerce",
+    subtitleStage1: "Comienza tu viaje hacia el éxito digital en minutos",
+    nameEcommerceStage1: "Nombre de su comercio electrónico o proyecto",
+    placeholderNameEcommerceStage1: "Mi comercio",
+    activityEcommerceStage1: "Descripción de su actividad económica",
+    placeholderActivityEcommerceStage1: "Somos una empresa dedicada al comercio electrónico de productos tecnológicos, etc...",
+    languagePageStage1: "Idioma de su plataforma",
+    placeholderLanguagePageStage1: "Seleccione un idioma",
+    languageEsPageStage1: "🇪🇸 Español",
+    languageEnPageStage1: "🇺🇲 Inglés",
+    languagePtPageStage1: "🇵🇹 Portugués",
+    languageFrPageStage1: "🇫🇷 Francés",
+    proofQuestionStage1: "¿Por qué crear su ecommerce con nosotros?",
+    proofItem1Stage1: "Configuración rápida y sencilla",
+    proofItem2Stage1: "Diseño profesional y personalizable",
+    proofItem3Stage1: "Costos bajos y transparentes",
+    proofItem4Stage1: "Optimizado para dispositivos móviles, enfocado en SEO y performance",
+    beginStage1: "Empezar su proyecto"
+  },
+  "/pt/": {
+    editProject: "Editar projeto",
+    previewProject: "Pré-visualizar projeto",
+    titleStage1: "Bem-vindo à criação personalizada do e-commerce",
+    subtitleStage1: "Comece sua jornada para o sucesso digital em minutos",
+    nameEcommerceStage1: "Nome da sua loja virtual ou projeto",
+    placeholderNameEcommerceStage1: "Minha loja",
+    activityEcommerceStage1: "Descrição da sua atividade econômica",
+    placeholderActivityEcommerceStage1: "Somos uma empresa dedicada ao comércio eletrônico de produtos tecnológicos, etc...",
+    languagePageStage1: "Idioma da sua plataforma",
+    placeholderLanguagePageStage1: "Selecione um idioma",
+    languageEsPageStage1: "🇪🇸 Espanhol",
+    languageEnPageStage1: "🇺🇲 Inglês",
+    languagePtPageStage1: "🇵🇹 Português",
+    languageFrPageStage1: "🇫🇷 Francês",
+    proofQuestionStage1: "Por que criar seu e-commerce conosco?",
+    proofItem1Stage1: "Configuração rápida e fácil",
+    proofItem2Stage1: "Design profissional e personalizável",
+    proofItem3Stage1: "Custos baixos e transparentes",
+    proofItem4Stage1: "Otimizado para dispositivos móveis, focado em SEO e desempenho",
+    beginStage1: "Iniciar seu projeto"
+  },
+  "/fr/": {
+    editProject: "Modifier le projet",
+    previewProject: "Aperçu du projet",
+    titleStage1: "Bienvenue dans la création personnalisée de votre e-commerce",
+    subtitleStage1: "Commencez votre voyage vers le succès numérique en quelques minutes",
+    nameEcommerceStage1: "Nom de votre boutique en ligne ou projet",
+    placeholderNameEcommerceStage1: "Ma boutique",
+    activityEcommerceStage1: "Description de votre activité économique",
+    placeholderActivityEcommerceStage1: "Nous sommes une entreprise dédiée au commerce électronique de produits technologiques, etc...",
+    languagePageStage1: "Langue de votre plateforme",
+    placeholderLanguagePageStage1: "Choisissez une langue",
+    languageEsPageStage1: "🇪🇸 Espagnol",
+    languageEnPageStage1: "🇺🇲 Anglais",
+    languagePtPageStage1: "🇵🇹 Portugais",
+    languageFrPageStage1: "🇫🇷 Français",
+    proofQuestionStage1: "Pourquoi créer votre e-commerce avec nous ?",
+    proofItem1Stage1: "Configuration rapide et facile",
+    proofItem2Stage1: "Design professionnel et personnalisable",
+    proofItem3Stage1: "Coûts bas et transparents",
+    proofItem4Stage1: "Optimisé pour les appareils mobiles, axé sur le SEO et la performance",
+    beginStage1: "Commencer votre projet"
+  }
+}
+
+
+
+export  const getTranslationCreateProject = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationCreateProject[currentLanguage][key] || key
 }
             
 
@@ -499,15 +596,108 @@ export const generalConfig = {
       title:getTranslationHomeServices("/es/","title"),
     }
   },
-  Crear: {
-    previewProyect:{
-      
+  Create: {
+    previewProject:{
+      es:{
+        editProject: getTranslationCreateProject("/es/","editProject"),
+        previewProject: getTranslationCreateProject("/es/","previewProject")
+      },
+      en:{
+        editProject: getTranslationCreateProject("/en/","editProject"),
+        previewProject: getTranslationCreateProject("/en/","previewProject")
+      },
+      pt:{
+        editProject: getTranslationCreateProject("/pt/","editProject"),
+        previewProject: getTranslationCreateProject("/pt/","previewProject")
+      },
+      fr:{
+        editProject: getTranslationCreateProject("/fr/","editProject"),
+        previewProject: getTranslationCreateProject("/fr/","previewProject")
+      },      
     },
     stage:"Etapa",
-    stage1:{
-      title: "Bienvenido a la creación personalizada del ecommerce",
-      Subtitle: "Comienza tu viaje hacia el éxito digital en minutos"
-    },
+    stage1: {
+      es: {
+        titleStage1: getTranslationCreateProject("/es/", "titleStage1"),
+        subtitleStage1: getTranslationCreateProject("/es/", "subtitleStage1"),
+        nameEcommerceStage1: getTranslationCreateProject("/es/", "nameEcommerceStage1"),
+        placeholderNameEcommerceStage1: getTranslationCreateProject("/es/", "placeholderNameEcommerceStage1"),
+        activityEcommerceStage1: getTranslationCreateProject("/es/", "activityEcommerceStage1"),
+        placeholderActivityEcommerceStage1: getTranslationCreateProject("/es/", "placeholderActivityEcommerceStage1"),
+        languagePageStage1: getTranslationCreateProject("/es/", "languagePageStage1"),
+        placeholderLanguagePageStage1: getTranslationCreateProject("/es/", "placeholderLanguagePageStage1"),
+        languageEsPageStage1: getTranslationCreateProject("/es/", "languageEsPageStage1"),
+        languageEnPageStage1: getTranslationCreateProject("/es/", "languageEnPageStage1"),
+        languagePtPageStage1: getTranslationCreateProject("/es/", "languagePtPageStage1"),
+        languageFrPageStage1: getTranslationCreateProject("/es/", "languageFrPageStage1"),
+        proofQuestionStage1: getTranslationCreateProject("/es/", "proofQuestionStage1"),
+        proofItem1Stage1: getTranslationCreateProject("/es/", "proofItem1Stage1"),
+        proofItem2Stage1: getTranslationCreateProject("/es/", "proofItem2Stage1"),
+        proofItem3Stage1: getTranslationCreateProject("/es/", "proofItem3Stage1"),
+        proofItem4Stage1: getTranslationCreateProject("/es/", "proofItem4Stage1"),
+        beginStage1: getTranslationCreateProject("/es/", "beginStage1"),
+      },
+      en: {
+        titleStage1: getTranslationCreateProject("/en/", "titleStage1"),
+        subtitleStage1: getTranslationCreateProject("/en/", "subtitleStage1"),
+        nameEcommerceStage1: getTranslationCreateProject("/en/", "nameEcommerceStage1"),
+        placeholderNameEcommerceStage1: getTranslationCreateProject("/en/", "placeholderNameEcommerceStage1"),
+        activityEcommerceStage1: getTranslationCreateProject("/en/", "activityEcommerceStage1"),
+        placeholderActivityEcommerceStage1: getTranslationCreateProject("/en/", "placeholderActivityEcommerceStage1"),
+        languagePageStage1: getTranslationCreateProject("/en/", "languagePageStage1"),
+        placeholderLanguagePageStage1: getTranslationCreateProject("/en/", "placeholderLanguagePageStage1"),
+        languageEsPageStage1: getTranslationCreateProject("/en/", "languageEsPageStage1"),
+        languageEnPageStage1: getTranslationCreateProject("/en/", "languageEnPageStage1"),
+        languagePtPageStage1: getTranslationCreateProject("/en/", "languagePtPageStage1"),
+        languageFrPageStage1: getTranslationCreateProject("/en/", "languageFrPageStage1"),
+        proofQuestionStage1: getTranslationCreateProject("/en/", "proofQuestionStage1"),
+        proofItem1Stage1: getTranslationCreateProject("/en/", "proofItem1Stage1"),
+        proofItem2Stage1: getTranslationCreateProject("/en/", "proofItem2Stage1"),
+        proofItem3Stage1: getTranslationCreateProject("/en/", "proofItem3Stage1"),
+        proofItem4Stage1: getTranslationCreateProject("/en/", "proofItem4Stage1"),
+        beginStage1: getTranslationCreateProject("/en/", "beginStage1"),
+      },
+      pt: {
+        titleStage1: getTranslationCreateProject("/pt/", "titleStage1"),
+        subtitleStage1: getTranslationCreateProject("/pt/", "subtitleStage1"),
+        nameEcommerceStage1: getTranslationCreateProject("/pt/", "nameEcommerceStage1"),
+        placeholderNameEcommerceStage1: getTranslationCreateProject("/pt/", "placeholderNameEcommerceStage1"),
+        activityEcommerceStage1: getTranslationCreateProject("/pt/", "activityEcommerceStage1"),
+        placeholderActivityEcommerceStage1: getTranslationCreateProject("/pt/", "placeholderActivityEcommerceStage1"),
+        languagePageStage1: getTranslationCreateProject("/pt/", "languagePageStage1"),
+        placeholderLanguagePageStage1: getTranslationCreateProject("/pt/", "placeholderLanguagePageStage1"),
+        languageEsPageStage1: getTranslationCreateProject("/pt/", "languageEsPageStage1"),
+        languageEnPageStage1: getTranslationCreateProject("/pt/", "languageEnPageStage1"),
+        languagePtPageStage1: getTranslationCreateProject("/pt/", "languagePtPageStage1"),
+        languageFrPageStage1: getTranslationCreateProject("/pt/", "languageFrPageStage1"),
+        proofQuestionStage1: getTranslationCreateProject("/pt/", "proofQuestionStage1"),
+        proofItem1Stage1: getTranslationCreateProject("/pt/", "proofItem1Stage1"),
+        proofItem2Stage1: getTranslationCreateProject("/pt/", "proofItem2Stage1"),
+        proofItem3Stage1: getTranslationCreateProject("/pt/", "proofItem3Stage1"),
+        proofItem4Stage1: getTranslationCreateProject("/pt/", "proofItem4Stage1"),
+        beginStage1: getTranslationCreateProject("/pt/", "beginStage1"),
+      },
+      fr: {
+        titleStage1: getTranslationCreateProject("/fr/", "titleStage1"),
+        subtitleStage1: getTranslationCreateProject("/fr/", "subtitleStage1"),
+        nameEcommerceStage1: getTranslationCreateProject("/fr/", "nameEcommerceStage1"),
+        placeholderNameEcommerceStage1: getTranslationCreateProject("/fr/", "placeholderNameEcommerceStage1"),
+        activityEcommerceStage1: getTranslationCreateProject("/fr/", "activityEcommerceStage1"),
+        placeholderActivityEcommerceStage1: getTranslationCreateProject("/fr/", "placeholderActivityEcommerceStage1"),
+        languagePageStage1: getTranslationCreateProject("/fr/", "languagePageStage1"),
+        placeholderLanguagePageStage1: getTranslationCreateProject("/fr/", "placeholderLanguagePageStage1"),
+        languageEsPageStage1: getTranslationCreateProject("/fr/", "languageEsPageStage1"),
+        languageEnPageStage1: getTranslationCreateProject("/fr/", "languageEnPageStage1"),
+        languagePtPageStage1: getTranslationCreateProject("/fr/", "languagePtPageStage1"),
+        languageFrPageStage1: getTranslationCreateProject("/fr/", "languageFrPageStage1"),
+        proofQuestionStage1: getTranslationCreateProject("/fr/", "proofQuestionStage1"),
+        proofItem1Stage1: getTranslationCreateProject("/fr/", "proofItem1Stage1"),
+        proofItem2Stage1: getTranslationCreateProject("/fr/", "proofItem2Stage1"),
+        proofItem3Stage1: getTranslationCreateProject("/fr/", "proofItem3Stage1"),
+        proofItem4Stage1: getTranslationCreateProject("/fr/", "proofItem4Stage1"),
+        beginStage1: getTranslationCreateProject("/fr/", "beginStage1"),
+      }
+    }       
   },
   Language: {
     es:{
