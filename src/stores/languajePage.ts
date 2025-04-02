@@ -1,6 +1,6 @@
 // src/stores/crearStore.ts
 import { atom } from 'nanostores'
-
+import { generalConfig } from "@util/generalConfig"
 interface dataLanguaje {
     languajeChoose: string
 }
@@ -14,7 +14,7 @@ interface CrearState {
 // Función para cargar el estado desde localStorage
 const loadState = (): CrearState => {
   const savedState = localStorage.getItem('languajePage')
-  return savedState ? JSON.parse(savedState) : { data: {languajeChoose: "es"}, loading: false, error: null }
+  return savedState ? JSON.parse(savedState) : { data: { languajeChoose: generalConfig.idioma }, loading: false, error: null }
 }
 
 // Crear el store con el estado inicial cargado desde localStorage

@@ -5,12 +5,11 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-// Configuraciones del comercio electrónico
-
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
-export const idioma: Idioma = "/es/" 
-
+export const getCurrentLanguage = (languajeChoose: string): Idioma => {
+  return `${languajeChoose}` as Idioma;
+}
 // Modulos que estarán activos
 export const ModuelesActives = {
   Home: true, //Inicio
@@ -105,8 +104,9 @@ export const translationsLinksPages = {
     language: "Langue",
   },
 }
-export const getTranslation = (key: string): string => {
-  return translationsLinksPages[idioma][key] || key;
+export const getTranslation = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationsLinksPages[currentLanguage][key] || key
 }
 
 export const translationHomeWellcome = {
@@ -127,8 +127,9 @@ export const translationHomeWellcome = {
     DescriptionWellcome: "Nous sommes une entreprise de commerce électronique qui s'engage à vendre des produits technologiques grâce à des partenariats avec des fournisseurs régionaux et à la prestation de services technologiques."
   },
 }
-export  const getTranslationHomeWelcome = (key: string): string => {
-  return translationHomeWellcome[idioma][key] || key;
+export  const getTranslationHomeWelcome = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationHomeWellcome[currentLanguage][key] || key
 }
 
 export  const translationHomeServices = {
@@ -145,8 +146,9 @@ export  const translationHomeServices = {
     title: "Services Professionnels"
   },
 }
-export  const getTranslationHomeServices = (key: string): string => {
-  return translationHomeServices[idioma][key] || key;
+export  const getTranslationHomeServices = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationHomeServices[currentLanguage][key] || key
 }
 
 // Paths Iconos 
@@ -177,12 +179,73 @@ export const pathsIconos = {
   path2contact: "",
   path1crear: "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z",
   path2crear: "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z",
+  path1Language: "M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001",
+  path2Language: ""
 
+}
+
+export  const translationLanguage = {
+  "/en/": {
+      titleSelectLanguage: "Select Language",
+      currentLanguage: "Current Language",
+      spanish: "Spanish 🇪🇸",
+      english: "English 🇺🇲",
+      portuguese: "Portuguese 🇵🇹",
+      french: "French 🇫🇷",
+  }, 
+  "/es/": {
+      titleSelectLanguage: "Seleccionar Idioma",
+      currentLanguage: "Idioma Actual",
+      spanish: "Español 🇪🇸",
+      english: "Inglés 🇺🇲",
+      portuguese: "Português 🇵🇹",
+      french: "Francés 🇫🇷",
+  },
+  "/pt/": {
+      titleSelectLanguage: "Selecione o Idioma",
+      currentLanguage: "Idioma Atual",
+      spanish: "Español 🇪🇸",
+      english: "Inglês 🇺🇲",
+      portuguese: "Português 🇵🇹",
+      french: "Francês 🇫🇷",
+  },
+  "/fr/": {
+      titleSelectLanguage: "Choisir la Langue",
+      currentLanguage: "Langue Actuelle",
+      spanish: "Español 🇪🇸",
+      english: "Inglês 🇺🇲",
+      portuguese: "Português 🇵🇹",
+      french: "Français 🇫🇷",
+  },
+}
+export  const getTranslationLanguage = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationLanguage[currentLanguage][key] || key
+}
+
+export const translationGeneralWords = {
+  "/en/": {
+    loading: "Loading...",
+  }, 
+  "/es/": {
+    loading: "Cargando...",    
+  },
+  "/pt/": {
+    loading: "Carregando...",    
+  },
+  "/fr/": {
+    loading: "Chargement...",    
+  }
+}
+
+export  const getTranslationGeneralWords = (languajeChoose: string, key: string): string => {
+  const currentLanguage = getCurrentLanguage(languajeChoose)
+  return translationGeneralWords[currentLanguage][key] || key
 }
             
 
 export const generalConfig = {
-  idioma: idioma,
+  idioma: "/es/",
   name: company.name,
   principalColorTitles:company.principalColorTitles,
   principalColorParrafos:company.principalColorParrafos,
@@ -190,62 +253,62 @@ export const generalConfig = {
     nameCompany: company.name,
     logoCompany: ImagenCompany,
     linksPages: [
-      { href: "/descargar", id:"downloadApp", text: getTranslation("downloadApp"), 
+      { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
         icon: "bi-box-arrow-in-down",  active: false,
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
-      { href: "/", id: "home", text: getTranslation("home"), 
+      { href: "/", id: "home", text: getTranslation("/es/","home"), 
         icon: "bi-house-door-fill", active: true,
         path1:pathsIconos.path1home,
         path2:pathsIconos.path2home
       },
-      { href: "/productos", id: "products", text: getTranslation("products"), 
+      { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
         icon: "bi-box-seam", active: true,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
-      { href: "/servicios", id: "services", text: getTranslation("services"), 
+      { href: "/servicios", id: "services", text: getTranslation("/es/","services"), 
         icon: "bi-tools", active: false,
         path1:pathsIconos.path1services,
         path2:pathsIconos.path2services
       },
-      { href: "/fotos", id: "photos", text: getTranslation("photos"), 
+      { href: "/fotos", id: "photos", text: getTranslation("/es/","photos"), 
         icon: "bi-tools", active: true,
         path1:pathsIconos.path1photos,
         path2:pathsIconos.path2photos
       },
-      { href: "/publicaciones", id: "publications", text: getTranslation("photos"), 
+      { href: "/publicaciones", id: "publications", text: getTranslation("/es/","photos"), 
         icon: "bi-journal-text", active: false,
         path1:pathsIconos.path1publications,
         path2:pathsIconos.path2publications
       },
-      { href: "/eventos", id: "events", text: getTranslation("events"), 
+      { href: "/eventos", id: "events", text: getTranslation("/es/","events"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1events,
         path2:pathsIconos.path2events
       },
-      { href: "/citas", id: "quotes", text: getTranslation("quotes"), 
+      { href: "/citas", id: "quotes", text: getTranslation("/es/","quotes"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1quotes,
         path2:pathsIconos.path2quotes
       },
-      { href: "/reservas", id: "reservations", text: getTranslation("reservations"), 
+      { href: "/reservas", id: "reservations", text: getTranslation("/es/","reservations"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1reservations,
         path2:pathsIconos.path2reservations
       },
-      { href: "/nosotros",id: "us", text: getTranslation("us"), 
+      { href: "/nosotros",id: "us", text: getTranslation("/es/","us"), 
         icon: "bi-buildings-fill", active: false,
         path1:pathsIconos.path1us,
         path2:pathsIconos.path2us
       },
-      { href: "/ubicacion", id:"location", text: getTranslation("location"), 
+      { href: "/ubicacion", id:"location", text: getTranslation("/es/","location"), 
         icon: "bi-geo-fill", active: true,
         path1:pathsIconos.path1location,
         path2:pathsIconos.path2location
       },
-      { href: "/contacto", id:"contact", text: getTranslation("contact"), 
+      { href: "/contacto", id:"contact", text: getTranslation("/es/","contact"), 
         icon: "bi-chat-fill", active: false,
         path1:pathsIconos.path1contact,
         path2:pathsIconos.path2contact
@@ -254,67 +317,67 @@ export const generalConfig = {
     },
   TagBar: {
     linksPages: [
-      { href: "/descargar", id:"downloadApp", text: getTranslation("downloadApp"), 
+      { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
         icon: "bi-box-arrow-in-down",  active: false,
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
-      { href: "/", id: "home", text: getTranslation("home"), 
+      { href: "/", id: "home", text: getTranslation("/es/","home"), 
         icon: "bi-house-door-fill", active: true,
         path1:pathsIconos.path1home,
         path2:pathsIconos.path2home
       },
-      { href: "/productos", id: "products", text: getTranslation("products"), 
+      { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
         icon: "bi-box-seam", active: true,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
-      { href: "/servicios", id: "services", text: getTranslation("services"), 
+      { href: "/servicios", id: "services", text: getTranslation("/es/","services"), 
         icon: "bi-tools", active: false,
         path1:pathsIconos.path1services,
         path2:pathsIconos.path2services
       },
-      { href: "/fotos", id: "photos", text: getTranslation("photos"), 
+      { href: "/fotos", id: "photos", text: getTranslation("/es/","photos"), 
         icon: "bi-tools", active: true,
         path1:pathsIconos.path1photos,
         path2:pathsIconos.path2photos
       },
-      { href: "/publicaciones", id: "publications", text: getTranslation("photos"), 
+      { href: "/publicaciones", id: "publications", text: getTranslation("/es/","photos"), 
         icon: "bi-journal-text", active: false,
         path1:pathsIconos.path1publications,
         path2:pathsIconos.path2publications
       },
-      { href: "/eventos", id: "events", text: getTranslation("events"), 
+      { href: "/eventos", id: "events", text: getTranslation("/es/","events"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1events,
         path2:pathsIconos.path2events
       },
-      { href: "/citas", id: "quotes", text: getTranslation("quotes"), 
+      { href: "/citas", id: "quotes", text: getTranslation("/es/","quotes"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1quotes,
         path2:pathsIconos.path2quotes
       },
-      { href: "/reservas", id: "reservations", text: getTranslation("reservations"), 
+      { href: "/reservas", id: "reservations", text: getTranslation("/es/","reservations"), 
         icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1reservations,
         path2:pathsIconos.path2reservations
       },
-      { href: "/nosotros",id: "us", text: getTranslation("us"), 
+      { href: "/nosotros",id: "us", text: getTranslation("/es/","us"), 
         icon: "bi-buildings-fill", active: false,
         path1:pathsIconos.path1us,
         path2:pathsIconos.path2us
       },
-      { href: "/ubicacion", id:"location", text: getTranslation("location"), 
+      { href: "/ubicacion", id:"location", text: getTranslation("/es/","location"), 
         icon: "bi-geo-fill", active: true,
         path1:pathsIconos.path1location,
         path2:pathsIconos.path2location
       },
-      { href: "/contacto", id:"contact", text: getTranslation("contact"), 
+      { href: "/contacto", id:"contact", text: getTranslation("/es/","contact"), 
         icon: "bi-chat-fill", active: false,
         path1:pathsIconos.path1contact,
         path2:pathsIconos.path2contact
       },
-      { href: "/crear", id:"crear", text: getTranslation("crear"), 
+      { href: "/crear", id:"crear", text: getTranslation("/es/","crear"), 
         icon: "bi-pencil-square", active: false,
         path1:pathsIconos.path1crear,
         path2:pathsIconos.path2crear
@@ -323,32 +386,32 @@ export const generalConfig = {
   },
   GeneralMenu: {
     linksPages: [
-      { href: "/descargar", id:"downloadApp", text: getTranslation("downloadApp"), 
+      { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
         icon: "bi-box-arrow-in-down",  active: true,
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
-      { href: "/lenguaje", id:"language", text: getTranslation("language"), 
+      { href: "/lenguaje", id:"language", text: getTranslation("/es/","language"), 
         icon: "bi-box-arrow-in-down",  active: true,
-        path1:pathsIconos.path1downloadApp,
-        path2:pathsIconos.path2downloadApp
+        path1:pathsIconos.path1Language,
+        path2:pathsIconos.path2Language
       },
-      { href: "/", id: "home", text: getTranslation("home"), 
+      { href: "/", id: "home", text: getTranslation("/es/","home"), 
         icon: "bi-house-door-fill", active: true,
         path1:pathsIconos.path1home,
         path2:pathsIconos.path2home
       },
-      { href: "/productos", id: "products", text: getTranslation("products"), 
+      { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
         icon: "bi-box-seam", active: true,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
-      { href: "/servicios", id: "services", text: getTranslation("services"), 
+      { href: "/servicios", id: "services", text: getTranslation("/es/","services"), 
         icon: "bi-tools", active: true,
         path1:pathsIconos.path1services,
         path2:pathsIconos.path2services
       },
-      { href: "/fotos", id: "photos", text: getTranslation("photos"), 
+      { href: "/fotos", id: "photos", text: getTranslation("/es/","photos"), 
         icon: "bi-tools", active: true,
         path1:pathsIconos.path1photos,
         path2:pathsIconos.path2photos
@@ -358,37 +421,37 @@ export const generalConfig = {
       //   path1:pathsIconos.path1publications,
       //   path2:pathsIconos.path2publications
       // },
-      { href: "/eventos", id: "events", text: getTranslation("events"), 
+      { href: "/eventos", id: "events", text: getTranslation("/es/","events"), 
         icon: "bi-calendar-event", active: true,
         path1:pathsIconos.path1events,
         path2:pathsIconos.path2events
       },
-      { href: "/citas", id: "quotes", text: getTranslation("quotes"), 
+      { href: "/citas", id: "quotes", text: getTranslation("/es/","quotes"), 
         icon: "bi-calendar-event", active: true,
         path1:pathsIconos.path1quotes,
         path2:pathsIconos.path2quotes
       },
-      { href: "/reservas", id: "reservations", text: getTranslation("reservations"), 
+      { href: "/reservas", id: "reservations", text: getTranslation("/es/","reservations"), 
         icon: "bi-calendar-event", active: true,
         path1:pathsIconos.path1reservations,
         path2:pathsIconos.path2reservations
       },
-      { href: "/nosotros",id: "us", text: getTranslation("us"), 
+      { href: "/nosotros",id: "us", text: getTranslation("/es/","us"), 
         icon: "bi-buildings-fill", active: true,
         path1:pathsIconos.path1us,
         path2:pathsIconos.path2us
       },
-      { href: "/ubicacion", id:"location", text: getTranslation("location"), 
+      { href: "/ubicacion", id:"location", text: getTranslation("/es/","location"), 
         icon: "bi-geo-fill", active: true,
         path1:pathsIconos.path1location,
         path2:pathsIconos.path2location
       },
-      { href: "/contacto", id:"contact", text: getTranslation("contact"), 
+      { href: "/contacto", id:"contact", text: getTranslation("/es/","contact"), 
         icon: "bi-chat-fill", active: true,
         path1:pathsIconos.path1contact,
         path2:pathsIconos.path2contact
       },
-      { href: "/crear", id:"crear", text: getTranslation("crear"), 
+      { href: "/crear", id:"crear", text: getTranslation("/es/","crear"), 
         icon: "bi-pencil-square", active: true,
         path1:pathsIconos.path1crear,
         path2:pathsIconos.path2crear
@@ -396,16 +459,15 @@ export const generalConfig = {
       ],
 
   },  
-  // Configuración del Inicio
   Home:{
     Wellcome:{
       WellcomeActive: true, // Bienvenida activa o inactiva true o false
       colorBgSesion: "blue", // Color de fondo de la bienvenida red, blue, orange, yellow, lime, green, etc...
       urlImgBgSesion: "/bgSesion1.svg",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
       WellcomeTypePosition: "vertical", // estilo "vertical", "horizontal"
-      Wellcome: getTranslationHomeWelcome("Wellcome"), // Bienvenido traducido en todos los idiomas
+      Wellcome: getTranslationHomeWelcome("/es/","Wellcome"), // Bienvenido traducido en todos los idiomas
       Company:company.name, // Nombre de la empresa
-      DescriptionWellcome:getTranslationHomeWelcome("DescriptionWellcome"), // Descripción de la empresa traducida
+      DescriptionWellcome:getTranslationHomeWelcome("/es/","DescriptionWellcome"), // Descripción de la empresa traducida
       ImagenGrandeAvif:  ImagenGrandeAvif, // Imagen grande de la empresa de Bienvenida
       ImagenGrandeWebp: ImagenGrandeWebp,  // 16:9 grande -> 1024 × 576 px -> 600 × 338 px 
       ImagenGrandeJpg: ImagenGrandeJpg,
@@ -417,7 +479,7 @@ export const generalConfig = {
       homeProductsActive: true, // Inicio productos activa o inactiva true o false
     },
     homeServices:{
-      title:getTranslationHomeServices("title"),
+      title:getTranslationHomeServices("/es/","title"),
     }
   },
   Crear: {
@@ -430,6 +492,55 @@ export const generalConfig = {
       Subtitle: "Comienza tu viaje hacia el éxito digital en minutos"
     },
   },
+  Language: {
+    es:{
+            selectLanguage: getTranslationLanguage("/es/","titleSelectLanguage"),
+            currentLanguage: getTranslationLanguage("/es/","currentLanguage"),
+            spanish: getTranslationLanguage("/es/","spanish"),
+            english: getTranslationLanguage("/es/","english"),
+            portuguese: getTranslationLanguage("/es/","portuguese"),
+            french: getTranslationLanguage("/es/","french"),
+        },
+    en: {
+            selectLanguage: getTranslationLanguage("/en/","titleSelectLanguage"),
+            currentLanguage: getTranslationLanguage("/en/","currentLanguage"),
+            spanish: getTranslationLanguage("/en/","spanish"),
+            english: getTranslationLanguage("/en/","english"),
+            portuguese: getTranslationLanguage("/en/","portuguese"),
+            french: getTranslationLanguage("/en/","french"),
+        },
+    pt: {
+            selectLanguage: getTranslationLanguage("/pt/","titleSelectLanguage"),
+            currentLanguage: getTranslationLanguage("/pt/","currentLanguage"),
+            spanish: getTranslationLanguage("/pt/","spanish"),
+            english: getTranslationLanguage("/pt/","english"),
+            portuguese: getTranslationLanguage("/pt/","portuguese"),
+            french: getTranslationLanguage("/pt/","french"),
+        },
+    fr: {
+            selectLanguage: getTranslationLanguage("/fr/","titleSelectLanguage"),
+            currentLanguage: getTranslationLanguage("/fr/","currentLanguage"),
+            spanish: getTranslationLanguage("/fr/","spanish"),
+            english: getTranslationLanguage("/fr/","english"),
+            portuguese: getTranslationLanguage("/fr/","portuguese"),
+            french: getTranslationLanguage("/fr/","french"),
+        },
+  },
+  GeneralWords:{
+      es: {
+          loading: getTranslationGeneralWords("/es/","loading"),
+          
+      },
+      en: {
+          loading: getTranslationGeneralWords("/en/","loading"),
+      },
+      pt: {
+          loading: getTranslationGeneralWords("/pt/","loading"),
+      },
+      fr: {
+          loading: getTranslationGeneralWords("/fr/","loading"),
+      },
+  },  
   GoogleAuth: {
     clientId: '389059903936-crh2qopn8c163qlk9ucfspglb6uep88o.apps.googleusercontent.com'
   },

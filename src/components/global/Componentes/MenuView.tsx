@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { generalConfig } from "@util/generalConfig";
+import React from 'react'
+import { useState } from "react"
+import { generalConfig } from "@util/generalConfig"
 import { MessageSquareText, Menu } from 'lucide-react'
 
 const MenuView = () => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const [openChat, setOpenChat] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false)
+  const [openChat, setOpenChat] = useState(false)
   const toggleMenu = () => {
     setOpenMenu(!openMenu)
   }
@@ -61,7 +62,7 @@ const MenuView = () => {
                     <li>
                     <a href={item.href} className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group transition-all duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-                      className={['bi', item.icon]} viewBox="0 0 16 16">
+                      className={['bi', item.icon].join(' ')} viewBox="0 0 16 16">
 
                             <path d={item.path1}/>
                             <path d={item.path2}/>
@@ -95,7 +96,7 @@ const MenuView = () => {
         <iframe src="https://cdn.botpress.cloud/webchat/v2.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/22/23/20250122234411-45T0QKRT.json" title="Botpress Webchat"
           
           style={{width: "100%", height: "400px"}}
-          fillRule
+          
           ></iframe>
         <div className="py-4 overflow-y-auto">
         
@@ -113,7 +114,7 @@ const MenuView = () => {
 )}   
 
     </div>
-  );
-};
+  )
+}
 
-export default MenuView;
+export default MenuView

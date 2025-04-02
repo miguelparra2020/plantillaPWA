@@ -15,21 +15,15 @@ const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext })
     crearStore.set({ data: 'Nuevos datos', loading: false, error: null });
   };
 
-  const handleUpdateLenguaje = () => {
-    languajePage.set({ data: {languajeChoose: "en"}, loading: false, error: null });
-  }
+  
   return (
     <>
-    {loading ? <p>Cargando...</p> : <p>Datos: {data}</p>}
+    {loading ? <p>Cargando...</p> : <p>Datos: {data} {dataLanguaje.languajeChoose}</p>}
     {error ? <p>Error: {error}</p>:null}
 
-    {loadingLanguaje ? <p>Cargando...</p> : <p>Datos: {dataLanguaje.languajeChoose}</p>}
-    {errorLenguaje ? <p>Error: {errorLenguaje}</p>:null}
+    
     <div>
       <button onClick={handleUpdate}>Actualizar Datos</button>
-    </div>
-    <div>
-      <button onClick={handleUpdateLenguaje}>Actualizar Languaje</button>
     </div>
       <CardGeneral
         title={`${currentStage} - Bienvenido a la creación del comercio electrónico`}
