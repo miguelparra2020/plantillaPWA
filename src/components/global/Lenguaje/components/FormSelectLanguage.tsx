@@ -48,16 +48,17 @@ export const FormSelectLanguage = () => {
             {dataLanguaje.languajeChoose === "/en/" ? generalConfig.GeneralWords.en.select:null }
             {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.GeneralWords.pt.select:null }
             {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.GeneralWords.fr.select:null }...</option>
-                <option value="/en/">
-        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.english: null }
-        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.english: null }
-        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.english: null }
-        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.english: null }</option>
+                
                 <option value="/es/">
         {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.spanish: null }
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.spanish: null }
         {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.spanish: null }
         {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.spanish: null }</option>
+                <option value="/en/">
+        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.english: null }
+        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.english: null }
+        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Language.pt.english: null }
+        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Language.fr.english: null }</option>
                 <option value="/pt/">
         {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.portuguese: null }
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.portuguese: null }
