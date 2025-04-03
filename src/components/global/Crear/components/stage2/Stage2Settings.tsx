@@ -49,16 +49,28 @@ const Stage2Settings = () => {
       <form className='flex flex-col gap-4 flex-1 p-4 justify-between'>
         <div className="space-y-6">
           <div className="p-4 border border-zinc-200  rounded-xl">
-            <h4 className={`text-lg font-medium mb-2 ${titleColorClass}`}>Vista previa de título</h4>
+            <h4 className={`text-lg font-medium mb-2 ${titleColorClass}`}>
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.previewTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.previewTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.previewTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.previewTitleStage2:""}
+            </h4>
             <p className={`text-sm ${paragraphColorClass}`}>
-              Este es un ejemplo de cómo se verán los párrafos en su tienda con el color seleccionado. La elección
-              de colores adecuados mejora la experiencia de usuario y refuerza su identidad de marca.
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.previewParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.previewParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.previewParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.previewParagraphStage2:""}
             </p>
           </div>
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color para títulos</span>
+              <span className="text-sm text-zinc-500">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.colorTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.colorTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.colorTitleStage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.colorTitleStage2:""}
+              </span>
             </div>
             <Select
               value={localSettings.colorTitles}
@@ -86,7 +98,12 @@ const Stage2Settings = () => {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color para párrafos</span>
+              <span className="text-sm text-zinc-500">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.colorParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.colorParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.colorParagraphStage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.colorParagraphStage2:""}
+              </span>
             </div>
             <Select
               value={localSettings.colorParagraph}
@@ -114,19 +131,33 @@ const Stage2Settings = () => {
 
         <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
           <div className="text-sm text-zinc-700 ">
-            <p className="font-medium mb-2">Consejos para elegir colores</p>
+            <p className="font-medium mb-2">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.proofQuestionStage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.proofQuestionStage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.proofQuestionStage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.proofQuestionStage2:""}
+            </p>
             <ul className="space-y-1 text-xs text-zinc-500 ">
               <li className="flex items-center gap-1">
                 <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
-                Use colores que reflejen la personalidad de su marca
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.proofItem1Stage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.proofItem1Stage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.proofItem1Stage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.proofItem1Stage2:""}
               </li>
               <li className="flex items-center gap-1">
                 <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
-                Asegúrese de que haya suficiente contraste para la legibilidad
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.proofItem2Stage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.proofItem2Stage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.proofItem2Stage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.proofItem2Stage2:""}
               </li>
               <li className="flex items-center gap-1">
                 <span className="w-1 h-1 bg-blue-500 rounded-full"></span>
-                Considere la accesibilidad para todos los usuarios
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.proofItem3Stage2:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.proofItem3Stage2:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.proofItem3Stage2:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.proofItem3Stage2:""}
               </li>
             </ul>
           </div>

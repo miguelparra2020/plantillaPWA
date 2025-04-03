@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Rocket, ShoppingCart } from 'lucide-react';
 import './WellcomeCreate.css';
-
+import { useStore } from '@nanostores/react';
+import { languajePage } from 'src/stores/languajePage';
+import { generalConfig } from "@util/generalConfig"
 const Particle = ({ delay, startY }: { delay: number; startY: number }) => {
   const [translateY, setTranslateY] = useState(0);
   const [opacity, setOpacity] = useState(0);
@@ -38,7 +40,7 @@ export default function WelcomeAnimation() {
   const [rocketPosition, setRocketPosition] = useState(0);
   const [cartScale, setCartScale] = useState(0);
   const [titleOpacity, setTitleOpacity] = useState(0);
-
+  const { data: dataLanguaje} = useStore(languajePage)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setTimeout(() => {
@@ -79,8 +81,16 @@ export default function WelcomeAnimation() {
       </div>
 
       <div className="titleContainer" style={{ opacity: titleOpacity }}>
-        <h1 className="title">¡Bienvenido a tu</h1>
-        <h2 className="subtitle">E-commerce del Futuro!</h2>
+        <h1 className="title">!
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.wellcome.es.titleWellcome:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.wellcome.en.titleWellcome:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.wellcome.pt.titleWellcome:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.wellcome.fr.titleWellcome:""}</h1>
+        <h2 className="subtitle">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.wellcome.es.subtitleWellcome:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.wellcome.en.subtitleWellcome:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.wellcome.pt.subtitleWellcome:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.wellcome.fr.subtitleWellcome:""}!</h2>
       </div>
     </div>
   );

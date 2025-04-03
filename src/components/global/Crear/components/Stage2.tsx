@@ -1,26 +1,15 @@
 import React from "react"
-import { Sparkles, Palette, Type, ArrowBigLeftDash } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import CardGeneral from "./CardGeneral"
 import { StageProps } from "../interfaces/models"
-import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 import { useStore } from "@nanostores/react"
 import { languajePage } from "src/stores/languajePage"
 import {ButtonsHandleNextBackStage2} from "./stage2/ButtonsHandleNextBackStage2"
 import { generalConfig } from "@util/generalConfig"
 import Stage2Settings from "./stage2/Stage2Settings"
-import { crearStore } from "src/stores/crearStore"
 
 const Stage2: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
   const { data: dataLanguaje} = useStore(languajePage)
-  const { infoStage2 } = useStore(crearStore)
-
-  const divChildren = (
-    <div>
-      
-    </div>
-  )
 
   return (
     <CardGeneral 

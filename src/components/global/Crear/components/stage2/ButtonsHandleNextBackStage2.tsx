@@ -18,17 +18,27 @@ export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHa
                 className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
             >
                 <ArrowBigLeftDash className="w-4 h-4" />
-                Atrás
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.backButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.backButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.backButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.backButtonStage2:""}
             </button>
             <button
                 type="button"
                 onClick={() => handleNext()}
-                className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+                disabled={!store.infoStage2 || !store.infoStage2.colorTitles || !store.infoStage2.colorParagraph}
+                className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
+                    !store.infoStage2 || !store.infoStage2.colorTitles || !store.infoStage2.colorParagraph
+                      ? 'bg-zinc-600'
+                      : 'bg-zinc-900 hover:bg-zinc-800'
+                  }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
             >
                 <Sparkles className="w-4 h-4" />
-                Siguiente personalización
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.nextButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.nextButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.nextButtonStage2:""}
+                {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.nextButtonStage2:""}
             </button>
       </div>
   )
 }
-
