@@ -1,23 +1,23 @@
 import React from 'react'
-import { useCrearContext } from '../../../Context/CrearContext'
 import { Sparkles } from 'lucide-react'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
+import { crearStore } from 'src/stores/crearStore'
 import { ButtonHandleNextStage1Props } from '../../interfaces/modelsStage1'
 import { generalConfig } from "@util/generalConfig"
 
 export const ButtonHandleNextStage1 = ({ handleNext }: ButtonHandleNextStage1Props) =>{
-    const { settings } = useCrearContext()
-    const { data: dataLanguaje} = useStore(languajePage)
-    
+  const { data: dataLanguaje} = useStore(languajePage)
+  const store = useStore(crearStore)
+
   return (
     <div className='p-4'>
       <button
           type='button'
           onClick={handleNext}
-          disabled={settings.Stage1.storeName === '' || settings.Stage1.description === '' || settings.Stage1.language === ''}
+          disabled={!store.infoStage1?.nombreComercio || !store.infoStage1?.descripcionActividad || !store.infoStage1?.idiomaPlataforma}
           className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
-            settings.Stage1.storeName === '' || settings.Stage1.description === '' || settings.Stage1.language === ''
+            !store.infoStage1?.nombreComercio || !store.infoStage1?.descripcionActividad || !store.infoStage1?.idiomaPlataforma
               ? 'bg-zinc-600'
               : 'bg-zinc-900 hover:bg-zinc-800'
           }  text-white text-sm font-medium rounded-xl transition-colors self-end`}

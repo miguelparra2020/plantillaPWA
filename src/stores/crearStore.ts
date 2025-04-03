@@ -1,10 +1,25 @@
 // src/stores/crearStore.ts
 import { atom } from 'nanostores'
 
+export interface InfoStage1 {
+  nombreComercio: string
+  descripcionActividad: string
+  idiomaPlataforma: string
+}
+
+export interface InfoStage2 {
+  colorTitles: string
+  colorParagraph: string
+  colorTitlesSave: string
+  colorParagraphSave: string
+}
+
 interface CrearState {
   data: string | null
   loading: boolean
   error: string | null
+  infoStage1?: InfoStage1
+  infoStage2?: InfoStage2
 }
 
 // Función para cargar el estado desde localStorage

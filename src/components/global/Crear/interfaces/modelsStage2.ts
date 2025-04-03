@@ -13,3 +13,8 @@ export interface Stage2Settings {
   titleColor: string
   paragraphColor: string
 }
+
+export interface ButtonHandleNextStage2Props {
+  handleNext: () => void
+  handlePrev: () => void
+}

@@ -1,24 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Store, Globe, FileText } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { useCrearContext } from '../../../Context/CrearContext'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from "@util/generalConfig"
+import { crearStore, type InfoStage1 } from 'src/stores/crearStore'
 
 export const Stage1Settings = () => {
-  const { settings, setSettings } = useCrearContext()
   const { data: dataLanguaje} = useStore(languajePage)
-  const handleSettingsChange = (key: keyof typeof settings.Stage1, value: string) => {
-    setSettings((prev) => ({
-      ...prev,
-      Stage1: {
-        ...prev.Stage1,
-        [key]: value
-      }
-    }))
+  const store = useStore(crearStore)
+  const [localSettings, setLocalSettings] = useState<InfoStage1>(store.infoStage1 || {
+    nombreComercio: '',
+    descripcionActividad: '',
+    idiomaPlataforma: ''
+  })
+
+  const handleSettingsChange = (key: keyof InfoStage1, value: string) => {
+    const updatedSettings = { ...localSettings, [key]: value }
+    setLocalSettings(updatedSettings)
+
+    setTimeout(() => {
+      crearStore.set({ ...crearStore.get(), infoStage1: updatedSettings })
+    }, 300)
   }
 
   return (
@@ -38,8 +43,8 @@ export const Stage1Settings = () => {
             <Input
               type='text'
               placeholder={`${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.placeholderNameEcommerceStage1:""}${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.placeholderNameEcommerceStage1:""}${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.placeholderNameEcommerceStage1:""}${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.placeholderNameEcommerceStage1:""}`}
-              value={settings.Stage1.storeName}
-              onChange={(e) => handleSettingsChange('storeName', e.target.value)}
+              value={localSettings.nombreComercio}
+              onChange={(e) => handleSettingsChange('nombreComercio', e.target.value)}
               className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
             />
           </div>
@@ -56,8 +61,8 @@ export const Stage1Settings = () => {
             </div>
             <Textarea
               placeholder={`${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.placeholderActivityEcommerceStage1:""}`}
-              value={settings.Stage1.description}
-              onChange={(e) => handleSettingsChange('description', e.target.value)}
+              value={localSettings.descripcionActividad}
+              onChange={(e) => handleSettingsChange('descripcionActividad', e.target.value)}
               className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
             />
           </div>
@@ -71,30 +76,30 @@ export const Stage1Settings = () => {
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languagePageStage1:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePageStage1:""}</span>
             </div>
-            <Select value={settings.Stage1.language} onValueChange={(value) => handleSettingsChange('language', value)}>
+            <Select value={localSettings.idiomaPlataforma} onValueChange={(value) => handleSettingsChange('idiomaPlataforma', value)}>
               <SelectTrigger className='w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl'>
                 <SelectValue placeholder={`${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.placeholderLanguagePageStage1 :""}${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.placeholderLanguagePageStage1:""}${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.placeholderLanguagePageStage1:""}${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.placeholderLanguagePageStage1:""}`} />
               </SelectTrigger>
               <SelectContent className='absolute z-[3000] mt-2 bg-white'>
-                <SelectItem value='español'>
+                <SelectItem value='/es/'>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languageEsPageStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languageEsPageStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languageEsPageStage1:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languageEsPageStage1:""}
                 </SelectItem>
-                <SelectItem value='inglés'>
+                <SelectItem value='/en/'>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languageEnPageStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languageEnPageStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languageEnPageStage1:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languageEnPageStage1:""}
                 </SelectItem>
-                <SelectItem value='francés'>
+                <SelectItem value='/pt/'>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languagePtPageStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languagePtPageStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languagePtPageStage1:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePtPageStage1:""}
                 </SelectItem>
-                <SelectItem value='portugués'>
+                <SelectItem value='/fr/'>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languageFrPageStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languageFrPageStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languageFrPageStage1:""}
@@ -104,6 +109,7 @@ export const Stage1Settings = () => {
             </Select>
           </div>
         </div>
+        {/* Preguntas por que elegirnos */}
         <div className='space-y-4 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50'>
           <div className='text-sm text-zinc-700 dark:text-zinc-300'>
             <p className='font-medium mb-2'>

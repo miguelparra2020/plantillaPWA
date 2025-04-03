@@ -280,7 +280,9 @@ export const translationCreateProject = {
     proofItem2Stage1: "Professional and customizable design",
     proofItem3Stage1: "Low and transparent costs",
     proofItem4Stage1: "Mobile-optimized, SEO and performance-focused",
-    beginStage1: "Start your project"
+    beginStage1: "Start your project",
+    titleStage2: "Customization of Titles and Paragraphs",
+    subtitleStage2:"Choose the best color options for your e-commerce",
   },
   "/es/": {
     editProject: "Editar proyecto",
@@ -302,7 +304,10 @@ export const translationCreateProject = {
     proofItem2Stage1: "Diseño profesional y personalizable",
     proofItem3Stage1: "Costos bajos y transparentes",
     proofItem4Stage1: "Optimizado para dispositivos móviles, enfocado en SEO y performance",
-    beginStage1: "Empezar su proyecto"
+    beginStage1: "Empezar su proyecto",
+    titleStage2: "Personalización de títulos y párrafos",
+    subtitleStage2: "Escoge la mejor opción de colores para su comercio electrónico",
+    titlePrevieStage2: "Previsualización de títulos y párrafos",
   },
   "/pt/": {
     editProject: "Editar projeto",
@@ -324,7 +329,9 @@ export const translationCreateProject = {
     proofItem2Stage1: "Design profissional e personalizável",
     proofItem3Stage1: "Custos baixos e transparentes",
     proofItem4Stage1: "Otimizado para dispositivos móveis, focado em SEO e desempenho",
-    beginStage1: "Iniciar seu projeto"
+    beginStage1: "Iniciar seu projeto",
+    titleStage2: "Personalização de títulos e parágrafos",
+    subtitleStage2: "Escolha as melhores opções de cores para o seu comércio eletrônico",
   },
   "/fr/": {
     editProject: "Modifier le projet",
@@ -346,7 +353,9 @@ export const translationCreateProject = {
     proofItem2Stage1: "Design professionnel et personnalisable",
     proofItem3Stage1: "Coûts bas et transparents",
     proofItem4Stage1: "Optimisé pour les appareils mobiles, axé sur le SEO et la performance",
-    beginStage1: "Commencer votre projet"
+    beginStage1: "Commencer votre projet",
+    titleStage2: "Personnalisation des titres et paragraphes",
+    subtitleStage2: "Choisissez les meilleures options de couleurs pour votre commerce électronique",
   }
 }
 
@@ -697,7 +706,25 @@ export const generalConfig = {
         proofItem4Stage1: getTranslationCreateProject("/fr/", "proofItem4Stage1"),
         beginStage1: getTranslationCreateProject("/fr/", "beginStage1"),
       }
-    }       
+    },
+    stage2: {
+      es: {
+        titleStage2: getTranslationCreateProject("/es/", "titleStage2"),
+        subtitleStage2: getTranslationCreateProject("/es/", "subtitleStage2"),
+      },
+      en: {
+        titleStage2: getTranslationCreateProject("/en/", "titleStage2"),
+        subtitleStage2: getTranslationCreateProject("/en/", "subtitleStage2"),
+      },
+      pt: {
+        titleStage2: getTranslationCreateProject("/pt/", "titleStage2"),
+        subtitleStage2: getTranslationCreateProject("/pt/", "subtitleStage2"),
+      },
+      fr: {
+        titleStage2: getTranslationCreateProject("/fr/", "titleStage2"),
+        subtitleStage2: getTranslationCreateProject("/fr/", "subtitleStage2"),
+      }
+    },       
   },
   Language: {
     es:{

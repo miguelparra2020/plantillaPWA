@@ -9,7 +9,7 @@ export const FormSelectLanguage = () => {
     const { data: dataLanguaje} = useStore(languajePage)
     const formik = useFormik({
         initialValues: {
-          language: generalConfig.idioma,
+          language: dataLanguaje.languajeChoose,
         },
         validationSchema: Yup.object({
           language: Yup.string().required(`
@@ -43,12 +43,6 @@ export const FormSelectLanguage = () => {
                 value={formik.values.language}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline relative"
                 >
-                <option value="">
-            {dataLanguaje.languajeChoose === "/es/" ? generalConfig.GeneralWords.es.select:null }
-            {dataLanguaje.languajeChoose === "/en/" ? generalConfig.GeneralWords.en.select:null }
-            {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.GeneralWords.pt.select:null }
-            {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.GeneralWords.fr.select:null }...</option>
-                
                 <option value="/es/">
         {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Language.es.spanish: null }
         {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Language.en.spanish: null }
