@@ -5,9 +5,11 @@ import Stage6 from './components/Stage6'
 import { PreviewProyect } from './components/PreviewProyect'
 import { ButtonHandlePreviewProyect } from './components/components/ButtonHandlePreviewProyect'
 import { ContextosGlobales } from '../Context/ContextosGlobales'
+import WelcomeAnimation from './components/WellcomeCreate'
 
 
 const Crear = () => {
+  const [LoadingWellcome, setLoadingWellcome] = useState(true)
   const [showPreview, setShowPreview] = useState(false)
   const [currentStage, setCurrentStage] = useState(() => {
     const savedStage = localStorage.getItem('currentStage')
@@ -59,11 +61,23 @@ const Crear = () => {
     return <PreviewProyect />
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingWellcome(false)
+    }, 6000)
+  }, [])
+
   return (
     <ContextosGlobales>
       <div className="flex justify-center items-center flex-col" >
+      {LoadingWellcome ?
+      <WelcomeAnimation/>
+      :
+      <>
         <ButtonHandlePreviewProyect showPreview={showPreview} setShowPreview={setShowPreview} />
         {showPreview ? renderPreviewProyect() : renderStage()}   
+        </>
+      }
       </div>
       </ContextosGlobales>
   )

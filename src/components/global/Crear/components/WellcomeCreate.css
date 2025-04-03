@@ -1,0 +1,49 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #FFB800;
+  border-radius: 2px;
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.rocketContainer {
+  position: absolute;
+  transition: transform 2s ease-out;
+}
+
+.cartContainer {
+  position: absolute;
+  top: 35%;
+  transition: transform 2s ease-out;
+}
+
+.titleContainer {
+  position: absolute;
+  top: 45%;
+  text-align: center;
+  transition: opacity 2s ease-out;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1F2937;
+}
+
+.subtitle {
+  font-size: 24px;
+  color: #2563EB;
+  margin-top: 8px;
+}
