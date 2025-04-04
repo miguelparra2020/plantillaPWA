@@ -14,18 +14,55 @@ export interface InfoStage2 {
   colorParagraphSave: string
 }
 
+export interface InfoStage3 {
+  // Colores
+  bgColor: string
+  bgShade: number
+  
+  // Bordes
+  rounded: string
+  hasBorder: boolean
+  borderColor: string
+  borderShade: number
+  borderWidth: string
+  
+  // Sombras
+  shadow: string
+
+  // Al guardar
+  bgButton: string
+  bgButtonSave: string
+}
+
 interface CrearState {
   data: string | null
   loading: boolean
   error: string | null
   infoStage1?: InfoStage1
   infoStage2?: InfoStage2
+  infoStage3?: InfoStage3
 }
 
 // Función para cargar el estado desde localStorage
 const loadState = (): CrearState => {
   const savedState = localStorage.getItem('crearStore')
-  return savedState ? JSON.parse(savedState) : { data: null, loading: false, error: null }
+  return savedState ? JSON.parse(savedState) : { 
+    data: null, 
+    loading: false, 
+    error: null,
+    infoStage3: {
+      bgColor: 'blue',
+      bgShade: 500,
+      rounded: 'rounded',
+      hasBorder: false,
+      borderColor: 'blue',
+      borderShade: 500,
+      borderWidth: 'border',
+      shadow: 'shadow',
+      bgButton: '',
+      bgButtonSave: '',
+    }
+  }
 }
 
 // Crear el store con el estado inicial cargado desde localStorage

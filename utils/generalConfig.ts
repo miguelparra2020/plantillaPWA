@@ -295,6 +295,15 @@ export const translationCreateProject = {
     proofItem3Stage2: "Consider accessibility for all users",
     backButtonStage2: "Back",
     nextButtonStage2: "Next Customization",
+    titleStage3: "Customization of Titles and Paragraphs",
+    subtitleStage3: "Choose the Best Color Options for Your E-commerce",
+    buttonExampleStage3: "Example button",
+    titleBgButtonStage3: "Background color",
+    subtitleBgButtonStage3: "The hover will be automatic",
+    titleRoundedButtonStage3: "Corner rounding",
+    titleShadowStage3: "Shadow",
+    subtitleShadowStage3: "Hover will increase the shadow to",
+    titleBorderStage3: "Border",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -332,6 +341,15 @@ export const translationCreateProject = {
     proofItem3Stage2: "Considere la accesibilidad para todos los usuarios",
     backButtonStage2: "Atrás",
     nextButtonStage2: "Siguiente personalización",
+    titleStage3: "Personalización de títulos y párrafos",
+    subtitleStage3: "Escoge la mejor opción de colores para su comercio electrónico",
+    buttonExampleStage3: "Botón de ejemplo",
+    titleBgButtonStage3: "Color de fondo",
+    subtitleBgButtonStage3: "El hover será automáticamente",
+    titleRoundedButtonStage3: "Redondeo de esquinas",
+    titleShadowStage3: "Sombra",
+    subtitleShadowStage3: "El hover aumentará la sombra a",
+    titleBorderStage3: "Borde",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -367,7 +385,16 @@ export const translationCreateProject = {
     proofItem2Stage2: "Garanta contraste suficiente para a legibilidade",
     proofItem3Stage2: "Considere a acessibilidade para todos os usuários",
     backButtonStage2: "Voltar",
-    nextButtonStage2: "Próxima Personalização"
+    nextButtonStage2: "Próxima Personalização",
+    titleStage3: "Personalização de Títulos e Parágrafos",
+    subtitleStage3: "Escolha as Melhores Opções de Cores para o seu E-commerce",
+    buttonExampleStage3: "Botão de exemplo",
+    titleBgButtonStage3: "Cor de fundo",
+    subtitleBgButtonStage3: "O hover será automático",
+    titleRoundedButtonStage3: "Arredondamento de cantos",
+    titleShadowStage3: "Sombra",
+    subtitleShadowStage3: "O hover aumentará a sombra para",
+    titleBorderStage3: "Borda",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -404,17 +431,23 @@ export const translationCreateProject = {
     proofItem3Stage2: "Tenez compte de l'accessibilité pour tous les utilisateurs",
     backButtonStage2: "Retour",
     nextButtonStage2: "Personnalisation Suivante",
+    titleStage3: "Personnalisation des Titres et Paragraphes",
+    subtitleStage3: "Choisissez les Meilleures Options de Couleurs pour Votre E-commerce",
+    buttonExampleStage3: "Bouton d'exemple",
+    titleBgButtonStage3: "Couleur de fond",
+    subtitleBgButtonStage3: "Le hover sera automatique",
+    titleRoundedButtonStage3: "Arrondi des coins",
+    titleShadowStage3: "Ombre",
+    subtitleShadowStage3: "Le hover augmentera l'ombre à",
+    titleBorderStage3: "Bordure",
   }
 }
-
-
 
 export  const getTranslationCreateProject = (languajeChoose: string, key: string): string => {
   const currentLanguage = getCurrentLanguage(languajeChoose)
   return translationCreateProject[currentLanguage][key] || key
 }
             
-
 export const generalConfig = {
   idioma: "/es/",
   name: company.name,
@@ -830,7 +863,53 @@ export const generalConfig = {
         backButtonStage2: getTranslationCreateProject("/fr/", "backButtonStage2"),
         nextButtonStage2: getTranslationCreateProject("/fr/", "nextButtonStage2"),
       }
-    },       
+    },  
+    stage3: {
+      es: {
+        titleStage3: getTranslationCreateProject("/es/", "titleStage3"),
+        subtitleStage3: getTranslationCreateProject("/es/", "subtitleStage3"),
+        buttonExampleStage3: getTranslationCreateProject("/es/", "buttonExampleStage3"),
+        titleBgButtonStage3: getTranslationCreateProject("/es/", "titleBgButtonStage3"),
+        subtitleBgButtonStage3: getTranslationCreateProject("/es/", "subtitleBgButtonStage3"),
+        titleRoundedButtonStage3: getTranslationCreateProject("/es/", "titleRoundedButtonStage3"),
+        titleShadowStage3: getTranslationCreateProject("/es/", "titleShadowStage3"),
+        subtitleShadowStage3: getTranslationCreateProject("/es/", "subtitleShadowStage3"),
+        titleBorderStage3: getTranslationCreateProject("/es/", "titleBorderStage3"),
+      },
+      en: {
+        titleStage3: getTranslationCreateProject("/en/", "titleStage3"),
+        subtitleStage3: getTranslationCreateProject("/en/", "subtitleStage3"),
+        buttonExampleStage3: getTranslationCreateProject("/en/", "buttonExampleStage3"),
+        titleBgButtonStage3: getTranslationCreateProject("/en/", "titleBgButtonStage3"),
+        subtitleBgButtonStage3: getTranslationCreateProject("/en/", "subtitleBgButtonStage3"),
+        titleRoundedButtonStage3: getTranslationCreateProject("/en/", "titleRoundedButtonStage3"),
+        titleShadowStage3: getTranslationCreateProject("/en/", "titleShadowStage3"),
+        subtitleShadowStage3: getTranslationCreateProject("/en/", "subtitleShadowStage3"),
+        titleBorderStage3: getTranslationCreateProject("/en/", "titleBorderStage3"),
+      },
+      pt: {
+        titleStage3: getTranslationCreateProject("/pt/", "titleStage3"),
+        subtitleStage3: getTranslationCreateProject("/pt/", "subtitleStage3"),
+        buttonExampleStage3: getTranslationCreateProject("/pt/", "buttonExampleStage3"),
+        titleBgButtonStage3: getTranslationCreateProject("/pt/", "titleBgButtonStage3"),
+        subtitleBgButtonStage3: getTranslationCreateProject("/pt/", "subtitleBgButtonStage3"),
+        titleRoundedButtonStage3: getTranslationCreateProject("/pt/", "titleRoundedButtonStage3"),
+        titleShadowStage3: getTranslationCreateProject("/pt/", "titleShadowStage3"),
+        subtitleShadowStage3: getTranslationCreateProject("/pt/", "subtitleShadowStage3"),
+        titleBorderStage3: getTranslationCreateProject("/pt/", "titleBorderStage3"),
+      },
+      fr: {
+        titleStage3: getTranslationCreateProject("/fr/", "titleStage3"),
+        subtitleStage3: getTranslationCreateProject("/fr/", "subtitleStage3"),
+        buttonExampleStage3: getTranslationCreateProject("/fr/", "buttonExampleStage3"),
+        titleBgButtonStage3: getTranslationCreateProject("/fr/", "titleBgButtonStage3"),
+        subtitleBgButtonStage3: getTranslationCreateProject("/fr/", "subtitleBgButtonStage3"),
+        titleRoundedButtonStage3: getTranslationCreateProject("/fr/", "titleRoundedButtonStage3"),
+        titleShadowStage3: getTranslationCreateProject("/fr/", "titleShadowStage3"),
+        subtitleShadowStage3: getTranslationCreateProject("/fr/", "subtitleShadowStage3"),
+        titleBorderStage3: getTranslationCreateProject("/fr/", "titleBorderStage3"),
+      }
+    }     
   },
   Language: {
     es:{

@@ -1,11 +1,14 @@
 import React from "react"
-import { useState } from "react"
 import { Sparkles, Palette, Square, CircleDashed, Layers, ArrowBigLeftDash } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import CardGeneral from "./CardGeneral"
-import { ColorSettings, StageProps } from "../interfaces/models"
+import { StageProps } from "../interfaces/models"
 import { Switch } from "./ui/switch"
 import { useCrearContext } from '../../Context/CrearContext'
+import { useStore } from "@nanostores/react"
+import { languajePage } from "src/stores/languajePage"
+import { generalConfig } from "@util/generalConfig"
+import Stage3Settings from "./stage3/Stage3Settings"
 
 interface ButtonSettings {
   // Colores
@@ -24,6 +27,7 @@ interface ButtonSettings {
 }
 
 const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
+  const { data: dataLanguaje} = useStore(languajePage)
   const { settings, setSettings } = useCrearContext()
 
   const colorOptionsButtons = [
@@ -418,10 +422,18 @@ const Stage3: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
 
   return (
     <CardGeneral 
-      title={`${currentStage} - Personalización de títulos y párrafos`} 
-      subtitle={"Escoge la mejor opción de colores para su comercio electrónico"} 
+      title={`${currentStage} -  
+        ${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage3.es.titleStage3:""}
+        ${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage3.en.titleStage3:""}
+        ${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.titleStage3:""}
+        ${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.titleStage3:""}`} 
+      subtitle={`  
+        ${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage3.es.subtitleStage3:""}
+        ${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage3.en.subtitleStage3:""}
+        ${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.subtitleStage3:""}
+        ${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.subtitleStage3:""}`} 
       progress={progressPorcent} 
-      children={divChildren}
+      children={<Stage3Settings/>}
     />
   )
 }

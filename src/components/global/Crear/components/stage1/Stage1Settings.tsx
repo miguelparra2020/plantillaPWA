@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Store, Globe, FileText } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
@@ -7,6 +7,7 @@ import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from "@util/generalConfig"
 import { crearStore, type InfoStage1 } from 'src/stores/crearStore'
+import useSuggestionListActivitiesEs from './useSuggestionListActivitiesEs'
 
 export const Stage1Settings = () => {
   const { data: dataLanguaje} = useStore(languajePage)
@@ -17,6 +18,14 @@ export const Stage1Settings = () => {
     idiomaPlataforma: ''
   })
 
+  const [descripcionSuggestions, setDescripcionSuggestions] = useState<string[]>([])
+  const suggestionsList = useSuggestionListActivitiesEs(localSettings.descripcionActividad)
+  const [showSuggestions, setShowSuggestions] = useState(false)
+
+  useEffect(() => {
+    setDescripcionSuggestions(suggestionsList)
+  }, [suggestionsList])
+
   const handleSettingsChange = (key: keyof InfoStage1, value: string) => {
     const updatedSettings = { ...localSettings, [key]: value }
     setLocalSettings(updatedSettings)
@@ -25,6 +34,19 @@ export const Stage1Settings = () => {
       crearStore.set({ ...crearStore.get(), infoStage1: updatedSettings })
     }, 300)
   }
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value
+    handleSettingsChange('descripcionActividad', newValue)
+    
+    if (newValue.length > 2) {
+      setShowSuggestions(true)
+    } else {
+      setShowSuggestions(false)
+    }
+  }
+  
+
 
   return (
     <div>
@@ -38,7 +60,8 @@ export const Stage1Settings = () => {
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.nameEcommerceStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.nameEcommerceStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.nameEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.nameEcommerceStage1:""}</span>
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.nameEcommerceStage1:""}
+              </span>
             </div>
             <Input
               type='text'
@@ -59,12 +82,32 @@ export const Stage1Settings = () => {
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.activityEcommerceStage1:""}
               </span>
             </div>
-            <Textarea
-              placeholder={`${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.placeholderActivityEcommerceStage1:""}`}
-              value={localSettings.descripcionActividad}
-              onChange={(e) => handleSettingsChange('descripcionActividad', e.target.value)}
-              className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
-            />
+            <div className='relative'>
+              <Textarea
+                placeholder={`${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.placeholderActivityEcommerceStage1:""}${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.placeholderActivityEcommerceStage1:""}`}
+                value={localSettings.descripcionActividad}
+                onChange={handleDescriptionChange}
+                onFocus={() => descripcionSuggestions.length > 0 && setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 300)}
+                className='w-full bg-zinc-100 text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 min-h-[100px]'
+              />
+              {showSuggestions && descripcionSuggestions.length > 0 && (
+                <div className='absolute z-[1000] w-full mt-1 bg-white border border-zinc-200 rounded-lg shadow-lg max-h-60 overflow-y-auto'>
+                  {descripcionSuggestions.map((suggestion, index) => (
+                    <div 
+                      key={index}
+                      className='p-2 text-sm cursor-pointer hover:bg-zinc-100'
+                      onClick={() => {
+                        handleSettingsChange('descripcionActividad', suggestion)
+                        setShowSuggestions(false)
+                      }}
+                    >
+                      {suggestion}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           {/* Idioma */}
           <div className='space-y-2'>
@@ -74,7 +117,8 @@ export const Stage1Settings = () => {
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languagePageStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languagePageStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languagePageStage1:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePageStage1:""}</span>
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePageStage1:""}
+              </span>
             </div>
             <Select value={localSettings.idiomaPlataforma} onValueChange={(value) => handleSettingsChange('idiomaPlataforma', value)}>
               <SelectTrigger className='w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl'>

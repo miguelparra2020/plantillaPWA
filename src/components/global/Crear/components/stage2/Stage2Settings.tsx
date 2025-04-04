@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import { Store, Globe, FileText, Type, Palette } from 'lucide-react'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
+import { Type, Palette } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
