@@ -306,6 +306,8 @@ export const translationCreateProject = {
     titleBorderStage3: "Border",
     backButtonStage3: "Back",
     nextButtonStage3: "Next Customization",
+    titleStage4: "Purpose and objectives of the store",
+    subtitleStage4: "Customization of the store areas",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -354,6 +356,8 @@ export const translationCreateProject = {
     titleBorderStage3: "Borde",
     backButtonStage3: "Atrás",
     nextButtonStage3: "Siguiente personalización",
+    titleStage4: "Propósito y objetivos de la tienda",
+    subtitleStage4:"Personalización de las áreas de la tienda",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -401,6 +405,8 @@ export const translationCreateProject = {
     titleBorderStage3: "Borda",
     backButtonStage3: "Voltar",
     nextButtonStage3: "Próxima Personalização",
+    titleStage4: "Propósito e objetivos da loja",
+    subtitleStage4: "Personalização das áreas da loja",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -448,6 +454,8 @@ export const translationCreateProject = {
     titleBorderStage3: "Bordure",
     backButtonStage3: "Retour",
     nextButtonStage3: "Personnalisation Suivante",
+    titleStage4: "But et objectifs de la boutique",
+    subtitleStage4: "Personnalisation des zones de la boutique",
   }
 }
 
@@ -925,6 +933,24 @@ export const generalConfig = {
         backButtonStage3: getTranslationCreateProject("/fr/", "backButtonStage3"),
         nextButtonStage3: getTranslationCreateProject("/fr/", "nextButtonStage3"), 
       }
+    },
+    stage4:{
+      es: {
+        titleStage4: getTranslationCreateProject("/es/", "titleStage4"),
+        subtitleStage4: getTranslationCreateProject("/es/", "subtitleStage4"),
+      },
+      en: {
+        titleStage4: getTranslationCreateProject("/en/", "titleStage4"),
+        subtitleStage4: getTranslationCreateProject("/en/", "subtitleStage4"),
+      },
+      pt: {
+        titleStage4: getTranslationCreateProject("/pt/", "titleStage4"),
+        subtitleStage4: getTranslationCreateProject("/pt/", "subtitleStage4"),
+      },
+      fr: {
+        titleStage4: getTranslationCreateProject("/fr/", "titleStage4"),
+        subtitleStage4: getTranslationCreateProject("/fr/", "subtitleStage4"),
+      },
     }     
   },
   Language: {

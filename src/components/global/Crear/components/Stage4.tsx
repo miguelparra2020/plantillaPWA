@@ -17,7 +17,11 @@ import {
     Check,
     Palette,
     Store,
-    MousePointerClick
+    MousePointerClick,
+    ChevronDown,
+    ChevronUp,
+    CheckCircle2,
+    ArrowRightCircle
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Switch } from "./ui/switch"
@@ -30,20 +34,15 @@ import { colorClassMap, colorOptionsTitles } from "../helpers/helpersStage2"
 import { useCrearContext } from "../../Context/CrearContext"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
+import { useStore } from "@nanostores/react"
+import { languajePage } from "src/stores/languajePage"
+import { generalConfig } from "@util/generalConfig"
+import { CustomizationStep } from "../interfaces/modelsStage4"
+import { businessCategories } from "../helpers/helpersStage4"
 
-type CustomizationStep =
-  | "initial-question"
-  | "areas-list"
-  | "card-customization"
-  | "intro-customization"
-  | "product-card-customization"
-  | "cards-inicio-web"
-  | "product-detail-customization"
-  | "cart-item-customization"
-  | "complete"
-  | "finaly-process"
 
 const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
+  const { data: dataLanguaje} = useStore(languajePage)
   
   // Definición de colores con sus valores de Tailwind
   const colorOptions = [
@@ -391,6 +390,32 @@ const borderWidthOptions = [
   // Generar clases para el texto
   const textClasses = `${settings.Stage4.cardSettings.textAlign}`
 
+  
+
+  const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+
+
+  const toggleCategory = (id: string) => {
+    const newSelected = new Set(selectedCategories);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
+    }
+    setSelectedCategories(newSelected);
+  };
+
+  const toggleExpanded = (id: string) => {
+    const newExpanded = new Set(expandedCategories);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
+    } else {
+      newExpanded.add(id);
+    }
+    setExpandedCategories(newExpanded);
+  };
+
   // Renderizar la pregunta inicial
   const renderInitialQuestion = () => (
     <div className="flex flex-col items-center justify-center h-full p-6 space-y-8">
@@ -400,69 +425,83 @@ const borderWidthOptions = [
 
       <div className="text-center space-y-2">
         <h3 className="text-lg font-medium text-zinc-900">
-          ¿Va a vender productos en línea a sus usuarios?
+            Propósitos de su negocio
         </h3>
         <p className="text-sm text-zinc-500  max-w-xs">
           Esta información nos ayudará a personalizar su experiencia de comercio electrónico.
         </p>
       </div>
+    <div className="flex flex-col gap-6 p-6 bg-gray-50 min-h-screen">
 
-      <div className="w-full max-w-xs">
-        <Select
-          value={settings.Stage4.settingsOperative.sellProducts ? "si" : "no"}
-          onValueChange={(value) => {
-            if (value === "si") { 
-              handleSettingsChange("sellProducts", true)          
-            }else{
-              handleSettingsChange("sellProducts", false)
-            }
-          }}
-        >
-          <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
-            <SelectValue placeholder="Seleccione una opción" />
-          </SelectTrigger>
-          <SelectContent className="bg-white">
-            <SelectItem value="si">Sí, venderé productos en línea</SelectItem>
-            <SelectItem value="no">No, no venderé productos en línea</SelectItem>
-          </SelectContent>
-        </Select>
-        <div className="flex flex-row items-center justify-center gap-2">
-        <button
-        type="button"
-        onClick={() => handlePrev()}
-        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
-      >
-        <ArrowBigLeftDash className="w-4 h-4" />
-        atrás
-      </button>
-      {settings.Stage4.settingsOperative.sellProducts ? (
-        <button
-        type="button"
-        onClick={() => setCurrentStep("areas-list")}
-        className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
-      >
-        <ArrowBigRightDash className="w-4 h-4" />
-        Personalizar área de productos
-      </button>
-      ): (
-<button
-          type="button"
-          onClick={() => handleNext()}
-          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
-        >
-            <ArrowBigRightDash className="w-4 h-4" />
-            Siguiente personalización
-        </button>
-      )}
-      
-      
+      <div className="space-y-4">
+        {businessCategories.map((category) => (
+          <div key={category.id} className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
+            <div className="flex items-start gap-4">
+              <button
+                onClick={() => toggleCategory(category.id)}
+                className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors
+                  ${selectedCategories.has(category.id) 
+                    ? 'bg-blue-500 border-blue-500' 
+                    : 'border-gray-300 hover:border-blue-500'}`}
+              >
+                {selectedCategories.has(category.id) && (
+                  <Check className="w-3 h-3 text-white" />
+                )}
+              </button>
+              
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-800">{category.title}</h3>
+                <p className="text-sm text-gray-600 mt-1">{category.description}</p>
+              </div>
+            </div>
 
-        </div>
+            <button
+              onClick={() => toggleExpanded(category.id)}
+              className="w-full mt-4 flex items-center justify-center gap-2 py-2 px-4 bg-blue-50 rounded-lg text-blue-600 hover:bg-blue-100 transition-colors"
+            >
+              <span className="text-sm font-medium">
+                {expandedCategories.has(category.id) ? 'Ocultar detalles' : 'Ver detalles'}
+              </span>
+              {expandedCategories.has(category.id) ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+
+            {expandedCategories.has(category.id) && (
+              <div className="mt-4 space-y-4 pt-4 border-t border-gray-100">
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Incluye:</h4>
+                  <div className="space-y-2">
+                    {category.includes.map((item, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                        <span className="text-sm text-gray-600">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Ejemplos:</h4>
+                  <div className="space-y-2">
+                    {category.examples.map((item, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <ArrowRightCircle className="w-4 h-4 text-blue-500" />
+                        <span className="text-sm text-gray-600">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-      
-    </div>
-  )
-
+      </div>
+      </div>
+    )
   // Renderizar la lista de áreas a personalizar
   const renderAreasList = () => (
     <div className="flex flex-col p-6 space-y-6">
@@ -1419,8 +1458,16 @@ const borderWidthOptions = [
 
   return (
     <CardGeneral 
-      title={`${currentStage} - Personalización de venta de productos`} 
-      subtitle={"Transforme su tienda online con un diseño único que impulse sus ventas"} 
+      title={`${currentStage} -  
+        ${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.titleStage4:""}
+        ${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.titleStage4:""}
+        ${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.titleStage4:""}
+        ${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.titleStage4:""}`}  
+      subtitle={`  
+        ${dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.subtitleStage4:""}
+        ${dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.subtitleStage4:""}
+        ${dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.subtitleStage4:""}
+        ${dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.subtitleStage4:""}`} 
       progress={progressPorcent} 
       children={divChildren}
     />
