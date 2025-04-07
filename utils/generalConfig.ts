@@ -304,6 +304,8 @@ export const translationCreateProject = {
     titleShadowStage3: "Shadow",
     subtitleShadowStage3: "Hover will increase the shadow to",
     titleBorderStage3: "Border",
+    backButtonStage3: "Back",
+    nextButtonStage3: "Next Customization",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -350,6 +352,8 @@ export const translationCreateProject = {
     titleShadowStage3: "Sombra",
     subtitleShadowStage3: "El hover aumentará la sombra a",
     titleBorderStage3: "Borde",
+    backButtonStage3: "Atrás",
+    nextButtonStage3: "Siguiente personalización",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -395,6 +399,8 @@ export const translationCreateProject = {
     titleShadowStage3: "Sombra",
     subtitleShadowStage3: "O hover aumentará a sombra para",
     titleBorderStage3: "Borda",
+    backButtonStage3: "Voltar",
+    nextButtonStage3: "Próxima Personalização",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -440,6 +446,8 @@ export const translationCreateProject = {
     titleShadowStage3: "Ombre",
     subtitleShadowStage3: "Le hover augmentera l'ombre à",
     titleBorderStage3: "Bordure",
+    backButtonStage3: "Retour",
+    nextButtonStage3: "Personnalisation Suivante",
   }
 }
 
@@ -875,6 +883,8 @@ export const generalConfig = {
         titleShadowStage3: getTranslationCreateProject("/es/", "titleShadowStage3"),
         subtitleShadowStage3: getTranslationCreateProject("/es/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/es/", "titleBorderStage3"),
+        backButtonStage3: getTranslationCreateProject("/es/", "backButtonStage3"),
+        nextButtonStage3: getTranslationCreateProject("/es/", "nextButtonStage3"), 
       },
       en: {
         titleStage3: getTranslationCreateProject("/en/", "titleStage3"),
@@ -886,6 +896,8 @@ export const generalConfig = {
         titleShadowStage3: getTranslationCreateProject("/en/", "titleShadowStage3"),
         subtitleShadowStage3: getTranslationCreateProject("/en/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/en/", "titleBorderStage3"),
+        backButtonStage3: getTranslationCreateProject("/en/", "backButtonStage3"),
+        nextButtonStage3: getTranslationCreateProject("/en/", "nextButtonStage3"), 
       },
       pt: {
         titleStage3: getTranslationCreateProject("/pt/", "titleStage3"),
@@ -897,6 +909,8 @@ export const generalConfig = {
         titleShadowStage3: getTranslationCreateProject("/pt/", "titleShadowStage3"),
         subtitleShadowStage3: getTranslationCreateProject("/pt/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/pt/", "titleBorderStage3"),
+        backButtonStage3: getTranslationCreateProject("/pt/", "backButtonStage3"),
+        nextButtonStage3: getTranslationCreateProject("/pt/", "nextButtonStage3"), 
       },
       fr: {
         titleStage3: getTranslationCreateProject("/fr/", "titleStage3"),
@@ -908,6 +922,8 @@ export const generalConfig = {
         titleShadowStage3: getTranslationCreateProject("/fr/", "titleShadowStage3"),
         subtitleShadowStage3: getTranslationCreateProject("/fr/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/fr/", "titleBorderStage3"),
+        backButtonStage3: getTranslationCreateProject("/fr/", "backButtonStage3"),
+        nextButtonStage3: getTranslationCreateProject("/fr/", "nextButtonStage3"), 
       }
     }     
   },
