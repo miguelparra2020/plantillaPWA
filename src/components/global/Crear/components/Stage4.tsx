@@ -401,7 +401,7 @@ const borderWidthOptions = [
 
   // Renderizar la pregunta inicial
   const renderInitialQuestion = () => (
-    <RenderInitialQuestionComponent />
+    <RenderInitialQuestionComponent setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
     )
   // Renderizar la lista de áreas a personalizar
   const renderAreasList = () => (
