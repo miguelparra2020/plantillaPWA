@@ -1,27 +1,76 @@
 import { ArrowRightCircle, Check, CheckCircle2, ChevronDown, ChevronUp, ShoppingCart } from 'lucide-react'
 import React, { useState } from 'react'
-import { businessCategories } from '../../helpers/helpersStage4'
+import { BusinessCategory } from '../../interfaces/modelsStage4'
+import { useStore } from '@nanostores/react'
+import { languajePage } from 'src/stores/languajePage'
+import { generalConfig } from '@util/generalConfig'
 export const RenderInitialQuestionComponent = () => {
-    const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
-    const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
-    const toggleCategory = (id: string) => {
-        const newSelected = new Set(selectedCategories);
+    const { data: dataLanguaje} = useStore(languajePage)
+    const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
+    const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+    const getStage4FieldByLang = (fieldId: string) => {
+      const lang = dataLanguaje.languajeChoose
+      const langMap: Record<string, any> = {
+        "/es/": generalConfig.Create.stage4.es,
+        "/en/": generalConfig.Create.stage4.en,
+        "/pt/": generalConfig.Create.stage4.pt,
+        "/fr/": generalConfig.Create.stage4.fr,
+      }
+    
+      return langMap[lang]?.[fieldId] || ""
+    }
+    
+    // Genera campos como titleId1CRIQStage4, desciptionId1CRIQStage4...
+    const generateFields = (prefix: string, count: number) => {
+      return Array.from({ length: count }, (_, i) => getStage4FieldByLang(`${prefix}${i + 1}CRIQStage4`))
+    }
+    
+    // Genera includesId1Item1CRIQStage4, includesId1Item2CRIQStage4...
+    const generateItems = (prefix: string, categories: number, itemsPerCategory: number) => {
+      return Array.from({ length: categories }, (_, catIndex) =>
+        Array.from({ length: itemsPerCategory }, (_, itemIndex) =>
+          getStage4FieldByLang(`${prefix}${catIndex + 1}Item${itemIndex + 1}CRIQStage4`)
+        )
+      )
+    }
+    
+    // Para ejemplos, cada categoría tiene un número distinto de ejemplos
+    const exampleCounts = [5, 4, 4, 4, 4]
+    const examples = exampleCounts.map((count, i) =>
+      Array.from({ length: count }, (_, j) =>
+        getStage4FieldByLang(`examplesId${i + 1}Item${j + 1}CRIQStage4`)
+      )
+    )
+    
+    const titles = generateFields("titleId", 5)
+    const descriptions = generateFields("desciptionId", 5)
+    const includes = generateItems("includesId", 5, 3)
+    
+    const businessCategories: BusinessCategory[] = Array.from({ length: 5 }, (_, i) => ({
+      id: `${i + 1}`,
+      title: titles[i],
+      description: descriptions[i],
+      includes: includes[i],
+      examples: examples[i]
+    }))
+        const toggleCategory = (id: string) => {
+        const newSelected = new Set(selectedCategories)
         if (newSelected.has(id)) {
-          newSelected.delete(id);
+          newSelected.delete(id)
         } else {
-          newSelected.add(id);
+          newSelected.add(id)
         }
-        setSelectedCategories(newSelected);
+        setSelectedCategories(newSelected)
       }
 
       const toggleExpanded = (id: string) => {
-        const newExpanded = new Set(expandedCategories);
+        const newExpanded = new Set(expandedCategories)
         if (newExpanded.has(id)) {
-          newExpanded.delete(id);
+          newExpanded.delete(id)
         } else {
-          newExpanded.add(id);
+          newExpanded.add(id)
         }
-        setExpandedCategories(newExpanded);
+        setExpandedCategories(newExpanded)
       }
 
     return (
@@ -32,10 +81,16 @@ export const RenderInitialQuestionComponent = () => {
 
       <div className="text-center space-y-2">
         <h3 className="text-lg font-medium text-zinc-900">
-            Propósitos de su negocio
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.titleRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.titleRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.titleRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.titleRenderInitialQuestionStage4:""}
         </h3>
         <p className="text-sm text-zinc-500  max-w-xs">
-          Esta información nos ayudará a personalizar su experiencia de comercio electrónico.
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.descriptionRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.descriptionRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.descriptionRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.descriptionRenderInitialQuestionStage4:""}
         </p>
       </div>
     <div className="flex flex-col gap-6 p-6 bg-gray-50 min-h-screen">
@@ -67,7 +122,17 @@ export const RenderInitialQuestionComponent = () => {
               className="w-full mt-4 flex items-center justify-center gap-2 py-2 px-4 bg-blue-50 rounded-lg text-blue-600 hover:bg-blue-100 transition-colors"
             >
               <span className="text-sm font-medium">
-                {expandedCategories.has(category.id) ? 'Ocultar detalles' : 'Ver detalles'}
+                {expandedCategories.has(category.id) ? <>
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.hideDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.hideDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.hideDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.hideDetailsRenderInitialQuestionStage4:""}
+  </> :  <>
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.viewDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.viewDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.viewDetailsRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.viewDetailsRenderInitialQuestionStage4:""}
+  </>}
               </span>
               {expandedCategories.has(category.id) ? (
                 <ChevronUp className="w-4 h-4" />
@@ -79,7 +144,11 @@ export const RenderInitialQuestionComponent = () => {
             {expandedCategories.has(category.id) && (
               <div className="mt-4 space-y-4 pt-4 border-t border-gray-100">
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Incluye:</h4>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-2">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.includeRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.includeRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.includeRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.includeRenderInitialQuestionStage4:""}:</h4>
                   <div className="space-y-2">
                     {category.includes.map((item, index) => (
                       <div key={index} className="flex items-center gap-2">
@@ -91,7 +160,11 @@ export const RenderInitialQuestionComponent = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">Ejemplos:</h4>
+                  <h4 className="text-sm font-semibold text-gray-700 mb-2">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.examplesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.examplesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.examplesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.examplesRenderInitialQuestionStage4:""}:</h4>
                   <div className="space-y-2">
                     {category.examples.map((item, index) => (
                       <div key={index} className="flex items-center gap-2">
@@ -110,7 +183,11 @@ export const RenderInitialQuestionComponent = () => {
 
 {selectedCategories.size > 0 && (
         <div className="mt-6 p-4 bg-slate-100 rounded-lg">
-          <p className="font-medium">Categorías seleccionadas: {selectedCategories.size}</p>
+          <p className="font-medium">
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.selectCategoriesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.selectCategoriesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.selectCategoriesRenderInitialQuestionStage4:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.selectCategoriesRenderInitialQuestionStage4:""}: {selectedCategories.size}</p>
           <ul className="mt-2">
             {Array.from(selectedCategories).map((id) => (
               <li key={id} className="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm mr-2 mb-2">

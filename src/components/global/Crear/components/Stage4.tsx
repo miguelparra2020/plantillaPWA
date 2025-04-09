@@ -38,7 +38,6 @@ import { useStore } from "@nanostores/react"
 import { languajePage } from "src/stores/languajePage"
 import { generalConfig } from "@util/generalConfig"
 import { CustomizationStep } from "../interfaces/modelsStage4"
-import { businessCategories } from "../helpers/helpersStage4"
 import { RenderInitialQuestionComponent } from "./stage4/RenderInitialQuestionComponent"
 
 

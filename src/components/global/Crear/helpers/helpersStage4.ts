@@ -1,5 +1,3 @@
-import { BusinessCategory } from "../interfaces/modelsStage4"
-
 export const colorOptionsStage4 = [
   { value: 'red', name: 'Rojo', titleShade: 700, detailShade: 600 },
   { value: 'orange', name: 'Naranja', titleShade: 700, detailShade: 600 },
@@ -50,40 +48,3 @@ export const colorClassMapStage4 = {
   stone: { 500: 'text-stone-500', 600: 'text-stone-600', 700: 'text-stone-700' }
 }
 
-export const businessCategories: BusinessCategory[] = [
-  {
-    id: '1',
-    title: '🛒 Tienda de productos',
-    description: 'Venta de productos físicos o digitales.',
-    includes: ['Productos físicos o digitales', 'Variaciones de producto', 'Carrito de compras, envíos'],
-    examples: ['Tiendas de ropa', 'Supermercados', 'Farmacias', 'Librerías', 'etc...']
-  },
-  {
-    id: '2',
-    title: '🗓️ Servicios con agendamiento',
-    description: 'Servicios que requieren cita o reserva.',
-    includes: ['Calendario de disponibilidad', 'Gestión de citas o turnos', 'Recordatorios automáticos'],
-    examples: ['Barberías', 'Clínicas', 'Consultorías', 'etc...']
-  },
-  {
-    id: '3',
-    title: '🧑‍🏫 Servicios sin agendamiento',
-    description: 'Servicios entregados sin necesidad de cita.',
-    includes: ['Formulario de contacto', 'Entrega por correo o digital', 'Sin calendario'],
-    examples: ['Diseño gráfico', 'Educación online', 'Redacción', 'etc...']
-  },
-  {
-    id: '4',
-    title: '🏠 Alquiler o reservas',
-    description: 'Alquiler de cosas o gestión de eventos.',
-    includes: ['Calendario de disponibilidad', 'Precio por día o periodo', 'Condiciones de uso'],
-    examples: ['Alquiler de autos', 'Casas', 'Eventos', 'etc...']
-  },
-  {
-    id: '5',
-    title: '🛰️ Contenido por suscripción',
-    description: 'Acceso recurrente a contenido exclusivo.',
-    includes: ['Pagos mensuales o anuales', 'Niveles de membresía', 'Gestión de acceso privado'],
-    examples: ['Cursos premium', 'Newsletters', 'Comunidades privadas', 'etc...']
-  }
-]
