@@ -364,7 +364,10 @@ export const translationCreateProject = {
     examplesId5Item1CRIQStage4: "Premium courses",
     examplesId5Item2CRIQStage4: "Newsletters",
     examplesId5Item3CRIQStage4: "Private communities",
-    examplesId5Item4CRIQStage4: "etc..."
+    examplesId5Item4CRIQStage4: "etc...",
+
+    buttonPreviousStage4: "Back",
+    buttonNextStage4: "Next customization",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -486,7 +489,8 @@ export const translationCreateProject = {
     examplesId5Item3CRIQStage4: "Comunidades privadas",
     examplesId5Item4CRIQStage4: "etc...",
     examplesId5Item5CRIQStage4: "",
-
+    buttonPreviousStage4: "Atrás",
+    buttonNextStage4: "Siguiente personazalización",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -592,7 +596,9 @@ export const translationCreateProject = {
     examplesId5Item1CRIQStage4: "Cursos premium",
     examplesId5Item2CRIQStage4: "Newsletters",
     examplesId5Item3CRIQStage4: "Comunidades privadas",
-    examplesId5Item4CRIQStage4: "etc..."
+    examplesId5Item4CRIQStage4: "etc...",
+    buttonPreviousStage4: "Voltar",
+    buttonNextStage4: "Próxima personalização",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -698,7 +704,9 @@ export const translationCreateProject = {
     examplesId5Item1CRIQStage4: "Cours premium",
     examplesId5Item2CRIQStage4: "Newsletters",
     examplesId5Item3CRIQStage4: "Communautés privées",
-    examplesId5Item4CRIQStage4: "etc..."
+    examplesId5Item4CRIQStage4: "etc...",
+    buttonPreviousStage4: "Retour",
+    buttonNextStage4: "Personnalisation suivante",
   }
 }
 
@@ -1248,6 +1256,8 @@ export const generalConfig = {
         examplesId5Item3CRIQStage4: getTranslationCreateProject("/es/", "examplesId5Item3CRIQStage4"),
         examplesId5Item4CRIQStage4: getTranslationCreateProject("/es/", "examplesId5Item4CRIQStage4"),
         examplesId5Item5CRIQStage4: getTranslationCreateProject("/es/", "examplesId5Item5CRIQStage4"),
+        buttonPreviousStage4: getTranslationCreateProject("/es/", "buttonPreviousStage4"),
+        buttonNextStage4: getTranslationCreateProject("/es/", "buttonNextStage4"),
 
       },
       en: {
@@ -1320,7 +1330,8 @@ export const generalConfig = {
         examplesId5Item3CRIQStage4: getTranslationCreateProject("/en/", "examplesId5Item3CRIQStage4"),
         examplesId5Item4CRIQStage4: getTranslationCreateProject("/en/", "examplesId5Item4CRIQStage4"),
         examplesId5Item5CRIQStage4: getTranslationCreateProject("/en/", "examplesId5Item5CRIQStage4"),
-
+        buttonPreviousStage4: getTranslationCreateProject("/en/", "buttonPreviousStage4"),
+        buttonNextStage4: getTranslationCreateProject("/en/", "buttonNextStage4"),
       },
       pt: {
         titleStage4: getTranslationCreateProject("/pt/", "titleStage4"),
@@ -1392,7 +1403,8 @@ export const generalConfig = {
         examplesId5Item3CRIQStage4: getTranslationCreateProject("/pt/", "examplesId5Item3CRIQStage4"),
         examplesId5Item4CRIQStage4: getTranslationCreateProject("/pt/", "examplesId5Item4CRIQStage4"),
         examplesId5Item5CRIQStage4: getTranslationCreateProject("/pt/", "examplesId5Item5CRIQStage4"),
-
+        buttonPreviousStage4: getTranslationCreateProject("/pt/", "buttonPreviousStage4"),
+        buttonNextStage4: getTranslationCreateProject("/pt/", "buttonNextStage4"),
       },
       fr: {
         titleStage4: getTranslationCreateProject("/fr/", "titleStage4"),
@@ -1464,7 +1476,8 @@ export const generalConfig = {
         examplesId5Item3CRIQStage4: getTranslationCreateProject("/fr/", "examplesId5Item3CRIQStage4"),
         examplesId5Item4CRIQStage4: getTranslationCreateProject("/fr/", "examplesId5Item4CRIQStage4"),
         examplesId5Item5CRIQStage4: getTranslationCreateProject("/fr/", "examplesId5Item5CRIQStage4"),
-
+        buttonPreviousStage4: getTranslationCreateProject("/fr/", "buttonPreviousStage4"),
+        buttonNextStage4: getTranslationCreateProject("/fr/", "buttonNextStage4"),
       },
     }     
   },

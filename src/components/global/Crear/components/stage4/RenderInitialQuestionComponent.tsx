@@ -209,7 +209,10 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
         className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
       >
         <ArrowBigLeftDash className="w-4 h-4" />
-        atrás
+        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonPreviousStage4:""}
+        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonPreviousStage4:""}
+        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonPreviousStage4:""}
+        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonPreviousStage4:""}
       </button>
         <button
           type="button"
@@ -222,7 +225,10 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
           }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
         >
             <ArrowBigRightDash className="w-4 h-4" />
-            Siguiente personalización
+        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonNextStage4:""}
+        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonNextStage4:""}
+        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonNextStage4:""}
+        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonNextStage4:""}
         </button>
           </div>
         </div>
