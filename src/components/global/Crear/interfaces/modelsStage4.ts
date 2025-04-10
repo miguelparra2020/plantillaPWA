@@ -1,5 +1,6 @@
 export type CustomizationStep =
   | "initial-question"
+  | "edit-select-categories"
   | "areas-list"
   | "card-customization"
   | "intro-customization"

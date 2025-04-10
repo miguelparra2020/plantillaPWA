@@ -18,10 +18,6 @@ import {
     Palette,
     Store,
     MousePointerClick,
-    ChevronDown,
-    ChevronUp,
-    CheckCircle2,
-    ArrowRightCircle
 } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Switch } from "./ui/switch"
@@ -39,6 +35,7 @@ import { languajePage } from "src/stores/languajePage"
 import { generalConfig } from "@util/generalConfig"
 import { CustomizationStep } from "../interfaces/modelsStage4"
 import { RenderInitialQuestionComponent } from "./stage4/RenderInitialQuestionComponent"
+import { RenderEditSelectCategories } from "./stage4/RenderEditSelectCategories"
 
 
 const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
@@ -403,6 +400,12 @@ const borderWidthOptions = [
   const renderInitialQuestion = () => (
     <RenderInitialQuestionComponent setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
     )
+
+    // Renderizar la edicción de selección de categorias
+  const renderEditSelectCategories = () => (
+    <RenderEditSelectCategories/>
+    )
+
   // Renderizar la lista de áreas a personalizar
   const renderAreasList = () => (
     <div className="flex flex-col p-6 space-y-6">
@@ -1311,6 +1314,7 @@ const borderWidthOptions = [
   const divChildren = (
     <div>
         {currentStep === "initial-question" && renderInitialQuestion()}
+        {currentStep === "edit-select-categories" && renderEditSelectCategories()}
         {currentStep === "areas-list" && renderAreasList()}
         {currentStep === "card-customization" && renderCardCustomization()}
         {currentStep === "cards-inicio-web" && renderCardsInicioWebCustomization()}

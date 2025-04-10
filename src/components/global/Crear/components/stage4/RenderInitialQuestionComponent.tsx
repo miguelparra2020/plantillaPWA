@@ -239,7 +239,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
       </button>
         <button
           type="button"
-          onClick={() => setCurrentStep("cards-inicio-web")}
+          onClick={() => setCurrentStep("edit-select-categories")}
           disabled={selectedCategories.size === 0}
           className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
             selectedCategories.size === 0
