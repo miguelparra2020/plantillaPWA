@@ -403,7 +403,7 @@ const borderWidthOptions = [
 
     // Renderizar la edicción de selección de categorias
   const renderEditSelectCategories = () => (
-    <RenderEditSelectCategories/>
+    <RenderEditSelectCategories setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
     )
 
   // Renderizar la lista de áreas a personalizar

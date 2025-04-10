@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardContent } from '../ui/card'
 import { Button } from '../ui/button'
-import { Badge, Edit, Plus } from 'lucide-react'
+import { ArrowBigLeftDash, ArrowBigRightDash, Badge, Edit, Plus } from 'lucide-react'
+import { useStore } from '@nanostores/react'
+import { crearStore } from 'src/stores/crearStore'
+import { generalConfig } from '@util/generalConfig'
+import { RenderInitialQuestionComponentProps } from '../../interfaces/modelsStage4'
+import { languajePage } from 'src/stores/languajePage'
 
-const initialCategories = [
-    { id: 1, name: "Tecnología", editedPercentage: 75 },
-    { id: 2, name: "Diseño", editedPercentage: 45 },
-    { id: 3, name: "Marketing", editedPercentage: 90 },
-    { id: 4, name: "Desarrollo", editedPercentage: 30 },
-    { id: 5, name: "Innovación", editedPercentage: 60 },
-    { id: 6, name: "Estrategia", editedPercentage: 100 },
-  ]
-export const RenderEditSelectCategories = () => {
-    const [categories, setCategories] = useState(initialCategories)
+export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
+    const { data: dataLanguaje} = useStore(languajePage)
+    const [categories, setCategories] = useState<Array<{
+      id: string
+      name: string
+      editedPercentage: number
+    }>>([])
+
+    useEffect(() => {
+      const currentState = crearStore.get()
+      if (currentState.infoStage4?.selectedCategoriesWithDetails) {
+        setCategories(currentState.infoStage4.selectedCategoriesWithDetails)
+      }
+    }, [])
+
+    const handleEditCategory = (id: string) => {
+      // Aquí puedes implementar la lógica para editar la categoría
+      console.log('Editar categoría:', id)
+    }
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-8">
@@ -26,10 +40,42 @@ export const RenderEditSelectCategories = () => {
 
         <div className=" gap-8">
           {categories.map((category) => (<>
-            <CategoryCard key={category.id} category={category} /> <br />
+            <CategoryCard 
+              key={category.id} 
+              category={category} 
+              onEdit={() => handleEditCategory(category.id)}
+            /> <br />
             </>
           ))}
         </div>
+        <div className="flex flex-row w-full items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setCurrentStep("initial-question")}
+              className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+            >
+              <ArrowBigLeftDash className="w-4 h-4" />
+              {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonPreviousStage4:""}
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentStep("edit-select-categories")}
+            //   disabled={selectedCategories.size === 0}
+              className={`w-full z-10 h-10 flex items-center justify-center gap-2 
+                
+                  bg-zinc-900 hover:bg-zinc-800'
+              text-white text-sm font-medium rounded-xl transition-colors self-end`}
+            >
+                <ArrowBigRightDash className="w-4 h-4" />
+            {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonNextStage4:""}
+            </button>
+          </div>
       </div>
     </div>
   )
@@ -37,19 +83,21 @@ export const RenderEditSelectCategories = () => {
 
 interface CategoryProps {
   category: {
-    id: number
+    id: string
     name: string
     editedPercentage: number
   }
+  onEdit: () => void
 }
 
-function CategoryCard({ category }: CategoryProps) {
+function CategoryCard({ category, onEdit }: CategoryProps) {
   return (
     <Card className="bg-gray-50 border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10 hover:translate-y-[-5px]">
       <CardContent className="p-6">
         <div className="flex justify-between items-start mb-4">
           <h2 className="text-xl font-semibold text-gray-800">{category.name}</h2>
           <Button
+            onClick={onEdit}
             className="h-8 w-8 rounded-full bg-gray-100 hover:bg-cyan-500/20 hover:text-cyan-600 transition-colors flex items-center justify-center"
           >
             <Edit className="h-4 w-4" />

@@ -19,3 +19,8 @@ export interface BusinessCategory {
     includes: string[];
     examples: string[];
   }
+
+  export type RenderInitialQuestionComponentProps = {
+    setCurrentStep: React.Dispatch<React.SetStateAction<CustomizationStep>>
+    handlePrev: () => void
+  }

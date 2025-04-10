@@ -1,37 +1,58 @@
 import { ArrowBigLeftDash, ArrowBigRightDash, ArrowRightCircle, Check, CheckCircle2, ChevronDown, ChevronUp, ShoppingCart } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
-import { BusinessCategory, CustomizationStep } from '../../interfaces/modelsStage4'
+import { BusinessCategory, RenderInitialQuestionComponentProps } from '../../interfaces/modelsStage4'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from '@util/generalConfig'
 import { crearStore } from 'src/stores/crearStore'
 
-type RenderInitialQuestionComponentProps = {
-  setCurrentStep: React.Dispatch<React.SetStateAction<CustomizationStep>>
-  handlePrev: () => void
-}
+
 export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const { data: dataLanguaje} = useStore(languajePage)
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+    const [selectedCategoriesWithDetails, setSelectedCategoriesWithDetails] = useState<Array<{
+      id: string
+      name: string
+      editedPercentage: number
+    }>>([])
 
     // Cargar valores iniciales desde el store
     useEffect(() => {
       const currentState = crearStore.get()
       if (currentState.infoStage4?.selectedCategories) {
         setSelectedCategories(new Set(currentState.infoStage4.selectedCategories))
+        if (currentState.infoStage4.selectedCategoriesWithDetails) {
+          setSelectedCategoriesWithDetails(currentState.infoStage4.selectedCategoriesWithDetails)
+        }
       }
     }, [])
 
     // Actualizar el store cuando cambien las categorías seleccionadas
     useEffect(() => {
       const currentState = crearStore.get()
+      const updatedCategoriesWithDetails = Array.from(selectedCategories).map(id => {
+        const existingCategory = selectedCategoriesWithDetails.find(cat => cat.id === id)
+        if (existingCategory) {
+          return existingCategory
+        }
+        const category = businessCategories.find(cat => cat.id === id)
+        return {
+          id,
+          name: category?.title || '',
+          editedPercentage: 0
+        }
+      })
+
+      setSelectedCategoriesWithDetails(updatedCategoriesWithDetails)
+
       crearStore.set({
         ...currentState,
         infoStage4: {
           ...currentState.infoStage4,
           businessCategories,
-          selectedCategories: Array.from(selectedCategories)
+          selectedCategories: Array.from(selectedCategories),
+          selectedCategoriesWithDetails: updatedCategoriesWithDetails
         }
       })
     }, [selectedCategories])
@@ -226,33 +247,33 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
             </div>
           </div>
           <div className="flex flex-row w-[90%] items-center justify-center gap-2">
-      <button
-        type="button"
-        onClick={handlePrev}
-        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
-      >
-        <ArrowBigLeftDash className="w-4 h-4" />
-        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonPreviousStage4:""}
-        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonPreviousStage4:""}
-        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonPreviousStage4:""}
-        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonPreviousStage4:""}
-      </button>
-        <button
-          type="button"
-          onClick={() => setCurrentStep("edit-select-categories")}
-          disabled={selectedCategories.size === 0}
-          className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
-            selectedCategories.size === 0
-              ? 'bg-zinc-600'
-              : 'bg-zinc-900 hover:bg-zinc-800'
-          }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
-        >
-            <ArrowBigRightDash className="w-4 h-4" />
-        {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonNextStage4:""}
-        {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonNextStage4:""}
-        {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonNextStage4:""}
-        {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonNextStage4:""}
-        </button>
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+            >
+              <ArrowBigLeftDash className="w-4 h-4" />
+              {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonPreviousStage4:""}
+              {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonPreviousStage4:""}
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentStep("edit-select-categories")}
+              disabled={selectedCategories.size === 0}
+              className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
+                selectedCategories.size === 0
+                  ? 'bg-zinc-600'
+                  : 'bg-zinc-900 hover:bg-zinc-800'
+              }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
+            >
+                <ArrowBigRightDash className="w-4 h-4" />
+            {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage4.es.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage4.en.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage4.pt.buttonNextStage4:""}
+            {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage4.fr.buttonNextStage4:""}
+            </button>
           </div>
         </div>
     )
