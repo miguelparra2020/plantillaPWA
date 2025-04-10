@@ -1,4 +1,5 @@
 // src/stores/crearStore.ts
+import { BusinessCategory } from '@component/global/Crear/interfaces/modelsStage4'
 import { atom } from 'nanostores'
 
 export interface InfoStage1 {
@@ -34,6 +35,11 @@ export interface InfoStage3 {
   bgButtonSave: string
 }
 
+export interface InfoStage4 {
+  businessCategories: BusinessCategory[]
+  selectedCategories: string[]
+}
+
 interface CrearState {
   data: string | null
   loading: boolean
@@ -41,6 +47,7 @@ interface CrearState {
   infoStage1?: InfoStage1
   infoStage2?: InfoStage2
   infoStage3?: InfoStage3
+  infoStage4?: InfoStage4
 }
 
 // Función para cargar el estado desde localStorage
@@ -61,6 +68,10 @@ const loadState = (): CrearState => {
       shadow: 'shadow',
       bgButton: '',
       bgButtonSave: '',
+    },
+    infoStage4: {
+      businessCategories: [],
+      selectedCategories: []
     }
   }
 }

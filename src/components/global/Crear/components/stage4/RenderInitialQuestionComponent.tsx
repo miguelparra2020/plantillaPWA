@@ -1,9 +1,10 @@
 import { ArrowBigLeftDash, ArrowBigRightDash, ArrowRightCircle, Check, CheckCircle2, ChevronDown, ChevronUp, ShoppingCart } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BusinessCategory, CustomizationStep } from '../../interfaces/modelsStage4'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from '@util/generalConfig'
+import { crearStore } from 'src/stores/crearStore'
 
 type RenderInitialQuestionComponentProps = {
   setCurrentStep: React.Dispatch<React.SetStateAction<CustomizationStep>>
@@ -13,6 +14,28 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
     const { data: dataLanguaje} = useStore(languajePage)
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
+
+    // Cargar valores iniciales desde el store
+    useEffect(() => {
+      const currentState = crearStore.get()
+      if (currentState.infoStage4?.selectedCategories) {
+        setSelectedCategories(new Set(currentState.infoStage4.selectedCategories))
+      }
+    }, [])
+
+    // Actualizar el store cuando cambien las categorías seleccionadas
+    useEffect(() => {
+      const currentState = crearStore.get()
+      crearStore.set({
+        ...currentState,
+        infoStage4: {
+          ...currentState.infoStage4,
+          businessCategories,
+          selectedCategories: Array.from(selectedCategories)
+        }
+      })
+    }, [selectedCategories])
+
     const getStage4FieldByLang = (fieldId: string) => {
       const lang = dataLanguaje.languajeChoose
       const langMap: Record<string, any> = {
