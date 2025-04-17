@@ -13,7 +13,8 @@ import {
   shadowOptionsButtons,
   borderWidthOptionsButtons,
   borderColorClassMap,
-  colorClassMap
+  colorClassMap,
+  textColorClassMap
 } from '../../helpers/helpersStage3'
 import { generalConfig } from "@util/generalConfig"
 
@@ -35,6 +36,8 @@ const Stage3Settings = () => {
     return store.infoStage3 || {
       bgColor: 'blue',
       bgShade: 500,
+      textColor: 'white',
+      textShade: 500,
       rounded: 'rounded',
       hasBorder: false,
       borderColor: 'blue',
@@ -43,12 +46,12 @@ const Stage3Settings = () => {
       shadow: 'shadow',
       bgButton: '',
       bgButtonSave: '',
-
     }
   })
 
   const buttonClasses = `
-    px-4 py-2 font-medium text-white
+    px-4 py-2 font-medium
+    ${localSettings?.textColor && localSettings?.textShade ? textColorClassMap[localSettings.textColor]?.[localSettings.textShade] : 'text-white'}
     ${localSettings?.rounded || 'rounded'}
     ${localSettings?.bgColor && localSettings?.bgShade ? colorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : 'bg-blue-500'}
     ${localSettings?.bgColor && localSettings?.bgShade ? hoverColorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : ''}
@@ -74,7 +77,8 @@ const Stage3Settings = () => {
     
     // Calcular las clases con los nuevos valores
     const currentButtonClasses = `
-      px-4 py-2 font-medium text-white
+      px-4 py-2 font-medium
+      ${newSettings?.textColor && newSettings?.textShade ? textColorClassMap[newSettings.textColor]?.[newSettings.textShade] : 'text-white'}
       ${newSettings?.rounded || 'rounded'}
       ${newSettings?.bgColor && newSettings?.bgShade ? colorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : 'bg-blue-500'}
       ${newSettings?.bgColor && newSettings?.bgShade ? hoverColorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : ''}
@@ -148,9 +152,9 @@ const Stage3Settings = () => {
                   <SelectValue placeholder="Intensidad" />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
-                  {bgShadeOptionsButtons.map((shade) => (
-                    <SelectItem key={shade.value} value={shade.value.toString()}>
-                      {shade.name}
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -162,6 +166,58 @@ const Stage3Settings = () => {
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.subtitleBgButtonStage3:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.subtitleBgButtonStage3:""} {localSettings?.bgColor || 'blue'}-{hoverColorInfo}
             </p>
+          </div>
+
+          {/* Color del texto */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Palette className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">
+  {dataLanguaje.languajeChoose === "/es/" ? "Color del texto" : ""}
+  {dataLanguaje.languajeChoose === "/en/" ? "Text color" : ""}
+  {dataLanguaje.languajeChoose === "/pt/" ? "Cor do texto" : ""}
+  {dataLanguaje.languajeChoose === "/fr/" ? "Couleur du texte" : ""}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Select 
+                value={localSettings.textColor || 'white'} 
+                onValueChange={(value) => handleSettingsChange("textColor", value)}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-4 h-4 rounded-full bg-${localSettings.textColor || 'white'}-${localSettings.textShade || 500}`}></div>
+                    <SelectValue placeholder="Color" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] bg-white">
+                  {colorOptionsButtons.map((color) => (
+                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${localSettings.textShade || 500}`}></div>
+                        <span>{color.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={(localSettings.textShade || 500).toString()}
+                onValueChange={(value) => handleSettingsChange("textShade", Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Intensidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Border radius */}
@@ -294,9 +350,9 @@ const Stage3Settings = () => {
                     <SelectValue placeholder="Intensidad" />
                   </SelectTrigger>
                   <SelectContent className="bg-white">
-                    {bgShadeOptionsButtons.map((shade) => (
-                      <SelectItem key={shade.value} value={shade.value.toString()}>
-                        {shade.name}
+                    {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                      <SelectItem key={shade} value={shade.toString()}>
+                        {shade}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -27,6 +27,8 @@ export interface InfoStage3 {
   // Colores
   bgColor: string
   bgShade: number
+  textColor: string
+  textShade: number
   
   // Bordes
   rounded: string
@@ -73,6 +75,8 @@ const loadState = (): CrearState => {
     infoStage3: {
       bgColor: 'blue',
       bgShade: 500,
+      textColor: 'white',
+      textShade: 500,
       rounded: 'rounded',
       hasBorder: false,
       borderColor: 'blue',
