@@ -173,10 +173,10 @@ const Stage3Settings = () => {
             <div className="flex items-center gap-2">
               <Palette className="w-4 h-4 text-zinc-500" />
               <span className="text-sm text-zinc-500">
-  {dataLanguaje.languajeChoose === "/es/" ? "Color del texto" : ""}
-  {dataLanguaje.languajeChoose === "/en/" ? "Text color" : ""}
-  {dataLanguaje.languajeChoose === "/pt/" ? "Cor do texto" : ""}
-  {dataLanguaje.languajeChoose === "/fr/" ? "Couleur du texte" : ""}
+              {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage3.es.titleTextColorButtonStage3:""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage3.en.titleTextColorButtonStage3:""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.titleTextColorButtonStage3:""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.titleTextColorButtonStage3:""} 
               </span>
             </div>
             <div className="grid grid-cols-2 gap-2">

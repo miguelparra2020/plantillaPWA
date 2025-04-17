@@ -376,6 +376,7 @@ export const translationCreateProject = {
     paragraphSizeStage2: "Paragraph Size",
     titleIntensityStage2: "Intensity",
     paragraphIntensityStage2: "Intensity",
+    titleTextColorButtonStage3: "Text color on button",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -507,6 +508,7 @@ export const translationCreateProject = {
     paragraphSizeStage2: "Tamaño de párrafos",
     titleIntensityStage2: "Intensidad",
     paragraphIntensityStage2: "Intensidad",
+    titleTextColorButtonStage3: "Color del texto en el botón",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -626,6 +628,7 @@ export const translationCreateProject = {
     paragraphSizeStage2: "Tamanho dos parágrafos",
     titleIntensityStage2: "Intensidade",
     paragraphIntensityStage2: "Intensidade",
+    titleTextColorButtonStage3: "Cor do texto no botão",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -742,6 +745,7 @@ export const translationCreateProject = {
     paragraphSizeStage2: "Taille des paragraphes",
     titleIntensityStage2: "Intensité",
     paragraphIntensityStage2: "Intensité",
+    titleTextColorButtonStage3: "Couleur du texte sur le bouton",
   }     
 }
 
@@ -1210,7 +1214,8 @@ export const generalConfig = {
         subtitleShadowStage3: getTranslationCreateProject("/es/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/es/", "titleBorderStage3"),
         backButtonStage3: getTranslationCreateProject("/es/", "backButtonStage3"),
-        nextButtonStage3: getTranslationCreateProject("/es/", "nextButtonStage3"), 
+        nextButtonStage3: getTranslationCreateProject("/es/", "nextButtonStage3"),
+        titleTextColorButtonStage3: getTranslationCreateProject("/es/", "titleTextColorButtonStage3"),
       },
       en: {
         titleStage3: getTranslationCreateProject("/en/", "titleStage3"),
@@ -1223,7 +1228,8 @@ export const generalConfig = {
         subtitleShadowStage3: getTranslationCreateProject("/en/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/en/", "titleBorderStage3"),
         backButtonStage3: getTranslationCreateProject("/en/", "backButtonStage3"),
-        nextButtonStage3: getTranslationCreateProject("/en/", "nextButtonStage3"), 
+        nextButtonStage3: getTranslationCreateProject("/en/", "nextButtonStage3"),
+        titleTextColorButtonStage3: getTranslationCreateProject("/en/", "titleTextColorButtonStage3"),
       },
       pt: {
         titleStage3: getTranslationCreateProject("/pt/", "titleStage3"),
@@ -1236,7 +1242,8 @@ export const generalConfig = {
         subtitleShadowStage3: getTranslationCreateProject("/pt/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/pt/", "titleBorderStage3"),
         backButtonStage3: getTranslationCreateProject("/pt/", "backButtonStage3"),
-        nextButtonStage3: getTranslationCreateProject("/pt/", "nextButtonStage3"), 
+        nextButtonStage3: getTranslationCreateProject("/pt/", "nextButtonStage3"),
+        titleTextColorButtonStage3: getTranslationCreateProject("/pt/", "titleTextColorButtonStage3"),
       },
       fr: {
         titleStage3: getTranslationCreateProject("/fr/", "titleStage3"),
@@ -1249,7 +1256,8 @@ export const generalConfig = {
         subtitleShadowStage3: getTranslationCreateProject("/fr/", "subtitleShadowStage3"),
         titleBorderStage3: getTranslationCreateProject("/fr/", "titleBorderStage3"),
         backButtonStage3: getTranslationCreateProject("/fr/", "backButtonStage3"),
-        nextButtonStage3: getTranslationCreateProject("/fr/", "nextButtonStage3"), 
+        nextButtonStage3: getTranslationCreateProject("/fr/", "nextButtonStage3"),
+        titleTextColorButtonStage3: getTranslationCreateProject("/fr/", "titleTextColorButtonStage3"),
       }
     },
     stage4:{
