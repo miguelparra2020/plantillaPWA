@@ -19,6 +19,8 @@ export interface InfoStage2 {
   paragraphWeight: string
   titleSize: string
   paragraphSize: string
+  titleColorIntensity: string
+  paragraphColorIntensity: string
 }
 
 export interface InfoStage3 {

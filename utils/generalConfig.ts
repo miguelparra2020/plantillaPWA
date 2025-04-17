@@ -374,6 +374,8 @@ export const translationCreateProject = {
     paragraphWeightStage2: "Paragraph Weight",
     titleSizeStage2: "Title Size",
     paragraphSizeStage2: "Paragraph Size",
+    titleIntensityStage2: "Intensity",
+    paragraphIntensityStage2: "Intensity",
   },
   "/es/": {
     titleWellcome: "Bienvenido a tu",
@@ -503,6 +505,8 @@ export const translationCreateProject = {
     paragraphWeightStage2: "Peso de párrafos",
     titleSizeStage2: "Tamaño de títulos",
     paragraphSizeStage2: "Tamaño de párrafos",
+    titleIntensityStage2: "Intensidad",
+    paragraphIntensityStage2: "Intensidad",
   },
   "/pt/": {
     titleWellcome: "Bem-vindo ao seu",
@@ -620,6 +624,8 @@ export const translationCreateProject = {
     paragraphWeightStage2: "Peso dos parágrafos",
     titleSizeStage2: "Tamanho dos títulos",
     paragraphSizeStage2: "Tamanho dos parágrafos",
+    titleIntensityStage2: "Intensidade",
+    paragraphIntensityStage2: "Intensidade",
   },
   "/fr/": {
     titleWellcome: "Bienvenue à votre",
@@ -734,6 +740,8 @@ export const translationCreateProject = {
     paragraphWeightStage2: "Poids des paragraphes",
     titleSizeStage2: "Taille des titres",
     paragraphSizeStage2: "Taille des paragraphes",
+    titleIntensityStage2: "Intensité",
+    paragraphIntensityStage2: "Intensité",
   }     
 }
 
@@ -1120,6 +1128,8 @@ export const generalConfig = {
         paragraphWeightStage2: getTranslationCreateProject("/es/", "paragraphWeightStage2"),
         titleSizeStage2: getTranslationCreateProject("/es/", "titleSizeStage2"),
         paragraphSizeStage2: getTranslationCreateProject("/es/", "paragraphSizeStage2"),
+        titleIntensityStage2: getTranslationCreateProject("/es/", "titleIntensityStage2"),
+        paragraphIntensityStage2: getTranslationCreateProject("/es/", "paragraphIntensityStage2"),
       },
       en: {
         titleStage2: getTranslationCreateProject("/en/", "titleStage2"),
@@ -1140,6 +1150,8 @@ export const generalConfig = {
         paragraphWeightStage2: getTranslationCreateProject("/en/", "paragraphWeightStage2"),
         titleSizeStage2: getTranslationCreateProject("/en/", "titleSizeStage2"),
         paragraphSizeStage2: getTranslationCreateProject("/en/", "paragraphSizeStage2"),
+        titleIntensityStage2: getTranslationCreateProject("/en/", "titleIntensityStage2"),
+        paragraphIntensityStage2: getTranslationCreateProject("/en/", "paragraphIntensityStage2"),
       },
       pt: {
         titleStage2: getTranslationCreateProject("/pt/", "titleStage2"),
@@ -1160,6 +1172,8 @@ export const generalConfig = {
         paragraphWeightStage2: getTranslationCreateProject("/pt/", "paragraphWeightStage2"),
         titleSizeStage2: getTranslationCreateProject("/pt/", "titleSizeStage2"),
         paragraphSizeStage2: getTranslationCreateProject("/pt/", "paragraphSizeStage2"),
+        titleIntensityStage2: getTranslationCreateProject("/pt/", "titleIntensityStage2"),
+        paragraphIntensityStage2: getTranslationCreateProject("/pt/", "paragraphIntensityStage2"),
       },
       fr: {
         titleStage2: getTranslationCreateProject("/fr/", "titleStage2"),
@@ -1180,6 +1194,8 @@ export const generalConfig = {
         paragraphWeightStage2: getTranslationCreateProject("/fr/", "paragraphWeightStage2"),
         titleSizeStage2: getTranslationCreateProject("/fr/", "titleSizeStage2"),
         paragraphSizeStage2: getTranslationCreateProject("/fr/", "paragraphSizeStage2"),
+        titleIntensityStage2: getTranslationCreateProject("/fr/", "titleIntensityStage2"),
+        paragraphIntensityStage2: getTranslationCreateProject("/fr/", "paragraphIntensityStage2"),
       }
     },  
     stage3: {
