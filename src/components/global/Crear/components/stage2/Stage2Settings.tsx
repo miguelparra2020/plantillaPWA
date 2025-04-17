@@ -12,10 +12,10 @@ const Stage2Settings = () => {
   const { data: dataLanguaje} = useStore(languajePage)
   const store = useStore(crearStore)
   const [localSettings, setLocalSettings] = useState<InfoStage2>(store.infoStage2 || {
-    colorTitles: 'blue',
-    colorParagraph: 'gray',
-    colorTitlesSave: 'text-blue-700',
-    colorParagraphSave: 'text-gray-600',
+    colorTitles: '',
+    colorParagraph: '',
+    colorTitlesSave: '',
+    colorParagraphSave: '',
     titleFont: '',
     paragraphFont: '',
     titleWeight: '',
@@ -25,10 +25,6 @@ const Stage2Settings = () => {
     titleColorIntensity: '700',
     paragraphColorIntensity: '600'
   })
-
- 
-
- 
 
   const handleSettingsChange = (key: keyof InfoStage2, value: string) => {
     const updatedSettings = { 

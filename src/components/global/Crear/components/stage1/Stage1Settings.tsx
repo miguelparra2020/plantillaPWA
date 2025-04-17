@@ -57,10 +57,11 @@ export const Stage1Settings = () => {
             <div className='flex items-center gap-2'>
               <Store className='w-4 h-4 text-zinc-500' />
               <span className='text-sm text-zinc-500'>
-  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.nameEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.nameEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.nameEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.nameEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.nameEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.nameEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.nameEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.nameEcommerceStage1:""}
+                {!localSettings.nombreComercio && <span className="text-red-500 ml-1">*</span>}
               </span>
             </div>
             <Input
@@ -76,10 +77,11 @@ export const Stage1Settings = () => {
             <div className='flex items-center gap-2'>
               <FileText className='w-4 h-4 text-zinc-500' />
               <span className='text-sm text-zinc-500'>
-  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.activityEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.activityEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.activityEcommerceStage1:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.activityEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.activityEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.activityEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.activityEcommerceStage1:""}
+                {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.activityEcommerceStage1:""}
+                {!localSettings.descripcionActividad && <span className="text-red-500 ml-1">*</span>}
               </span>
             </div>
             <div className='relative'>
@@ -114,10 +116,11 @@ export const Stage1Settings = () => {
             <div className='flex items-center gap-2'>
               <Globe className='w-4 h-4 text-zinc-500' />
               <span className='text-sm text-zinc-500'>
-  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languagePageStage1:""}
-  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languagePageStage1:""}
-  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languagePageStage1:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePageStage1:""}
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.languagePageStage1:""}
+                {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.languagePageStage1:""}
+                {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.languagePageStage1:""}
+                {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.languagePageStage1:""}
+                {!localSettings.idiomaPlataforma && <span className="text-red-500 ml-1">*</span>}
               </span>
             </div>
             <Select value={localSettings.idiomaPlataforma} onValueChange={(value) => handleSettingsChange('idiomaPlataforma', value)}>
