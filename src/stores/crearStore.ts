@@ -13,6 +13,12 @@ export interface InfoStage2 {
   colorParagraph: string
   colorTitlesSave: string
   colorParagraphSave: string
+  titleFont: string
+  paragraphFont: string
+  titleWeight: string
+  paragraphWeight: string
+  titleSize: string
+  paragraphSize: string
 }
 
 export interface InfoStage3 {
