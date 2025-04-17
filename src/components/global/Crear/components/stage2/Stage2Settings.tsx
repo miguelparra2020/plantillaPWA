@@ -1,41 +1,34 @@
-import React, { useState } from 'react'
-import { Type, Palette } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Type, Palette, ArrowBigRightDash } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from "@util/generalConfig"
 import { crearStore, type InfoStage2 } from 'src/stores/crearStore'
-import { colorClassMap, colorOptionsTitles } from '../../helpers/helpersStage2'
+import { colorOptionsTitles, fontOptions, sizeOptions, weightOptions } from '../../helpers/helpersStage2'
+
 
 const Stage2Settings = () => {
   const { data: dataLanguaje} = useStore(languajePage)
   const store = useStore(crearStore)
   const [localSettings, setLocalSettings] = useState<InfoStage2>(store.infoStage2 || {
-    colorTitles: '',
-    colorParagraph: '',
-    colorTitlesSave: '',
-    colorParagraphSave: '',
-    titleFont: 'font-roboto',
-    paragraphFont: 'font-open-sans',
-    titleWeight: 'font-medium',
-    paragraphWeight: 'font-normal',
-    titleSize: 'text-lg',
-    paragraphSize: 'text-sm',
+    colorTitles: 'blue',
+    colorParagraph: 'gray',
+    colorTitlesSave: 'text-blue-700',
+    colorParagraphSave: 'text-gray-600',
+    titleFont: '',
+    paragraphFont: '',
+    titleWeight: '',
+    paragraphWeight: '',
+    titleSize: '',
+    paragraphSize: '',
     titleColorIntensity: '700',
     paragraphColorIntensity: '600'
   })
 
-  // Opciones de fuentes
-  const fontOptions = [
-    { name: "Roboto", value: "font-roboto" },
-    { name: "Open Sans", value: "font-open-sans" },
-    { name: "Montserrat", value: "font-montserrat" },
-    { name: "Poppins", value: "font-poppins" },
-    { name: "Lato", value: "font-lato" },
-    { name: "Raleway", value: "font-raleway" },
-    { name: "Playfair Display", value: "font-playfair" },
-    { name: "Source Sans Pro", value: "font-source-sans" },
-  ]
+ 
+
+ 
 
   const handleSettingsChange = (key: keyof InfoStage2, value: string) => {
     const updatedSettings = { 
@@ -67,38 +60,16 @@ const Stage2Settings = () => {
     }, 300)
   }
 
-  const getColorClass = (color: string, isTitle: boolean) => {
-    const colorOption = colorOptionsTitles.find((option) => option.value === color)
-    if (!colorOption) return ""
-    const shade = isTitle ? colorOption.titleShade : colorOption.paragraphShade
-    return colorClassMap[color as keyof typeof colorClassMap]?.[shade] || ""
-  }
 
   const titleColorClass = `text-${localSettings.colorTitles}-${localSettings.titleColorIntensity}`
   
   const paragraphColorClass = `text-${localSettings.colorParagraph}-${localSettings.paragraphColorIntensity}`
 
-  // Opciones de peso de fuente
-  const weightOptions = [
-    { name: "Normal", value: "font-normal" },
-    { name: "Medium", value: "font-medium" },
-    { name: "Semibold", value: "font-semibold" },
-    { name: "Bold", value: "font-bold" },
-  ]
-
-  // Opciones de tamaño de fuente
-  const sizeOptions = [
-    { name: "Pequeño", value: "text-sm" },
-    { name: "Mediano", value: "text-base" },
-    { name: "Grande", value: "text-lg" },
-    { name: "Extra grande", value: "text-xl" },
-    { name: "2XL", value: "text-2xl" },
-  ]
+  
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
-
         <div className="mt-2 space-y-6">
           <div className="space-y-6">
             <div className="p-4 border border-zinc-200  rounded-xl">
@@ -123,6 +94,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.colorTitleStage2:""}
                   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.colorTitleStage2:""}
                   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.colorTitleStage2:""}
+                  {!localSettings.colorTitles && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -179,6 +151,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.colorParagraphStage2:""}
                   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.colorParagraphStage2:""}
                   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.colorParagraphStage2:""}
+                  {!localSettings.colorParagraph && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -235,6 +208,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Title font":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Fonte para títulos":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Police pour titres":""}
+                  {!localSettings.titleFont && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -262,6 +236,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Title weight":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Peso do título":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Poids du titre":""}
+                  {!localSettings.titleWeight && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -289,6 +264,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Title size":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Tamanho do título":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Taille du titre":""}
+                  {!localSettings.titleSize && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -316,6 +292,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Paragraph font":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Fonte para parágrafos":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Police pour paragraphes":""}
+                  {!localSettings.paragraphFont && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -343,6 +320,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Paragraph weight":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Peso do parágrafo":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Poids du paragraphe":""}
+                  {!localSettings.paragraphWeight && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select
@@ -370,6 +348,7 @@ const Stage2Settings = () => {
                   {dataLanguaje.languajeChoose === "/en/" ? "Paragraph size":""}
                   {dataLanguaje.languajeChoose === "/pt/" ? "Tamanho do parágrafo":""}
                   {dataLanguaje.languajeChoose === "/fr/" ? "Taille du paragraphe":""}
+                  {!localSettings.paragraphSize && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
               <Select

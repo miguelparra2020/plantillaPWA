@@ -113,3 +113,32 @@ export const colorOptionsTitles = [
       600: "bg-stone-600",
     },
   }
+
+  // Opciones de peso de fuente
+  export const weightOptions = [
+    { name: "Normal", value: "font-normal" },
+    { name: "Medium", value: "font-medium" },
+    { name: "Semibold", value: "font-semibold" },
+    { name: "Bold", value: "font-bold" },
+  ]
+
+  // Opciones de tamaño de fuente
+  export const sizeOptions = [
+    { name: "Pequeño", value: "text-sm" },
+    { name: "Mediano", value: "text-base" },
+    { name: "Grande", value: "text-lg" },
+    { name: "Extra grande", value: "text-xl" },
+    { name: "2XL", value: "text-2xl" },
+  ]
+
+   // Opciones de fuentes
+   export const fontOptions = [
+    { name: "Roboto", value: "font-roboto" },
+    { name: "Open Sans", value: "font-open-sans" },
+    { name: "Montserrat", value: "font-montserrat" },
+    { name: "Poppins", value: "font-poppins" },
+    { name: "Lato", value: "font-lato" },
+    { name: "Raleway", value: "font-raleway" },
+    { name: "Playfair Display", value: "font-playfair" },
+    { name: "Source Sans Pro", value: "font-source-sans" },
+  ]

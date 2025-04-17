@@ -1,14 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ArrowBigLeftDash, Sparkles } from 'lucide-react'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
-import { crearStore } from 'src/stores/crearStore'
+import { crearStore, InfoStage2 } from 'src/stores/crearStore'
 import { generalConfig } from "@util/generalConfig"
 import { ButtonHandleNextStage2Props } from '../../interfaces/modelsStage2'
 
 export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHandleNextStage2Props) =>{
   const { data: dataLanguaje} = useStore(languajePage)
   const store = useStore(crearStore)
+  const [localSettings, setLocalSettings] = useState<InfoStage2>(store.infoStage2 || {
+    colorTitles: '',
+    colorParagraph: '',
+    titleFont: '',
+    paragraphFont: '',
+    titleWeight: '',
+    paragraphWeight: '',
+    titleSize: '',
+    paragraphSize: '',
+    titleColorIntensity: '',
+    paragraphColorIntensity: '',
+    colorTitlesSave: '',
+    colorParagraphSave: ''
+  })
+  const [isFormValid, setIsFormValid] = useState(false)
+
+  useEffect(() => {
+    if (store.infoStage2) {
+      setLocalSettings(store.infoStage2)
+    }
+  }, [store.infoStage2])
+
+  useEffect(() => {
+    const validateForm = () => {
+      const requiredFields = [
+        localSettings.colorTitles,
+        localSettings.colorParagraph,
+        localSettings.titleFont,
+        localSettings.paragraphFont,
+        localSettings.titleWeight,
+        localSettings.paragraphWeight,
+        localSettings.titleSize,
+        localSettings.paragraphSize,
+        localSettings.titleColorIntensity,
+        localSettings.paragraphColorIntensity
+      ]
+      setIsFormValid(requiredFields.every(field => field !== ''))
+    }
+
+    validateForm()
+  }, [localSettings])
 
   return (
         <div className="flex flex-row items-center justify-center gap-2 p-4">
@@ -26,9 +67,9 @@ export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHa
             <button
                 type="button"
                 onClick={() => handleNext()}
-                disabled={!store.infoStage2 || !store.infoStage2.colorTitles || !store.infoStage2.colorParagraph}
+                disabled={!isFormValid}
                 className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
-                    !store.infoStage2 || !store.infoStage2.colorTitles || !store.infoStage2.colorParagraph
+                    !isFormValid
                       ? 'bg-zinc-600'
                       : 'bg-zinc-900 hover:bg-zinc-800'
                   }  text-white text-sm font-medium rounded-xl transition-colors self-end`}
