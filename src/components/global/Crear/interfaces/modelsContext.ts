@@ -22,6 +22,8 @@ export interface Stage3Settings {
   borderShade: number
   borderWidth: string
   shadow: string
+  textColor: string
+  textShade: number
 }
 
 export interface cardSettings {
