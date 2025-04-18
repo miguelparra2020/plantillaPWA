@@ -56,6 +56,39 @@ export interface InfoStage4 {
   businessCategories?: BusinessCategory[]
   selectedCategories?: string[]
   categorySelectToEdit?: BusinessCategory | null
+  cardSettings: {
+    showImage: boolean
+    icon: string
+    title: string
+    description: string
+    titleColor: string
+    paragraphColor: string
+    textAlign: string
+    rounded: string
+    shadow: string
+    hasBorder: boolean
+    borderWidth: string
+    borderColor: string
+    borderShade: string
+  }
+  cardsInicio: {
+    titleCardInicio: string
+    descriptionCardInicio: string
+    nameButtonCardInicio: string
+    quantityCards: number
+    cardsDetails: Array<{
+      titleCardCardsInicio: string
+    }>
+  }
+  rounded: string
+  bgColor: string
+  bgShade: string
+  shadow: string
+  hasBorder: boolean
+  borderWidth: string
+  borderColor: string
+  borderShade: string
+  paragraphColor: string
 }
 
 interface CrearState {
@@ -96,7 +129,38 @@ const loadState = (): CrearState => {
     },
     infoStage4: {
       businessCategories: [],
-      selectedCategories: []
+      selectedCategories: [],
+      cardSettings: {
+        showImage: false,
+        icon: 'star',
+        title: 'Título de la card',
+        description: 'Descripción de la card',
+        titleColor: 'slate',
+        paragraphColor: 'slate',
+        textAlign: 'text-left',
+        rounded: 'rounded',
+        shadow: 'shadow',
+        hasBorder: false,
+        borderWidth: 'border',
+        borderColor: 'slate',
+        borderShade: '500'
+      },
+      cardsInicio: {
+        titleCardInicio: '',
+        descriptionCardInicio: '',
+        nameButtonCardInicio: '',
+        quantityCards: 0,
+        cardsDetails: []
+      },
+      rounded: 'rounded',
+      bgColor: 'blue',
+      bgShade: '500',
+      shadow: 'shadow',
+      hasBorder: false,
+      borderWidth: 'border',
+      borderColor: 'blue',
+      borderShade: '500',
+      paragraphColor: 'white'
     }
   }
 }

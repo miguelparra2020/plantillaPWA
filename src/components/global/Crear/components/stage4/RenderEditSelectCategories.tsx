@@ -55,6 +55,9 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
         progress: undefined,
         theme: "light",
       })
+      setTimeout(() => {
+        setCurrentStep("card-customization")
+      }, 1500)
     }
 
   return (
