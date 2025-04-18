@@ -49,7 +49,6 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
           {crearStore.get().infoStage4?.businessCategories
             ?.filter(cat => cat.categiryIsActive)
             .map((category) => (
-              <>
             <CategoryCard 
               key={category.id} 
               category={{
@@ -59,8 +58,6 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
               }}
               onEdit={() => handleEditCategory(category.id)}
             />
-            <br />
-            </>
           ))}
         </div>
         <div className="flex flex-row w-full items-center justify-center gap-2">

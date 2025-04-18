@@ -11,11 +11,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
     const { data: dataLanguaje} = useStore(languajePage)
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
-    const [selectedCategoriesWithDetails, setSelectedCategoriesWithDetails] = useState<Array<{
-      id: string
-      name: string
-      editedPercentage: number
-    }>>([])
+    
     const getStage4FieldByLang = (fieldId: string) => {
       const lang = dataLanguaje.languajeChoose
       const langMap: Record<string, any> = {
@@ -70,30 +66,12 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
       const currentState = crearStore.get()
       if (currentState.infoStage4?.selectedCategories) {
         setSelectedCategories(new Set(currentState.infoStage4.selectedCategories))
-        if (currentState.infoStage4.selectedCategoriesWithDetails) {
-          setSelectedCategoriesWithDetails(currentState.infoStage4.selectedCategoriesWithDetails)
-        }
       }
     }, [])
 
     // Actualizar el store cuando cambien las categorías seleccionadas
     useEffect(() => {
       const currentState = crearStore.get()
-      const updatedCategoriesWithDetails = Array.from(selectedCategories).map(id => {
-        const existingCategory = selectedCategoriesWithDetails.find(cat => cat.id === id)
-        if (existingCategory) {
-          return existingCategory
-        }
-        const category = businessCategoriesState.find(cat => cat.id === id)
-        return {
-          id,
-          name: category?.title || '',
-          editedPercentage: 0
-        }
-      })
-
-      setSelectedCategoriesWithDetails(updatedCategoriesWithDetails)
-
       crearStore.set({
         ...currentState,
         infoStage4: {
@@ -102,8 +80,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
             ...cat,
             categiryIsActive: selectedCategories.has(cat.id)
           })),
-          selectedCategories: Array.from(selectedCategories),
-          selectedCategoriesWithDetails: updatedCategoriesWithDetails
+          selectedCategories: Array.from(selectedCategories)
         }
       })
     }, [selectedCategories, businessCategoriesState])
@@ -125,7 +102,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
         )
     }
 
-      const toggleExpanded = (id: string) => {
+    const toggleExpanded = (id: string) => {
         const newExpanded = new Set(expandedCategories)
         if (newExpanded.has(id)) {
           newExpanded.delete(id)
@@ -133,7 +110,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
           newExpanded.add(id)
         }
         setExpandedCategories(newExpanded)
-      }
+    }
 
     return (
         <div className="flex flex-col items-center justify-center h-full p-4 space-y-2">

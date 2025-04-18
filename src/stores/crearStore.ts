@@ -55,11 +55,6 @@ export interface InfoStage3 {
 export interface InfoStage4 {
   businessCategories?: BusinessCategory[]
   selectedCategories?: string[]
-  selectedCategoriesWithDetails?: Array<{
-    id: string
-    name: string
-    editedPercentage: number
-  }>
 }
 
 interface CrearState {
