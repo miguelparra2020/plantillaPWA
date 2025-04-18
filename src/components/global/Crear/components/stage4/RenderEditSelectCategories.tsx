@@ -5,7 +5,7 @@ import { ArrowBigLeftDash, ArrowBigRightDash, Badge, Edit, Plus } from 'lucide-r
 import { useStore } from '@nanostores/react'
 import { crearStore } from 'src/stores/crearStore'
 import { generalConfig } from '@util/generalConfig'
-import { RenderInitialQuestionComponentProps } from '../../interfaces/modelsStage4'
+import { RenderInitialQuestionComponentProps, BusinessCategory } from '../../interfaces/modelsStage4'
 import { languajePage } from 'src/stores/languajePage'
 
 export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
@@ -30,9 +30,17 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
       }
     }, [])
 
-    const handleEditCategory = (id: string) => {
-      // Aquí puedes implementar la lógica para editar la categoría
-      console.log('Editar categoría:', id)
+    const handleEditCategory = (category: BusinessCategory) => {
+      const currentState = crearStore.get()
+      crearStore.set({
+        ...currentState,
+        infoStage4: {
+          ...currentState.infoStage4,
+          categorySelectToEdit: category
+        }
+      })
+      // Aquí puedes agregar la lógica para navegar a la pantalla de edición
+      console.log('Categoría seleccionada para editar:', category)
     }
 
   return (
@@ -49,15 +57,20 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
           {crearStore.get().infoStage4?.businessCategories
             ?.filter(cat => cat.categiryIsActive)
             .map((category) => (
-            <CategoryCard 
-              key={category.id} 
-              category={{
-                id: category.id,
-                name: category.title,
-                editedPercentage: 0
-              }}
-              onEdit={() => handleEditCategory(category.id)}
-            />
+            <div 
+              key={category.id}
+              onClick={() => handleEditCategory(category)}
+              className="cursor-pointer hover:opacity-90 transition-opacity m-4"
+            >
+              <CategoryCard 
+                category={{
+                  id: category.id,
+                  name: category.title,
+                  editedPercentage: 0
+                }}
+                onEdit={() => handleEditCategory(category)}
+              />
+            </div>
           ))}
         </div>
         <div className="flex flex-row w-full items-center justify-center gap-2">
