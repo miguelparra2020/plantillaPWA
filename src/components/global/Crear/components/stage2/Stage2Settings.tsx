@@ -23,7 +23,7 @@ const Stage2Settings = () => {
     titleSize: '',
     paragraphSize: '',
     titleColorIntensity: '700',
-    paragraphColorIntensity: '600'
+    paragraphColorIntensity: '600',
   })
 
   const handleSettingsChange = (key: keyof InfoStage2, value: string) => {
@@ -346,10 +346,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Tamaño del párrafo":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Paragraph size":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Tamanho do parágrafo":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Taille du paragraphe":""}
+                  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.sizeParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.sizeParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.sizeParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.sizeParagraphStage2:""}
                   {!localSettings.paragraphSize && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
