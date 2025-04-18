@@ -290,10 +290,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Fuente para párrafos":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Paragraph font":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Fonte para parágrafos":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Police pour paragraphes":""}
+                  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.fontParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.fontParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.fontParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.fontParagraphStage2:""}
                   {!localSettings.paragraphFont && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
@@ -318,10 +318,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Peso del párrafo":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Paragraph weight":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Peso do parágrafo":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Poids du paragraphe":""}
+                  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.weightParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.weightParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.weightParagraphStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.weightParagraphStage2:""}
                   {!localSettings.paragraphWeight && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
