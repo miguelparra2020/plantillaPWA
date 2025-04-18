@@ -115,30 +115,43 @@ export const colorOptionsTitles = [
   }
 
   // Opciones de peso de fuente
+
   export const weightOptions = [
-    { name: "Normal", value: "font-normal" },
-    { name: "Medium", value: "font-medium" },
-    { name: "Semibold", value: "font-semibold" },
-    { name: "Bold", value: "font-bold" },
+    { value: 'font-thin', name: 'Thin' },
+    { value: 'font-extralight', name: 'Extra Light' },
+    { value: 'font-light', name: 'Light' },
+    { value: 'font-normal', name: 'Normal' },
+    { value: 'font-medium', name: 'Medium' },
+    { value: 'font-semibold', name: 'Semi Bold' },
+    { value: 'font-bold', name: 'Bold' },
+    { value: 'font-extrabold', name: 'Extra Bold' },
+    { value: 'font-black', name: 'Black' }
   ]
 
   // Opciones de tamaño de fuente
   export const sizeOptions = [
-    { name: "Pequeño", value: "text-sm" },
-    { name: "Mediano", value: "text-base" },
-    { name: "Grande", value: "text-lg" },
-    { name: "Extra grande", value: "text-xl" },
-    { name: "2XL", value: "text-2xl" },
+    { value: 'text-xs', name: 'Extra Small' },
+    { value: 'text-sm', name: 'Small' },
+    { value: 'text-base', name: 'Base' },
+    { value: 'text-lg', name: 'Large' },
+    { value: 'text-xl', name: 'Extra Large' },
+    { value: 'text-2xl', name: '2X Large' },
+    { value: 'text-3xl', name: '3X Large' },
+    { value: 'text-4xl', name: '4X Large' }
   ]
 
    // Opciones de fuentes
    export const fontOptions = [
-    { name: "Roboto", value: "font-roboto" },
-    { name: "Open Sans", value: "font-open-sans" },
-    { name: "Montserrat", value: "font-montserrat" },
-    { name: "Poppins", value: "font-poppins" },
-    { name: "Lato", value: "font-lato" },
-    { name: "Raleway", value: "font-raleway" },
-    { name: "Playfair Display", value: "font-playfair" },
-    { name: "Source Sans Pro", value: "font-source-sans" },
+    { value: 'font-sans', name: 'Sans' },
+    { value: 'font-serif', name: 'Serif' },
+    { value: 'font-mono', name: 'Mono' },
+    { value: 'font-inter', name: 'Inter' },
+    { value: 'font-roboto', name: 'Roboto' },
+    { value: 'font-open-sans', name: 'Open Sans' },
+    { value: 'font-lato', name: 'Lato' },
+    { value: 'font-montserrat', name: 'Montserrat' },
+    { value: 'font-poppins', name: 'Poppins' },
+    { value: 'font-raleway', name: 'Raleway' },
+    { value: "font-playfair",name: "Playfair Display"  },
+    { value: "font-source-sans", name: "Source Sans Pro" },
   ]

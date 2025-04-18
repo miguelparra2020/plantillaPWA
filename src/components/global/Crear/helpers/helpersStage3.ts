@@ -167,4 +167,43 @@ export const colorOptionsButtons = [
     stone: { 100: 'text-stone-100', 200: 'text-stone-200', 300: 'text-stone-300', 400: 'text-stone-400', 500: 'text-stone-500', 600: 'text-stone-600', 700: 'text-stone-700', 800: 'text-stone-800', 900: 'text-stone-900' },
   } as const
 
+  export const fontOptions = [
+    { value: 'font-sans', name: 'Sans' },
+    { value: 'font-serif', name: 'Serif' },
+    { value: 'font-mono', name: 'Mono' },
+    { value: 'font-inter', name: 'Inter' },
+    { value: 'font-roboto', name: 'Roboto' },
+    { value: 'font-open-sans', name: 'Open Sans' },
+    { value: 'font-lato', name: 'Lato' },
+    { value: 'font-montserrat', name: 'Montserrat' },
+    { value: 'font-poppins', name: 'Poppins' },
+    { value: 'font-raleway', name: 'Raleway' },
+    { value: "font-playfair",name: "Playfair Display"  },
+    { value: "font-source-sans", name: "Source Sans Pro" },
+  ]
+
+
+  export const weightOptions = [
+    { value: 'font-thin', name: 'Thin' },
+    { value: 'font-extralight', name: 'Extra Light' },
+    { value: 'font-light', name: 'Light' },
+    { value: 'font-normal', name: 'Normal' },
+    { value: 'font-medium', name: 'Medium' },
+    { value: 'font-semibold', name: 'Semi Bold' },
+    { value: 'font-bold', name: 'Bold' },
+    { value: 'font-extrabold', name: 'Extra Bold' },
+    { value: 'font-black', name: 'Black' }
+  ]
+
+  export const sizeOptions = [
+    { value: 'text-xs', name: 'Extra Small' },
+    { value: 'text-sm', name: 'Small' },
+    { value: 'text-base', name: 'Base' },
+    { value: 'text-lg', name: 'Large' },
+    { value: 'text-xl', name: 'Extra Large' },
+    { value: 'text-2xl', name: '2X Large' },
+    { value: 'text-3xl', name: '3X Large' },
+    { value: 'text-4xl', name: '4X Large' }
+  ]
+
   

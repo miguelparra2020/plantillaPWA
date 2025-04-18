@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Type, Palette, ArrowBigRightDash } from 'lucide-react'
+import React, { useState } from 'react'
+import { Type, Palette } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
@@ -125,7 +125,7 @@ const Stage2Settings = () => {
                 <input
                   type="range"
                   min="500"
-                  max="700"
+                  max="900"
                   step="100"
                   value={localSettings.titleColorIntensity}
                   onChange={(e) => handleIntensityChange('title', e.target.value)}
@@ -135,6 +135,8 @@ const Stage2Settings = () => {
                   <span>500</span>
                   <span>600</span>
                   <span>700</span>
+                  <span>800</span>
+                  <span>900</span>
                 </div>
               </div>
             </div>
@@ -181,17 +183,21 @@ const Stage2Settings = () => {
                 </div>
                 <input
                   type="range"
-                  min="500"
-                  max="700"
+                  min="300"
+                  max="900"
                   step="100"
                   value={localSettings.paragraphColorIntensity}
                   onChange={(e) => handleIntensityChange('paragraph', e.target.value)}
                   className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer"
                 />
                 <div className="flex justify-between text-xs text-zinc-400">
+                <span>300</span>
+                <span>400</span>
                   <span>500</span>
                   <span>600</span>
                   <span>700</span>
+                  <span>800</span>
+                  <span>900</span>
                 </div>
               </div>
             </div>
@@ -200,10 +206,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Fuente para títulos":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Title font":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Fonte para títulos":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Police pour titres":""}
+                  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.titleFontStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.titleFontStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.titleFontStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.titleFontStage2:""}
                   {!localSettings.titleFont && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
@@ -228,10 +234,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Peso del título":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Title weight":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Peso do título":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Poids du titre":""}
+                {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.weightTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.weightTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.weightTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.weightTitleStage2:""}
                   {!localSettings.titleWeight && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>
@@ -256,10 +262,10 @@ const Stage2Settings = () => {
               <div className="flex items-center gap-2">
                 <Type className="w-4 h-4 text-zinc-500" />
                 <span className="text-sm text-zinc-500">
-                  {dataLanguaje.languajeChoose === "/es/" ? "Tamaño del título":""}
-                  {dataLanguaje.languajeChoose === "/en/" ? "Title size":""}
-                  {dataLanguaje.languajeChoose === "/pt/" ? "Tamanho do título":""}
-                  {dataLanguaje.languajeChoose === "/fr/" ? "Taille du titre":""}
+                  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.sizeTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.sizeTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.sizeTitleStage2:""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.sizeTitleStage2:""}
                   {!localSettings.titleSize && <span className="text-red-500 ml-1">*</span>}
                 </span>
               </div>

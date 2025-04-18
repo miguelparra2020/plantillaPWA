@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { crearStore, type InfoStage3 } from 'src/stores/crearStore'
-import { Palette, Square, CircleDashed, Layers } from 'lucide-react'
+import { Palette, Square, CircleDashed, Layers, Type } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Switch } from '../ui/switch'
 import { 
@@ -14,7 +14,10 @@ import {
   borderWidthOptionsButtons,
   borderColorClassMap,
   colorClassMap,
-  textColorClassMap
+  textColorClassMap,
+  fontOptions,
+  weightOptions,
+  sizeOptions
 } from '../../helpers/helpersStage3'
 import { generalConfig } from "@util/generalConfig"
 
@@ -46,16 +49,22 @@ const Stage3Settings = () => {
       shadow: 'shadow',
       bgButton: '',
       bgButtonSave: '',
+      buttonFont: '',
+      buttonWeight: '',
+      buttonSize: ''
     }
   })
 
   const buttonClasses = `
-    px-4 py-2 font-medium
+    px-4 py-2
     ${localSettings?.textColor && localSettings?.textShade ? textColorClassMap[localSettings.textColor]?.[localSettings.textShade] : 'text-white'}
     ${localSettings?.rounded || 'rounded'}
     ${localSettings?.bgColor && localSettings?.bgShade ? colorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : 'bg-blue-500'}
     ${localSettings?.bgColor && localSettings?.bgShade ? hoverColorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : ''}
     ${localSettings?.shadow || 'shadow'}
+    ${localSettings?.buttonFont || ''}
+    ${localSettings?.buttonWeight || ''}
+    ${localSettings?.buttonSize || ''}
     transition-all duration-200
     ${localSettings?.hasBorder && localSettings?.borderColor && localSettings?.borderShade ? 
       `${localSettings.borderWidth} ${borderColorClassMap[localSettings.borderColor]?.[localSettings.borderShade]}` : ""}
@@ -77,12 +86,15 @@ const Stage3Settings = () => {
     
     // Calcular las clases con los nuevos valores
     const currentButtonClasses = `
-      px-4 py-2 font-medium
+      px-4 py-2
       ${newSettings?.textColor && newSettings?.textShade ? textColorClassMap[newSettings.textColor]?.[newSettings.textShade] : 'text-white'}
       ${newSettings?.rounded || 'rounded'}
       ${newSettings?.bgColor && newSettings?.bgShade ? colorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : 'bg-blue-500'}
       ${newSettings?.bgColor && newSettings?.bgShade ? hoverColorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : ''}
       ${newSettings?.shadow || 'shadow'}
+      ${newSettings?.buttonFont || ''}
+      ${newSettings?.buttonWeight || ''}
+      ${newSettings?.buttonSize || ''}
       transition-all duration-200
       ${newSettings?.hasBorder && newSettings?.borderColor && newSettings?.borderShade ? 
         `${newSettings.borderWidth} ${borderColorClassMap[newSettings.borderColor]?.[newSettings.borderShade]}` : ""}
@@ -218,6 +230,90 @@ const Stage3Settings = () => {
                 </SelectContent>
               </Select>
             </div>
+          </div>
+
+          {/* Fuente del botón */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Type className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">
+                {dataLanguaje.languajeChoose === "/es/" ? "Fuente del botón":""}
+                {dataLanguaje.languajeChoose === "/en/" ? "Button font":""}
+                {dataLanguaje.languajeChoose === "/pt/" ? "Fonte do botão":""}
+                {dataLanguaje.languajeChoose === "/fr/" ? "Police du bouton":""}
+              </span>
+            </div>
+            <Select
+              value={localSettings.buttonFont}
+              onValueChange={(value) => handleSettingsChange("buttonFont", value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Seleccione una fuente" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {fontOptions.map((font) => (
+                  <SelectItem key={font.value} value={font.value}>
+                    <span className={`${font.value}`}>{font.name}</span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Peso de la fuente del botón */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Type className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">
+                {dataLanguaje.languajeChoose === "/es/" ? "Peso de la fuente":""}
+                {dataLanguaje.languajeChoose === "/en/" ? "Font weight":""}
+                {dataLanguaje.languajeChoose === "/pt/" ? "Peso da fonte":""}
+                {dataLanguaje.languajeChoose === "/fr/" ? "Poids de la police":""}
+              </span>
+            </div>
+            <Select
+              value={localSettings.buttonWeight}
+              onValueChange={(value) => handleSettingsChange("buttonWeight", value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Seleccione un peso" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {weightOptions.map((weight) => (
+                  <SelectItem key={weight.value} value={weight.value}>
+                    <span className={weight.value}>{weight.name}</span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Tamaño de la fuente del botón */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Type className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">
+                {dataLanguaje.languajeChoose === "/es/" ? "Tamaño de la fuente":""}
+                {dataLanguaje.languajeChoose === "/en/" ? "Font size":""}
+                {dataLanguaje.languajeChoose === "/pt/" ? "Tamanho da fonte":""}
+                {dataLanguaje.languajeChoose === "/fr/" ? "Taille de la police":""}
+              </span>
+            </div>
+            <Select
+              value={localSettings.buttonSize}
+              onValueChange={(value) => handleSettingsChange("buttonSize", value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Seleccione un tamaño" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {sizeOptions.map((size) => (
+                  <SelectItem key={size.value} value={size.value}>
+                    <span className={size.value}>{size.name}</span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Border radius */}

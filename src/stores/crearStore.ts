@@ -40,6 +40,11 @@ export interface InfoStage3 {
   // Sombras
   shadow: string
 
+  // Fuente
+  buttonFont: string
+  buttonWeight: string
+  buttonSize: string
+
   // Al guardar
   bgButton: string
   bgButtonSave: string
@@ -85,6 +90,9 @@ const loadState = (): CrearState => {
       shadow: 'shadow',
       bgButton: '',
       bgButtonSave: '',
+      buttonFont: '',
+      buttonWeight: 'normal',
+      buttonSize: 'medium',
     },
     infoStage4: {
       businessCategories: [],
