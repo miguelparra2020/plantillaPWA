@@ -13,11 +13,12 @@ export type CustomizationStep =
   
 
 export interface BusinessCategory {
-    id: string;
-    title: string;
-    description: string;
-    includes: string[];
-    examples: string[];
+    id: string
+    title: string
+    description: string
+    includes: string[]
+    examples: string[]
+    categiryIsActive: boolean
   }
 
   export type RenderInitialQuestionComponentProps = {

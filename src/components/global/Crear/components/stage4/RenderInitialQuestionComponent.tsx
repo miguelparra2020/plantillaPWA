@@ -16,47 +16,6 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
       name: string
       editedPercentage: number
     }>>([])
-
-    // Cargar valores iniciales desde el store
-    useEffect(() => {
-      const currentState = crearStore.get()
-      if (currentState.infoStage4?.selectedCategories) {
-        setSelectedCategories(new Set(currentState.infoStage4.selectedCategories))
-        if (currentState.infoStage4.selectedCategoriesWithDetails) {
-          setSelectedCategoriesWithDetails(currentState.infoStage4.selectedCategoriesWithDetails)
-        }
-      }
-    }, [])
-
-    // Actualizar el store cuando cambien las categorías seleccionadas
-    useEffect(() => {
-      const currentState = crearStore.get()
-      const updatedCategoriesWithDetails = Array.from(selectedCategories).map(id => {
-        const existingCategory = selectedCategoriesWithDetails.find(cat => cat.id === id)
-        if (existingCategory) {
-          return existingCategory
-        }
-        const category = businessCategories.find(cat => cat.id === id)
-        return {
-          id,
-          name: category?.title || '',
-          editedPercentage: 0
-        }
-      })
-
-      setSelectedCategoriesWithDetails(updatedCategoriesWithDetails)
-
-      crearStore.set({
-        ...currentState,
-        infoStage4: {
-          ...currentState.infoStage4,
-          businessCategories,
-          selectedCategories: Array.from(selectedCategories),
-          selectedCategoriesWithDetails: updatedCategoriesWithDetails
-        }
-      })
-    }, [selectedCategories])
-
     const getStage4FieldByLang = (fieldId: string) => {
       const lang = dataLanguaje.languajeChoose
       const langMap: Record<string, any> = {
@@ -100,9 +59,56 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
       title: titles[i],
       description: descriptions[i],
       includes: includes[i],
-      examples: examples[i]
+      examples: examples[i],
+      categiryIsActive: false
     }))
-        const toggleCategory = (id: string) => {
+
+    const [businessCategoriesState, setBusinessCategoriesState] = useState<BusinessCategory[]>(businessCategories)
+
+    // Cargar valores iniciales desde el store
+    useEffect(() => {
+      const currentState = crearStore.get()
+      if (currentState.infoStage4?.selectedCategories) {
+        setSelectedCategories(new Set(currentState.infoStage4.selectedCategories))
+        if (currentState.infoStage4.selectedCategoriesWithDetails) {
+          setSelectedCategoriesWithDetails(currentState.infoStage4.selectedCategoriesWithDetails)
+        }
+      }
+    }, [])
+
+    // Actualizar el store cuando cambien las categorías seleccionadas
+    useEffect(() => {
+      const currentState = crearStore.get()
+      const updatedCategoriesWithDetails = Array.from(selectedCategories).map(id => {
+        const existingCategory = selectedCategoriesWithDetails.find(cat => cat.id === id)
+        if (existingCategory) {
+          return existingCategory
+        }
+        const category = businessCategoriesState.find(cat => cat.id === id)
+        return {
+          id,
+          name: category?.title || '',
+          editedPercentage: 0
+        }
+      })
+
+      setSelectedCategoriesWithDetails(updatedCategoriesWithDetails)
+
+      crearStore.set({
+        ...currentState,
+        infoStage4: {
+          ...currentState.infoStage4,
+          businessCategories: businessCategoriesState.map(cat => ({
+            ...cat,
+            categiryIsActive: selectedCategories.has(cat.id)
+          })),
+          selectedCategories: Array.from(selectedCategories),
+          selectedCategoriesWithDetails: updatedCategoriesWithDetails
+        }
+      })
+    }, [selectedCategories, businessCategoriesState])
+
+    const toggleCategory = (id: string) => {
         const newSelected = new Set(selectedCategories)
         if (newSelected.has(id)) {
           newSelected.delete(id)
@@ -110,7 +116,14 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
           newSelected.add(id)
         }
         setSelectedCategories(newSelected)
-      }
+
+        // Actualizar el estado de la categoría
+        setBusinessCategoriesState(prevCategories => 
+          prevCategories.map(cat => 
+            cat.id === id ? { ...cat, categiryIsActive: !cat.categiryIsActive } : cat
+          )
+        )
+    }
 
       const toggleExpanded = (id: string) => {
         const newExpanded = new Set(expandedCategories)
