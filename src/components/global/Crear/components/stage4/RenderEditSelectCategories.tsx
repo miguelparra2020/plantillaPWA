@@ -7,6 +7,8 @@ import { crearStore } from 'src/stores/crearStore'
 import { generalConfig } from '@util/generalConfig'
 import { RenderInitialQuestionComponentProps, BusinessCategory } from '../../interfaces/modelsStage4'
 import { languajePage } from 'src/stores/languajePage'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const { data: dataLanguaje} = useStore(languajePage)
@@ -39,12 +41,23 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
           categorySelectToEdit: category
         }
       })
-      // Aquí puedes agregar la lógica para navegar a la pantalla de edición
-      console.log('Categoría seleccionada para editar:', category)
+
+      // Mostrar notificación
+      toast.success(`Categoría "${category.title}" seleccionada para edición`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
     }
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-8">
+      <ToastContainer className={"mt-60"}/>
       <div className="max-w-7xl mx-auto">
       <div className="text-center space-y-2">
             <h3 className="text-lg font-medium text-zinc-900">
