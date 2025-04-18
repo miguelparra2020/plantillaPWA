@@ -18,8 +18,15 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
 
     useEffect(() => {
       const currentState = crearStore.get()
-      if (currentState.infoStage4?.selectedCategoriesWithDetails) {
-        setCategories(currentState.infoStage4.selectedCategoriesWithDetails)
+      if (currentState.infoStage4?.businessCategories) {
+        const activeCategories = currentState.infoStage4.businessCategories
+          .filter(cat => cat.categiryIsActive)
+          .map(cat => ({
+            id: cat.id,
+            name: cat.title,
+            editedPercentage: 0
+          }))
+        setCategories(activeCategories)
       }
     }, [])
 
@@ -39,12 +46,20 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
             </div>
 
         <div className=" gap-8">
-          {categories.map((category) => (<>
+          {crearStore.get().infoStage4?.businessCategories
+            ?.filter(cat => cat.categiryIsActive)
+            .map((category) => (
+              <>
             <CategoryCard 
               key={category.id} 
-              category={category} 
+              category={{
+                id: category.id,
+                name: category.title,
+                editedPercentage: 0
+              }}
               onEdit={() => handleEditCategory(category.id)}
-            /> <br />
+            />
+            <br />
             </>
           ))}
         </div>
