@@ -39,6 +39,8 @@ export interface InfoStage3 {
   
   // Sombras
   shadow: string
+  shadowColor: string
+  shadowShade: number
 
   // Fuente
   buttonFont: string
@@ -88,6 +90,8 @@ const loadState = (): CrearState => {
       borderShade: 500,
       borderWidth: 'border',
       shadow: 'shadow',
+      shadowColor: 'gray',
+      shadowShade: 500,
       bgButton: '',
       bgButtonSave: '',
       buttonFont: '',

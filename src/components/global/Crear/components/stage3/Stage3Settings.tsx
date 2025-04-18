@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
-import { crearStore, type InfoStage3 } from 'src/stores/crearStore'
+import { crearStore } from 'src/stores/crearStore'
+import { type InfoStage3 } from '../../interfaces/InfoStage3'
 import { Palette, Square, CircleDashed, Layers, Type } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Switch } from '../ui/switch'
@@ -17,7 +18,9 @@ import {
   textColorClassMap,
   fontOptions,
   weightOptions,
-  sizeOptions
+  sizeOptions,
+  shadowColorClassMap,
+  hoverShadowColorClassMap
 } from '../../helpers/helpersStage3'
 import { generalConfig } from "@util/generalConfig"
 
@@ -47,6 +50,8 @@ const Stage3Settings = () => {
       borderShade: 500,
       borderWidth: 'border',
       shadow: 'shadow',
+      shadowColor: 'gray',
+      shadowShade: 500,
       bgButton: '',
       bgButtonSave: '',
       buttonFont: '',
@@ -62,6 +67,8 @@ const Stage3Settings = () => {
     ${localSettings?.bgColor && localSettings?.bgShade ? colorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : 'bg-blue-500'}
     ${localSettings?.bgColor && localSettings?.bgShade ? hoverColorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : ''}
     ${localSettings?.shadow || 'shadow'}
+    ${localSettings?.shadowColor && localSettings?.shadowShade ? shadowColorClassMap[localSettings.shadowColor]?.[localSettings.shadowShade] : 'shadow-gray-500/50'}
+    ${localSettings?.shadowColor && localSettings?.shadowShade ? hoverShadowColorClassMap[localSettings.shadowColor]?.[localSettings.shadowShade] : ''}
     ${localSettings?.buttonFont || ''}
     ${localSettings?.buttonWeight || ''}
     ${localSettings?.buttonSize || ''}
@@ -92,6 +99,8 @@ const Stage3Settings = () => {
       ${newSettings?.bgColor && newSettings?.bgShade ? colorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : 'bg-blue-500'}
       ${newSettings?.bgColor && newSettings?.bgShade ? hoverColorClassMap[newSettings.bgColor]?.[newSettings.bgShade] : ''}
       ${newSettings?.shadow || 'shadow'}
+      ${newSettings?.shadowColor && newSettings?.shadowShade ? shadowColorClassMap[newSettings.shadowColor]?.[newSettings.shadowShade] : ''}
+      ${newSettings?.shadowColor && newSettings?.shadowShade ? hoverShadowColorClassMap[newSettings.shadowColor]?.[newSettings.shadowShade] : ''}
       ${newSettings?.buttonFont || ''}
       ${newSettings?.buttonWeight || ''}
       ${newSettings?.buttonSize || ''}
@@ -376,6 +385,47 @@ const Stage3Settings = () => {
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.subtitleShadowStage3:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.subtitleShadowStage3:""} {hoverShadowInfo}
             </p>
+
+            {/* Color de la sombra */}
+            <div className="grid grid-cols-2 gap-2">
+              <Select 
+                value={localSettings.shadowColor || 'gray'} 
+                onValueChange={(value) => handleSettingsChange("shadowColor", value)}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-4 h-4 rounded-full bg-${localSettings.shadowColor || 'gray'}-${localSettings.shadowShade || 500}`}></div>
+                    <SelectValue placeholder="Color de sombra" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] bg-white">
+                  {colorOptionsButtons.map((color) => (
+                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${localSettings.shadowShade || 500}`}></div>
+                        <span>{color.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={(localSettings.shadowShade || 500).toString()}
+                onValueChange={(value) => handleSettingsChange("shadowShade", Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Intensidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {/* Borde */}
