@@ -5,6 +5,7 @@ import { languajePage } from 'src/stores/languajePage'
 import { crearStore, InfoStage2 } from 'src/stores/crearStore'
 import { generalConfig } from "@util/generalConfig"
 import { ButtonHandleNextStage2Props } from '../../interfaces/modelsStage2'
+import { toast, ToastContainer } from 'react-toastify'
 
 export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHandleNextStage2Props) =>{
   const { data: dataLanguaje} = useStore(languajePage)
@@ -51,8 +52,41 @@ export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHa
     validateForm()
   }, [localSettings])
 
+  const handleNextCompleted = () => {
+    toast.success(`Ha completado la segunda etapa`, {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+    setTimeout(() => {
+      handleNext()
+    }, 1500)   
+  }
+
   return (
         <div className="flex flex-row items-center justify-center gap-2 p-4">
+          <ToastContainer 
+        className="mt-32"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{
+          marginTop: '8rem',
+          zIndex: 99999
+        }}
+      />
             <button
                 type="button"
                 onClick={() => handlePrev()}
@@ -66,7 +100,7 @@ export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHa
             </button>
             <button
                 type="button"
-                onClick={() => handleNext()}
+                onClick={() => handleNextCompleted()}
                 disabled={!isFormValid}
                 className={`w-full z-10 h-10 flex items-center justify-center gap-2 ${
                     !isFormValid

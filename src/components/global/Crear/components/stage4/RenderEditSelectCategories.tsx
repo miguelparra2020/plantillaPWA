@@ -57,7 +57,23 @@ export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: Rende
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-8">
-      <ToastContainer className={"mt-60"}/>
+      <ToastContainer 
+        className="mt-32"
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{
+          marginTop: '8rem',
+          zIndex: 99999
+        }}
+      />
       <div className="max-w-7xl mx-auto">
       <div className="text-center space-y-2">
             <h3 className="text-lg font-medium text-zinc-900">
