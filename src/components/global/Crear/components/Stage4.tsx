@@ -40,7 +40,6 @@ import { RenderEditSelectCategories } from "./stage4/RenderEditSelectCategories"
 
 const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
   const { data: dataLanguaje} = useStore(languajePage)
-  
   // Definición de colores con sus valores de Tailwind
   const colorOptions = [
     { name: "Red", value: "red" },

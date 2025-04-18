@@ -6,10 +6,13 @@ import { ButtonHandleNextStage1 } from './stage1/ButtonHandleNextStage1'
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from "@util/generalConfig"
+import { useScrollToTop } from 'src/hooks/useScrollToTop'
 
 const Stage1: React.FC<StageProps> = ({ totalStages, currentStage, handleNext }) => {
   const progressPorcent = Math.floor((currentStage / totalStages) * 100)
   const { data: dataLanguaje} = useStore(languajePage)
+  useScrollToTop()
+
   return (
     <>
       <CardGeneral

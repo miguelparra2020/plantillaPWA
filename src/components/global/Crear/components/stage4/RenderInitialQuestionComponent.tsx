@@ -5,13 +5,14 @@ import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from '@util/generalConfig'
 import { crearStore } from 'src/stores/crearStore'
+import { useScrollToTop } from 'src/hooks/useScrollToTop'
 
 
 export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const { data: dataLanguaje} = useStore(languajePage)
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
-    
+    useScrollToTop()
     const getStage4FieldByLang = (fieldId: string) => {
       const lang = dataLanguaje.languajeChoose
       const langMap: Record<string, any> = {

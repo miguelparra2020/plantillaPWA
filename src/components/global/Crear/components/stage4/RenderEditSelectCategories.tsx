@@ -9,9 +9,11 @@ import { RenderInitialQuestionComponentProps, BusinessCategory } from '../../int
 import { languajePage } from 'src/stores/languajePage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useScrollToTop } from 'src/hooks/useScrollToTop'
 
 export const RenderEditSelectCategories = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const { data: dataLanguaje} = useStore(languajePage)
+    useScrollToTop()
     const [categories, setCategories] = useState<Array<{
       id: string
       name: string
