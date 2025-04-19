@@ -62,6 +62,7 @@ export interface InfoStage4 {
     title: string
     description: string
     titleColor: string
+    titleShade: number
     paragraphColor: string
     textAlign: string
     rounded: string
@@ -136,6 +137,7 @@ const loadState = (): CrearState => {
         title: 'Título de la card',
         description: 'Descripción de la card',
         titleColor: 'slate',
+        titleShade: 500,
         paragraphColor: 'slate',
         textAlign: 'text-left',
         rounded: 'rounded',

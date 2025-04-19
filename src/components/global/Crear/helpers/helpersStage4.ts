@@ -48,8 +48,8 @@ export const colorClassMapStage4 = {
   stone: { 500: 'text-stone-500', 600: 'text-stone-600', 700: 'text-stone-700' }
 }
 
-export const cardClasses = `
-overflow-hidden
-bg-white  w-[340px]
-`
+
+
+
+
 
