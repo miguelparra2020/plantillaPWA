@@ -35,33 +35,33 @@ const textCardClassInitHome = `${store.infoStage4.cardSettings.textAlign}`
 
 const getIconColor = (color: string, shade: number) => {
     return colorMap[color as keyof typeof colorMap] || color
-  }
+}
 
 
-  const colorOptions = [
-    { name: "Red", value: "red" },
-    { name: "Orange", value: "orange" },
-    { name: "Amber", value: "amber" },
-    { name: "Yellow", value: "yellow" },
-    { name: "Lime", value: "lime" },
-    { name: "Green", value: "green" },
-    { name: "Emerald", value: "emerald" },
-    { name: "Teal", value: "teal" },
-    { name: "Cyan", value: "cyan" },
-    { name: "Sky", value: "sky" },
-    { name: "Blue", value: "blue" },
-    { name: "Indigo", value: "indigo" },
-    { name: "Violet", value: "violet" },
-    { name: "Purple", value: "purple" },
-    { name: "Fuchsia", value: "fuchsia" },
-    { name: "Pink", value: "pink" },
-    { name: "Rose", value: "rose" },
-    { name: "Slate", value: "slate" },
-    { name: "Zinc", value: "zinc" },
-    { name: "Gray", value: "gray" },
-    { name: "Neutral", value: "neutral" },
-    { name: "Stone", value: "stone" },
-  ]
+const colorOptions = [
+{ name: "Red", value: "red" },
+{ name: "Orange", value: "orange" },
+{ name: "Amber", value: "amber" },
+{ name: "Yellow", value: "yellow" },
+{ name: "Lime", value: "lime" },
+{ name: "Green", value: "green" },
+{ name: "Emerald", value: "emerald" },
+{ name: "Teal", value: "teal" },
+{ name: "Cyan", value: "cyan" },
+{ name: "Sky", value: "sky" },
+{ name: "Blue", value: "blue" },
+{ name: "Indigo", value: "indigo" },
+{ name: "Violet", value: "violet" },
+{ name: "Purple", value: "purple" },
+{ name: "Fuchsia", value: "fuchsia" },
+{ name: "Pink", value: "pink" },
+{ name: "Rose", value: "rose" },
+{ name: "Slate", value: "slate" },
+{ name: "Zinc", value: "zinc" },
+{ name: "Gray", value: "gray" },
+{ name: "Neutral", value: "neutral" },
+{ name: "Stone", value: "stone" },
+]
   const titleColorClass = `text-${store.infoStage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.titleColor)?.titleShade || 700}`
 
   const paragraphColorClass = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
