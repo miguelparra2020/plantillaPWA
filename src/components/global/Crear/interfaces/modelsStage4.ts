@@ -12,16 +12,23 @@ export type CustomizationStep =
   | "finaly-process"
   
 
-export interface BusinessCategory {
-    id: string
-    title: string
-    description: string
-    includes: string[]
-    examples: string[]
-    categiryIsActive: boolean
-  }
+export interface CardInicioSettings {
+  showImage: boolean
+  iconColor: string
+  iconColorShade: number
+}
 
-  export type RenderInitialQuestionComponentProps = {
-    setCurrentStep: React.Dispatch<React.SetStateAction<CustomizationStep>>
-    handlePrev: () => void
-  }
+export interface BusinessCategory {
+  id: string
+  title: string
+  description: string
+  includes: string[]
+  examples: string[]
+  categiryIsActive: boolean
+  cardInicioSettings?: CardInicioSettings
+}
+
+export type RenderInitialQuestionComponentProps = {
+  setCurrentStep: React.Dispatch<React.SetStateAction<CustomizationStep>>
+  handlePrev: () => void
+}

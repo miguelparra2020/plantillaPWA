@@ -7,7 +7,7 @@ import {  Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group'
 import { colorClassMap, colorOptionsTitles } from '../../helpers/helpersStage2'
 import { Label } from '../ui/label'
-import { RenderInitialQuestionComponentProps } from '../../interfaces/modelsStage4'
+import { RenderInitialQuestionComponentProps, CardInicioSettings } from '../../interfaces/modelsStage4'
 export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const store = useStore(crearStore)
     const [iconColor, setIconColor] = React.useState<string>('slate')
@@ -67,31 +67,66 @@ const colorOptions = [
   const paragraphColorClass = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
 
   const handleSettingsChange = (
-    key: keyof typeof store.infoStage4.cardSettings | keyof typeof store.infoStage4.cardsInicio,
+    key: keyof typeof store.infoStage4.cardSettings | keyof typeof store.infoStage4.cardsInicio | keyof CardInicioSettings,
     value: string | boolean | number
   ) => {
-    if (key in store.infoStage4.cardSettings) {
+    const currentState = crearStore.get()
+    const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+
+    if (selectedCategory) {
+      // Actualizar las propiedades de cardInicioSettings de la categoría seleccionada
+      const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+        if (cat.id === selectedCategory.id) {
+          return {
+            ...cat,
+            cardInicioSettings: {
+              ...cat.cardInicioSettings,
+              [key]: value
+            }
+          }
+        }
+        return cat
+      })
+
       crearStore.set({
-        ...store,
+        ...currentState,
         infoStage4: {
-          ...store.infoStage4,
-          cardSettings: {
-            ...store.infoStage4.cardSettings,
-            [key]: value
+          ...currentState.infoStage4,
+          businessCategories: updatedCategories,
+          categorySelectToEdit: {
+            ...selectedCategory,
+            cardInicioSettings: {
+              ...selectedCategory.cardInicioSettings,
+              [key]: value
+            }
           }
         }
       })
-    } else if (key in store.infoStage4.cardsInicio) {
-      crearStore.set({
-        ...store,
-        infoStage4: {
-          ...store.infoStage4,
-          cardsInicio: {
-            ...store.infoStage4.cardsInicio,
-            [key]: value
+    } else {
+      // Mantener la lógica existente para otras propiedades
+      if (key in store.infoStage4.cardSettings) {
+        crearStore.set({
+          ...store,
+          infoStage4: {
+            ...store.infoStage4,
+            cardSettings: {
+              ...store.infoStage4.cardSettings,
+              [key]: value
+            }
           }
-        }
-      })
+        })
+      } else if (key in store.infoStage4.cardsInicio) {
+        crearStore.set({
+          ...store,
+          infoStage4: {
+            ...store.infoStage4,
+            cardsInicio: {
+              ...store.infoStage4.cardsInicio,
+              [key]: value
+            }
+          }
+        })
+      }
     }
   }
 
@@ -148,7 +183,7 @@ const colorOptions = [
       <div className="space-y-6  ">
         {/* Vista previa de la card */}
         <div className={cardClassInitHome}>
-          {store.infoStage4.cardSettings.showImage && (
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
             <div className="relative h-48">
               <img
                 src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
@@ -161,15 +196,15 @@ const colorOptions = [
             <div className="flex flex-col gap-4">
               {store.infoStage4.cardSettings.textAlign === "text-center" ? (
                 <div className="mx-auto">
-                  <ClipboardCheck className={`w-8 h-8 text-${iconColor}-${iconShade}`} />
+                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                 </div>
               ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
                 <div className="ml-auto">
-                  <ClipboardCheck className={`w-8 h-8 text-${iconColor}-${iconShade}`} />
+                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                 </div>
               ) : (
                 <div>
-                  <ClipboardCheck className={`w-8 h-8 text-${iconColor}-${iconShade}`} />
+                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                 </div>
               )}
               <span className={`text-xl font-bold ${titleColorClass}`}>{store.infoStage4.cardSettings.title}</span>
@@ -192,7 +227,7 @@ const colorOptions = [
               <Switch
                 className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
                 style={{ transition: 'background-color 0.2s' }}
-                checked={store.infoStage4.cardSettings.showImage}
+                checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage || false}
                 onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
               />
             </div>
@@ -206,12 +241,12 @@ const colorOptions = [
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Select
-                value={iconColor}
-                onValueChange={(value) => setIconColor(value)}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
+                onValueChange={(value) => handleSettingsChange("iconColor", value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(iconColor, iconShade) }}></div>
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
                     <SelectValue placeholder="Seleccione un color" />
                   </div>
                 </SelectTrigger>
@@ -219,7 +254,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, iconShade) }}></div>
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -228,8 +263,8 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={iconShade.toString()}
-                onValueChange={(value) => setIconShade(Number.parseInt(value))}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange("iconColorShade", Number.parseInt(value))}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />

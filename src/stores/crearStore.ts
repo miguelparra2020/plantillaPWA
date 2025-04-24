@@ -167,6 +167,18 @@ const loadState = (): CrearState => {
   }
 }
 
+// Función para inicializar las propiedades de personalización de cards para una categoría
+export const initializeCategoryCardSettings = (category: BusinessCategory): BusinessCategory => {
+  return {
+    ...category,
+    cardInicioSettings: {
+      showImage: false,
+      iconColor: 'slate',
+      iconColorShade: 500
+    }
+  }
+}
+
 // Crear el store con el estado inicial cargado desde localStorage
 export const crearStore = atom<CrearState>(loadState())
 
