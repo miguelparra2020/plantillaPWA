@@ -16,6 +16,7 @@ export interface CardInicioSettings {
   showImage: boolean
   iconColor: string
   iconColorShade: number
+  icon: string
 }
 
 export interface BusinessCategory {

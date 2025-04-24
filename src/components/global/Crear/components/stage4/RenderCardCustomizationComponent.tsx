@@ -1,13 +1,74 @@
 import * as React from 'react'
 import { crearStore } from 'src/stores/crearStore'
 import { useStore } from "@nanostores/react"
-import { AlignCenter, AlignLeft, AlignRight, ArrowBigLeftDash, ArrowBigRightDash, CircleDashed, FileText, ImageIcon, Layers, Palette, Square, Type, Star, Heart, ThumbsUp, CheckCircle, Lightbulb, Gift, Calendar, BarChart, ShoppingCart, Circle, ClipboardCheck } from 'lucide-react'
+import { 
+  AlignCenter, 
+  AlignLeft, 
+  AlignRight, 
+  ArrowBigLeftDash, 
+  ArrowBigRightDash, 
+  CircleDashed, 
+  FileText, 
+  ImageIcon, 
+  Layers, 
+  Palette, 
+  Square, 
+  Type, 
+  Star, 
+  Heart, 
+  ThumbsUp, 
+  CheckCircle, 
+  Lightbulb, 
+  Gift, 
+  Calendar, 
+  BarChart, 
+  ShoppingCart, 
+  Circle, 
+  ClipboardCheck,
+  Store,
+  Sparkles,
+  Package,
+  Tag,
+  Percent,
+  Trophy,
+  Award,
+  Bell,
+  Bookmark,
+  Box,
+  Briefcase,
+  Building,
+  Camera,
+  Car,
+  Coffee,
+  Compass,
+  CreditCard,
+  Diamond,
+  Flag,
+  Globe,
+  Home,
+  Key,
+  Map,
+  Music,
+  Phone,
+  Plane,
+  Rocket,
+  Shield,
+  Smile,
+  Sun,
+  Target,
+  Umbrella,
+  Users,
+  Video,
+  Watch,
+  Zap
+} from 'lucide-react'
 import { Switch } from "../ui/switch"
-import {  Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group'
 import { colorClassMap, colorOptionsTitles } from '../../helpers/helpersStage2'
 import { Label } from '../ui/label'
 import { RenderInitialQuestionComponentProps, CardInicioSettings } from '../../interfaces/modelsStage4'
+
 export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const store = useStore(crearStore)
     const [iconColor, setIconColor] = React.useState<string>('slate')
@@ -170,6 +231,56 @@ const colorOptions = [
     { name: "600", value: 600 },
     { name: "700", value: 700 }
   ]
+
+  // Array de opciones de iconos
+  const iconOptions = [
+    { name: "Estrella", value: "star", icon: Star },
+    { name: "Corazón", value: "heart", icon: Heart },
+    { name: "Pulgar arriba", value: "thumbs-up", icon: ThumbsUp },
+    { name: "Check", value: "check-circle", icon: CheckCircle },
+    { name: "Bombilla", value: "lightbulb", icon: Lightbulb },
+    { name: "Regalo", value: "gift", icon: Gift },
+    { name: "Calendario", value: "calendar", icon: Calendar },
+    { name: "Gráfico", value: "bar-chart", icon: BarChart },
+    { name: "Carrito", value: "shopping-cart", icon: ShoppingCart },
+    { name: "Tienda", value: "store", icon: Store },
+    { name: "Chispas", value: "sparkles", icon: Sparkles },
+    { name: "Paquete", value: "package", icon: Package },
+    { name: "Etiqueta", value: "tag", icon: Tag },
+    { name: "Porcentaje", value: "percent", icon: Percent },
+    { name: "Trofeo", value: "trophy", icon: Trophy },
+    { name: "Premio", value: "award", icon: Award },
+    { name: "Campana", value: "bell", icon: Bell },
+    { name: "Marcador", value: "bookmark", icon: Bookmark },
+    { name: "Caja", value: "box", icon: Box },
+    { name: "Maletín", value: "briefcase", icon: Briefcase },
+    { name: "Edificio", value: "building", icon: Building },
+    { name: "Cámara", value: "camera", icon: Camera },
+    { name: "Carro", value: "car", icon: Car },
+    { name: "Café", value: "coffee", icon: Coffee },
+    { name: "Brújula", value: "compass", icon: Compass },
+    { name: "Tarjeta", value: "credit-card", icon: CreditCard },
+    { name: "Diamante", value: "diamond", icon: Diamond },
+    { name: "Bandera", value: "flag", icon: Flag },
+    { name: "Globo", value: "globe", icon: Globe },
+    { name: "Casa", value: "home", icon: Home },
+    { name: "Llave", value: "key", icon: Key },
+    { name: "Mapa", value: "map", icon: Map },
+    { name: "Música", value: "music", icon: Music },
+    { name: "Teléfono", value: "phone", icon: Phone },
+    { name: "Avión", value: "plane", icon: Plane },
+    { name: "Cohete", value: "rocket", icon: Rocket },
+    { name: "Escudo", value: "shield", icon: Shield },
+    { name: "Sonrisa", value: "smile", icon: Smile },
+    { name: "Sol", value: "sun", icon: Sun },
+    { name: "Objetivo", value: "target", icon: Target },
+    { name: "Paraguas", value: "umbrella", icon: Umbrella },
+    { name: "Usuarios", value: "users", icon: Users },
+    { name: "Video", value: "video", icon: Video },
+    { name: "Reloj", value: "watch", icon: Watch },
+    { name: "Rayo", value: "zap", icon: Zap }
+  ]
+
     return(<>
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
       <h1>Personalizando la categoría: <br /><strong>{store.infoStage4.categorySelectToEdit.title}</strong></h1>
@@ -196,15 +307,24 @@ const colorOptions = [
             <div className="flex flex-col gap-4">
               {store.infoStage4.cardSettings.textAlign === "text-center" ? (
                 <div className="mx-auto">
-                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  {(() => {
+                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
+                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  })()}
                 </div>
               ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
                 <div className="ml-auto">
-                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  {(() => {
+                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
+                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  })()}
                 </div>
               ) : (
                 <div>
-                  <ClipboardCheck className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  {(() => {
+                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
+                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  })()}
                 </div>
               )}
               <span className={`text-xl font-bold ${titleColorClass}`}>{store.infoStage4.cardSettings.title}</span>
@@ -231,6 +351,46 @@ const colorOptions = [
                 onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
               />
             </div>
+          </div>
+          {/* Selección de icono */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Icono de la card</span>
+            </div>
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon || 'star'}
+              onValueChange={(value) => handleSettingsChange("icon", value)}
+            >
+              <SelectTrigger className="w-full h-18 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  {(() => {
+                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
+                    return <IconComponent className={`w-4 h-4 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                  })()}
+                  <SelectValue placeholder="Seleccione un icono" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                <div className="grid grid-cols-4 gap-2 p-2">
+                  {iconOptions.map((option) => {
+                    const IconComponent = option.icon
+                    return (
+                      <SelectItem 
+                        key={option.value} 
+                        value={option.value}
+                        className="flex items-center justify-center p-2 hover:bg-zinc-100 rounded-lg"
+                      >
+                        <div className="flex flex-col items-center gap-1">
+                          <IconComponent className={`w-6 h-6 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                          <span className="text-xs text-center">{option.name}</span>
+                        </div>
+                      </SelectItem>
+                    )
+                  })}
+                </div>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Color del icono */}
@@ -279,6 +439,8 @@ const colorOptions = [
               </Select>
             </div>
           </div>
+
+          
 
           {/* Color del titulo de la card */}
           <div className="space-y-2">
