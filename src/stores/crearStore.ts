@@ -174,7 +174,19 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
     cardInicioSettings: {
       showImage: false,
       iconColor: 'slate',
-      iconColorShade: 500
+      iconColorShade: 500,
+      icon: 'star'
+    },
+    cardSettings: {
+      title: 'Título de la card',
+      description: 'Descripción de la card',
+      textAlign: 'text-left',
+      rounded: 'rounded-lg',
+      shadow: 'shadow-md',
+      hasBorder: false,
+      borderWidth: 'border',
+      borderColor: 'slate',
+      borderShade: '500'
     }
   }
 }

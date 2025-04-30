@@ -797,7 +797,7 @@ const colorOptions = [
       </button>
         <button
           type="button"
-        //   onClick={() => setCurrentStep("cards-inicio-web")}
+          onClick={() => setCurrentStep("cards-inicio-web")}
           className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
         >
             <ArrowBigRightDash className="w-4 h-4" />

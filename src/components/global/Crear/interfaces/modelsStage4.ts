@@ -26,7 +26,18 @@ export interface BusinessCategory {
   includes: string[]
   examples: string[]
   categiryIsActive: boolean
-  cardInicioSettings?: CardInicioSettings
+  cardInicioSettings: CardInicioSettings
+  cardSettings: {
+    title: string
+    description: string
+    textAlign: string
+    rounded: string
+    shadow: string
+    hasBorder: boolean
+    borderWidth: string
+    borderColor: string
+    borderShade: string
+  }
 }
 
 export type RenderInitialQuestionComponentProps = {
