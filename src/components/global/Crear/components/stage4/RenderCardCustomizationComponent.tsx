@@ -87,12 +87,12 @@ export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }:
 
     const cardClassInitHome = `
 overflow-hidden
-${store.infoStage4.cardSettings.rounded}
-${store.infoStage4.cardSettings.shadow}
-${store.infoStage4.cardSettings.hasBorder ? `${store.infoStage4.cardSettings.borderWidth} border-${store.infoStage4.cardSettings.borderColor}-${store.infoStage4.cardSettings.borderShade}` : ""}
-bg-white  w-[340px]
+${store.infoStage4.cardSettings.rounded || 'rounded-lg'}
+${store.infoStage4.cardSettings.shadow || 'shadow-md'}
+${store.infoStage4.cardSettings.hasBorder ? `${store.infoStage4.cardSettings.borderWidth || 'border'} border-${store.infoStage4.cardSettings.borderColor || 'slate'}-${store.infoStage4.cardSettings.borderShade || '500'}` : ""}
+bg-white w-[340px]
 `
-const textCardClassInitHome = `${store.infoStage4.cardSettings.textAlign}`
+const textCardClassInitHome = `${store.infoStage4.cardSettings.textAlign || 'text-left'}`
 
 const getIconColor = (color: string, shade: number) => {
     return colorMap[color as keyof typeof colorMap] || color
@@ -123,9 +123,9 @@ const colorOptions = [
 { name: "Neutral", value: "neutral" },
 { name: "Stone", value: "stone" },
 ]
-  const titleColorClass = `text-${store.infoStage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.titleColor)?.titleShade || 700}`
+  const titleColorClass = `text-${store.infoStage2?.colorTitles || 'red'}-${store.infoStage2?.titleColorIntensity || 700}`
 
-  const paragraphColorClass = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
+  const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
 
   const handleSettingsChange = (
     key: keyof typeof store.infoStage4.cardSettings | keyof typeof store.infoStage4.cardsInicio | keyof CardInicioSettings,
@@ -327,8 +327,12 @@ const colorOptions = [
                   })()}
                 </div>
               )}
-              <span className={`text-xl font-bold ${titleColorClass}`}>{store.infoStage4.cardSettings.title}</span>
-              <p className={`font-normal ${paragraphColorClass}`}>{store.infoStage4.cardSettings.description}</p>
+              <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} ${titleColorClass}`}>
+                {store.infoStage4.cardSettings.title}
+              </span>
+              <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} ${paragraphColorClass}`}>
+                {store.infoStage4.cardSettings.description}
+              </p>
             </div>
           </div>
         </div>
@@ -353,7 +357,7 @@ const colorOptions = [
             </div>
           </div>
           {/* Selección de icono */}
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-zinc-500" />
               <span className="text-sm text-zinc-500">Icono de la card</span>
@@ -391,7 +395,7 @@ const colorOptions = [
                 </div>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           {/* Color del icono */}
           <div className="space-y-2">
@@ -440,99 +444,127 @@ const colorOptions = [
             </div>
           </div>
 
-          
-
-          {/* Color del titulo de la card */}
+          {/* Alineación del texto */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <Type className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del título de la card</span>
+              <AlignLeft className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Alineación del texto</span>
             </div>
-            <Select
-              value={store.infoStage4.cardSettings.titleColor}
-              onValueChange={(value) => handleSettingsChange("titleColor", value)}
+            <RadioGroup
+              defaultValue="text-left"
+              value={store.infoStage4.cardSettings.textAlign || 'text-left'}
+              onValueChange={(value) => {
+                const currentState = crearStore.get()
+                crearStore.set({
+                  ...currentState,
+                  infoStage4: {
+                    ...currentState.infoStage4,
+                    cardSettings: {
+                      ...currentState.infoStage4.cardSettings,
+                      textAlign: value
+                    }
+                  }
+                })
+              }}
+              className="flex space-x-2"
             >
-              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
-                <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(store.infoStage4.cardSettings.titleColor, true)}`}></div>
-                  <SelectValue placeholder="Seleccione un color" />
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <input
+                    type="radio"
+                    id="text-left"
+                    name="text-align"
+                    value="text-left"
+                    checked={store.infoStage4.cardSettings.textAlign === 'text-left'}
+                    onChange={(e) => {
+                      const currentState = crearStore.get()
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          cardSettings: {
+                            ...currentState.infoStage4.cardSettings,
+                            textAlign: e.target.value
+                          }
+                        }
+                      })
+                    }}
+                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                  />
+                  {store.infoStage4.cardSettings.textAlign === 'text-left' && (
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                  )}
                 </div>
-              </SelectTrigger>
-              <SelectContent className="max-h-[300px] bg-white">
-                {colorOptionsTitles.map((color) => (
-                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full ${getColorClass(color.value, true)}`}></div>
-                      <span>{color.name}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Color del detalle de la card */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del detalle de la card</span>
-            </div>
-            <Select
-              value={store.infoStage4.cardSettings.paragraphColor}
-              onValueChange={(value) => handleSettingsChange("paragraphColor", value)}
-            >
-              <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
-                <div className="flex items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${getColorClass(store.infoStage4.cardSettings.paragraphColor, false)}`}></div>
-                  <SelectValue placeholder="Seleccione un color" />
+                <Label htmlFor="text-left" className="flex items-center cursor-pointer">
+                  <AlignLeft className="w-4 h-4 mr-1" /> Izquierda
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <input
+                    type="radio"
+                    id="text-center"
+                    name="text-align"
+                    value="text-center"
+                    checked={store.infoStage4.cardSettings.textAlign === 'text-center'}
+                    onChange={(e) => {
+                      const currentState = crearStore.get()
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          cardSettings: {
+                            ...currentState.infoStage4.cardSettings,
+                            textAlign: e.target.value
+                          }
+                        }
+                      })
+                    }}
+                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                  />
+                  {store.infoStage4.cardSettings.textAlign === 'text-center' && (
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                  )}
                 </div>
-              </SelectTrigger>
-              <SelectContent className="max-h-[300px] bg-white">
-                {colorOptionsTitles.map((color) => (
-                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded-full ${getColorClass(color.value, false)}`}></div>
-                      <span>{color.name}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+                <Label htmlFor="text-center" className="flex items-center cursor-pointer">
+                  <AlignCenter className="w-4 h-4 mr-1" /> Centro
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <input
+                    type="radio"
+                    id="text-right"
+                    name="text-align"
+                    value="text-right"
+                    checked={store.infoStage4.cardSettings.textAlign === 'text-right'}
+                    onChange={(e) => {
+                      const currentState = crearStore.get()
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          cardSettings: {
+                            ...currentState.infoStage4.cardSettings,
+                            textAlign: e.target.value
+                          }
+                        }
+                      })
+                    }}
+                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                  />
+                  {store.infoStage4.cardSettings.textAlign === 'text-right' && (
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                  )}
+                </div>
+                <Label htmlFor="text-right" className="flex items-center cursor-pointer">
+                  <AlignRight className="w-4 h-4 mr-1" /> Derecha
+                </Label>
+              </div>
+            </RadioGroup>
           </div>
 
-        </div>
-
-        {/* Alineación del texto */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <AlignLeft className="w-4 h-4 text-zinc-500" />
-            <span className="text-sm text-zinc-500">Alineación del texto</span>
           </div>
-          <RadioGroup
-            value={store.infoStage4.cardSettings.textAlign}
-            onValueChange={(value) => handleSettingsChange("textAlign", value as typeof store.infoStage4.cardSettings.textAlign)}
-            className="flex space-x-2"
-          >
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="text-left" id="text-left" />
-              <Label  className="flex items-center">
-                <AlignLeft className="w-4 h-4 mr-1" /> Izquierda
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="text-center" id="text-center" />
-              <Label  className="flex items-center">
-                <AlignCenter className="w-4 h-4 mr-1" /> Centro
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="text-right" id="text-right" />
-              <Label  className="flex items-center">
-                <AlignRight className="w-4 h-4 mr-1" /> Derecha
-              </Label>
-            </div>
-          </RadioGroup>
-        </div>
 
         {/* Border radius */}
         <div className="space-y-2">
@@ -540,18 +572,37 @@ const colorOptions = [
             <CircleDashed className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Redondeo de esquinas</span>
           </div>
-          <Select value={store.infoStage4.cardSettings.rounded} onValueChange={(value) => handleSettingsChange("rounded", value)}>
-            <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
-              <SelectValue placeholder="Redondeo" />
-            </SelectTrigger>
-            <SelectContent className="bg-white">
-              {roundedOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          
+            <Select
+              value={store.infoStage4.cardSettings.rounded || 'rounded-lg'}
+              onValueChange={(value) => {
+                const currentState = crearStore.get()
+                crearStore.set({
+                  ...currentState,
+                  infoStage4: {
+                    ...currentState.infoStage4,
+                    cardSettings: {
+                      ...currentState.infoStage4.cardSettings,
+                      rounded: value
+                    }
+                  }
+                })
+              }}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Redondeo" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                <SelectItem value="rounded-none">Sin redondeo</SelectItem>
+                <SelectItem value="rounded-sm">Pequeño</SelectItem>
+                <SelectItem value="rounded">Mediano</SelectItem>
+                <SelectItem value="rounded-lg">Grande</SelectItem>
+                <SelectItem value="rounded-xl">Extra grande</SelectItem>
+                <SelectItem value="rounded-2xl">2XL</SelectItem>
+                <SelectItem value="rounded-3xl">3XL</SelectItem>
+                <SelectItem value="rounded-full">Completo</SelectItem>
+              </SelectContent>
+            </Select>
         </div>
 
         {/* Sombra */}
@@ -560,16 +611,33 @@ const colorOptions = [
             <Layers className="w-4 h-4 text-zinc-500" />
             <span className="text-sm text-zinc-500">Sombra</span>
           </div>
-          <Select value={store.infoStage4.cardSettings.shadow} onValueChange={(value) => handleSettingsChange("shadow", value)}>
-            <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200 rounded-xl">
+          <Select
+            value={store.infoStage4.cardSettings.shadow || 'shadow-md'}
+            onValueChange={(value) => {
+              const currentState = crearStore.get()
+              crearStore.set({
+                ...currentState,
+                infoStage4: {
+                  ...currentState.infoStage4,
+                  cardSettings: {
+                    ...currentState.infoStage4.cardSettings,
+                    shadow: value
+                  }
+                }
+              })
+            }}
+          >
+            <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
               <SelectValue placeholder="Sombra" />
             </SelectTrigger>
             <SelectContent className="bg-white">
-              {shadowOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.name}
-                </SelectItem>
-              ))}
+              <SelectItem value="shadow-none">Sin sombra</SelectItem>
+              <SelectItem value="shadow-sm">Sombra pequeña</SelectItem>
+              <SelectItem value="shadow">Sombra normal</SelectItem>
+              <SelectItem value="shadow-md">Sombra mediana</SelectItem>
+              <SelectItem value="shadow-lg">Sombra grande</SelectItem>
+              <SelectItem value="shadow-xl">Sombra extra grande</SelectItem>
+              <SelectItem value="shadow-2xl">Sombra 2XL</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -584,37 +652,72 @@ const colorOptions = [
             <Switch
               className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
               style={{ transition: 'background-color 0.2s' }}
-              checked={store.infoStage4.cardSettings.hasBorder}
-              onCheckedChange={(checked) => handleSettingsChange("hasBorder", checked)}
+              checked={store.infoStage4.cardSettings.hasBorder || false}
+              onCheckedChange={(checked) => {
+                const currentState = crearStore.get()
+                crearStore.set({
+                  ...currentState,
+                  infoStage4: {
+                    ...currentState.infoStage4,
+                    cardSettings: {
+                      ...currentState.infoStage4.cardSettings,
+                      hasBorder: checked
+                    }
+                  }
+                })
+              }}
             />
           </div>
 
           {store.infoStage4.cardSettings.hasBorder && (
             <div className="grid grid-cols-2 gap-2 mt-2">
               <Select
-                value={store.infoStage4.cardSettings.borderWidth}
-                onValueChange={(value) => handleSettingsChange("borderWidth", value)}
+                value={store.infoStage4.cardSettings.borderWidth || 'border'}
+                onValueChange={(value) => {
+                  const currentState = crearStore.get()
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      cardSettings: {
+                        ...currentState.infoStage4.cardSettings,
+                        borderWidth: value
+                      }
+                    }
+                  })
+                }}
               >
-                <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Grosor" />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
-                  {borderWidthOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.name}
-                    </SelectItem>
-                  ))}
+                  <SelectItem value="border">1px</SelectItem>
+                  <SelectItem value="border-2">2px</SelectItem>
+                  <SelectItem value="border-4">4px</SelectItem>
+                  <SelectItem value="border-8">8px</SelectItem>
                 </SelectContent>
               </Select>
 
               <Select
-                value={store.infoStage4.cardSettings.borderColor}
-                onValueChange={(value) => handleSettingsChange("borderColor", value)}
+                value={store.infoStage4.cardSettings.borderColor || 'slate'}
+                onValueChange={(value) => {
+                  const currentState = crearStore.get()
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      cardSettings: {
+                        ...currentState.infoStage4.cardSettings,
+                        borderColor: value
+                      }
+                    }
+                  })
+                }}
               >
-                <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
                     <div
-                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.cardSettings.borderColor}-${store.infoStage4.cardSettings.borderShade}`}
+                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.cardSettings.borderColor || 'slate'}-${store.infoStage4.cardSettings.borderShade || '500'}`}
                     ></div>
                     <SelectValue placeholder="Color" />
                   </div>
@@ -623,7 +726,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.cardSettings.borderShade}`}></div>
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.cardSettings.borderShade || '500'}`}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -632,16 +735,28 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.cardSettings.borderShade.toString()}
-                onValueChange={(value) => handleSettingsChange("borderShade", Number.parseInt(value).toString())}
+                value={store.infoStage4.cardSettings.borderShade?.toString() || '500'}
+                onValueChange={(value) => {
+                  const currentState = crearStore.get()
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      cardSettings: {
+                        ...currentState.infoStage4.cardSettings,
+                        borderShade: value
+                      }
+                    }
+                  })
+                }}
               >
-                <SelectTrigger className="w-full h-10 bg-zinc-100  border-zinc-200  rounded-xl">
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
-                  {colorShadeOptions.map((shade) => (
-                    <SelectItem key={shade.value} value={shade.value.toString()}>
-                      {shade.name}
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
                     </SelectItem>
                   ))}
                 </SelectContent>
