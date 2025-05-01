@@ -393,10 +393,11 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             <>
              
              <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
+      <h1>Personalizando la categoría: <br /><strong>{store.infoStage4.categorySelectToEdit?.title}</strong></h1>
       <div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
         <div className="text-sm text-zinc-700 ">
           <p className="font-medium mb-2">Personzalización visual de apariencia en el inicio web</p>
-          En este apartado podrá personalizar la forma como aparecerá en el inicio de la plataforma la card o cads que personalizó, en esta o estas cards puede indicar categorias o realizar una invitación al usuario para que ingrese al área de productos
+          En este apartado podrá personalizar la forma como aparecerá en el inicio de la plataforma la card o cads que personalizó, en esta o estas cards puede indicar categorias o realizar una invitación al usuario para que ingrese al área seleccionada
         </div>
       </div>
 
@@ -412,8 +413,40 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             <Input
               type='text'
               placeholder='Ejemplo: Descubre Nuestra Colección'
-              value={store.infoStage4.cardsInicio.titleCardInicio}
-              onChange={(e) => handleSettingsChange('titleCardInicio', e.target.value)}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || ''}
+              onChange={(e) => {
+                const currentState = crearStore.get()
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          titleSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                    return cat
+                  })
+
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          titleSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                  })
+                }
+              }}
               className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
             />
           </div>
@@ -426,8 +459,40 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             </div>
             <Textarea
               placeholder='Ejemplo: Explora una selección única de productos diseñados para ti.'
-              value={store.infoStage4.cardsInicio.descriptionCardInicio}
-              onChange={(e) => handleSettingsChange('descriptionCardInicio', e.target.value)}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || ''}
+              onChange={(e) => {
+                const currentState = crearStore.get()
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          descriptionSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                    return cat
+                  })
+
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          descriptionSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                  })
+                }
+              }}
               className='w-full bg-zinc-100  text-sm text-zinc-900  placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900  min-h-[100px]'
             />
           </div>
@@ -436,13 +501,45 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
           <div className='space-y-2'>
             <div className='flex items-center gap-2'>
               <MousePointerClick className='w-4 h-4 text-zinc-500' />
-              <span className='text-sm text-zinc-500'>Nombre del botón de invitación a ver todos los productos</span>
+              <span className='text-sm text-zinc-500'>Nombre del botón de invitación a ver la categoría</span>
             </div>
             <Input
               type='text'
-              placeholder='Ejemplo: Descubre Nuestra Colección'
-              value={store.infoStage4.cardsInicio.nameButtonCardInicio}
-              onChange={(e) => handleSettingsChange('titleCardInicio', e.target.value)}
+              placeholder='Ejemplo: Ver categoría'
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || ''}
+              onChange={(e) => {
+                const currentState = crearStore.get()
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          nameButtonSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                    return cat
+                  })
+
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          nameButtonSesionCardsInicio: e.target.value
+                        }
+                      }
+                    }
+                  })
+                }
+              }}
               className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
             />
           </div>
@@ -451,14 +548,46 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
           <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Layers className="w-4 h-4 text-zinc-500" />
-                  <span className="text-sm text-zinc-500">Cantidad de cards. "Pueden ser las categorías de los productos"</span>
+                  <span className="text-sm text-zinc-500">Cantidad de cards. "Pueden ser las categorías"</span>
                 </div>
                 <Select
-                      value={store.infoStage4.cardsInicio.quantityCards.toString()}
-                      onValueChange={(value) => handleSettingsChange("quantityCards", value)}
+                      value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio?.toString() ?? '0'}
+                      onValueChange={(value) => {
+                        const currentState = crearStore.get()
+                        const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                        if (selectedCategory) {
+                          const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                            if (cat.id === selectedCategory.id) {
+                              return {
+                                ...cat,
+                                cardInicioSettings: {
+                                  ...cat.cardInicioSettings,
+                                  quantityCardsSesionCardsInicio: parseInt(value) || 0
+                                }
+                              }
+                            }
+                            return cat
+                          })
+
+                          crearStore.set({
+                            ...currentState,
+                            infoStage4: {
+                              ...currentState.infoStage4,
+                              businessCategories: updatedCategories,
+                              categorySelectToEdit: {
+                                ...selectedCategory,
+                                cardInicioSettings: {
+                                  ...selectedCategory.cardInicioSettings,
+                                  quantityCardsSesionCardsInicio: parseInt(value) || 0
+                                }
+                              }
+                            }
+                          })
+                        }
+                      }}
                     >
                       <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                        <SelectValue placeholder="Intensidad" />
+                        <SelectValue placeholder="Cantidad" />
                       </SelectTrigger>
                       <SelectContent className="bg-white">
                       {optionsQuantityCards.map((item) => (

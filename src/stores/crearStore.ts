@@ -1,5 +1,4 @@
 // src/stores/crearStore.ts
-import { BusinessCategory } from '@component/global/Crear/interfaces/modelsStage4'
 import { atom } from 'nanostores'
 
 export interface InfoStage1 {
@@ -90,6 +89,33 @@ export interface InfoStage4 {
   borderColor: string
   borderShade: string
   paragraphColor: string
+}
+
+export interface CardInicioSettings {
+  showImage: boolean
+  iconColor: string
+  iconColorShade: number
+  icon: string
+  title: string
+  description: string
+  textAlign: string
+  rounded: string
+  shadow: string
+  hasBorder: boolean
+  borderWidth: string
+  borderColor: string
+  borderShade: string
+  titleSesionCardsInicio: string
+  descriptionSesionCardsInicio: string
+  nameButtonSesionCardsInicio: string
+  quantityCardsSesionCardsInicio: number
+}
+
+export interface BusinessCategory {
+  id: string
+  title: string
+  description: string
+  cardInicioSettings: CardInicioSettings
 }
 
 interface CrearState {
@@ -185,7 +211,11 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
       hasBorder: false,
       borderWidth: 'border',
       borderColor: 'slate',
-      borderShade: '500'
+      borderShade: '500',
+      titleSesionCardsInicio: category.title || 'Título de la sesión de productos',
+      descriptionSesionCardsInicio: category.description || 'Descripción de la sesión de productos',
+      nameButtonSesionCardsInicio: 'Ver categoría',
+      quantityCardsSesionCardsInicio: 0
     }
   }
 }
