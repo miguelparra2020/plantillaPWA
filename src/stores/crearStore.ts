@@ -113,6 +113,7 @@ export interface CardInicioSettings {
     cardTitle: string
     detailCard: string
     iconCard: string
+    imageCard?: string
   }>
   cardsDetails: Array<{
     titleCardCardsInicio: string

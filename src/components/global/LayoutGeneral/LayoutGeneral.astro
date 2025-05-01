@@ -1,5 +1,7 @@
 ---
-import {   Layout, Header, Footer } from "@globals"
+import Layout from "../Layout/Layout.astro"
+import { Header } from "../Header"
+import { Footer } from "../Footer"
 import { generalConfig } from "@util/generalConfig"
 const path = Astro.url.pathname.slice(1)
 const capitalizeFirstLetter = (str) => {

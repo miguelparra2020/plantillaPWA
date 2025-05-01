@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { RenderInitialQuestionComponentProps } from "../../interfaces/modelsStage4";
-import { ArrowBigLeftDash, ArrowBigRightDash, FileText, Layers, MousePointerClick, Store, Star, Heart, ThumbsUp, CheckCircle, Lightbulb, Gift, Calendar, BarChart, ShoppingCart, Trash2 } from "lucide-react";
+import { ArrowBigLeftDash, ArrowBigRightDash, FileText, Layers, MousePointerClick, Store, Star, Heart, ThumbsUp, CheckCircle, Lightbulb, Gift, Calendar, BarChart, ShoppingCart, Trash2, ImageIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
@@ -720,7 +720,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         }
                       }}
                     >
-                      <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                      <SelectTrigger className="w-full h-14 bg-zinc-100 border-zinc-200 rounded-xl">
                         <div className="flex items-center gap-2">
                           {(() => {
                             const IconComponent = iconOptionsToCard.find(opt => opt.value === currentCard.iconCard)?.icon || Star
@@ -835,6 +835,79 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                       className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 min-h-[100px]'
                     />
                   </div>
+
+                  {/* Imagen de la card */}
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                    <div className='space-y-2'>
+                      <div className='flex items-center gap-2'>
+                        <ImageIcon className='w-4 h-4 text-zinc-500' />
+                        <span className='text-sm text-zinc-500'>Imagen de la card {index+1}</span>
+                      </div>
+                      <Input
+                        type='file'
+                        accept='image/*'
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) {
+                            const reader = new FileReader()
+                            reader.onloadend = () => {
+                              const currentState = crearStore.get()
+                              const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                              if (selectedCategory) {
+                                const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetailsSesionCardsInicio || [])]
+                                while (updatedCardsDetails.length <= index) {
+                                  updatedCardsDetails.push({ cardTitle: '', detailCard: '', iconCard: 'star' })
+                                }
+                                updatedCardsDetails[index] = { 
+                                  ...updatedCardsDetails[index], 
+                                  imageCard: reader.result as string 
+                                }
+
+                                const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                                  if (cat.id === selectedCategory.id) {
+                                    return {
+                                      ...cat,
+                                      cardInicioSettings: {
+                                        ...cat.cardInicioSettings,
+                                        cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                      }
+                                    }
+                                  }
+                                  return cat
+                                })
+
+                                crearStore.set({
+                                  ...currentState,
+                                  infoStage4: {
+                                    ...currentState.infoStage4,
+                                    businessCategories: updatedCategories,
+                                    categorySelectToEdit: {
+                                      ...selectedCategory,
+                                      cardInicioSettings: {
+                                        ...selectedCategory.cardInicioSettings,
+                                        cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                      }
+                                    }
+                                  }
+                                })
+                              }
+                            }
+                            reader.readAsDataURL(file)
+                          }
+                        }}
+                        className='w-full bg-zinc-100 text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900'
+                      />
+                      {currentCard.imageCard && (
+                        <div className="mt-2">
+                          <img 
+                            src={currentCard.imageCard} 
+                            alt="Preview" 
+                            className="w-full h-32 object-cover rounded-lg"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )
@@ -869,7 +942,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             <div >
                     {/* Vista previa de la card */}
                     <div className={cardClasses2 }>
-                      {store.infoStage4.cardSettings.showImage && (
+                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
                         <div className="relative ">
                           <img
                             src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
@@ -937,7 +1010,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         <div className="flex mt-4 flex-col items-center justify-center">
             {/* Vista previa de la card */}
             <div className={cardClasses3 }>
-                      {store.infoStage4.cardSettings.showImage && (
+                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
                         <div className="relative ">
                           <img
                             src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
