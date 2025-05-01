@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { RenderInitialQuestionComponentProps } from "../../interfaces/modelsStage4";
-import { ArrowBigLeftDash, ArrowBigRightDash, FileText, Layers, MousePointerClick, Store } from "lucide-react";
+import { ArrowBigLeftDash, ArrowBigRightDash, FileText, Layers, MousePointerClick, Store, Star, Heart, ThumbsUp, CheckCircle, Lightbulb, Gift, Calendar, BarChart, ShoppingCart, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 import { useStore } from "@nanostores/react";
 import { crearStore } from "src/stores/crearStore";
 import { colorOptionsTitles } from "../../helpers/helpersStage2";
+import { iconOptionsToCard } from "../../helpers/helpersStage4";
 
 export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
     RenderInitialQuestionComponentProps) => {
@@ -389,6 +390,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
   bg-white w-[230px] md:w-[230px]
 `
 
+  const [filteredIcons, setFilteredIcons] = useState(iconOptionsToCard);
+  const [searchTerm, setSearchTerm] = useState('');
+
         return (
             <>
              
@@ -602,8 +606,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
           {/* Cards */}
           {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 0 ?
           Array.from({ length: store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio }).map((_, index) => {
-            const cardsDetails = store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetails || [];
-            const currentCard = cardsDetails[index] || { titleCardCardsInicio: '' };
+            const cardsDetails = store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio || [];
+            const currentCard = cardsDetails[index] || { cardTitle: '', detailCard: '', iconCard: 'star' };
             
             return (
               <div key={index} >
@@ -617,16 +621,16 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                     <Input
                       type='text'
                       placeholder='Ejemplo: Ofertas'
-                      value={currentCard.titleCardCardsInicio}
+                      value={currentCard.cardTitle}
                       onChange={(e) => {
                         const currentState = crearStore.get()
                         const selectedCategory = currentState.infoStage4?.categorySelectToEdit
                         if (selectedCategory) {
-                          const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetails || [])]
+                          const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetailsSesionCardsInicio || [])]
                           while (updatedCardsDetails.length <= index) {
-                            updatedCardsDetails.push({ titleCardCardsInicio: '' })
+                            updatedCardsDetails.push({ cardTitle: '', detailCard: '', iconCard: 'star' })
                           }
-                          updatedCardsDetails[index] = { ...updatedCardsDetails[index], titleCardCardsInicio: e.target.value }
+                          updatedCardsDetails[index] = { ...updatedCardsDetails[index], cardTitle: e.target.value }
 
                           const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
                             if (cat.id === selectedCategory.id) {
@@ -634,7 +638,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 ...cat,
                                 cardInicioSettings: {
                                   ...cat.cardInicioSettings,
-                                  cardsDetails: updatedCardsDetails
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
                                 }
                               }
                             }
@@ -650,7 +654,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 ...selectedCategory,
                                 cardInicioSettings: {
                                   ...selectedCategory.cardInicioSettings,
-                                  cardsDetails: updatedCardsDetails
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
                                 }
                               }
                             }
@@ -658,6 +662,167 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         }
                       }}
                       className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
+                    />
+                  </div>
+
+                  {/* Icono de la card */}
+                  <div className='space-y-2'>
+                    <div className='flex items-center gap-2'>
+                      <Star className='w-4 h-4 text-zinc-500' />
+                      <span className='text-sm text-zinc-500'>Icono de la card {index+1}</span>
+                    </div>
+                    <Select
+                      value={currentCard.iconCard}
+                      onValueChange={(value) => {
+                        const currentState = crearStore.get()
+                        const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                        if (selectedCategory) {
+                          const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetailsSesionCardsInicio || [])]
+                          while (updatedCardsDetails.length <= index) {
+                            updatedCardsDetails.push({ cardTitle: '', detailCard: '', iconCard: 'star' })
+                          }
+                          updatedCardsDetails[index] = { ...updatedCardsDetails[index], iconCard: value }
+
+                          const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                            if (cat.id === selectedCategory.id) {
+                              return {
+                                ...cat,
+                                cardInicioSettings: {
+                                  ...cat.cardInicioSettings,
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                }
+                              }
+                            }
+                            return cat
+                          })
+
+                          crearStore.set({
+                            ...currentState,
+                            infoStage4: {
+                              ...currentState.infoStage4,
+                              businessCategories: updatedCategories,
+                              categorySelectToEdit: {
+                                ...selectedCategory,
+                                cardInicioSettings: {
+                                  ...selectedCategory.cardInicioSettings,
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                }
+                              }
+                            }
+                          })
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                        <div className="flex items-center gap-2">
+                          {(() => {
+                            const IconComponent = iconOptionsToCard.find(opt => opt.value === currentCard.iconCard)?.icon || Star
+                            return <IconComponent className="w-4 h-4 text-zinc-500" />
+                          })()}
+                          <SelectValue placeholder="Seleccione un icono" />
+                        </div>
+                      </SelectTrigger>
+                      <SelectContent className="h-[300px] bg-white flex flex-col">
+                        <div className="p-2 bg-white border-b sticky top-0 z-10">
+                          <div className="flex items-center gap-2">
+                            <Input
+                              type="text"
+                              placeholder="Buscar icono..."
+                              className="w-full"
+                              value={searchTerm}
+                              onChange={(e) => {
+                                const term = e.target.value.toLowerCase()
+                                setSearchTerm(term)
+                                const filteredIcons = iconOptionsToCard.filter(icon => 
+                                  icon.name.toLowerCase().includes(term)
+                                )
+                                setFilteredIcons(filteredIcons)
+                              }}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchTerm('')
+                                setFilteredIcons(iconOptionsToCard)
+                              }}
+                              className="p-2 hover:bg-zinc-100 rounded-lg"
+                            >
+                              <Trash2 className="w-4 h-4 text-zinc-500" />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex-1 overflow-y-auto">
+                          <div className="grid grid-cols-3 gap-2 p-2">
+                            {filteredIcons.map((option) => {
+                              const IconComponent = option.icon
+                              return (
+                                <SelectItem 
+                                  key={option.value} 
+                                  value={option.value}
+                                  className="flex items-center justify-center p-2 hover:bg-zinc-100 rounded-lg"
+                                >
+                                  <div className="flex flex-col items-center gap-1">
+                                    <IconComponent className="w-6 h-6 text-zinc-500" />
+                                    <span className="text-xs text-center">{option.name}</span>
+                                  </div>
+                                </SelectItem>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Detalle de la card */}
+                  <div className='space-y-2'>
+                    <div className='flex items-center gap-2'>
+                      <FileText className='w-4 h-4 text-zinc-500' />
+                      <span className='text-sm text-zinc-500'>Detalle de la card {index+1}</span>
+                    </div>
+                    <Textarea
+                      placeholder='Ejemplo: Descubre nuestras mejores ofertas'
+                      value={currentCard.detailCard}
+                      onChange={(e) => {
+                        const currentState = crearStore.get()
+                        const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                        if (selectedCategory) {
+                          const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetailsSesionCardsInicio || [])]
+                          while (updatedCardsDetails.length <= index) {
+                            updatedCardsDetails.push({ cardTitle: '', detailCard: '', iconCard: 'star' })
+                          }
+                          updatedCardsDetails[index] = { ...updatedCardsDetails[index], detailCard: e.target.value }
+
+                          const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                            if (cat.id === selectedCategory.id) {
+                              return {
+                                ...cat,
+                                cardInicioSettings: {
+                                  ...cat.cardInicioSettings,
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                }
+                              }
+                            }
+                            return cat
+                          })
+
+                          crearStore.set({
+                            ...currentState,
+                            infoStage4: {
+                              ...currentState.infoStage4,
+                              businessCategories: updatedCategories,
+                              categorySelectToEdit: {
+                                ...selectedCategory,
+                                cardInicioSettings: {
+                                  ...selectedCategory.cardInicioSettings,
+                                  cardsDetailsSesionCardsInicio: updatedCardsDetails
+                                }
+                              }
+                            }
+                          })
+                        }
+                      }}
+                      className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 min-h-[100px]'
                     />
                   </div>
                 </div>
