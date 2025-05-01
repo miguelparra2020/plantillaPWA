@@ -935,7 +935,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
               {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
             </h2>
           </div>
-          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio <= 1 ? <>
+
+          {/* Layout para una sola card */}
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio === 1 && (
             <div className="flex flex-row items-center justify-center">
               <div className="w-[50%] h-[120px] md:h-[224px] flex flex-col items-center justify-center"> 
                 <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
@@ -985,16 +987,58 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                 </div>
               </div>
             </div>
-          </> : null}
-          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 1 ? <>
+          )}
+
+          {/* Layout para múltiples cards */}
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 1 && (
             <div className="flex flex-col items-center justify-center">
               <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-                <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClass} ${store.infoStage2?.paragraphFont || ''}`}>
+                <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-6`}>
                   {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
                 </p>
               </div>
+
+              <div className="w-full px-4 grid grid-cols-3 gap-2">
+                {Array.from({ length: Math.min(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0, 3) }).map((_, index) => (
+                  <div key={index} className={cardClasses2}>
+                    {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                      <div className="relative">
+                        <img
+                          src={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.imageCard || "https://flowbite.com/docs/images/examples/image-3@2x.jpg"}
+                          alt={`Card preview ${index + 1}`}
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className={`p-1 md:p-2 ${textClasses}`}>
+                      <div className="flex flex-col gap-1 md:gap-4">
+                        {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" ? (
+                          <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                        ) : store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" ? (
+                          <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                        ) : (
+                          <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
+                        )}
+                        <span className={`text-[4px] md:text-[6px] font-bold ${titleColorClass2}`}>
+                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.cardTitle || `Título de la card ${index + 1}`}
+                        </span>
+                        <p className={`font-normal text-[4px] ${paragraphColorClassCardSettings}`}>
+                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.detailCard || `Descripción de la card ${index + 1}`}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="w-full mt-4 pb-2 flex flex-col items-center justify-center text-center">
+                <button type="button" className={buttonClasses}>
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
+                  <ArrowBigRightDash className='w-2 md:w-3 h-4' />
+                </button>
+              </div>
             </div>
-          </> : null}
+          )}
         </div>
       </div>
 
