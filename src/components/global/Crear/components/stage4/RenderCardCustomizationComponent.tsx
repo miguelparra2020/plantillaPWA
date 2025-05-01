@@ -87,12 +87,12 @@ export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }:
 
     const cardClassInitHome = `
 overflow-hidden
-${store.infoStage4.cardSettings.rounded || 'rounded-lg'}
-${store.infoStage4.cardSettings.shadow || 'shadow-md'}
-${store.infoStage4.cardSettings.hasBorder ? `${store.infoStage4.cardSettings.borderWidth || 'border'} border-${store.infoStage4.cardSettings.borderColor || 'slate'}-${store.infoStage4.cardSettings.borderShade || '500'}` : ""}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}` : ""}
 bg-white w-[340px]
 `
-const textCardClassInitHome = `${store.infoStage4.cardSettings.textAlign || 'text-left'}`
+const textCardClassInitHome = `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}`
 
 const getIconColor = (color: string, shade: number) => {
     return colorMap[color as keyof typeof colorMap] || color
@@ -128,28 +128,27 @@ const colorOptions = [
   const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
 
   const handleSettingsChange = (
-    key: keyof typeof store.infoStage4.cardSettings | keyof typeof store.infoStage4.cardsInicio | keyof CardInicioSettings,
+    key: keyof CardInicioSettings,
     value: string | boolean | number
   ) => {
     const currentState = crearStore.get()
     const selectedCategory = currentState.infoStage4?.categorySelectToEdit
 
     if (selectedCategory) {
-      // Actualizar las propiedades de cardInicioSettings de la categoría seleccionada
       const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
         if (cat.id === selectedCategory.id) {
           return {
             ...cat,
             cardInicioSettings: {
               ...cat.cardInicioSettings,
-              [key]: value
-            }
+              [key]: value,
+            },
           }
         }
         return cat
       })
 
-      crearStore.set({
+      const updatedState = {
         ...currentState,
         infoStage4: {
           ...currentState.infoStage4,
@@ -158,36 +157,14 @@ const colorOptions = [
             ...selectedCategory,
             cardInicioSettings: {
               ...selectedCategory.cardInicioSettings,
-              [key]: value
-            }
-          }
-        }
-      })
-    } else {
-      // Mantener la lógica existente para otras propiedades
-      if (key in store.infoStage4.cardSettings) {
-        crearStore.set({
-          ...store,
-          infoStage4: {
-            ...store.infoStage4,
-            cardSettings: {
-              ...store.infoStage4.cardSettings,
-              [key]: value
-            }
-          }
-        })
-      } else if (key in store.infoStage4.cardsInicio) {
-        crearStore.set({
-          ...store,
-          infoStage4: {
-            ...store.infoStage4,
-            cardsInicio: {
-              ...store.infoStage4.cardsInicio,
-              [key]: value
-            }
-          }
-        })
+              [key]: value,
+            },
+          },
+        },
       }
+
+      crearStore.set(updatedState)
+      localStorage.setItem('crearStore', JSON.stringify(updatedState))
     }
   }
 
@@ -305,14 +282,14 @@ const colorOptions = [
           )}
           <div className={`p-5 ${textCardClassInitHome}`}>
             <div className="flex flex-col gap-4">
-              {store.infoStage4.cardSettings.textAlign === "text-center" ? (
+              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" ? (
                 <div className="mx-auto">
                   {(() => {
                     const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
                     return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                   })()}
                 </div>
-              ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
+              ) : store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" ? (
                 <div className="ml-auto">
                   {(() => {
                     const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
@@ -328,10 +305,10 @@ const colorOptions = [
                 </div>
               )}
               <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} ${titleColorClass}`}>
-                {store.infoStage4.cardSettings.title}
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.title || 'Título de la card'}
               </span>
               <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} ${paragraphColorClass}`}>
-                {store.infoStage4.cardSettings.description}
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.description || 'Descripción de la card'}
               </p>
             </div>
           </div>
@@ -352,7 +329,7 @@ const colorOptions = [
                 className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
                 style={{ transition: 'background-color 0.2s' }}
                 checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage || false}
-                onCheckedChange={(checked) => handleSettingsChange("showImage", checked)}
+                onCheckedChange={(checked) => handleSettingsChange('showImage', checked)}
               />
             </div>
           </div>
@@ -406,7 +383,7 @@ const colorOptions = [
             <div className="grid grid-cols-2 gap-2">
               <Select
                 value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange("iconColor", value)}
+                onValueChange={(value) => handleSettingsChange('iconColor', value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
@@ -428,7 +405,7 @@ const colorOptions = [
 
               <Select
                 value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange("iconColorShade", Number.parseInt(value))}
+                onValueChange={(value) => handleSettingsChange('iconColorShade', Number.parseInt(value))}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />
@@ -452,19 +429,39 @@ const colorOptions = [
             </div>
             <RadioGroup
               defaultValue="text-left"
-              value={store.infoStage4.cardSettings.textAlign || 'text-left'}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}
               onValueChange={(value) => {
                 const currentState = crearStore.get()
-                crearStore.set({
-                  ...currentState,
-                  infoStage4: {
-                    ...currentState.infoStage4,
-                    cardSettings: {
-                      ...currentState.infoStage4.cardSettings,
-                      textAlign: value
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          textAlign: value
+                        }
+                      }
                     }
-                  }
-                })
+                    return cat
+                  })
+
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          textAlign: value
+                        }
+                      }
+                    }
+                  })
+                }
               }}
               className="flex space-x-2"
             >
@@ -475,23 +472,43 @@ const colorOptions = [
                     id="text-left"
                     name="text-align"
                     value="text-left"
-                    checked={store.infoStage4.cardSettings.textAlign === 'text-left'}
+                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left'}
                     onChange={(e) => {
                       const currentState = crearStore.get()
-                      crearStore.set({
-                        ...currentState,
-                        infoStage4: {
-                          ...currentState.infoStage4,
-                          cardSettings: {
-                            ...currentState.infoStage4.cardSettings,
-                            textAlign: e.target.value
+                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                      if (selectedCategory) {
+                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                          if (cat.id === selectedCategory.id) {
+                            return {
+                              ...cat,
+                              cardInicioSettings: {
+                                ...cat.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
                           }
-                        }
-                      })
+                          return cat
+                        })
+
+                        crearStore.set({
+                          ...currentState,
+                          infoStage4: {
+                            ...currentState.infoStage4,
+                            businessCategories: updatedCategories,
+                            categorySelectToEdit: {
+                              ...selectedCategory,
+                              cardInicioSettings: {
+                                ...selectedCategory.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
+                          }
+                        })
+                      }
                     }}
                     className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
                   />
-                  {store.infoStage4.cardSettings.textAlign === 'text-left' && (
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left' && (
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
                   )}
                 </div>
@@ -506,23 +523,43 @@ const colorOptions = [
                     id="text-center"
                     name="text-align"
                     value="text-center"
-                    checked={store.infoStage4.cardSettings.textAlign === 'text-center'}
+                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center'}
                     onChange={(e) => {
                       const currentState = crearStore.get()
-                      crearStore.set({
-                        ...currentState,
-                        infoStage4: {
-                          ...currentState.infoStage4,
-                          cardSettings: {
-                            ...currentState.infoStage4.cardSettings,
-                            textAlign: e.target.value
+                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                      if (selectedCategory) {
+                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                          if (cat.id === selectedCategory.id) {
+                            return {
+                              ...cat,
+                              cardInicioSettings: {
+                                ...cat.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
                           }
-                        }
-                      })
+                          return cat
+                        })
+
+                        crearStore.set({
+                          ...currentState,
+                          infoStage4: {
+                            ...currentState.infoStage4,
+                            businessCategories: updatedCategories,
+                            categorySelectToEdit: {
+                              ...selectedCategory,
+                              cardInicioSettings: {
+                                ...selectedCategory.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
+                          }
+                        })
+                      }
                     }}
                     className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
                   />
-                  {store.infoStage4.cardSettings.textAlign === 'text-center' && (
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center' && (
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
                   )}
                 </div>
@@ -537,23 +574,43 @@ const colorOptions = [
                     id="text-right"
                     name="text-align"
                     value="text-right"
-                    checked={store.infoStage4.cardSettings.textAlign === 'text-right'}
+                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right'}
                     onChange={(e) => {
                       const currentState = crearStore.get()
-                      crearStore.set({
-                        ...currentState,
-                        infoStage4: {
-                          ...currentState.infoStage4,
-                          cardSettings: {
-                            ...currentState.infoStage4.cardSettings,
-                            textAlign: e.target.value
+                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                      if (selectedCategory) {
+                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                          if (cat.id === selectedCategory.id) {
+                            return {
+                              ...cat,
+                              cardInicioSettings: {
+                                ...cat.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
                           }
-                        }
-                      })
+                          return cat
+                        })
+
+                        crearStore.set({
+                          ...currentState,
+                          infoStage4: {
+                            ...currentState.infoStage4,
+                            businessCategories: updatedCategories,
+                            categorySelectToEdit: {
+                              ...selectedCategory,
+                              cardInicioSettings: {
+                                ...selectedCategory.cardInicioSettings,
+                                textAlign: e.target.value
+                              }
+                            }
+                          }
+                        })
+                      }
                     }}
                     className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
                   />
-                  {store.infoStage4.cardSettings.textAlign === 'text-right' && (
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right' && (
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
                   )}
                 </div>
@@ -574,19 +631,39 @@ const colorOptions = [
           </div>
           
             <Select
-              value={store.infoStage4.cardSettings.rounded || 'rounded-lg'}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
               onValueChange={(value) => {
                 const currentState = crearStore.get()
-                crearStore.set({
-                  ...currentState,
-                  infoStage4: {
-                    ...currentState.infoStage4,
-                    cardSettings: {
-                      ...currentState.infoStage4.cardSettings,
-                      rounded: value
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          rounded: value
+                        }
+                      }
                     }
-                  }
-                })
+                    return cat
+                  })
+
+                  crearStore.set({
+                    ...currentState,
+                    infoStage4: {
+                      ...currentState.infoStage4,
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          rounded: value
+                        }
+                      }
+                    }
+                  })
+                }
               }}
             >
               <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
@@ -612,19 +689,39 @@ const colorOptions = [
             <span className="text-sm text-zinc-500">Sombra</span>
           </div>
           <Select
-            value={store.infoStage4.cardSettings.shadow || 'shadow-md'}
+            value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
             onValueChange={(value) => {
               const currentState = crearStore.get()
-              crearStore.set({
-                ...currentState,
-                infoStage4: {
-                  ...currentState.infoStage4,
-                  cardSettings: {
-                    ...currentState.infoStage4.cardSettings,
-                    shadow: value
+              const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+              if (selectedCategory) {
+                const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                  if (cat.id === selectedCategory.id) {
+                    return {
+                      ...cat,
+                      cardInicioSettings: {
+                        ...cat.cardInicioSettings,
+                        shadow: value
+                      }
+                    }
                   }
-                }
-              })
+                  return cat
+                })
+
+                crearStore.set({
+                  ...currentState,
+                  infoStage4: {
+                    ...currentState.infoStage4,
+                    businessCategories: updatedCategories,
+                    categorySelectToEdit: {
+                      ...selectedCategory,
+                      cardInicioSettings: {
+                        ...selectedCategory.cardInicioSettings,
+                        shadow: value
+                      }
+                    }
+                  }
+                })
+              }
             }}
           >
             <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
@@ -652,39 +749,79 @@ const colorOptions = [
             <Switch
               className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
               style={{ transition: 'background-color 0.2s' }}
-              checked={store.infoStage4.cardSettings.hasBorder || false}
+              checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder || false}
               onCheckedChange={(checked) => {
                 const currentState = crearStore.get()
-                crearStore.set({
-                  ...currentState,
-                  infoStage4: {
-                    ...currentState.infoStage4,
-                    cardSettings: {
-                      ...currentState.infoStage4.cardSettings,
-                      hasBorder: checked
+                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                if (selectedCategory) {
+                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                    if (cat.id === selectedCategory.id) {
+                      return {
+                        ...cat,
+                        cardInicioSettings: {
+                          ...cat.cardInicioSettings,
+                          hasBorder: checked
+                        }
+                      }
                     }
-                  }
-                })
-              }}
-            />
-          </div>
+                    return cat
+                  })
 
-          {store.infoStage4.cardSettings.hasBorder && (
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <Select
-                value={store.infoStage4.cardSettings.borderWidth || 'border'}
-                onValueChange={(value) => {
-                  const currentState = crearStore.get()
                   crearStore.set({
                     ...currentState,
                     infoStage4: {
                       ...currentState.infoStage4,
-                      cardSettings: {
-                        ...currentState.infoStage4.cardSettings,
-                        borderWidth: value
+                      businessCategories: updatedCategories,
+                      categorySelectToEdit: {
+                        ...selectedCategory,
+                        cardInicioSettings: {
+                          ...selectedCategory.cardInicioSettings,
+                          hasBorder: checked
+                        }
                       }
                     }
                   })
+                }
+              }}
+            />
+          </div>
+
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder && (
+            <div className="grid grid-cols-2 gap-2 mt-2">
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'}
+                onValueChange={(value) => {
+                  const currentState = crearStore.get()
+                  const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                  if (selectedCategory) {
+                    const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                      if (cat.id === selectedCategory.id) {
+                        return {
+                          ...cat,
+                          cardInicioSettings: {
+                            ...cat.cardInicioSettings,
+                            borderWidth: value
+                          }
+                        }
+                      }
+                      return cat
+                    })
+
+                    crearStore.set({
+                      ...currentState,
+                      infoStage4: {
+                        ...currentState.infoStage4,
+                        businessCategories: updatedCategories,
+                        categorySelectToEdit: {
+                          ...selectedCategory,
+                          cardInicioSettings: {
+                            ...selectedCategory.cardInicioSettings,
+                            borderWidth: value
+                          }
+                        }
+                      }
+                    })
+                  }
                 }}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
@@ -699,25 +836,45 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.cardSettings.borderColor || 'slate'}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}
                 onValueChange={(value) => {
                   const currentState = crearStore.get()
-                  crearStore.set({
-                    ...currentState,
-                    infoStage4: {
-                      ...currentState.infoStage4,
-                      cardSettings: {
-                        ...currentState.infoStage4.cardSettings,
-                        borderColor: value
+                  const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                  if (selectedCategory) {
+                    const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                      if (cat.id === selectedCategory.id) {
+                        return {
+                          ...cat,
+                          cardInicioSettings: {
+                            ...cat.cardInicioSettings,
+                            borderColor: value
+                          }
+                        }
                       }
-                    }
-                  })
+                      return cat
+                    })
+
+                    crearStore.set({
+                      ...currentState,
+                      infoStage4: {
+                        ...currentState.infoStage4,
+                        businessCategories: updatedCategories,
+                        categorySelectToEdit: {
+                          ...selectedCategory,
+                          cardInicioSettings: {
+                            ...selectedCategory.cardInicioSettings,
+                            borderColor: value
+                          }
+                        }
+                      }
+                    })
+                  }
                 }}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
                     <div
-                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.cardSettings.borderColor || 'slate'}-${store.infoStage4.cardSettings.borderShade || '500'}`}
+                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}`}
                     ></div>
                     <SelectValue placeholder="Color" />
                   </div>
@@ -726,7 +883,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.cardSettings.borderShade || '500'}`}></div>
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}`}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -735,19 +892,39 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.cardSettings.borderShade?.toString() || '500'}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade?.toString() || '500'}
                 onValueChange={(value) => {
                   const currentState = crearStore.get()
-                  crearStore.set({
-                    ...currentState,
-                    infoStage4: {
-                      ...currentState.infoStage4,
-                      cardSettings: {
-                        ...currentState.infoStage4.cardSettings,
-                        borderShade: value
+                  const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                  if (selectedCategory) {
+                    const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                      if (cat.id === selectedCategory.id) {
+                        return {
+                          ...cat,
+                          cardInicioSettings: {
+                            ...cat.cardInicioSettings,
+                            borderShade: value
+                          }
+                        }
                       }
-                    }
-                  })
+                      return cat
+                    })
+
+                    crearStore.set({
+                      ...currentState,
+                      infoStage4: {
+                        ...currentState.infoStage4,
+                        businessCategories: updatedCategories,
+                        categorySelectToEdit: {
+                          ...selectedCategory,
+                          cardInicioSettings: {
+                            ...selectedCategory.cardInicioSettings,
+                            borderShade: value
+                          }
+                        }
+                      }
+                    })
+                  }
                 }}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">

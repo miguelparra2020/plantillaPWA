@@ -131,6 +131,7 @@ const loadState = (): CrearState => {
     infoStage4: {
       businessCategories: [],
       selectedCategories: [],
+      categorySelectToEdit: null,
       cardSettings: {
         showImage: false,
         icon: 'star',
@@ -175,11 +176,9 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
       showImage: false,
       iconColor: 'slate',
       iconColorShade: 500,
-      icon: 'star'
-    },
-    cardSettings: {
-      title: 'Título de la card',
-      description: 'Descripción de la card',
+      icon: 'star',
+      title: category.title || 'Título de la card',
+      description: category.description || 'Descripción de la card',
       textAlign: 'text-left',
       rounded: 'rounded-lg',
       shadow: 'shadow-md',

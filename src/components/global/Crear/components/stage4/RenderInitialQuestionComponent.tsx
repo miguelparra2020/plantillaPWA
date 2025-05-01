@@ -4,12 +4,13 @@ import { BusinessCategory, RenderInitialQuestionComponentProps } from '../../int
 import { useStore } from '@nanostores/react'
 import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from '@util/generalConfig'
-import { crearStore } from 'src/stores/crearStore'
+import { crearStore, initializeCategoryCardSettings } from 'src/stores/crearStore'
 import { useScrollToTop } from 'src/hooks/useScrollToTop'
 
 
 export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const { data: dataLanguaje} = useStore(languajePage)
+    const store = useStore(crearStore)
     const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set())
     useScrollToTop()
@@ -51,14 +52,32 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
     const descriptions = generateFields("desciptionId", 5)
     const includes = generateItems("includesId", 5, 3)
     
-    const businessCategories: BusinessCategory[] = Array.from({ length: 5 }, (_, i) => ({
-      id: `${i + 1}`,
-      title: titles[i],
-      description: descriptions[i],
-      includes: includes[i],
-      examples: examples[i],
-      categiryIsActive: false
-    }))
+    const businessCategories: BusinessCategory[] = Array.from({ length: 5 }, (_, i) => {
+      const category: BusinessCategory = {
+        id: `${i + 1}`,
+        title: titles[i],
+        description: descriptions[i],
+        includes: includes[i],
+        examples: examples[i],
+        categiryIsActive: false,
+        cardInicioSettings: {
+          showImage: false,
+          iconColor: 'slate',
+          iconColorShade: 500,
+          icon: 'star',
+          title: titles[i],
+          description: descriptions[i],
+          textAlign: 'text-left',
+          rounded: 'rounded-lg',
+          shadow: 'shadow-md',
+          hasBorder: false,
+          borderWidth: 'border',
+          borderColor: 'slate',
+          borderShade: '500'
+        }
+      }
+      return category
+    })
 
     const [businessCategoriesState, setBusinessCategoriesState] = useState<BusinessCategory[]>(businessCategories)
 
@@ -77,14 +96,14 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
         ...currentState,
         infoStage4: {
           ...currentState.infoStage4,
-          businessCategories: businessCategoriesState.map(cat => ({
+          businessCategories: currentState.infoStage4?.businessCategories?.map(cat => ({
             ...cat,
             categiryIsActive: selectedCategories.has(cat.id)
-          })),
+          })) || [],
           selectedCategories: Array.from(selectedCategories)
         }
       })
-    }, [selectedCategories, businessCategoriesState])
+    }, [selectedCategories])
 
     const toggleCategory = (id: string) => {
         const newSelected = new Set(selectedCategories)
@@ -94,13 +113,6 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
           newSelected.add(id)
         }
         setSelectedCategories(newSelected)
-
-        // Actualizar el estado de la categoría
-        setBusinessCategoriesState(prevCategories => 
-          prevCategories.map(cat => 
-            cat.id === id ? { ...cat, categiryIsActive: !cat.categiryIsActive } : cat
-          )
-        )
     }
 
     const toggleExpanded = (id: string) => {
@@ -134,7 +146,7 @@ export const RenderInitialQuestionComponent = ({ setCurrentStep, handlePrev }: R
           </div>
           <div className="flex flex-col gap-6 p-6 bg-gray-50 ">
             <div className="space-y-2">
-              {businessCategories.map((category) => (
+              {store.infoStage4?.businessCategories?.map((category) => (
                 <div key={category.id} className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
                   <div className="flex items-start gap-4">
                     <button

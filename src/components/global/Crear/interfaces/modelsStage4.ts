@@ -17,6 +17,15 @@ export interface CardInicioSettings {
   iconColor: string
   iconColorShade: number
   icon: string
+  title: string
+  description: string
+  textAlign: string
+  rounded: string
+  shadow: string
+  hasBorder: boolean
+  borderWidth: string
+  borderColor: string
+  borderShade: string
 }
 
 export interface BusinessCategory {
@@ -27,17 +36,6 @@ export interface BusinessCategory {
   examples: string[]
   categiryIsActive: boolean
   cardInicioSettings: CardInicioSettings
-  cardSettings: {
-    title: string
-    description: string
-    textAlign: string
-    rounded: string
-    shadow: string
-    hasBorder: boolean
-    borderWidth: string
-    borderColor: string
-    borderShade: string
-  }
 }
 
 export type RenderInitialQuestionComponentProps = {
