@@ -109,6 +109,9 @@ export interface CardInicioSettings {
   descriptionSesionCardsInicio: string
   nameButtonSesionCardsInicio: string
   quantityCardsSesionCardsInicio: number
+  cardsDetails: Array<{
+    titleCardCardsInicio: string
+  }>
 }
 
 export interface BusinessCategory {
@@ -215,7 +218,8 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
       titleSesionCardsInicio: category.title || 'Título de la sesión de productos',
       descriptionSesionCardsInicio: category.description || 'Descripción de la sesión de productos',
       nameButtonSesionCardsInicio: 'Ver categoría',
-      quantityCardsSesionCardsInicio: 0
+      quantityCardsSesionCardsInicio: 0,
+      cardsDetails: []
     }
   }
 }

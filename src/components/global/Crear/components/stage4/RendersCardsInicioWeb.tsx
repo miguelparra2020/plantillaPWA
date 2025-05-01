@@ -600,43 +600,70 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
               </div>
 
           {/* Cards */}
-          {store.infoStage4.cardsInicio.quantityCards > 0 ?
-          Array.from({ length: store.infoStage4.cardsInicio.quantityCards }).map((_, index) => (
-            <div key={index} >
-              <div className="space-y-4 p-4 rounded-xl border border-gray-600 ">
-                        {/* Título de la card*/}
-          <div className='space-y-2'>
-            <div className='flex items-center gap-2'>
-              <Store className='w-4 h-4 text-zinc-500' />
-              <span className='text-sm text-zinc-500'>Título de la card {index+1}</span>
-            </div>
-            <Input
-              type='text'
-              placeholder='Ejemplo: Ofertas'
-              value={store.infoStage4.cardsInicio.cardsDetails[index]?.titleCardCardsInicio || ''}
-              onChange={(e) => {
-                const newCardsDetails = [...store.infoStage4.cardsInicio.cardsDetails];
-                newCardsDetails[index] = { ...newCardsDetails[index], titleCardCardsInicio: e.target.value };
-                crearStore.set({
-                  ...store,
-                  infoStage4: {
-                    ...store.infoStage4,
-                    cardsInicio: {
-                      ...store.infoStage4.cardsInicio,
-                      cardsDetails: newCardsDetails.map((card) => ({
-                        ...card,
-                        titleCardCardsInicio: card.titleCardCardsInicio || ''
-                      }))
-                    }
-                  }
-                });
-              }}
-              className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
-            />
-          </div>
-          </div>
-            </div>
-  )):null}
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 0 ?
+          Array.from({ length: store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio }).map((_, index) => {
+            const cardsDetails = store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetails || [];
+            const currentCard = cardsDetails[index] || { titleCardCardsInicio: '' };
+            
+            return (
+              <div key={index} >
+                <div className="space-y-4 p-4 rounded-xl border border-gray-600 ">
+                  {/* Título de la card*/}
+                  <div className='space-y-2'>
+                    <div className='flex items-center gap-2'>
+                      <Store className='w-4 h-4 text-zinc-500' />
+                      <span className='text-sm text-zinc-500'>Título de la card {index+1}</span>
+                    </div>
+                    <Input
+                      type='text'
+                      placeholder='Ejemplo: Ofertas'
+                      value={currentCard.titleCardCardsInicio}
+                      onChange={(e) => {
+                        const currentState = crearStore.get()
+                        const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                        if (selectedCategory) {
+                          const updatedCardsDetails = [...(selectedCategory.cardInicioSettings.cardsDetails || [])]
+                          while (updatedCardsDetails.length <= index) {
+                            updatedCardsDetails.push({ titleCardCardsInicio: '' })
+                          }
+                          updatedCardsDetails[index] = { ...updatedCardsDetails[index], titleCardCardsInicio: e.target.value }
+
+                          const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                            if (cat.id === selectedCategory.id) {
+                              return {
+                                ...cat,
+                                cardInicioSettings: {
+                                  ...cat.cardInicioSettings,
+                                  cardsDetails: updatedCardsDetails
+                                }
+                              }
+                            }
+                            return cat
+                          })
+
+                          crearStore.set({
+                            ...currentState,
+                            infoStage4: {
+                              ...currentState.infoStage4,
+                              businessCategories: updatedCategories,
+                              categorySelectToEdit: {
+                                ...selectedCategory,
+                                cardInicioSettings: {
+                                  ...selectedCategory.cardInicioSettings,
+                                  cardsDetails: updatedCardsDetails
+                                }
+                              }
+                            }
+                          })
+                        }
+                      }}
+                      className='w-full bg-zinc-100  text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900 '
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          }) : null}
 
           
       </div>
