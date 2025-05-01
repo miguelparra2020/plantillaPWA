@@ -67,7 +67,12 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
             const titleColorClassCardsInicio = `text-${store.infoStage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.titleColor)?.titleShade || 700}`
 
-            const paragraphColorClassCardsIni = `text-${store.infoStage4.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.paragraphColor)?.paragraphShade || 600}`
+            const paragraphColorClassCardsInicio = `text-${store.infoStage4.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.paragraphColor)?.paragraphShade || 600}`
+
+            const paragraphColorClassCardSettings = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
+
+            const paragraphColorClassStage2 = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
+
             const colorClassMap2 = {
                 red: { 500: 'bg-red-500', 600: 'bg-red-600', 700: 'bg-red-700' },
                 orange: { 500: 'bg-orange-500', 600: 'bg-orange-600', 700: 'bg-orange-700' },
@@ -390,7 +395,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
   const titleColorClass2 = `text-${store.infoStage4.cardSettings.titleColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.titleColor)?.titleShade || 700}`
 
-  const paragraphColorClass = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
+  const paragraphColorClass2 = `text-${store.infoStage4.cardSettings.paragraphColor}-${colorOptionsTitles.find((c) => c.value === store.infoStage4.cardSettings.paragraphColor)?.paragraphShade || 600}`
 
   const cardClasses3 = `
   overflow-hidden
@@ -399,6 +404,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
   ${store.infoStage4.cardSettings.hasBorder ? `${store.infoStage4.cardSettings.borderWidth} border-${store.infoStage4.cardSettings.borderColor}-${store.infoStage4.cardSettings.borderShade}` : ""}
   bg-white w-[230px] md:w-[230px]
 `
+
+  const titleColorClass = `text-${store.infoStage2?.colorTitles || 'red'}-${store.infoStage2?.titleColorIntensity || 700}`
+  const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
 
   return (
             <>
@@ -921,68 +929,74 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         </div>
 
       <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] w-[301px] md:h-[294px] md:w-[412px]">
-    <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white">
-      <div className="w-full mt-4 flex flex-col justify-center items-center">
-        <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{store.infoStage4.cardsInicio.titleCardInicio}</h6>
-      </div>
-      {store.infoStage4.cardsInicio.quantityCards <= 1 ? <>
-        <div className="flex flex-row items-center justify-center">
-          <div className="w-[50%] h-[120px] md:h-[224px] flex flex-col items-center justify-center"> 
-            <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-              <p className={`text-[8px] ${paragraphColorClassCardsIni}`}>{store.infoStage4.cardsInicio.descriptionCardInicio}</p>
-            </div>
-
-            <div className="w-[90%] pb-2 flex flex-col items-center justify-center text-center">
-            <button type="button" className={buttonClasses}>
-            {store.infoStage4.cardsInicio.nameButtonCardInicio} &nbsp; <ArrowBigRightDash className='w-2 md:w-3 h-4' />
-                </button>
-            </div>
+        <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white">
+          <div className="w-full mt-4 flex flex-col justify-center items-center">
+            <h2 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''} mb-4`}>
+              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
+            </h2>
           </div>
-          <div className="w-[50%] flex flex-col items-center justify-center"> 
-            <div >
-                    {/* Vista previa de la card */}
-                    <div className={cardClasses2 }>
-                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
-                        <div className="relative ">
-                          <img
-                            src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
-                            alt="Card preview"
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-                      <div className={`p-1 md:p-2 ${textClasses}`}>
-                        <div className="flex flex-col gap-1 md:gap-4">
-                          {store.infoStage4.cardSettings.textAlign === "text-center" ? (
-                            <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
-                          ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
-                            <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
-                          ) : (
-                            <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
-                          )}
-                          <span className={`text-[4px] md:text-[6px] font-bold ${titleColorClass2}`}>{store.infoStage4.cardSettings.title}</span>
-                          <p className={`font-normal text-[4px] md:text-[6px] ${paragraphColorClass}`}>{store.infoStage4.cardSettings.description}</p>
-                        </div>
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio <= 1 ? <>
+            <div className="flex flex-row items-center justify-center">
+              <div className="w-[50%] h-[120px] md:h-[224px] flex flex-col items-center justify-center"> 
+                <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+                  <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-6`}>
+                    {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
+                  </p>
+                </div>
+
+                <div className="w-[90%] pb-2 flex flex-col items-center justify-center text-center">
+                  <button type="button" className={buttonClasses}>
+                    {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
+                    <ArrowBigRightDash className='w-2 md:w-3 h-4' />
+                  </button>
+                </div>
+              </div>
+              <div className="w-[50%] flex flex-col items-center justify-center"> 
+                <div>
+                  {/* Vista previa de la card */}
+                  <div className={cardClasses2}>
+                    {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                      <div className="relative">
+                        <img
+                          src={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.imageCard || "https://flowbite.com/docs/images/examples/image-3@2x.jpg"}
+                          alt="Card preview"
+                          className="object-cover"
+                        />
                       </div>
-                    
-
+                    )}
+                    <div className={`p-1 md:p-2 ${textClasses}`}>
+                      <div className="flex flex-col gap-1 md:gap-4">
+                        {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" ? (
+                          <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                        ) : store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" ? (
+                          <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+                        ) : (
+                          <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
+                        )}
+                        <span className={`text-[4px] md:text-[6px] font-bold ${titleColorClass2}`}>
+                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.cardTitle || 'Título de la card'}
+                        </span>
+                        <p className={`font-normal text-[4px] ${paragraphColorClassCardSettings}`}>
+                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.detailCard || 'Descripción de la card'}
+                        </p>
+                      </div>
                     </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-          </div>
-        </div>
-        
-      </> : null}
-      {store.infoStage4.cardsInicio.quantityCards > 1 ? <>
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-              <p className={`text-[8px] ${paragraphColorClassCardsIni}`}>{store.infoStage4.cardsInicio.descriptionCardInicio}</p>
+          </> : null}
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 1 ? <>
+            <div className="flex flex-col items-center justify-center">
+              <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+                <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClass} ${store.infoStage2?.paragraphFont || ''}`}>
+                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
+                </p>
+              </div>
             </div>
+          </> : null}
         </div>
-      </> : null}
-        </div>
-        
-</div>
+      </div>
 
 <div className="relative mx-auto bg-gray-900  rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">
     <div className="absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-800"></div>
@@ -1000,47 +1014,54 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
     <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
     <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white ">
       <div className="w-full mt-20 flex flex-col justify-center items-center">
-        <h6 className={`text-sm font-medium mb-2 ${titleColorClassCardsInicio}`}>{store.infoStage4.cardsInicio.titleCardInicio}</h6>
+        <h6 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''} mb-2`}>
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
+        </h6>
       </div>
       <div className="flex mt-4 flex-col items-center justify-center">
-          <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-              <p className={`text-[12px] ${paragraphColorClassCardsIni}`}>{store.infoStage4.cardsInicio.descriptionCardInicio}</p>
+        <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
+          <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
+            {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
+          </p>
+        </div>
+      </div>
+      <div className="flex mt-4 flex-col items-center justify-center">
+        {/* Vista previa de la card */}
+        <div className={cardClasses3}>
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+            <div className="relative ">
+              <img
+                src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
+                alt="Card preview"
+                className="object-cover"
+              />
             </div>
-        </div>
-        <div className="flex mt-4 flex-col items-center justify-center">
-            {/* Vista previa de la card */}
-            <div className={cardClasses3 }>
-                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
-                        <div className="relative ">
-                          <img
-                            src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
-                            alt="Card preview"
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-                      <div className={`p-2 md:p-4 ${textClasses}`}>
-                        <div className="flex flex-col gap-2 md:gap-4">
-                          {store.infoStage4.cardSettings.textAlign === "text-center" ? (
-                            <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
-                          ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
-                            <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
-                          ) : (
-                            <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
-                          )}
-                          <span className={`text-[6px] md:text-[8px] font-bold ${titleColorClass2}`}>{store.infoStage4.cardSettings.title}</span>
-                          <p className={`font-normal text-[6px] md:text-[8px] ${paragraphColorClass}`}>{store.infoStage4.cardSettings.description}</p>
-                        </div>
-                      </div>
-                    
-
+          )}
+          <div className={`p-2 md:p-4 ${textClasses}`}>
+            <div className="flex flex-col gap-2 md:gap-4">
+              {store.infoStage4.cardSettings.textAlign === "text-center" ? (
+                <div className={`mx-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+              ) : store.infoStage4.cardSettings.textAlign === "text-right" ? (
+                <div className={`ml-auto ${getIconColor(iconColor)}`}>{renderIcon(iconColor)}</div>
+              ) : (
+                <div className={getIconColor(iconColor)}>{renderIcon(iconColor)}</div>
+              )}
+              <span className={`text-[6px] font-bold ${titleColorClass}`}>
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.cardTitle || 'Título de la card'}
+              </span>
+              <p className={`font-normal text-[4px] ${paragraphColorClassStage2}`}>
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.detailCard || 'Descripción de la card'}
+              </p>
             </div>
+          </div>
         </div>
-        <div className="w-full mt-6 pb-2 flex flex-col items-center justify-center text-center">
-            <button type="button" className={buttonClasses}>
-            {store.infoStage4.cardsInicio.nameButtonCardInicio} &nbsp; <ArrowBigRightDash className='w-4 md:w-5 h-6' />
-                </button>
-        </div>
+      </div>
+      <div className="w-full mt-6 pb-2 flex flex-col items-center justify-center text-center">
+        <button type="button" className={buttonClasses}>
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
+          <ArrowBigRightDash className='w-4 md:w-5 h-6' />
+        </button>
+      </div>
     </div>
 </div>
 
