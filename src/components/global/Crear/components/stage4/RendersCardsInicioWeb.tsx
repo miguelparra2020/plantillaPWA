@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { RenderInitialQuestionComponentProps } from "../../interfaces/modelsStage4";
 import { ArrowBigLeftDash, ArrowBigRightDash, FileText, Layers, MousePointerClick, Store, Star, Heart, ThumbsUp, CheckCircle, Lightbulb, Gift, Calendar, BarChart, ShoppingCart, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
@@ -12,6 +12,16 @@ import { iconOptionsToCard } from "../../helpers/helpersStage4";
 export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
     RenderInitialQuestionComponentProps) => {
         const store = useStore(crearStore)
+        const searchInputRef = useRef<HTMLInputElement>(null)
+        const [searchTerm, setSearchTerm] = useState('')
+        const [filteredIcons, setFilteredIcons] = useState(iconOptionsToCard)
+
+        useEffect(() => {
+            if (searchInputRef.current) {
+                searchInputRef.current.focus()
+            }
+        }, [searchTerm])
+
         const handleSettingsChange = (
             key: keyof typeof store.infoStage4.cardSettings | keyof typeof store.infoStage4.cardsInicio,
             value: string | boolean | number
@@ -390,10 +400,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
   bg-white w-[230px] md:w-[230px]
 `
 
-  const [filteredIcons, setFilteredIcons] = useState(iconOptionsToCard);
-  const [searchTerm, setSearchTerm] = useState('');
-
-        return (
+  return (
             <>
              
              <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
@@ -722,13 +729,13 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           <SelectValue placeholder="Seleccione un icono" />
                         </div>
                       </SelectTrigger>
-                      <SelectContent className="h-[300px] bg-white flex flex-col">
+                      <SelectContent className="h-[300px] bg-white">
                         <div className="p-2 bg-white border-b sticky top-0 z-10">
                           <div className="flex items-center gap-2">
                             <Input
                               type="text"
                               placeholder="Buscar icono..."
-                              className="w-full"
+                              className="w-full focus-visible:ring-0 focus-visible:ring-offset-0"
                               value={searchTerm}
                               onChange={(e) => {
                                 const term = e.target.value.toLowerCase()
@@ -738,6 +745,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 )
                                 setFilteredIcons(filteredIcons)
                               }}
+                              autoFocus
+                              onKeyDown={(e) => e.stopPropagation()}
+                              onKeyUp={(e) => e.stopPropagation()}
                             />
                             <button
                               type="button"
@@ -751,7 +761,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             </button>
                           </div>
                         </div>
-                        <div className="flex-1 overflow-y-auto">
+                        <div className="overflow-y-auto">
                           <div className="grid grid-cols-3 gap-2 p-2">
                             {filteredIcons.map((option) => {
                               const IconComponent = option.icon
