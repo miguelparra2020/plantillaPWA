@@ -8,6 +8,7 @@ import { useStore } from "@nanostores/react";
 import { crearStore, InfoStage4 } from "src/stores/crearStore";
 import { colorOptionsTitles } from "../../helpers/helpersStage2";
 import { iconOptionsToCard } from "../../helpers/helpersStage4";
+import { colorOptionsButtons } from '../../helpers/helpersStage3';
 
 export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
     RenderInitialQuestionComponentProps) => {
@@ -291,11 +292,16 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             stone: { 500: 'border-stone-500', 600: 'border-stone-600', 700: 'border-stone-700' },
         } as const
 
+        // --- Lógica para gradientes en botones ---
+        const selectedBgColorOption = colorOptionsButtons.find(opt => opt.value === store.infoStage3?.bgColor);
+        const isButtonGradient = selectedBgColorOption?.isGradient;
+        const buttonGradientClass = selectedBgColorOption?.gradientClass || '';
+
         const buttonClasses = `
     px-2 md:py-1 md:px-4 text-white text-[6px] md:text-[8px] flex flex-row items-center justify-center
     ${store.infoStage3?.rounded || 'rounded'}
-    bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}
-    hover:bg-${store.infoStage3?.bgColor || 'blue'}-${Math.min((store.infoStage3?.bgShade || 500) + 100, 900)}
+    ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`}
+    ${isButtonGradient ? '' : `hover:bg-${store.infoStage3?.bgColor || 'blue'}-${Math.min((store.infoStage3?.bgShade || 500) + 100, 900)}`}
     ${store.infoStage3?.shadow || 'shadow'}
     hover:${store.infoStage3?.shadow === 'shadow-none' ? 'shadow-sm' : 
            store.infoStage3?.shadow === 'shadow-sm' ? 'shadow' :
@@ -896,8 +902,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
         <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] md:h-[294px] w-[301px] md:w-[412px]">
           <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white overflow-y-auto [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-thumb]:bg-gray-600/20 [&::-webkit-scrollbar-track]:bg-transparent">
-            <div className="w-full mt-4 flex flex-col justify-center items-center">
-              <h2 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-4`}>
+            <div className="w-full mt-2 flex flex-col justify-center items-center">
+              <h2 className={`text-[12px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-2`}>
                 {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
               </h2>
             </div>
@@ -907,7 +913,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
               <div className="flex flex-row items-center justify-center">
                 <div className="w-[50%] h-[120px] md:h-[224px] flex flex-col items-center justify-center"> 
                   <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-                    <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-6`}>
+                    <p className={`text-[8px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-6`}>
                       {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
                     </p>
                   </div>
@@ -934,7 +940,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                                   <IconComponent className="w-3 h-3 text-white" />
                                 </div>
                               );
@@ -948,7 +954,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                                   <IconComponent className="w-3 h-3 text-white" />
                                 </div>
                               );
@@ -958,10 +964,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                       )}
                       <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                         <div className="flex flex-col gap-0.5 md:gap-1">
-                          <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
+                          <span className={`text-[8px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.cardTitle || 'Título de la card'}
                           </span>
-                          <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
+                          <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.detailCard || 'Descripción de la card'}
                           </p>
                         </div>
@@ -975,8 +981,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             {/* Layout para múltiples cards */}
             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 1 && (
               <div className="flex flex-col items-center justify-center w-full">
-                <div className="w-[90%] pb-2 flex flex-col items-center justify-center text-center">
-                  <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-2`}>
+                <div className="w-[90%] pb-1 flex flex-col items-center justify-center text-center">
+                  <p className={`text-[8px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''} mb-1`}>
                     {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
                   </p>
                 </div>
@@ -998,7 +1004,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 {(() => {
                                   const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
                                   return (
-                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                                       <IconComponent className="w-3 h-3 text-white" />
                                     </div>
                                   );
@@ -1012,7 +1018,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 {(() => {
                                   const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
                                   return (
-                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                                       <IconComponent className="w-3 h-3 text-white" />
                                     </div>
                                   );
@@ -1022,10 +1028,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           )}
                           <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                             <div className="flex flex-col gap-0.5 md:gap-1">
-                              <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
+                              <span className={`text-[8px] md:text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                                 {cardDetails?.cardTitle || `Título de la card ${index + 1}`}
                               </span>
-                              <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
+                              <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                                 {cardDetails?.detailCard || `Descripción de la card ${index + 1}`}
                               </p>
                             </div>
@@ -1063,13 +1069,13 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
         <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white overflow-y-auto [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-thumb]:bg-gray-600/20 [&::-webkit-scrollbar-track]:bg-transparent">
           <div className="w-full mt-20 flex flex-col justify-center items-center">
-            <h6 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-2`}>
+            <h6 className={`text-[12px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-2`}>
               {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
             </h6>
           </div>
           <div className="flex mt-4 flex-col items-center justify-center">
             <div className="w-[90%] pb-4 flex flex-col items-center justify-center text-center">
-              <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
+              <p className={`text-[8px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
                 {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.descriptionSesionCardsInicio || 'Descripción de la sesión'}
               </p>
             </div>
@@ -1090,7 +1096,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         {(() => {
                           const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
                           return (
-                            <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                            <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                               <IconComponent className="w-3 h-3 text-white" />
                             </div>
                           );
@@ -1104,7 +1110,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         {(() => {
                           const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
                           return (
-                            <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                            <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
                               <IconComponent className="w-3 h-3 text-white" />
                             </div>
                           );
@@ -1114,10 +1120,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                   )}
                   <div className={`p-2 md:p-4 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                     <div className="flex flex-col gap-0.5 md:gap-1">
-                      <span className={`text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
+                      <span className={`text-[10px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                         {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.cardTitle || `Título de la card ${index + 1}`}
                       </span>
-                      <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
+                      <p className={`text-[8px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                         {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.detailCard || `Descripción de la card ${index + 1}`}
                       </p>
                     </div>
