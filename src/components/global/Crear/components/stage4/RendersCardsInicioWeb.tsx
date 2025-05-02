@@ -545,8 +545,11 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
   bg-white w-[230px] md:w-[230px]
 `
 
-        const titleColorClass = `text-${store.infoStage2?.colorTitles || 'red'}-${store.infoStage2?.titleColorIntensity || 700}`
-        const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
+        const selectedTitleColorOption = colorOptionsTitles.find(
+            (color) => color.value === store.infoStage2?.colorTitles
+        );
+        const isGradient = selectedTitleColorOption?.isGradient;
+        const gradientClass = selectedTitleColorOption?.gradientClass || '';
 
         return (
             <>
@@ -894,7 +897,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] md:h-[294px] w-[301px] md:w-[412px]">
           <div className="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white overflow-y-auto [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-thumb]:bg-gray-600/20 [&::-webkit-scrollbar-track]:bg-transparent">
             <div className="w-full mt-4 flex flex-col justify-center items-center">
-              <h2 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''} mb-4`}>
+              <h2 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-4`}>
                 {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
               </h2>
             </div>
@@ -1060,7 +1063,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         <div className="h-[64px] w-[3px] bg-gray-800 absolute -end-[17px] top-[142px] rounded-e-lg"></div>
         <div className="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white overflow-y-auto [&::-webkit-scrollbar]:w-0.5 [&::-webkit-scrollbar-thumb]:bg-gray-600/20 [&::-webkit-scrollbar-track]:bg-transparent">
           <div className="w-full mt-20 flex flex-col justify-center items-center">
-            <h6 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''} mb-2`}>
+            <h6 className={`text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass2} ${store.infoStage2?.titleFont || ''} mb-2`}>
               {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleSesionCardsInicio || 'Título de la sesión'}
             </h6>
           </div>
