@@ -276,31 +276,32 @@ const colorOptions = [
               <img
                 src="https://flowbite.com/docs/images/examples/image-3@2x.jpg"
                 alt="Card preview"
-                className="object-cover"
+                className="object-cover w-full h-full"
               />
+              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
+                {(() => {
+                  const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star;
+                  return (
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                      <IconComponent className="w-5 h-5 text-white" />
+                    </div>
+                  );
+                })()}
+              </div>
             </div>
           )}
           <div className={`p-5 ${textCardClassInitHome}`}>
             <div className="flex flex-col gap-4">
-              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" ? (
-                <div className="mx-auto">
+              {!store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                <div className={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" ? "mx-auto" : 
+                     store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" ? "ml-auto" : ""}>
                   {(() => {
-                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
-                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
-                  })()}
-                </div>
-              ) : store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" ? (
-                <div className="ml-auto">
-                  {(() => {
-                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
-                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
-                  })()}
-                </div>
-              ) : (
-                <div>
-                  {(() => {
-                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
-                    return <IconComponent className={`w-8 h-8 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star;
+                    return (
+                      <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                        <IconComponent className="w-5 h-5 text-white" />
+                      </div>
+                    );
                   })()}
                 </div>
               )}

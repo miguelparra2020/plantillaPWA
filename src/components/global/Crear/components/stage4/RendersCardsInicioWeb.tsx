@@ -609,26 +609,75 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
             {/* Cantidad de cards */}
             <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-zinc-500" />
-                    <span className="text-sm text-zinc-500">Cantidad de cards. "Pueden ser las categorías"</span>
-                  </div>
-                  <Select
-                        value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio?.toString() ?? '0'}
-                        onValueChange={(value) => handleCardDetailsChange(0, 'quantityCardsSesionCardsInicio', value)}
-                      >
-                        <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                          <SelectValue placeholder="Cantidad" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                        {optionsQuantityCards.map((item) => (
-                          <SelectItem key={item.value} value={item.value.toString()}>
-                            {item.name}
-                          </SelectItem>
-                        ))}
-                        </SelectContent>
-                  </Select>
-                </div>
+              <div className="flex items-center gap-2">
+                <Layers className="w-4 h-4 text-zinc-500" />
+                <span className="text-sm text-zinc-500">Cantidad de cards. "Pueden ser las categorías"</span>
+              </div>
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio?.toString() ?? '1'}
+                onValueChange={(value) => {
+                  const currentState = crearStore.get();
+                  const selectedCategory = currentState.infoStage4?.categorySelectToEdit;
+                  
+                  if (selectedCategory) {
+                    const updatedState = {
+                      ...currentState,
+                      infoStage4: {
+                        ...currentState.infoStage4,
+                        businessCategories: currentState.infoStage4?.businessCategories?.map(cat => 
+                          cat.id === selectedCategory.id 
+                            ? {
+                                ...cat,
+                                cardInicioSettings: {
+                                  ...cat.cardInicioSettings,
+                                  quantityCardsSesionCardsInicio: parseInt(value),
+                                  cardsDetailsSesionCardsInicio: Array(parseInt(value)).fill(null).map((_, i) => 
+                                    cat.cardInicioSettings.cardsDetailsSesionCardsInicio?.[i] || {
+                                      cardTitle: '',
+                                      detailCard: '',
+                                      iconCard: 'star',
+                                      imageCard: undefined
+                                    }
+                                  )
+                                }
+                              }
+                            : cat
+                        ),
+                        categorySelectToEdit: {
+                          ...selectedCategory,
+                          cardInicioSettings: {
+                            ...selectedCategory.cardInicioSettings,
+                            quantityCardsSesionCardsInicio: parseInt(value),
+                            cardsDetailsSesionCardsInicio: Array(parseInt(value)).fill(null).map((_, i) => 
+                              selectedCategory.cardInicioSettings.cardsDetailsSesionCardsInicio?.[i] || {
+                                cardTitle: '',
+                                detailCard: '',
+                                iconCard: 'star',
+                                imageCard: undefined
+                              }
+                            )
+                          }
+                        }
+                      }
+                    };
+
+                    crearStore.set(updatedState);
+                    localStorage.setItem('crearStore', JSON.stringify(updatedState));
+                  }
+                }}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Cantidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {optionsQuantityCards.map((item) => (
+                    <SelectItem key={item.value} value={item.value.toString()}>
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
             {/* Cards */}
             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio > 0 ?
@@ -827,15 +876,6 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           }}
                           className='w-full bg-zinc-100 text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900'
                         />
-                        {currentCard.imageCard && (
-                          <div className="mt-2">
-                            <img 
-                              src={currentCard.imageCard} 
-                              alt="Preview" 
-                              className="w-full h-32 object-cover rounded-lg"
-                            />
-                          </div>
-                        )}
                       </div>
                     )}
                   </div>
@@ -885,36 +925,36 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           <img
                             src={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.imageCard || "https://flowbite.com/docs/images/examples/image-3@2x.jpg"}
                             alt="Card preview"
-                            className="object-cover"
+                            className="object-cover w-full"
                           />
+                          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
+                            {(() => {
+                              const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
+                              return (
+                                <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                  <IconComponent className="w-3 h-3 text-white" />
+                                </div>
+                              );
+                            })()}
+                          </div>
                         </div>
                       )}
-                      <div className={`p-1 md:p-2 ${textClasses}`}>
+                      {!store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                        <div className="relative pt-8 mt-4">
+                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
+                            {(() => {
+                              const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
+                              return (
+                                <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                  <IconComponent className="w-3 h-3 text-white" />
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        </div>
+                      )}
+                      <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                         <div className="flex flex-col gap-0.5 md:gap-1">
-                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" && (
-                            <div className="mx-auto">
-                              {(() => {
-                                const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
-                                return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                              })()}
-                            </div>
-                          )}
-                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" && (
-                            <div className="ml-auto">
-                              {(() => {
-                                const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
-                                return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                              })()}
-                            </div>
-                          )}
-                          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-left" && (
-                            <div>
-                              {(() => {
-                                const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
-                                return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                              })()}
-                            </div>
-                          )}
                           <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
                             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.cardTitle || 'Título de la card'}
                           </span>
@@ -945,40 +985,40 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                       return (
                         <div key={index} className={cardClasses2}>
                           {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && cardDetails?.imageCard && (
-                            <div className="relative w-full aspect-square overflow-hidden">
+                            <div className="relative">
                               <img
                                 src={cardDetails.imageCard}
                                 alt={`Card preview ${index + 1}`}
-                                className="absolute inset-0 w-full h-full object-cover"
+                                className="w-full object-cover"
                               />
+                              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
+                                {(() => {
+                                  const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
+                                  return (
+                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                      <IconComponent className="w-3 h-3 text-white" />
+                                    </div>
+                                  );
+                                })()}
+                              </div>
                             </div>
                           )}
-                          <div className={`p-1 md:p-2 ${textClasses}`}>
+                          {!store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                            <div className="relative pt-4 mt-2">
+                              <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
+                                {(() => {
+                                  const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
+                                  return (
+                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                                      <IconComponent className="w-3 h-3 text-white" />
+                                    </div>
+                                  );
+                                })()}
+                              </div>
+                            </div>
+                          )}
+                          <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                             <div className="flex flex-col gap-0.5 md:gap-1">
-                              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" && (
-                                <div className="mx-auto">
-                                  {(() => {
-                                    const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
-                                    return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                                  })()}
-                                </div>
-                              )}
-                              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" && (
-                                <div className="ml-auto">
-                                  {(() => {
-                                    const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
-                                    return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                                  })()}
-                                </div>
-                              )}
-                              {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-left" && (
-                                <div>
-                                  {(() => {
-                                    const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
-                                    return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                                  })()}
-                                </div>
-                              )}
                               <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
                                 {cardDetails?.cardTitle || `Título de la card ${index + 1}`}
                               </span>
@@ -1037,40 +1077,40 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
               {Array.from({ length: store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0 }).map((_, index) => (
                 <div key={index} className={cardClasses3}>
                   {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.imageCard && (
-                    <div className="relative w-full aspect-square overflow-hidden">
+                    <div className="relative">
                       <img
                         src={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.imageCard}
                         alt={`Card preview ${index + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="w-full object-cover"
                       />
+                      <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
+                        {(() => {
+                          const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
+                          return (
+                            <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                              <IconComponent className="w-3 h-3 text-white" />
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                   )}
-                  <div className={`p-2 md:p-4 ${textClasses}`}>
+                  {!store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
+                    <div className="relative pt-2 mt-2">
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
+                        {(() => {
+                          const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
+                          return (
+                            <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
+                              <IconComponent className="w-3 h-3 text-white" />
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    </div>
+                  )}
+                  <div className={`p-2 md:p-4 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                     <div className="flex flex-col gap-0.5 md:gap-1">
-                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-center" && (
-                        <div className="mx-auto">
-                          {(() => {
-                            const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
-                            return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                          })()}
-                        </div>
-                      )}
-                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-right" && (
-                        <div className="ml-auto">
-                          {(() => {
-                            const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
-                            return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                          })()}
-                        </div>
-                      )}
-                      {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === "text-left" && (
-                        <div>
-                          {(() => {
-                            const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
-                            return <IconComponent className={`w-2 h-2 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />;
-                          })()}
-                        </div>
-                      )}
                       <span className={`text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
                         {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.cardTitle || `Título de la card ${index + 1}`}
                       </span>
