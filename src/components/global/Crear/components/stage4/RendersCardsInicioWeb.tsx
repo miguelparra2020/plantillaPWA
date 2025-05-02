@@ -936,8 +936,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
           
       </div>
       <div className="space-y-4 p-4 rounded-xl border border-zinc-200">
+      <div className="text-sm text-zinc-700 ">"La previsualización no es exacta, pero es una buena referencia"</div>
         <div className="text-sm text-zinc-700 ">
-          <p className="font-medium mb-2">Visualización tipo WEB</p>       
+          <p className="font-medium mb-2">Visualización tipo WEB </p>       
         </div>
 
       <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] md:h-[294px] w-[301px] md:w-[412px]">
@@ -1027,9 +1028,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                 </p>
               </div>
 
-              <div className="w-full flex justify-center">
-                <div className="grid grid-cols-3 gap-2 max-w-[300px] md:max-w-[400px]">
-                  {Array.from({ length: Math.min(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0, 3) }).map((_, index) => (
+              <div className="w-full flex justify-center items-center">
+  <div className="flex flex-wrap justify-center gap-2 max-w-[400px]">
+ 
+                  {Array.from({ length: Math.min(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0, 11) }).map((_, index) => (
                     <div key={index} className={cardClasses2}>
                       {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.imageCard && (
                         <div className="relative w-full aspect-square overflow-hidden">
