@@ -103,6 +103,10 @@ export interface CardInicioSettings {
   borderWidth: string
   borderColor: string
   borderShade: string
+  titleColorCard: string
+  titleColorShadeCard: number
+  paragraphColorCard: string
+  paragraphColorShadeCard: number
   titleSesionCardsInicio: string
   descriptionSesionCardsInicio: string
   nameButtonSesionCardsInicio: string
@@ -116,10 +120,6 @@ export interface CardInicioSettings {
   cardsDetails: Array<{
     titleCardCardsInicio: string
   }>
-  titleColor: string
-  titleColorShade: number
-  paragraphColor: string
-  paragraphColorShade: number
 }
 
 export interface BusinessCategory {
@@ -206,32 +206,29 @@ const loadState = (): CrearState => {
 }
 
 // Función para inicializar las propiedades de personalización de cards para una categoría
-export const initializeCategoryCardSettings = (category: BusinessCategory): BusinessCategory => {
+export const initializeCategoryCardSettings = (): CardInicioSettings => {
   return {
-    ...category,
-    cardInicioSettings: {
-      showImage: false,
-      icon: 'star',
-      title: category.title || 'Título de la card',
-      description: category.description || 'Descripción de la card',
-      textAlign: 'text-left',
-      rounded: 'rounded-lg',
-      shadow: 'shadow-md',
-      hasBorder: false,
-      borderWidth: 'border',
-      borderColor: 'slate',
-      borderShade: '500',
-      titleSesionCardsInicio: category.title || 'Título de la sesión de productos',
-      descriptionSesionCardsInicio: category.description || 'Descripción de la sesión de productos',
-      nameButtonSesionCardsInicio: 'Ver categoría',
-      quantityCardsSesionCardsInicio: 0,
-      cardsDetailsSesionCardsInicio: [],
-      cardsDetails: [],
-      titleColor: 'slate',
-      titleColorShade: 500,
-      paragraphColor: 'slate',
-      paragraphColorShade: 500
-    }
+    showImage: false,
+    icon: 'FaHome',
+    title: 'Título de la tarjeta',
+    description: 'Descripción de la tarjeta',
+    textAlign: 'text-center',
+    rounded: 'rounded-xl',
+    shadow: 'shadow-md',
+    hasBorder: false,
+    borderWidth: 'border-2',
+    borderColor: 'slate',
+    borderShade: '500',
+    titleColorCard: 'slate',
+    titleColorShadeCard: 500,
+    paragraphColorCard: 'slate',
+    paragraphColorShadeCard: 500,
+    titleSesionCardsInicio: '',
+    descriptionSesionCardsInicio: '',
+    nameButtonSesionCardsInicio: '',
+    quantityCardsSesionCardsInicio: 0,
+    cardsDetailsSesionCardsInicio: [],
+    cardsDetails: []
   }
 }
 

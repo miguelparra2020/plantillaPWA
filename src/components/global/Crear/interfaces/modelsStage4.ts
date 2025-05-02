@@ -24,10 +24,10 @@ export interface CardInicioSettings {
   borderWidth: string
   borderColor: string
   borderShade: string
-  titleColor: string
-  titleColorShade: number
-  paragraphColor: string
-  paragraphColorShade: number
+  titleColorCard: string
+  titleColorShadeCard: number
+  paragraphColorCard: string
+  paragraphColorShadeCard: number
   titleSesionCardsInicio: string
   descriptionSesionCardsInicio: string
   nameButtonSesionCardsInicio: string

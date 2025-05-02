@@ -305,11 +305,11 @@ const colorOptions = [
                   })()}
                 </div>
               )}
-              <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500}`}>
-                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.title || 'Título de la card'}
+              <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500}`}>
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.title || 'Título de la tarjeta'}
               </span>
-              <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500}`}>
-                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.description || 'Descripción de la card'}
+              <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500}`}>
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.description || 'Descripción de la tarjeta'}
               </p>
             </div>
           </div>
@@ -383,12 +383,12 @@ const colorOptions = [
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange('titleColor', value)}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}
+                onValueChange={(value) => handleSettingsChange('titleColorCard', value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500) }}></div>
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
                     <SelectValue placeholder="Seleccione un color" />
                   </div>
                 </SelectTrigger>
@@ -396,7 +396,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500) }}></div>
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -405,8 +405,8 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('titleColorShade', Number.parseInt(value))}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('titleColorShadeCard', Number.parseInt(value))}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />
@@ -429,12 +429,12 @@ const colorOptions = [
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange('paragraphColor', value)}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}
+                onValueChange={(value) => handleSettingsChange('paragraphColorCard', value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500) }}></div>
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
                     <SelectValue placeholder="Seleccione un color" />
                   </div>
                 </SelectTrigger>
@@ -442,7 +442,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500) }}></div>
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -451,8 +451,8 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('paragraphColorShade', Number.parseInt(value))}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('paragraphColorShadeCard', Number.parseInt(value))}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />

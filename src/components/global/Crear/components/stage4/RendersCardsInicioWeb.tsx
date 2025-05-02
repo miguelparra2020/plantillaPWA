@@ -955,10 +955,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                       )}
                       <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                         <div className="flex flex-col gap-0.5 md:gap-1">
-                          <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
+                          <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.cardTitle || 'Título de la card'}
                           </span>
-                          <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
+                          <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                             {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.detailCard || 'Descripción de la card'}
                           </p>
                         </div>
@@ -1019,10 +1019,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           )}
                           <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                             <div className="flex flex-col gap-0.5 md:gap-1">
-                              <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
+                              <span className={`text-[4px] md:text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                                 {cardDetails?.cardTitle || `Título de la card ${index + 1}`}
                               </span>
-                              <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
+                              <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                                 {cardDetails?.detailCard || `Descripción de la card ${index + 1}`}
                               </p>
                             </div>
@@ -1111,10 +1111,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                   )}
                   <div className={`p-2 md:p-4 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                     <div className="flex flex-col gap-0.5 md:gap-1">
-                      <span className={`text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} ${titleColorClass} ${store.infoStage2?.titleFont || ''}`}>
+                      <span className={`text-[6px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                         {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.cardTitle || `Título de la card ${index + 1}`}
                       </span>
-                      <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} ${paragraphColorClassStage2} ${store.infoStage2?.paragraphFont || ''}`}>
+                      <p className={`text-[4px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                         {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.detailCard || `Descripción de la card ${index + 1}`}
                       </p>
                     </div>
