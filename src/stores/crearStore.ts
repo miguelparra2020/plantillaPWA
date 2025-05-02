@@ -93,8 +93,6 @@ export interface InfoStage4 {
 
 export interface CardInicioSettings {
   showImage: boolean
-  iconColor: string
-  iconColorShade: number
   icon: string
   title: string
   description: string
@@ -118,6 +116,10 @@ export interface CardInicioSettings {
   cardsDetails: Array<{
     titleCardCardsInicio: string
   }>
+  titleColor: string
+  titleColorShade: number
+  paragraphColor: string
+  paragraphColorShade: number
 }
 
 export interface BusinessCategory {
@@ -209,8 +211,6 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
     ...category,
     cardInicioSettings: {
       showImage: false,
-      iconColor: 'slate',
-      iconColorShade: 500,
       icon: 'star',
       title: category.title || 'Título de la card',
       description: category.description || 'Descripción de la card',
@@ -226,7 +226,11 @@ export const initializeCategoryCardSettings = (category: BusinessCategory): Busi
       nameButtonSesionCardsInicio: 'Ver categoría',
       quantityCardsSesionCardsInicio: 0,
       cardsDetailsSesionCardsInicio: [],
-      cardsDetails: []
+      cardsDetails: [],
+      titleColor: 'slate',
+      titleColorShade: 500,
+      paragraphColor: 'slate',
+      paragraphColorShade: 500
     }
   }
 }

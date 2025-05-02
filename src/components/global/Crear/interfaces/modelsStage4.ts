@@ -14,8 +14,6 @@ export type CustomizationStep =
 
 export interface CardInicioSettings {
   showImage: boolean
-  iconColor: string
-  iconColorShade: number
   icon: string
   title: string
   description: string
@@ -26,6 +24,23 @@ export interface CardInicioSettings {
   borderWidth: string
   borderColor: string
   borderShade: string
+  titleColor: string
+  titleColorShade: number
+  paragraphColor: string
+  paragraphColorShade: number
+  titleSesionCardsInicio: string
+  descriptionSesionCardsInicio: string
+  nameButtonSesionCardsInicio: string
+  quantityCardsSesionCardsInicio: number
+  cardsDetailsSesionCardsInicio: Array<{
+    cardTitle: string
+    detailCard: string
+    iconCard: string
+    imageCard?: string
+  }>
+  cardsDetails: Array<{
+    titleCardCardsInicio: string
+  }>
 }
 
 export interface BusinessCategory {

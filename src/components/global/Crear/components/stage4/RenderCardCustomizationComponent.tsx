@@ -305,10 +305,10 @@ const colorOptions = [
                   })()}
                 </div>
               )}
-              <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} ${titleColorClass}`}>
+              <span className={`text-2xl ${store.infoStage2?.titleFont || 'font-roboto'} ${store.infoStage2?.titleWeight || 'font-black'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500}`}>
                 {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.title || 'Título de la card'}
               </span>
-              <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} ${paragraphColorClass}`}>
+              <p className={`${store.infoStage2?.paragraphFont || 'font-poppins'} ${store.infoStage2?.paragraphWeight || 'font-normal'} ${store.infoStage2?.paragraphSize || 'text-base'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500}`}>
                 {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.description || 'Descripción de la card'}
               </p>
             </div>
@@ -379,16 +379,16 @@ const colorOptions = [
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del icono</span>
+              <span className="text-sm text-zinc-500">Color del título</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange('iconColor', value)}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate'}
+                onValueChange={(value) => handleSettingsChange('titleColor', value)}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500) }}></div>
                     <SelectValue placeholder="Seleccione un color" />
                   </div>
                 </SelectTrigger>
@@ -396,7 +396,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade || 500) }}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -405,8 +405,54 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('iconColorShade', Number.parseInt(value))}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShade?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('titleColorShade', Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Intensidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Palette className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color del párrafo</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate'}
+                onValueChange={(value) => handleSettingsChange('paragraphColor', value)}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500) }}></div>
+                    <SelectValue placeholder="Seleccione un color" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] bg-white">
+                  {colorOptions.map((color) => (
+                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade || 500) }}></div>
+                        <span>{color.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShade?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('paragraphColorShade', Number.parseInt(value))}
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <SelectValue placeholder="Intensidad" />
