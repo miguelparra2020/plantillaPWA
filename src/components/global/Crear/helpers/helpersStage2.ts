@@ -21,9 +21,34 @@ export const colorOptionsTitles = [
     { name: "Zinc", value: "zinc", titleShade: 700, paragraphShade: 600 },
     { name: "Neutral", value: "neutral", titleShade: 900, paragraphShade: 600 },
     { name: "Stone", value: "stone", titleShade: 700, paragraphShade: 600 },
-  ]
+    { name: "Gradiente Ámbar", value: "gradient-amber", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-600 to-amber-800" },
+    { name: "Gradiente Azul", value: "gradient-blue", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-500 to-blue-800" },
+    { name: "Gradiente Dorado", value: "gradient-gold", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-600 via-yellow-700 to-yellow-800" },
+    { name: "Gradiente Red", value: "gradient-red", isGradient: true, gradientClass: "bg-gradient-to-r from-red-400 via-red-600 to-red-800" },
+    { name: "Gradiente Orange", value: "gradient-orange", isGradient: true, gradientClass: "bg-gradient-to-r from-orange-400 via-orange-600 to-orange-800" },
+    { name: "Gradiente Amber", value: "gradient-amber-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-400 via-amber-600 to-amber-800" },
+    { name: "Gradiente Yellow", value: "gradient-yellow", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-800" },
+    { name: "Gradiente Lime", value: "gradient-lime", isGradient: true, gradientClass: "bg-gradient-to-r from-lime-400 via-lime-600 to-lime-800" },
+    { name: "Gradiente Green", value: "gradient-green", isGradient: true, gradientClass: "bg-gradient-to-r from-green-400 via-green-600 to-green-800" },
+    { name: "Gradiente Emerald", value: "gradient-emerald", isGradient: true, gradientClass: "bg-gradient-to-r from-emerald-400 via-emerald-600 to-emerald-800" },
+    { name: "Gradiente Teal", value: "gradient-teal", isGradient: true, gradientClass: "bg-gradient-to-r from-teal-400 via-teal-600 to-teal-800" },
+    { name: "Gradiente Cyan", value: "gradient-cyan", isGradient: true, gradientClass: "bg-gradient-to-r from-cyan-400 via-cyan-600 to-cyan-800" },
+    { name: "Gradiente Sky", value: "gradient-sky", isGradient: true, gradientClass: "bg-gradient-to-r from-sky-400 via-sky-600 to-sky-800" },
+    { name: "Gradiente Blue", value: "gradient-blue-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800" },
+    { name: "Gradiente Indigo", value: "gradient-indigo", isGradient: true, gradientClass: "bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-800" },
+    { name: "Gradiente Violet", value: "gradient-violet", isGradient: true, gradientClass: "bg-gradient-to-r from-violet-400 via-violet-600 to-violet-800" },
+    { name: "Gradiente Purple", value: "gradient-purple", isGradient: true, gradientClass: "bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800" },
+    { name: "Gradiente Fuchsia", value: "gradient-fuchsia", isGradient: true, gradientClass: "bg-gradient-to-r from-fuchsia-400 via-fuchsia-600 to-fuchsia-800" },
+    { name: "Gradiente Pink", value: "gradient-pink", isGradient: true, gradientClass: "bg-gradient-to-r from-pink-400 via-pink-600 to-pink-800" },
+    { name: "Gradiente Rose", value: "gradient-rose", isGradient: true, gradientClass: "bg-gradient-to-r from-rose-400 via-rose-600 to-rose-800" },
+    { name: "Gradiente Slate", value: "gradient-slate", isGradient: true, gradientClass: "bg-gradient-to-r from-slate-400 via-slate-600 to-slate-800" },
+    { name: "Gradiente Gray", value: "gradient-gray", isGradient: true, gradientClass: "bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800" },
+    { name: "Gradiente Zinc", value: "gradient-zinc", isGradient: true, gradientClass: "bg-gradient-to-r from-zinc-400 via-zinc-600 to-zinc-800" },
+    { name: "Gradiente Neutral", value: "gradient-neutral", isGradient: true, gradientClass: "bg-gradient-to-r from-neutral-400 via-neutral-600 to-neutral-800" },
+    { name: "Gradiente Stone", value: "gradient-stone", isGradient: true, gradientClass: "bg-gradient-to-r from-stone-400 via-stone-600 to-stone-800" },
+]
 
-  export const colorClassMap = {
+export const colorClassMap = {
     red: {
       700: "bg-red-700",
       600: "bg-red-600",
@@ -112,11 +137,11 @@ export const colorOptionsTitles = [
       700: "bg-stone-700",
       600: "bg-stone-600",
     },
-  }
+}
 
-  // Opciones de peso de fuente
+// Opciones de peso de fuente
 
-  export const weightOptions = [
+export const weightOptions = [
     { value: 'font-thin', name: 'Thin' },
     { value: 'font-extralight', name: 'Extra Light' },
     { value: 'font-light', name: 'Light' },
@@ -126,10 +151,10 @@ export const colorOptionsTitles = [
     { value: 'font-bold', name: 'Bold' },
     { value: 'font-extrabold', name: 'Extra Bold' },
     { value: 'font-black', name: 'Black' }
-  ]
+]
 
-  // Opciones de tamaño de fuente
-  export const sizeOptions = [
+// Opciones de tamaño de fuente
+export const sizeOptions = [
     { value: 'text-xs', name: 'Extra Small' },
     { value: 'text-sm', name: 'Small' },
     { value: 'text-base', name: 'Base' },
@@ -138,10 +163,10 @@ export const colorOptionsTitles = [
     { value: 'text-2xl', name: '2X Large' },
     { value: 'text-3xl', name: '3X Large' },
     { value: 'text-4xl', name: '4X Large' }
-  ]
+]
 
-   // Opciones de fuentes
-   export const fontOptions = [
+// Opciones de fuentes
+export const fontOptions = [
     { value: 'font-sans', name: 'Sans' },
     { value: 'font-serif', name: 'Serif' },
     { value: 'font-mono', name: 'Mono' },
@@ -154,4 +179,4 @@ export const colorOptionsTitles = [
     { value: 'font-raleway', name: 'Raleway' },
     { value: "font-playfair",name: "Playfair Display"  },
     { value: "font-source-sans", name: "Source Sans Pro" },
-  ]
+]

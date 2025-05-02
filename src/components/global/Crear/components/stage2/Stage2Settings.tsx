@@ -61,7 +61,12 @@ const Stage2Settings = () => {
   
   const paragraphColorClass = `text-${localSettings.colorParagraph}-${localSettings.paragraphColorIntensity}`
 
-  
+  // Encuentra la opción seleccionada para el título
+  const selectedTitleColorOption = colorOptionsTitles.find(
+    (color) => color.value === localSettings.colorTitles
+  );
+  const isGradient = selectedTitleColorOption?.isGradient;
+  const gradientClass = selectedTitleColorOption?.gradientClass || '';
 
   return (
     <div className="min-h-screen bg-white p-6 md:p-8">
@@ -69,7 +74,13 @@ const Stage2Settings = () => {
         <div className="mt-2 space-y-6">
           <div className="space-y-6">
             <div className="p-4 border border-zinc-200  rounded-xl">
-              <h4 className={`${localSettings.titleSize} ${localSettings.titleWeight} mb-2 ${titleColorClass} ${localSettings.titleFont} `}>
+              <h4 className={`
+                ${localSettings.titleSize}
+                ${localSettings.titleWeight}
+                mb-2
+                ${isGradient ? 'text-transparent bg-clip-text ' + gradientClass : titleColorClass}
+                ${localSettings.titleFont}
+              `}>
                 {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.previewTitleStage2:""}
                 {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.previewTitleStage2:""}
                 {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.previewTitleStage2:""}
@@ -104,7 +115,11 @@ const Stage2Settings = () => {
                   {colorOptionsTitles.map((color) => (
                     <SelectItem key={color.value} value={color.value}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
+                        {color.isGradient ? (
+                          <div className={`w-4 h-4 rounded-full ${color.gradientClass}`} />
+                        ) : (
+                          <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
+                        )}
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -163,7 +178,11 @@ const Stage2Settings = () => {
                   {colorOptionsTitles.map((color) => (
                     <SelectItem key={color.value} value={color.value}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
+                        {color.isGradient ? (
+                          <div className={`w-4 h-4 rounded-full ${color.gradientClass}`} />
+                        ) : (
+                          <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
+                        )}
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
