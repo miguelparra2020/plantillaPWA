@@ -82,6 +82,13 @@ const Stage3Settings = () => {
 
   const hoverShadowInfo = getHoverShadow(localSettings?.shadow || 'shadow')
 
+  // Detectar si la opción seleccionada es un gradiente
+  const selectedBgColorOption = colorOptionsButtons.find(
+    (color) => color.value === localSettings.bgColor
+  );
+  const isGradient = selectedBgColorOption?.isGradient;
+  const gradientClass = selectedBgColorOption?.gradientClass || '';
+
   const handleSettingsChange = (key: keyof InfoStage3, value: string | number | boolean) => {
     const newSettings = { 
       ...localSettings, 
@@ -124,11 +131,24 @@ const Stage3Settings = () => {
         <div className="space-y-6">
           {/* Vista previa del botón */}
           <div className="p-6 flex items-center justify-center border border-zinc-200 rounded-xl">
-            <button type="button" className={buttonClasses}>
-  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage3.es.buttonExampleStage3:""}
-  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage3.en.buttonExampleStage3:""}
-  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.buttonExampleStage3:""}
-  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.buttonExampleStage3:""}
+            <button type="button" className={`
+              px-4 py-2
+              ${localSettings?.textColor && localSettings?.textShade ? textColorClassMap[localSettings.textColor]?.[localSettings.textShade] : 'text-white'}
+              ${localSettings?.rounded || 'rounded'}
+              ${isGradient ? gradientClass : (localSettings?.bgColor && localSettings?.bgShade ? colorClassMap[localSettings.bgColor]?.[localSettings.bgShade] : 'bg-blue-500')}
+              ${localSettings?.shadow || 'shadow'}
+              ${localSettings?.shadowColor && localSettings?.shadowShade ? shadowColorClassMap[localSettings.shadowColor]?.[localSettings.shadowShade] : 'shadow-gray-500/50'}
+              ${localSettings?.buttonFont || ''}
+              ${localSettings?.buttonWeight || ''}
+              ${localSettings?.buttonSize || ''}
+              transition-all duration-200
+              ${localSettings?.hasBorder && localSettings?.borderColor && localSettings?.borderShade ? 
+                `${localSettings.borderWidth} ${borderColorClassMap[localSettings.borderColor]?.[localSettings.borderShade]}` : ""}
+            `}>
+  {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage3.es.buttonExampleStage3: ""}
+  {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage3.en.buttonExampleStage3: ""}
+  {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage3.pt.buttonExampleStage3: ""}
+  {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage3.fr.buttonExampleStage3: ""}
             </button>
           </div>
 
@@ -149,7 +169,11 @@ const Stage3Settings = () => {
               >
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-full bg-${localSettings.bgColor}-${localSettings.bgShade}`}></div>
+                    {selectedBgColorOption?.isGradient ? (
+                      <div className={`w-4 h-4 rounded-full ${selectedBgColorOption.gradientClass}`} />
+                    ) : (
+                      <div className={`w-4 h-4 rounded-full bg-${localSettings.bgColor}-${localSettings.bgShade}`} />
+                    )}
                     <SelectValue placeholder="Color" />
                   </div>
                 </SelectTrigger>
@@ -157,7 +181,11 @@ const Stage3Settings = () => {
                   {colorOptionsButtons.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${localSettings.bgShade}`}></div>
+                        {color.isGradient ? (
+                          <div className={`w-4 h-4 rounded-full ${color.gradientClass}`} />
+                        ) : (
+                          <div className={`w-4 h-4 rounded-full bg-${color.value}-${localSettings.bgShade}`} />
+                        )}
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>

@@ -21,9 +21,34 @@ export const colorOptionsButtons = [
     { name: "Gray", value: "gray" },
     { name: "Neutral", value: "neutral" },
     { name: "Stone", value: "stone" },
-  ]
+    { name: "Gradiente Ámbar", value: "gradient-amber", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-600 to-amber-800" },
+    { name: "Gradiente Azul", value: "gradient-blue", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-500 to-blue-800" },
+    { name: "Gradiente Dorado", value: "gradient-gold", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-600 via-yellow-700 to-yellow-800" },
+    { name: "Gradiente Red", value: "gradient-red", isGradient: true, gradientClass: "bg-gradient-to-r from-red-400 via-red-600 to-red-800" },
+    { name: "Gradiente Orange", value: "gradient-orange", isGradient: true, gradientClass: "bg-gradient-to-r from-orange-400 via-orange-600 to-orange-800" },
+    { name: "Gradiente Amber", value: "gradient-amber-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-400 via-amber-600 to-amber-800" },
+    { name: "Gradiente Yellow", value: "gradient-yellow", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-800" },
+    { name: "Gradiente Lime", value: "gradient-lime", isGradient: true, gradientClass: "bg-gradient-to-r from-lime-400 via-lime-600 to-lime-800" },
+    { name: "Gradiente Green", value: "gradient-green", isGradient: true, gradientClass: "bg-gradient-to-r from-green-400 via-green-600 to-green-800" },
+    { name: "Gradiente Emerald", value: "gradient-emerald", isGradient: true, gradientClass: "bg-gradient-to-r from-emerald-400 via-emerald-600 to-emerald-800" },
+    { name: "Gradiente Teal", value: "gradient-teal", isGradient: true, gradientClass: "bg-gradient-to-r from-teal-400 via-teal-600 to-teal-800" },
+    { name: "Gradiente Cyan", value: "gradient-cyan", isGradient: true, gradientClass: "bg-gradient-to-r from-cyan-400 via-cyan-600 to-cyan-800" },
+    { name: "Gradiente Sky", value: "gradient-sky", isGradient: true, gradientClass: "bg-gradient-to-r from-sky-400 via-sky-600 to-sky-800" },
+    { name: "Gradiente Blue", value: "gradient-blue-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800" },
+    { name: "Gradiente Indigo", value: "gradient-indigo", isGradient: true, gradientClass: "bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-800" },
+    { name: "Gradiente Violet", value: "gradient-violet", isGradient: true, gradientClass: "bg-gradient-to-r from-violet-400 via-violet-600 to-violet-800" },
+    { name: "Gradiente Purple", value: "gradient-purple", isGradient: true, gradientClass: "bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800" },
+    { name: "Gradiente Fuchsia", value: "gradient-fuchsia", isGradient: true, gradientClass: "bg-gradient-to-r from-fuchsia-400 via-fuchsia-600 to-fuchsia-800" },
+    { name: "Gradiente Pink", value: "gradient-pink", isGradient: true, gradientClass: "bg-gradient-to-r from-pink-400 via-pink-600 to-pink-800" },
+    { name: "Gradiente Rose", value: "gradient-rose", isGradient: true, gradientClass: "bg-gradient-to-r from-rose-400 via-rose-600 to-rose-800" },
+    { name: "Gradiente Slate", value: "gradient-slate", isGradient: true, gradientClass: "bg-gradient-to-r from-slate-400 via-slate-600 to-slate-800" },
+    { name: "Gradiente Gray", value: "gradient-gray", isGradient: true, gradientClass: "bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800" },
+    { name: "Gradiente Zinc", value: "gradient-zinc", isGradient: true, gradientClass: "bg-gradient-to-r from-zinc-400 via-zinc-600 to-zinc-800" },
+    { name: "Gradiente Neutral", value: "gradient-neutral", isGradient: true, gradientClass: "bg-gradient-to-r from-neutral-400 via-neutral-600 to-neutral-800" },
+    { name: "Gradiente Stone", value: "gradient-stone", isGradient: true, gradientClass: "bg-gradient-to-r from-stone-400 via-stone-600 to-stone-800" },
+]
 
-  export const bgShadeOptionsButtons = [
+export const bgShadeOptionsButtons = [
     { name: "100", value: 100 },
     { name: "200", value: 200 },
     { name: "300", value: 300 },
@@ -33,10 +58,10 @@ export const colorOptionsButtons = [
     { name: "700", value: 700 },
     { name: "800", value: 800 },
     { name: "900", value: 900 },
-  ]
-  
-  // Opciones de border radius
-  export const roundedOptionsButtons = [
+]
+
+// Opciones de border radius
+export const roundedOptionsButtons = [
     { name: "None", value: "rounded-none" },
     { name: "Small", value: "rounded-sm" },
     { name: "Default", value: "rounded" },
@@ -46,18 +71,18 @@ export const colorOptionsButtons = [
     { name: "2XL", value: "rounded-2xl" },
     { name: "3XL", value: "rounded-3xl" },
     { name: "Full", value: "rounded-full" },
-  ]
-  
-  // Opciones de ancho de borde
-  export const borderWidthOptionsButtons = [
+]
+
+// Opciones de ancho de borde
+export const borderWidthOptionsButtons = [
     { name: "1px", value: "border" },
     { name: "2px", value: "border-2" },
     { name: "4px", value: "border-4" },
     { name: "8px", value: "border-8" },
-  ]
-  
-  // Opciones de sombra
-  export const shadowOptionsButtons = [
+]
+
+// Opciones de sombra
+export const shadowOptionsButtons = [
     { name: "None", value: "shadow-none" },
     { name: "Small", value: "shadow-sm" },
     { name: "Default", value: "shadow" },
@@ -65,9 +90,9 @@ export const colorOptionsButtons = [
     { name: "Large", value: "shadow-lg" },
     { name: "Extra Large", value: "shadow-xl" },
     { name: "2XL", value: "shadow-2xl" },
-  ]
+]
 
-  export const colorClassMap = {
+export const colorClassMap = {
     red: { 100: 'bg-red-100', 200: 'bg-red-200', 300: 'bg-red-300', 400: 'bg-red-400', 500: 'bg-red-500', 600: 'bg-red-600', 700: 'bg-red-700', 800: 'bg-red-800', 900: 'bg-red-900' },
     orange: { 100: 'bg-orange-100', 200: 'bg-orange-200', 300: 'bg-orange-300', 400: 'bg-orange-400', 500: 'bg-orange-500', 600: 'bg-orange-600', 700: 'bg-orange-700', 800: 'bg-orange-800', 900: 'bg-orange-900' },
     amber: { 100: 'bg-amber-100', 200: 'bg-amber-200', 300: 'bg-amber-300', 400: 'bg-amber-400', 500: 'bg-amber-500', 600: 'bg-amber-600', 700: 'bg-amber-700', 800: 'bg-amber-800', 900: 'bg-amber-900' },
@@ -90,9 +115,9 @@ export const colorOptionsButtons = [
     gray: { 100: 'bg-gray-100', 200: 'bg-gray-200', 300: 'bg-gray-300', 400: 'bg-gray-400', 500: 'bg-gray-500', 600: 'bg-gray-600', 700: 'bg-gray-700', 800: 'bg-gray-800', 900: 'bg-gray-900' },
     neutral: { 100: 'bg-neutral-100', 200: 'bg-neutral-200', 300: 'bg-neutral-300', 400: 'bg-neutral-400', 500: 'bg-neutral-500', 600: 'bg-neutral-600', 700: 'bg-neutral-700', 800: 'bg-neutral-800', 900: 'bg-neutral-900' },
     stone: { 100: 'bg-stone-100', 200: 'bg-stone-200', 300: 'bg-stone-300', 400: 'bg-stone-400', 500: 'bg-stone-500', 600: 'bg-stone-600', 700: 'bg-stone-700', 800: 'bg-stone-800', 900: 'bg-stone-900' },
-  } as const
+} as const
 
-  export const hoverColorClassMap = {
+export const hoverColorClassMap = {
     red: { 100: 'hover:bg-red-300', 200: 'hover:bg-red-400', 300: 'hover:bg-red-500', 400: 'hover:bg-red-600', 500: 'hover:bg-red-700', 600: 'hover:bg-red-800', 700: 'hover:bg-red-900', 800: 'hover:bg-red-900', 900: 'hover:bg-red-900' },
     orange: { 100: 'hover:bg-orange-300', 200: 'hover:bg-orange-400', 300: 'hover:bg-orange-500', 400: 'hover:bg-orange-600', 500: 'hover:bg-orange-700', 600: 'hover:bg-orange-800', 700: 'hover:bg-orange-900', 800: 'hover:bg-orange-900', 900: 'hover:bg-orange-900' },
     amber: { 100: 'hover:bg-amber-300', 200: 'hover:bg-amber-400', 300: 'hover:bg-amber-500', 400: 'hover:bg-amber-600', 500: 'hover:bg-amber-700', 600: 'hover:bg-amber-800', 700: 'hover:bg-amber-900', 800: 'hover:bg-amber-900', 900: 'hover:bg-amber-900' },
@@ -115,9 +140,9 @@ export const colorOptionsButtons = [
     gray: { 100: 'hover:bg-gray-300', 200: 'hover:bg-gray-400', 300: 'hover:bg-gray-500', 400: 'hover:bg-gray-600', 500: 'hover:bg-gray-700', 600: 'hover:bg-gray-800', 700: 'hover:bg-gray-900', 800: 'hover:bg-gray-900', 900: 'hover:bg-gray-900' },
     neutral: { 100: 'hover:bg-neutral-300', 200: 'hover:bg-neutral-400', 300: 'hover:bg-neutral-500', 400: 'hover:bg-neutral-600', 500: 'hover:bg-neutral-700', 600: 'hover:bg-neutral-800', 700: 'hover:bg-neutral-900', 800: 'hover:bg-neutral-900', 900: 'hover:bg-neutral-900' },
     stone: { 100: 'hover:bg-stone-300', 200: 'hover:bg-stone-400', 300: 'hover:bg-stone-500', 400: 'hover:bg-stone-600', 500: 'hover:bg-stone-700', 600: 'hover:bg-stone-800', 700: 'hover:bg-stone-900', 800: 'hover:bg-stone-900', 900: 'hover:bg-stone-900' },
-  } as const
+} as const
 
-  export const borderColorClassMap = {
+export const borderColorClassMap = {
     red: { 100: 'border-red-100', 200: 'border-red-200', 300: 'border-red-300', 400: 'border-red-400', 500: 'border-red-500', 600: 'border-red-600', 700: 'border-red-700', 800: 'border-red-800', 900: 'border-red-900' },
     orange: { 100: 'border-orange-100', 200: 'border-orange-200', 300: 'border-orange-300', 400: 'border-orange-400', 500: 'border-orange-500', 600: 'border-orange-600', 700: 'border-orange-700', 800: 'border-orange-800', 900: 'border-orange-900' },
     amber: { 100: 'border-amber-100', 200: 'border-amber-200', 300: 'border-amber-300', 400: 'border-amber-400', 500: 'border-amber-500', 600: 'border-amber-600', 700: 'border-amber-700', 800: 'border-amber-800', 900: 'border-amber-900' },
@@ -140,9 +165,9 @@ export const colorOptionsButtons = [
     gray: { 100: 'border-gray-100', 200: 'border-gray-200', 300: 'border-gray-300', 400: 'border-gray-400', 500: 'border-gray-500', 600: 'border-gray-600', 700: 'border-gray-700', 800: 'border-gray-800', 900: 'border-gray-900' },
     neutral: { 100: 'border-neutral-100', 200: 'border-neutral-200', 300: 'border-neutral-300', 400: 'border-neutral-400', 500: 'border-neutral-500', 600: 'border-neutral-600', 700: 'border-neutral-700', 800: 'border-neutral-800', 900: 'border-neutral-900' },
     stone: { 100: 'border-stone-100', 200: 'border-stone-200', 300: 'border-stone-300', 400: 'border-stone-400', 500: 'border-stone-500', 600: 'border-stone-600', 700: 'border-stone-700', 800: 'border-stone-800', 900: 'border-stone-900' },
-  } as const
+} as const
 
-  export const textColorClassMap = {
+export const textColorClassMap = {
     red: { 100: 'text-red-100', 200: 'text-red-200', 300: 'text-red-300', 400: 'text-red-400', 500: 'text-red-500', 600: 'text-red-600', 700: 'text-red-700', 800: 'text-red-800', 900: 'text-red-900' },
     orange: { 100: 'text-orange-100', 200: 'text-orange-200', 300: 'text-orange-300', 400: 'text-orange-400', 500: 'text-orange-500', 600: 'text-orange-600', 700: 'text-orange-700', 800: 'text-orange-800', 900: 'text-orange-900' },
     amber: { 100: 'text-amber-100', 200: 'text-amber-200', 300: 'text-amber-300', 400: 'text-amber-400', 500: 'text-amber-500', 600: 'text-amber-600', 700: 'text-amber-700', 800: 'text-amber-800', 900: 'text-amber-900' },
@@ -165,9 +190,9 @@ export const colorOptionsButtons = [
     gray: { 100: 'text-gray-100', 200: 'text-gray-200', 300: 'text-gray-300', 400: 'text-gray-400', 500: 'text-gray-500', 600: 'text-gray-600', 700: 'text-gray-700', 800: 'text-gray-800', 900: 'text-gray-900' },
     neutral: { 100: 'text-neutral-100', 200: 'text-neutral-200', 300: 'text-neutral-300', 400: 'text-neutral-400', 500: 'text-neutral-500', 600: 'text-neutral-600', 700: 'text-neutral-700', 800: 'text-neutral-800', 900: 'text-neutral-900' },
     stone: { 100: 'text-stone-100', 200: 'text-stone-200', 300: 'text-stone-300', 400: 'text-stone-400', 500: 'text-stone-500', 600: 'text-stone-600', 700: 'text-stone-700', 800: 'text-stone-800', 900: 'text-stone-900' },
-  } as const
+} as const
 
-  export const fontOptions = [
+export const fontOptions = [
     { value: 'font-sans', name: 'Sans' },
     { value: 'font-serif', name: 'Serif' },
     { value: 'font-mono', name: 'Mono' },
@@ -180,10 +205,9 @@ export const colorOptionsButtons = [
     { value: 'font-raleway', name: 'Raleway' },
     { value: "font-playfair",name: "Playfair Display"  },
     { value: "font-source-sans", name: "Source Sans Pro" },
-  ]
+]
 
-
-  export const weightOptions = [
+export const weightOptions = [
     { value: 'font-thin', name: 'Thin' },
     { value: 'font-extralight', name: 'Extra Light' },
     { value: 'font-light', name: 'Light' },
@@ -193,9 +217,9 @@ export const colorOptionsButtons = [
     { value: 'font-bold', name: 'Bold' },
     { value: 'font-extrabold', name: 'Extra Bold' },
     { value: 'font-black', name: 'Black' }
-  ]
+]
 
-  export const sizeOptions = [
+export const sizeOptions = [
     { value: 'text-xs', name: 'Extra Small' },
     { value: 'text-sm', name: 'Small' },
     { value: 'text-base', name: 'Base' },
@@ -204,9 +228,9 @@ export const colorOptionsButtons = [
     { value: 'text-2xl', name: '2X Large' },
     { value: 'text-3xl', name: '3X Large' },
     { value: 'text-4xl', name: '4X Large' }
-  ]
+]
 
-  export const shadowColorClassMap = {
+export const shadowColorClassMap = {
     red: { 100: 'shadow-red-100/50', 200: 'shadow-red-200/50', 300: 'shadow-red-300/50', 400: 'shadow-red-400/50', 500: 'shadow-red-500/50', 600: 'shadow-red-600/50', 700: 'shadow-red-700/50', 800: 'shadow-red-800/50', 900: 'shadow-red-900/50' },
     orange: { 100: 'shadow-orange-100/50', 200: 'shadow-orange-200/50', 300: 'shadow-orange-300/50', 400: 'shadow-orange-400/50', 500: 'shadow-orange-500/50', 600: 'shadow-orange-600/50', 700: 'shadow-orange-700/50', 800: 'shadow-orange-800/50', 900: 'shadow-orange-900/50' },
     amber: { 100: 'shadow-amber-100/50', 200: 'shadow-amber-200/50', 300: 'shadow-amber-300/50', 400: 'shadow-amber-400/50', 500: 'shadow-amber-500/50', 600: 'shadow-amber-600/50', 700: 'shadow-amber-700/50', 800: 'shadow-amber-800/50', 900: 'shadow-amber-900/50' },
@@ -229,9 +253,9 @@ export const colorOptionsButtons = [
     gray: { 100: 'shadow-gray-100/50', 200: 'shadow-gray-200/50', 300: 'shadow-gray-300/50', 400: 'shadow-gray-400/50', 500: 'shadow-gray-500/50', 600: 'shadow-gray-600/50', 700: 'shadow-gray-700/50', 800: 'shadow-gray-800/50', 900: 'shadow-gray-900/50' },
     neutral: { 100: 'shadow-neutral-100/50', 200: 'shadow-neutral-200/50', 300: 'shadow-neutral-300/50', 400: 'shadow-neutral-400/50', 500: 'shadow-neutral-500/50', 600: 'shadow-neutral-600/50', 700: 'shadow-neutral-700/50', 800: 'shadow-neutral-800/50', 900: 'shadow-neutral-900/50' },
     stone: { 100: 'shadow-stone-100/50', 200: 'shadow-stone-200/50', 300: 'shadow-stone-300/50', 400: 'shadow-stone-400/50', 500: 'shadow-stone-500/50', 600: 'shadow-stone-600/50', 700: 'shadow-stone-700/50', 800: 'shadow-stone-800/50', 900: 'shadow-stone-900/50' },
-  } as const
+} as const
 
-  export const hoverShadowColorClassMap = {
+export const hoverShadowColorClassMap = {
     red: { 100: 'hover:shadow-red-100', 200: 'hover:shadow-red-200', 300: 'hover:shadow-red-300', 400: 'hover:shadow-red-400', 500: 'hover:shadow-red-500', 600: 'hover:shadow-red-600', 700: 'hover:shadow-red-700', 800: 'hover:shadow-red-800', 900: 'hover:shadow-red-900' },
     orange: { 100: 'hover:shadow-orange-100', 200: 'hover:shadow-orange-200', 300: 'hover:shadow-orange-300', 400: 'hover:shadow-orange-400', 500: 'hover:shadow-orange-500', 600: 'hover:shadow-orange-600', 700: 'hover:shadow-orange-700', 800: 'hover:shadow-orange-800', 900: 'hover:shadow-orange-900' },
     amber: { 100: 'hover:shadow-amber-100', 200: 'hover:shadow-amber-200', 300: 'hover:shadow-amber-300', 400: 'hover:shadow-amber-400', 500: 'hover:shadow-amber-500', 600: 'hover:shadow-amber-600', 700: 'hover:shadow-amber-700', 800: 'hover:shadow-amber-800', 900: 'hover:shadow-amber-900' },
@@ -254,6 +278,6 @@ export const colorOptionsButtons = [
     gray: { 100: 'hover:shadow-gray-100', 200: 'hover:shadow-gray-200', 300: 'hover:shadow-gray-300', 400: 'hover:shadow-gray-400', 500: 'hover:shadow-gray-500', 600: 'hover:shadow-gray-600', 700: 'hover:shadow-gray-700', 800: 'hover:shadow-gray-800', 900: 'hover:shadow-gray-900' },
     neutral: { 100: 'hover:shadow-neutral-100', 200: 'hover:shadow-neutral-200', 300: 'hover:shadow-neutral-300', 400: 'hover:shadow-neutral-400', 500: 'hover:shadow-neutral-500', 600: 'hover:shadow-neutral-600', 700: 'hover:shadow-neutral-700', 800: 'hover:shadow-neutral-800', 900: 'hover:shadow-neutral-900' },
     stone: { 100: 'hover:shadow-stone-100', 200: 'hover:shadow-stone-200', 300: 'hover:shadow-stone-300', 400: 'hover:shadow-stone-400', 500: 'hover:shadow-stone-500', 600: 'hover:shadow-stone-600', 700: 'hover:shadow-stone-700', 800: 'hover:shadow-stone-800', 900: 'hover:shadow-stone-900' },
-  } as const
+} as const
 
   
