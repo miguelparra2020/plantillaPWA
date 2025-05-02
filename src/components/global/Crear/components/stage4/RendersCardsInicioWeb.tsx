@@ -297,11 +297,13 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
         const isButtonGradient = selectedBgColorOption?.isGradient;
         const buttonGradientClass = selectedBgColorOption?.gradientClass || '';
 
+        const buttonHoverClass = isButtonGradient && selectedBgColorOption?.hoverClass ? selectedBgColorOption.hoverClass : '';
+        const buttonTextColor = isButtonGradient && selectedBgColorOption?.textColor ? selectedBgColorOption.textColor : 'text-white';
         const buttonClasses = `
-    px-2 md:py-1 md:px-4 text-white text-[6px] md:text-[8px] flex flex-row items-center justify-center
+    px-2 md:py-1 md:px-4 ${buttonTextColor} text-[6px] md:text-[8px] flex flex-row items-center justify-center
     ${store.infoStage3?.rounded || 'rounded'}
     ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`}
-    ${isButtonGradient ? '' : `hover:bg-${store.infoStage3?.bgColor || 'blue'}-${Math.min((store.infoStage3?.bgShade || 500) + 100, 900)}`}
+    ${isButtonGradient ? buttonHoverClass : `hover:bg-${store.infoStage3?.bgColor || 'blue'}-${Math.min((store.infoStage3?.bgShade || 500) + 100, 900)}`}
     ${store.infoStage3?.shadow || 'shadow'}
     hover:${store.infoStage3?.shadow === 'shadow-none' ? 'shadow-sm' : 
            store.infoStage3?.shadow === 'shadow-sm' ? 'shadow' :

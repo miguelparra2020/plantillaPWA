@@ -46,6 +46,13 @@ export const colorOptionsButtons = [
     { name: "Gradiente Zinc", value: "gradient-zinc", isGradient: true, gradientClass: "bg-gradient-to-r from-zinc-400 via-zinc-600 to-zinc-800" },
     { name: "Gradiente Neutral", value: "gradient-neutral", isGradient: true, gradientClass: "bg-gradient-to-r from-neutral-400 via-neutral-600 to-neutral-800" },
     { name: "Gradiente Stone", value: "gradient-stone", isGradient: true, gradientClass: "bg-gradient-to-r from-stone-400 via-stone-600 to-stone-800" },
+    { name: "Purple to Blue", value: "gradient-purple-blue", isGradient: true, gradientClass: "bg-gradient-to-br from-purple-600 to-blue-500", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
+    { name: "Cyan to Blue", value: "gradient-cyan-blue", isGradient: true, gradientClass: "bg-gradient-to-r from-cyan-500 to-blue-500", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
+    { name: "Green to Blue", value: "gradient-green-blue", isGradient: true, gradientClass: "bg-gradient-to-br from-green-400 to-blue-600", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
+    { name: "Purple to Pink", value: "gradient-purple-pink", isGradient: true, gradientClass: "bg-gradient-to-r from-purple-500 to-pink-500", hoverClass: "hover:bg-gradient-to-l", textColor: "text-white" },
+    { name: "Pink to Orange", value: "gradient-pink-orange", isGradient: true, gradientClass: "bg-gradient-to-br from-pink-500 to-orange-400", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
+    { name: "Teal to Lime", value: "gradient-teal-lime", isGradient: true, gradientClass: "bg-gradient-to-r from-teal-200 to-lime-200", hoverClass: "hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200", textColor: "text-gray-900" },
+    { name: "Red to Yellow", value: "gradient-red-yellow", isGradient: true, gradientClass: "bg-gradient-to-r from-red-200 via-red-300 to-yellow-200", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-gray-900" },
 ]
 
 export const bgShadeOptionsButtons = [
