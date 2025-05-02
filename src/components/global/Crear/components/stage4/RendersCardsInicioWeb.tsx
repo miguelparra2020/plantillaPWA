@@ -922,7 +922,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                 <div className="w-[50%] flex flex-col items-center justify-center"> 
                   <div>
                     {/* Vista previa de la card */}
-                    <div className={cardClasses2}>
+                    <div className={`${cardClasses2} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer`}>
                       {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && (
                         <div className="relative">
                           <img
@@ -981,14 +981,14 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                   </p>
                 </div>
 
-                <div className="w-full flex justify-center items-center">
-                  <div className="flex flex-wrap justify-center gap-2 max-w-[400px]">
+                <div className="w-full flex justify-center items-center ">
+                  <div className="flex flex-wrap justify-center gap-2 max-w-[400px] ">
                     {Array.from({ length: Math.min(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0, 11) }).map((_, index) => {
                       const cardDetails = store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio?.[index];
                       return (
-                        <div key={index} className={cardClasses2}>
+                        <div key={index} className={`${cardClasses2} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer`}>
                           {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && cardDetails?.imageCard && (
-                            <div className="relative">
+                            <div className="relative ">
                               <img
                                 src={cardDetails.imageCard}
                                 alt={`Card preview ${index + 1}`}
@@ -1036,7 +1036,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                   </div>
                 </div>
                 
-                <div className="w-full mt-2 pb-2 flex flex-col items-center justify-center text-center">
+                <div className="w-full mt-2 pb-2 flex flex-col items-center justify-center text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
                   <button type="button" className={buttonClasses}>
                     {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
                     <ArrowBigRightDash className='w-2 md:w-3 h-4' />
@@ -1078,7 +1078,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             {/* Vista previa de las cards */}
             <div className="w-full px-4 grid grid-cols-1 gap-2">
               {Array.from({ length: store.infoStage4.categorySelectToEdit?.cardInicioSettings?.quantityCardsSesionCardsInicio || 0 }).map((_, index) => (
-                <div key={index} className={cardClasses3}>
+                <div key={index} className={`${cardClasses3} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer`}>
                   {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage && store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.imageCard && (
                     <div className="relative">
                       <img
@@ -1126,7 +1126,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
               ))}
             </div>
           </div>
-          <div className="w-full mt-6 pb-2 flex flex-col items-center justify-center text-center">
+          <div className="w-full mt-6 pb-2 flex flex-col items-center justify-center text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
             <button type="button" className={buttonClasses}>
               {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
               <ArrowBigRightDash className='w-4 md:w-5 h-6' />
