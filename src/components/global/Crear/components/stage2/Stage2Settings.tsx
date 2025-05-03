@@ -127,33 +127,35 @@ const Stage2Settings = () => {
                 </SelectContent>
               </Select>
               
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm text-zinc-500">
-                  <span>
-                    {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.titleIntensityStage2:""}
-                    {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.titleIntensityStage2:""}
-                    {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.titleIntensityStage2:""}
-                    {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.titleIntensityStage2:""}
-                    : {localSettings.titleColorIntensity}
-                  </span>
+              {!isGradient && (
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm text-zinc-500">
+                    <span>
+                      {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage2.es.titleIntensityStage2:""}
+                      {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage2.en.titleIntensityStage2:""}
+                      {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage2.pt.titleIntensityStage2:""}
+                      {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage2.fr.titleIntensityStage2:""}
+                      : {localSettings.titleColorIntensity}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="500"
+                    max="900"
+                    step="100"
+                    value={localSettings.titleColorIntensity}
+                    onChange={(e) => handleIntensityChange('title', e.target.value)}
+                    className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-zinc-400">
+                    <span>500</span>
+                    <span>600</span>
+                    <span>700</span>
+                    <span>800</span>
+                    <span>900</span>
+                  </div>
                 </div>
-                <input
-                  type="range"
-                  min="500"
-                  max="900"
-                  step="100"
-                  value={localSettings.titleColorIntensity}
-                  onChange={(e) => handleIntensityChange('title', e.target.value)}
-                  className="w-full h-2 bg-zinc-100 rounded-lg appearance-none cursor-pointer"
-                />
-                <div className="flex justify-between text-xs text-zinc-400">
-                  <span>500</span>
-                  <span>600</span>
-                  <span>700</span>
-                  <span>800</span>
-                  <span>900</span>
-                </div>
-              </div>
+              )}
             </div>
 
             <div className="space-y-4">
