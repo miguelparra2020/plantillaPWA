@@ -114,6 +114,10 @@ export interface CardInicioSettings {
   titleColorShadeCard: number
   paragraphColorCard: string
   paragraphColorShadeCard: number
+  iconBgColor: string
+  iconBgShade: number
+  iconColor: string
+  iconColorShade: number
   titleSesionCardsInicio: string
   descriptionSesionCardsInicio: string
   nameButtonSesionCardsInicio: string
@@ -235,6 +239,10 @@ export const initializeCategoryCardSettings = (): CardInicioSettings => {
     titleColorShadeCard: 500,
     paragraphColorCard: 'slate',
     paragraphColorShadeCard: 500,
+    iconBgColor: 'slate',
+    iconBgShade: 500,
+    iconColor: 'slate',
+    iconColorShade: 500,
     titleSesionCardsInicio: '',
     descriptionSesionCardsInicio: '',
     nameButtonSesionCardsInicio: '',

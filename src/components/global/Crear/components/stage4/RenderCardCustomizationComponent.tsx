@@ -128,7 +128,7 @@ const colorOptions = [
   const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
 
   const handleSettingsChange = (
-    key: keyof CardInicioSettings,
+    key: keyof CardInicioSettings | 'iconBgColor' | 'iconBgShade' | 'iconColor' | 'iconColorShade',
     value: string | boolean | number
   ) => {
     const currentState = crearStore.get()
@@ -282,8 +282,8 @@ const colorOptions = [
                 {(() => {
                   const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star;
                   return (
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
-                      <IconComponent className="w-5 h-5 text-white" />
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500} shadow-lg`}>
+                      <IconComponent className={`w-5 h-5 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'white'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                     </div>
                   );
                 })()}
@@ -298,8 +298,8 @@ const colorOptions = [
                   {(() => {
                     const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star;
                     return (
-                      <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500} shadow-lg`}>
-                        <IconComponent className="w-5 h-5 text-white" />
+                      <div className={`flex items-center justify-center w-10 h-10 rounded-full bg-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500} shadow-lg`}>
+                        <IconComponent className={`w-5 h-5 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'white'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
                       </div>
                     );
                   })()}
@@ -375,7 +375,101 @@ const colorOptions = [
             </Select>
           </div> */}
 
+          {/* Color del fondo del icono */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Palette className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color del fondo del icono</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate'}
+                onValueChange={(value) => handleSettingsChange('iconBgColor', value)}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
+                    <SelectValue placeholder="Seleccione un color" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] bg-white">
+                  {colorOptions.map((color) => (
+                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
+                        <span>{color.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('iconBgShade', Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Intensidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
           {/* Color del icono */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Palette className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Color del icono</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
+                onValueChange={(value) => handleSettingsChange('iconColor', value)}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                    <SelectValue placeholder="Seleccione un color" />
+                  </div>
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px] bg-white">
+                  {colorOptions.map((color) => (
+                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                        <span>{color.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
+                onValueChange={(value) => handleSettingsChange('iconColorShade', Number.parseInt(value))}
+              >
+                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                  <SelectValue placeholder="Intensidad" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                    <SelectItem key={shade} value={shade.toString()}>
+                      {shade}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Color del título */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Palette className="w-4 h-4 text-zinc-500" />
