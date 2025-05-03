@@ -24,14 +24,22 @@ const Stage2Settings = () => {
     paragraphSize: '',
     titleColorIntensity: '700',
     paragraphColorIntensity: '600',
+    classTitlesGeneral: '',
+    classParagraphGeneral: ''
   })
 
   const handleSettingsChange = (key: keyof InfoStage2, value: string) => {
+    const selectedColorOption = colorOptionsTitles.find(color => color.value === value);
+    const isGradientForNewColor = selectedColorOption?.isGradient;
+    const gradientClassForNewColor = selectedColorOption?.gradientClass || '';
+
     const updatedSettings = { 
       ...localSettings, 
       [key]: value,
-      colorTitlesSave: key === 'colorTitles' ? `text-${value}-${localSettings.titleColorIntensity}` : localSettings.colorTitlesSave,
-      colorParagraphSave: key === 'colorParagraph' ? `text-${value}-${localSettings.paragraphColorIntensity}` : localSettings.colorParagraphSave
+      colorTitlesSave: key === 'colorTitles' ? (isGradientForNewColor ? gradientClassForNewColor : `text-${value}-${localSettings.titleColorIntensity}`) : localSettings.colorTitlesSave,
+      colorParagraphSave: key === 'colorParagraph' ? `text-${value}-${localSettings.paragraphColorIntensity}` : localSettings.colorParagraphSave,
+      classTitlesGeneral: `${key === 'colorTitles' ? (isGradientForNewColor ? gradientClassForNewColor : `text-${value}-${localSettings.titleColorIntensity}`) : localSettings.colorTitlesSave} ${key === 'titleFont' ? value : localSettings.titleFont} ${key === 'titleWeight' ? value : localSettings.titleWeight} ${key === 'titleSize' ? value : localSettings.titleSize}`,
+      classParagraphGeneral: `${key === 'colorParagraph' ? `text-${value}-${localSettings.paragraphColorIntensity}` : localSettings.colorParagraphSave} ${key === 'paragraphFont' ? value : localSettings.paragraphFont} ${key === 'paragraphWeight' ? value : localSettings.paragraphWeight} ${key === 'paragraphSize' ? value : localSettings.paragraphSize}`
     }
     setLocalSettings(updatedSettings)
 
@@ -43,11 +51,17 @@ const Stage2Settings = () => {
   const handleIntensityChange = (type: 'title' | 'paragraph', value: string) => {
     const key = type === 'title' ? 'titleColorIntensity' : 'paragraphColorIntensity'
     const colorKey = type === 'title' ? 'colorTitles' : 'colorParagraph'
+    const selectedColorOption = colorOptionsTitles.find(color => color.value === localSettings.colorTitles);
+    const isGradientForCurrentColor = selectedColorOption?.isGradient;
+    const gradientClassForCurrentColor = selectedColorOption?.gradientClass || '';
+
     const updatedSettings = {
       ...localSettings,
       [key]: value,
-      colorTitlesSave: type === 'title' ? `text-${localSettings.colorTitles}-${value}` : localSettings.colorTitlesSave,
-      colorParagraphSave: type === 'paragraph' ? `text-${localSettings.colorParagraph}-${value}` : localSettings.colorParagraphSave
+      colorTitlesSave: type === 'title' ? (isGradientForCurrentColor ? gradientClassForCurrentColor : `text-${localSettings.colorTitles}-${value}`) : localSettings.colorTitlesSave,
+      colorParagraphSave: type === 'paragraph' ? `text-${localSettings.colorParagraph}-${value}` : localSettings.colorParagraphSave,
+      classTitlesGeneral: type === 'title' ? `${isGradientForCurrentColor ? gradientClassForCurrentColor : `text-${localSettings.colorTitles}-${value}`} ${localSettings.titleFont} ${localSettings.titleWeight} ${localSettings.titleSize}` : localSettings.classTitlesGeneral,
+      classParagraphGeneral: type === 'paragraph' ? `text-${localSettings.colorParagraph}-${value} ${localSettings.paragraphFont} ${localSettings.paragraphWeight} ${localSettings.paragraphSize}` : localSettings.classParagraphGeneral
     }
     setLocalSettings(updatedSettings)
 
