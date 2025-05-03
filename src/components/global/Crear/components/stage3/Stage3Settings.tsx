@@ -104,7 +104,7 @@ const Stage3Settings = () => {
       (infoStage3.textColor === 'white' ? 'text-white' : `text-${infoStage3.textColor}-${infoStage3.textShade}`) 
       : 'text-white'}
     ${infoStage3?.rounded || 'rounded'}
-    ${isGradient ? gradientClass : 
+    ${isGradient ? `bg-gradient-to-r ${gradientClass}` : 
       (infoStage3?.bgColor && infoStage3?.bgShade ? 
         (infoStage3.bgColor === 'white' ? 'bg-white' : `bg-${infoStage3.bgColor}-${infoStage3.bgShade}`) 
         : 'bg-blue-500')}
@@ -117,7 +117,8 @@ const Stage3Settings = () => {
     ${infoStage3?.hasBorder && infoStage3?.borderColor && infoStage3?.borderShade ? 
       `${infoStage3.borderWidth} border-${infoStage3.borderColor}-${infoStage3.borderShade}` : ""}
     ${infoStage3?.bgColorHover && infoStage3?.bgShadeHover ? 
-      (infoStage3.bgColorHover === 'white' ? 'hover:bg-white' : `hover:bg-${infoStage3.bgColorHover}-${infoStage3.bgShadeHover}`) 
+      (isHoverGradient ? `hover:bg-gradient-to-r ${hoverGradientClass}` : 
+        (infoStage3.bgColorHover === 'white' ? 'hover:bg-white' : `hover:bg-${infoStage3.bgColorHover}-${infoStage3.bgShadeHover}`)) 
       : ''}
     hover:${getHoverShadow(infoStage3?.shadow || 'shadow')}
   `.replace(/\s+/g, ' ').trim()
@@ -128,11 +129,15 @@ const Stage3Settings = () => {
   const hoverShadowInfo = getHoverShadow(infoStage3?.shadow || 'shadow')
 
   const handleSettingsChange = (key: keyof InfoStage3, value: string | number | boolean) => {
+    const selectedColorOption = colorOptionsButtons.find(color => color.value === value);
+    const isGradientForNewColor = selectedColorOption?.isGradient;
+    const gradientClassForNewColor = selectedColorOption?.gradientClass || '';
+
     const newSettings = { 
       ...infoStage3, 
       [key]: value,
-      bgButton: key === 'bgColor' || key === 'bgShade' 
-        ? `bg-${key === 'bgColor' ? value : infoStage3.bgColor}-${key === 'bgShade' ? value : infoStage3.bgShade}` 
+      bgButton: key === 'bgColor' 
+        ? (isGradientForNewColor ? `bg-gradient-to-r ${gradientClassForNewColor}` : `bg-${value}-${infoStage3.bgShade}`)
         : infoStage3.bgButton
     }
 
@@ -143,7 +148,7 @@ const Stage3Settings = () => {
         (newSettings.textColor === 'white' ? 'text-white' : `text-${newSettings.textColor}-${newSettings.textShade}`) 
         : 'text-white'}
       ${newSettings?.rounded || 'rounded'}
-      ${isGradient ? gradientClass : 
+      ${isGradientForNewColor ? `bg-gradient-to-r ${gradientClassForNewColor}` : 
         (newSettings?.bgColor && newSettings?.bgShade ? 
           (newSettings.bgColor === 'white' ? 'bg-white' : `bg-${newSettings.bgColor}-${newSettings.bgShade}`) 
           : 'bg-blue-500')}
@@ -156,7 +161,8 @@ const Stage3Settings = () => {
       ${newSettings?.hasBorder && newSettings?.borderColor && newSettings?.borderShade ? 
         `${newSettings.borderWidth} border-${newSettings.borderColor}-${newSettings.borderShade}` : ""}
       ${newSettings?.bgColorHover && newSettings?.bgShadeHover ? 
-        (newSettings.bgColorHover === 'white' ? 'hover:bg-white' : `hover:bg-${newSettings.bgColorHover}-${newSettings.bgShadeHover}`) 
+        (isHoverGradient ? `hover:bg-gradient-to-r ${hoverGradientClass}` : 
+          (newSettings.bgColorHover === 'white' ? 'hover:bg-white' : `hover:bg-${newSettings.bgColorHover}-${newSettings.bgShadeHover}`)) 
         : ''}
       hover:${getHoverShadow(newSettings?.shadow || 'shadow')}
     `.replace(/\s+/g, ' ').trim()
