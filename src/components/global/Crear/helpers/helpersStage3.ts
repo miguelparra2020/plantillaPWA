@@ -1,58 +1,321 @@
 export const colorOptionsButtons = [
-    { name: "Red", value: "red" },
-    { name: "Orange", value: "orange" },
-    { name: "Amber", value: "amber" },
-    { name: "Yellow", value: "yellow" },
-    { name: "Lime", value: "lime" },
-    { name: "Green", value: "green" },
-    { name: "Emerald", value: "emerald" },
-    { name: "Teal", value: "teal" },
-    { name: "Cyan", value: "cyan" },
-    { name: "Sky", value: "sky" },
-    { name: "Blue", value: "blue" },
-    { name: "Indigo", value: "indigo" },
-    { name: "Violet", value: "violet" },
-    { name: "Purple", value: "purple" },
-    { name: "Fuchsia", value: "fuchsia" },
-    { name: "Pink", value: "pink" },
-    { name: "Rose", value: "rose" },
-    { name: "Slate", value: "slate" },
-    { name: "Zinc", value: "zinc" },
-    { name: "Gray", value: "gray" },
-    { name: "Neutral", value: "neutral" },
-    { name: "Stone", value: "stone" },
-    { name: "Gradiente Ámbar", value: "gradient-amber", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-600 to-amber-800" },
-    { name: "Gradiente Azul", value: "gradient-blue", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-500 to-blue-800" },
-    { name: "Gradiente Dorado", value: "gradient-gold", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-600 via-yellow-700 to-yellow-800" },
-    { name: "Gradiente Red", value: "gradient-red", isGradient: true, gradientClass: "bg-gradient-to-r from-red-400 via-red-600 to-red-800" },
-    { name: "Gradiente Orange", value: "gradient-orange", isGradient: true, gradientClass: "bg-gradient-to-r from-orange-400 via-orange-600 to-orange-800" },
-    { name: "Gradiente Amber", value: "gradient-amber-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-amber-400 via-amber-600 to-amber-800" },
-    { name: "Gradiente Yellow", value: "gradient-yellow", isGradient: true, gradientClass: "bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-800" },
-    { name: "Gradiente Lime", value: "gradient-lime", isGradient: true, gradientClass: "bg-gradient-to-r from-lime-400 via-lime-600 to-lime-800" },
-    { name: "Gradiente Green", value: "gradient-green", isGradient: true, gradientClass: "bg-gradient-to-r from-green-400 via-green-600 to-green-800" },
-    { name: "Gradiente Emerald", value: "gradient-emerald", isGradient: true, gradientClass: "bg-gradient-to-r from-emerald-400 via-emerald-600 to-emerald-800" },
-    { name: "Gradiente Teal", value: "gradient-teal", isGradient: true, gradientClass: "bg-gradient-to-r from-teal-400 via-teal-600 to-teal-800" },
-    { name: "Gradiente Cyan", value: "gradient-cyan", isGradient: true, gradientClass: "bg-gradient-to-r from-cyan-400 via-cyan-600 to-cyan-800" },
-    { name: "Gradiente Sky", value: "gradient-sky", isGradient: true, gradientClass: "bg-gradient-to-r from-sky-400 via-sky-600 to-sky-800" },
-    { name: "Gradiente Blue", value: "gradient-blue-auto", isGradient: true, gradientClass: "bg-gradient-to-r from-blue-400 via-blue-600 to-blue-800" },
-    { name: "Gradiente Indigo", value: "gradient-indigo", isGradient: true, gradientClass: "bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-800" },
-    { name: "Gradiente Violet", value: "gradient-violet", isGradient: true, gradientClass: "bg-gradient-to-r from-violet-400 via-violet-600 to-violet-800" },
-    { name: "Gradiente Purple", value: "gradient-purple", isGradient: true, gradientClass: "bg-gradient-to-r from-purple-400 via-purple-600 to-purple-800" },
-    { name: "Gradiente Fuchsia", value: "gradient-fuchsia", isGradient: true, gradientClass: "bg-gradient-to-r from-fuchsia-400 via-fuchsia-600 to-fuchsia-800" },
-    { name: "Gradiente Pink", value: "gradient-pink", isGradient: true, gradientClass: "bg-gradient-to-r from-pink-400 via-pink-600 to-pink-800" },
-    { name: "Gradiente Rose", value: "gradient-rose", isGradient: true, gradientClass: "bg-gradient-to-r from-rose-400 via-rose-600 to-rose-800" },
-    { name: "Gradiente Slate", value: "gradient-slate", isGradient: true, gradientClass: "bg-gradient-to-r from-slate-400 via-slate-600 to-slate-800" },
-    { name: "Gradiente Gray", value: "gradient-gray", isGradient: true, gradientClass: "bg-gradient-to-r from-gray-400 via-gray-600 to-gray-800" },
-    { name: "Gradiente Zinc", value: "gradient-zinc", isGradient: true, gradientClass: "bg-gradient-to-r from-zinc-400 via-zinc-600 to-zinc-800" },
-    { name: "Gradiente Neutral", value: "gradient-neutral", isGradient: true, gradientClass: "bg-gradient-to-r from-neutral-400 via-neutral-600 to-neutral-800" },
-    { name: "Gradiente Stone", value: "gradient-stone", isGradient: true, gradientClass: "bg-gradient-to-r from-stone-400 via-stone-600 to-stone-800" },
-    { name: "Purple to Blue", value: "gradient-purple-blue", isGradient: true, gradientClass: "bg-gradient-to-br from-purple-600 to-blue-500", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
-    { name: "Cyan to Blue", value: "gradient-cyan-blue", isGradient: true, gradientClass: "bg-gradient-to-r from-cyan-500 to-blue-500", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
-    { name: "Green to Blue", value: "gradient-green-blue", isGradient: true, gradientClass: "bg-gradient-to-br from-green-400 to-blue-600", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
-    { name: "Purple to Pink", value: "gradient-purple-pink", isGradient: true, gradientClass: "bg-gradient-to-r from-purple-500 to-pink-500", hoverClass: "hover:bg-gradient-to-l", textColor: "text-white" },
-    { name: "Pink to Orange", value: "gradient-pink-orange", isGradient: true, gradientClass: "bg-gradient-to-br from-pink-500 to-orange-400", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-white" },
-    { name: "Teal to Lime", value: "gradient-teal-lime", isGradient: true, gradientClass: "bg-gradient-to-r from-teal-200 to-lime-200", hoverClass: "hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200", textColor: "text-gray-900" },
-    { name: "Red to Yellow", value: "gradient-red-yellow", isGradient: true, gradientClass: "bg-gradient-to-r from-red-200 via-red-300 to-yellow-200", hoverClass: "hover:bg-gradient-to-bl", textColor: "text-gray-900" },
+    // Colores sólidos
+    { name: "Rojo", value: "red", type: "solid" },
+    { name: "Naranja", value: "orange", type: "solid" },
+    { name: "Ámbar", value: "amber", type: "solid" },
+    { name: "Amarillo", value: "yellow", type: "solid" },
+    { name: "Lima", value: "lime", type: "solid" },
+    { name: "Verde", value: "green", type: "solid" },
+    { name: "Esmeralda", value: "emerald", type: "solid" },
+    { name: "Verde Azulado", value: "teal", type: "solid" },
+    { name: "Cian", value: "cyan", type: "solid" },
+    { name: "Celeste", value: "sky", type: "solid" },
+    { name: "Azul", value: "blue", type: "solid" },
+    { name: "Índigo", value: "indigo", type: "solid" },
+    { name: "Violeta", value: "violet", type: "solid" },
+    { name: "Púrpura", value: "purple", type: "solid" },
+    { name: "Fucsia", value: "fuchsia", type: "solid" },
+    { name: "Rosa", value: "pink", type: "solid" },
+    { name: "Rosado", value: "rose", type: "solid" },
+    { name: "Pizarra", value: "slate", type: "solid" },
+    { name: "Zinc", value: "zinc", type: "solid" },
+    { name: "Gris", value: "gray", type: "solid" },
+    { name: "Neutral", value: "neutral", type: "solid" },
+    { name: "Piedra", value: "stone", type: "solid" },
+
+    // Gradientes modernos con efectos
+    { 
+        name: "Púrpura a Azul", 
+        value: "gradient-purple-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-purple-600 to-blue-500",
+        hoverClass: "hover:bg-gradient-to-bl",
+        shadowClass: "shadow-lg shadow-blue-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-blue-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Cian a Azul", 
+        value: "gradient-cyan-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-cyan-500 to-blue-500",
+        hoverClass: "hover:bg-gradient-to-bl",
+        shadowClass: "shadow-lg shadow-blue-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-cyan-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde a Azul", 
+        value: "gradient-green-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-green-400 to-blue-600",
+        hoverClass: "hover:bg-gradient-to-bl",
+        shadowClass: "shadow-lg shadow-blue-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-green-200",
+        textColor: "text-white"
+    },
+    { 
+        name: "Púrpura a Rosa", 
+        value: "gradient-purple-pink", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-purple-500 to-pink-500",
+        hoverClass: "hover:bg-gradient-to-l",
+        shadowClass: "shadow-lg shadow-pink-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-purple-200",
+        textColor: "text-white"
+    },
+    { 
+        name: "Rosa a Naranja", 
+        value: "gradient-pink-orange", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-pink-500 to-orange-400",
+        hoverClass: "hover:bg-gradient-to-bl",
+        shadowClass: "shadow-lg shadow-orange-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-pink-200",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde Azulado a Lima", 
+        value: "gradient-teal-lime", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-teal-200 to-lime-200",
+        hoverClass: "hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200",
+        shadowClass: "shadow-lg shadow-lime-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-lime-200",
+        textColor: "text-gray-900"
+    },
+    { 
+        name: "Rojo a Amarillo", 
+        value: "gradient-red-yellow", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-red-200 via-red-300 to-yellow-200",
+        hoverClass: "hover:bg-gradient-to-bl",
+        shadowClass: "shadow-lg shadow-yellow-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-red-100",
+        textColor: "text-gray-900"
+    },
+    { 
+        name: "Azul Moderno", 
+        value: "gradient-blue-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-blue-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-blue-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde Moderno", 
+        value: "gradient-green-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-green-400 via-green-500 to-green-600",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-green-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-green-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Cian Moderno", 
+        value: "gradient-cyan-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-cyan-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-cyan-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde Azulado Moderno", 
+        value: "gradient-teal-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-teal-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-teal-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Lima Moderno", 
+        value: "gradient-lime-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-lime-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-lime-300",
+        textColor: "text-gray-900"
+    },
+    { 
+        name: "Rojo Moderno", 
+        value: "gradient-red-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-red-400 via-red-500 to-red-600",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-red-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-red-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Rosa Moderno", 
+        value: "gradient-pink-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-pink-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-pink-300",
+        textColor: "text-white"
+    },
+    { 
+        name: "Púrpura Moderno", 
+        value: "gradient-purple-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700",
+        hoverClass: "hover:bg-gradient-to-br",
+        shadowClass: "shadow-lg shadow-purple-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-purple-300",
+        textColor: "text-white"
+    },
+
+    // Gradientes modernos
+    { 
+        name: "Azul Moderno", 
+        value: "gradient-blue-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700",
+        hoverClass: "hover:from-blue-600 hover:via-blue-700 hover:to-blue-800",
+        shadowClass: "shadow-lg shadow-blue-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-blue-300"
+    },
+    { 
+        name: "Verde Moderno", 
+        value: "gradient-green-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-green-400 via-green-500 to-green-600",
+        hoverClass: "hover:from-green-500 hover:via-green-600 hover:to-green-700",
+        shadowClass: "shadow-lg shadow-green-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-green-300"
+    },
+    { 
+        name: "Cian Moderno", 
+        value: "gradient-cyan-modern", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600",
+        hoverClass: "hover:from-cyan-500 hover:via-cyan-600 hover:to-cyan-700",
+        shadowClass: "shadow-lg shadow-cyan-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-cyan-300"
+    },
+
+    // Nuevos gradientes modernos
+    { 
+        name: "Índigo Profundo", 
+        value: "gradient-indigo-deep", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-indigo-500 via-indigo-600 to-indigo-800",
+        hoverClass: "hover:from-indigo-600 hover:via-indigo-700 hover:to-indigo-900",
+        shadowClass: "shadow-lg shadow-indigo-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-indigo-300"
+    },
+    { 
+        name: "Violeta Vibrante", 
+        value: "gradient-violet-vibrant", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-violet-500 via-violet-600 to-violet-700",
+        hoverClass: "hover:from-violet-600 hover:via-violet-700 hover:to-violet-800",
+        shadowClass: "shadow-lg shadow-violet-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-violet-300"
+    },
+    { 
+        name: "Fucsia Brillante", 
+        value: "gradient-fuchsia-bright", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-fuchsia-500 via-fuchsia-600 to-fuchsia-700",
+        hoverClass: "hover:from-fuchsia-600 hover:via-fuchsia-700 hover:to-fuchsia-800",
+        shadowClass: "shadow-lg shadow-fuchsia-500/50",
+        focusClass: "focus:ring-4 focus:outline-none focus:ring-fuchsia-300"
+    },
+
+    // Gradientes combinados
+    { 
+        name: "Púrpura a Azul", 
+        value: "gradient-purple-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-purple-600 to-blue-500",
+        hoverClass: "hover:from-purple-700 hover:to-blue-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Cian a Azul", 
+        value: "gradient-cyan-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-cyan-500 to-blue-500",
+        hoverClass: "hover:from-cyan-600 hover:to-blue-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde a Azul", 
+        value: "gradient-green-blue", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-green-400 to-blue-600",
+        hoverClass: "hover:from-green-500 hover:to-blue-700",
+        textColor: "text-white"
+    },
+    { 
+        name: "Púrpura a Rosa", 
+        value: "gradient-purple-pink", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-purple-500 to-pink-500",
+        hoverClass: "hover:from-purple-600 hover:to-pink-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Rosa a Naranja", 
+        value: "gradient-pink-orange", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-pink-500 to-orange-400",
+        hoverClass: "hover:from-pink-600 hover:to-orange-500",
+        textColor: "text-white"
+    },
+
+    // Nuevos gradientes combinados
+    { 
+        name: "Índigo a Púrpura", 
+        value: "gradient-indigo-purple", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-indigo-500 to-purple-500",
+        hoverClass: "hover:from-indigo-600 hover:to-purple-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde a Cian", 
+        value: "gradient-green-cyan", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-green-500 to-cyan-400",
+        hoverClass: "hover:from-green-600 hover:to-cyan-500",
+        textColor: "text-white"
+    },
+    { 
+        name: "Rosa a Fucsia", 
+        value: "gradient-pink-fuchsia", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-pink-500 to-fuchsia-500",
+        hoverClass: "hover:from-pink-600 hover:to-fuchsia-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Ámbar a Naranja", 
+        value: "gradient-amber-orange", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-br from-amber-500 to-orange-500",
+        hoverClass: "hover:from-amber-600 hover:to-orange-600",
+        textColor: "text-white"
+    },
+    { 
+        name: "Verde a Esmeralda", 
+        value: "gradient-green-emerald", 
+        isGradient: true,
+        gradientClass: "bg-gradient-to-r from-green-500 to-emerald-500",
+        hoverClass: "hover:from-green-600 hover:to-emerald-600",
+        textColor: "text-white"
+    }
 ]
 
 export const bgShadeOptionsButtons = [

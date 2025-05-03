@@ -16,4 +16,8 @@ export interface InfoStage3 {
   buttonFont: string
   buttonWeight: string
   buttonSize: string
+  bgColorHover?: string
+  bgShadeHover?: number
+  textColorHover?: string
+  textShadeHover?: number
 } 

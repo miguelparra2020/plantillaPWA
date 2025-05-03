@@ -28,6 +28,10 @@ export interface InfoStage3 {
   bgShade: number
   textColor: string
   textShade: number
+  bgColorHover?: string
+  bgShadeHover?: number
+  textColorHover?: string
+  textShadeHover?: number
   
   // Bordes
   rounded: string
@@ -151,6 +155,10 @@ const loadState = (): CrearState => {
       bgShade: 500,
       textColor: 'white',
       textShade: 500,
+      bgColorHover: 'blue',
+      bgShadeHover: 600,
+      textColorHover: 'white',
+      textShadeHover: 500,
       rounded: 'rounded',
       hasBorder: false,
       borderColor: 'blue',
