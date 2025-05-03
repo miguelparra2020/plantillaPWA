@@ -1,3 +1,5 @@
+import { InfoStage3 } from '../../../../stores/crearStore'
+
 export const colorOptionsButtons = [
     // Colores sólidos
     { name: "Rojo", value: "red", type: "solid" },
@@ -749,5 +751,78 @@ export const hoverShadowColorClassMap = {
     neutral: { 100: 'hover:shadow-neutral-100', 200: 'hover:shadow-neutral-200', 300: 'hover:shadow-neutral-300', 400: 'hover:shadow-neutral-400', 500: 'hover:shadow-neutral-500', 600: 'hover:shadow-neutral-600', 700: 'hover:shadow-neutral-700', 800: 'hover:shadow-neutral-800', 900: 'hover:shadow-neutral-900' },
     stone: { 100: 'hover:shadow-stone-100', 200: 'hover:shadow-stone-200', 300: 'hover:shadow-stone-300', 400: 'hover:shadow-stone-400', 500: 'hover:shadow-stone-500', 600: 'hover:shadow-stone-600', 700: 'hover:shadow-stone-700', 800: 'hover:shadow-stone-800', 900: 'hover:shadow-stone-900' },
 } as const
+
+// Función para generar la clase general del botón
+export const generateButtonGeneralClass = (info: InfoStage3): string => {
+  const classes: string[] = []
+
+  // Clase base
+  classes.push('w-full py-2 px-4 transition-all duration-300')
+
+  // Fuente
+  classes.push(`font-${info.buttonFont}`)
+  classes.push(`font-${info.buttonWeight}`)
+  classes.push(`text-${info.buttonSize}`)
+
+  // Redondeo
+  classes.push(`rounded-${info.rounded}`)
+
+  // Borde
+  if (info.hasBorder) {
+    classes.push(`border-${info.borderWidth}`)
+    classes.push(`border-${info.borderColor}-${info.borderShade}`)
+  }
+
+  // Sombra
+  if (info.shadow !== 'none') {
+    classes.push(`shadow-${info.shadow}`)
+    classes.push(`shadow-${info.shadowColor}-${info.shadowShade}`)
+  }
+
+  // Color de fondo
+  if (info.bgColor === 'gradient') {
+    classes.push('bg-gradient-to-r')
+    classes.push(`from-${info.bgButton}-${info.bgShade}`)
+    classes.push(`to-${info.bgButtonSave}-${info.bgShade}`)
+  } else {
+    classes.push(`bg-${info.bgColor}-${info.bgShade}`)
+  }
+
+  // Color de texto
+  classes.push(`text-${info.textColor}-${info.textShade}`)
+
+  // Hover
+  if (info.bgColorHover) {
+    if (info.bgColorHover === 'gradient') {
+      classes.push('hover:bg-gradient-to-r')
+      classes.push(`hover:from-${info.bgButton}-${info.bgShadeHover}`)
+      classes.push(`hover:to-${info.bgButtonSave}-${info.bgShadeHover}`)
+    } else {
+      classes.push(`hover:bg-${info.bgColorHover}-${info.bgShadeHover}`)
+    }
+  }
+
+  if (info.textColorHover) {
+    classes.push(`hover:text-${info.textColorHover}-${info.textShadeHover}`)
+  }
+
+  // Hover de sombra
+  if (info.shadow !== 'none') {
+    classes.push('hover:shadow-lg')
+  }
+
+  return classes.join(' ')
+}
+
+// Función para guardar la configuración del botón
+export const saveButton = (info: InfoStage3): InfoStage3 => {
+  // Generar la clase general del botón
+  const classButtonGeneral = generateButtonGeneralClass(info)
+
+  return {
+    ...info,
+    classButtonGeneral
+  }
+}
 
   

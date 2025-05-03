@@ -55,6 +55,7 @@ export interface InfoStage3 {
   // Al guardar
   bgButton: string
   bgButtonSave: string
+  classButtonGeneral: string
 }
 
 export interface InfoStage4 {
@@ -174,6 +175,7 @@ const loadState = (): CrearState => {
       buttonFont: '',
       buttonWeight: 'normal',
       buttonSize: 'medium',
+      classButtonGeneral: '',
     },
     infoStage4: {
       businessCategories: [],

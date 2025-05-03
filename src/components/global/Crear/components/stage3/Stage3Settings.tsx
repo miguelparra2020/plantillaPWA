@@ -78,7 +78,8 @@ const Stage3Settings = () => {
       bgButtonSave: '',
       buttonFont: '',
       buttonWeight: '',
-      buttonSize: ''
+      buttonSize: '',
+      classButtonGeneral: 'px-4 py-2 text-white rounded bg-blue-500 shadow shadow-gray-500/50 transition-all duration-200'
     };
 
     return store.infoStage3 ? {
@@ -169,7 +170,8 @@ const Stage3Settings = () => {
 
     const updatedSettings = {
       ...newSettings,
-      bgButtonSave: currentButtonClasses
+      bgButtonSave: currentButtonClasses,
+      classButtonGeneral: currentButtonClasses
     }
     setLocalSettings(updatedSettings)
     crearStore.set({ ...crearStore.get(), infoStage3: updatedSettings })
