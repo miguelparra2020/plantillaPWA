@@ -177,14 +177,10 @@ const Stage2Settings = () => {
                   <SelectValue placeholder="Selecciona un color" />
                 </SelectTrigger>
                 <SelectContent  className='bg-white'>
-                  {colorOptionsTitles.map((color) => (
+                  {colorOptionsTitles.filter(color => !color.isGradient).map((color) => (
                     <SelectItem key={color.value} value={color.value}>
                       <div className="flex items-center gap-2">
-                        {color.isGradient ? (
-                          <div className={`w-4 h-4 rounded-full ${color.gradientClass}`} />
-                        ) : (
-                          <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
-                        )}
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-500`} />
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
