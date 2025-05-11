@@ -68,9 +68,11 @@ import { RadioGroup, RadioGroupItem } from '@radix-ui/react-radio-group'
 import { colorClassMap, colorOptionsTitles } from '../../helpers/helpersStage2'
 import { Label } from '../ui/label'
 import { RenderInitialQuestionComponentProps, CardInicioSettings } from '../../interfaces/modelsStage4'
+import { useState, useEffect } from 'react'
 
 export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const store = useStore(crearStore)
+    const [isValid, setIsValid] = useState(false)
 
     const colorMap = {
         amber: '#f59e0b',
@@ -211,6 +213,92 @@ bg-white w-[340px]
       { name: "Reloj", value: "watch", icon: Watch },
       { name: "Rayo", value: "zap", icon: Zap }
     ]
+
+    // Función para validar los atributos requeridos
+    const validateRequiredAttributes = () => {
+      const selectedCategory = store.infoStage4?.categorySelectToEdit
+      if (!selectedCategory) return false
+
+      const { cardInicioSettings } = selectedCategory
+      if (!cardInicioSettings) return false
+
+      // Validar atributos básicos
+      const basicAttributesValid = 
+        cardInicioSettings.title !== undefined &&
+        cardInicioSettings.description !== undefined &&
+        cardInicioSettings.textAlign !== undefined
+
+      // Validar atributos de personalización (sin borde)
+      const customizationValid = 
+        cardInicioSettings.classCardCustomization?.rounded !== undefined &&
+        cardInicioSettings.classCardCustomization?.shadow !== undefined
+
+      // Validar atributos de color
+      const colorAttributesValid = 
+        cardInicioSettings.titleColorCard !== undefined &&
+        cardInicioSettings.titleColorShadeCard !== undefined &&
+        cardInicioSettings.paragraphColorCard !== undefined &&
+        cardInicioSettings.paragraphColorShadeCard !== undefined &&
+        cardInicioSettings.iconBgColor !== undefined &&
+        cardInicioSettings.iconBgShade !== undefined &&
+        cardInicioSettings.iconColor !== undefined &&
+        cardInicioSettings.iconColorShade !== undefined
+
+      return basicAttributesValid && customizationValid && colorAttributesValid
+    }
+
+    // Efecto para actualizar la validación cuando cambien los atributos
+    useEffect(() => {
+      // Inicializar classCardCustomization si no existe
+      const currentState = crearStore.get()
+      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+      
+      if (selectedCategory && !selectedCategory.cardInicioSettings.classCardCustomization) {
+        const updatedState = {
+          ...currentState,
+          infoStage4: {
+            ...currentState.infoStage4,
+            businessCategories: currentState.infoStage4?.businessCategories?.map(cat => 
+              cat.id === selectedCategory.id 
+                ? {
+                    ...cat,
+                    cardInicioSettings: {
+                      ...cat.cardInicioSettings,
+                      classCardCustomization: {
+                        rounded: 'rounded-lg',
+                        shadow: 'shadow-md',
+                        hasBorder: false,
+                        borderWidth: 'border',
+                        borderColor: 'slate',
+                        borderShade: '500'
+                      }
+                    }
+                  }
+                : cat
+            ),
+            categorySelectToEdit: {
+              ...selectedCategory,
+              cardInicioSettings: {
+                ...selectedCategory.cardInicioSettings,
+                classCardCustomization: {
+                  rounded: 'rounded-lg',
+                  shadow: 'shadow-md',
+                  hasBorder: false,
+                  borderWidth: 'border',
+                  borderColor: 'slate',
+                  borderShade: '500'
+                }
+              }
+            }
+          }
+        }
+
+        crearStore.set(updatedState)
+        localStorage.setItem('crearStore', JSON.stringify(updatedState))
+      }
+
+      setIsValid(validateRequiredAttributes())
+    }, [store.infoStage4?.categorySelectToEdit?.cardInicioSettings])
 
     return(<>
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
@@ -1098,7 +1186,7 @@ bg-white w-[340px]
       <button
         type="button"
         onClick={() => setCurrentStep("edit-select-categories")}
-        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+        className="w-[30%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-medium rounded-xl transition-colors"
       >
         <ArrowBigLeftDash className="w-4 h-4" />
         atrás
@@ -1106,7 +1194,12 @@ bg-white w-[340px]
         <button
           type="button"
           onClick={() => setCurrentStep("cards-inicio-web")}
-          className="w-[70%] h-10 mt-4 flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800  text-white text-sm font-medium rounded-xl transition-colors"
+          disabled={!isValid}
+          className={`w-[70%] h-10 mt-4 flex items-center justify-center gap-2 text-white text-sm font-medium rounded-xl transition-colors ${
+            isValid 
+              ? 'bg-gray-800 hover:bg-gray-900' 
+              : 'bg-gray-300 cursor-not-allowed opacity-50'
+          }`}
         >
             <ArrowBigRightDash className="w-4 h-4" />
             Siguiente personalización

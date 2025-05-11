@@ -942,8 +942,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
-                                  <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
+                                <div className={`flex items-center justify-center w-4 h-4 md:w-6 md:h-6 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                  <IconComponent className={`w-2 h-2 md:w-3 md:h-3 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                 </div>
                               );
                             })()}
@@ -956,8 +956,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
-                                  <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
+                                <div className={`flex items-center justify-center w-4 h-4 md:w-6 md:h-6 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                  <IconComponent className={`w-2 h-2 md:w-3 md:h-3 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                 </div>
                               );
                             })()}
