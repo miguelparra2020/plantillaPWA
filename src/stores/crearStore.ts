@@ -98,18 +98,22 @@ export interface InfoStage4 {
   paragraphColor: string
 }
 
-export interface CardInicioSettings {
-  showImage: boolean
-  icon: string
-  title: string
-  description: string
-  textAlign: string
+export interface CardCustomization {
   rounded: string
   shadow: string
   hasBorder: boolean
   borderWidth: string
   borderColor: string
   borderShade: string
+}
+
+export interface CardInicioSettings {
+  showImage: boolean
+  icon: string
+  title: string
+  description: string
+  textAlign: string
+  classCardCustomization: CardCustomization
   titleColorCard: string
   titleColorShadeCard: number
   paragraphColorCard: string
@@ -229,12 +233,14 @@ export const initializeCategoryCardSettings = (): CardInicioSettings => {
     title: 'Título de la tarjeta',
     description: 'Descripción de la tarjeta',
     textAlign: 'text-center',
-    rounded: 'rounded-xl',
-    shadow: 'shadow-md',
-    hasBorder: false,
-    borderWidth: 'border-2',
-    borderColor: 'slate',
-    borderShade: '500',
+    classCardCustomization: {
+      rounded: 'rounded-xl',
+      shadow: 'shadow-md',
+      hasBorder: false,
+      borderWidth: 'border-2',
+      borderColor: 'slate',
+      borderShade: '500'
+    },
     titleColorCard: 'slate',
     titleColorShadeCard: 500,
     paragraphColorCard: 'slate',

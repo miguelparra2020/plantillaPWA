@@ -71,8 +71,6 @@ import { RenderInitialQuestionComponentProps, CardInicioSettings } from '../../i
 
 export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }: RenderInitialQuestionComponentProps) => {
     const store = useStore(crearStore)
-    const [iconColor, setIconColor] = React.useState<string>('slate')
-    const [iconShade, setIconShade] = React.useState<number>(500)
 
     const colorMap = {
         amber: '#f59e0b',
@@ -87,176 +85,132 @@ export const RenderCardCustomizationComponent = ({ setCurrentStep, handlePrev }:
 
     const cardClassInitHome = `
 overflow-hidden
-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}` : ""}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.rounded || 'rounded-lg'}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.shadow || 'shadow-md'}
+${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade || '500'}` : ""}
 bg-white w-[340px]
-`
-const textCardClassInitHome = `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}`
+    `
+    const textCardClassInitHome = `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}`
 
-const getIconColor = (color: string, shade: number) => {
-    return colorMap[color as keyof typeof colorMap] || color
-}
+    const getIconColor = (color: string, shade: number) => {
+        return colorMap[color as keyof typeof colorMap] || color
+    }
 
 
-const colorOptions = [
-{ name: "Red", value: "red" },
-{ name: "Orange", value: "orange" },
-{ name: "Amber", value: "amber" },
-{ name: "Yellow", value: "yellow" },
-{ name: "Lime", value: "lime" },
-{ name: "Green", value: "green" },
-{ name: "Emerald", value: "emerald" },
-{ name: "Teal", value: "teal" },
-{ name: "Cyan", value: "cyan" },
-{ name: "Sky", value: "sky" },
-{ name: "Blue", value: "blue" },
-{ name: "Indigo", value: "indigo" },
-{ name: "Violet", value: "violet" },
-{ name: "Purple", value: "purple" },
-{ name: "Fuchsia", value: "fuchsia" },
-{ name: "Pink", value: "pink" },
-{ name: "Rose", value: "rose" },
-{ name: "Slate", value: "slate" },
-{ name: "Zinc", value: "zinc" },
-{ name: "Gray", value: "gray" },
-{ name: "Neutral", value: "neutral" },
-{ name: "Stone", value: "stone" },
-]
-  const titleColorClass = `text-${store.infoStage2?.colorTitles || 'red'}-${store.infoStage2?.titleColorIntensity || 700}`
+    const colorOptions = [
+    { name: "Red", value: "red" },
+    { name: "Orange", value: "orange" },
+    { name: "Amber", value: "amber" },
+    { name: "Yellow", value: "yellow" },
+    { name: "Lime", value: "lime" },
+    { name: "Green", value: "green" },
+    { name: "Emerald", value: "emerald" },
+    { name: "Teal", value: "teal" },
+    { name: "Cyan", value: "cyan" },
+    { name: "Sky", value: "sky" },
+    { name: "Blue", value: "blue" },
+    { name: "Indigo", value: "indigo" },
+    { name: "Violet", value: "violet" },
+    { name: "Purple", value: "purple" },
+    { name: "Fuchsia", value: "fuchsia" },
+    { name: "Pink", value: "pink" },
+    { name: "Rose", value: "rose" },
+    { name: "Slate", value: "slate" },
+    { name: "Zinc", value: "zinc" },
+    { name: "Gray", value: "gray" },
+    { name: "Neutral", value: "neutral" },
+    { name: "Stone", value: "stone" },
+    ]
 
-  const paragraphColorClass = `text-${store.infoStage2?.colorParagraph || 'stone'}-${store.infoStage2?.paragraphColorIntensity || 600}`
+    const handleSettingsChange = (
+      key: keyof CardInicioSettings | 'iconBgColor' | 'iconBgShade' | 'iconColor' | 'iconColorShade',
+      value: string | boolean | number
+    ) => {
+      const currentState = crearStore.get()
+      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
 
-  const handleSettingsChange = (
-    key: keyof CardInicioSettings | 'iconBgColor' | 'iconBgShade' | 'iconColor' | 'iconColorShade',
-    value: string | boolean | number
-  ) => {
-    const currentState = crearStore.get()
-    const selectedCategory = currentState.infoStage4?.categorySelectToEdit
-
-    if (selectedCategory) {
-      const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
-        if (cat.id === selectedCategory.id) {
-          return {
-            ...cat,
-            cardInicioSettings: {
-              ...cat.cardInicioSettings,
-              [key]: value,
-            },
+      if (selectedCategory) {
+        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+          if (cat.id === selectedCategory.id) {
+            return {
+              ...cat,
+              cardInicioSettings: {
+                ...cat.cardInicioSettings,
+                [key]: value,
+              },
+            }
           }
-        }
-        return cat
-      })
+          return cat
+        })
 
-      const updatedState = {
-        ...currentState,
-        infoStage4: {
-          ...currentState.infoStage4,
-          businessCategories: updatedCategories,
-          categorySelectToEdit: {
-            ...selectedCategory,
-            cardInicioSettings: {
-              ...selectedCategory.cardInicioSettings,
-              [key]: value,
+        const updatedState = {
+          ...currentState,
+          infoStage4: {
+            ...currentState.infoStage4,
+            businessCategories: updatedCategories,
+            categorySelectToEdit: {
+              ...selectedCategory,
+              cardInicioSettings: {
+                ...selectedCategory.cardInicioSettings,
+                [key]: value,
+              },
             },
           },
-        },
+        }
+
+        crearStore.set(updatedState)
+        localStorage.setItem('crearStore', JSON.stringify(updatedState))
       }
-
-      crearStore.set(updatedState)
-      localStorage.setItem('crearStore', JSON.stringify(updatedState))
     }
-  }
 
-  const getColorClass = (color: string, isTitle: boolean) => {
-    const colorOption = colorOptionsTitles.find((option) => option.value === color)
-    if (!colorOption) return ""
-    const shade = isTitle ? colorOption.titleShade : colorOption.paragraphShade
-    return colorClassMap[color as keyof typeof colorClassMap]?.[shade] || ""
-  }
-
-  const roundedOptions = [
-    { name: "None", value: "rounded-none" },
-    { name: "Small", value: "rounded-sm" },
-    { name: "Default", value: "rounded" },
-    { name: "Medium", value: "rounded-md" },
-    { name: "Large", value: "rounded-lg" },
-    { name: "Extra Large", value: "rounded-xl" },
-    { name: "2XL", value: "rounded-2xl" },
-    { name: "3XL", value: "rounded-3xl" },
-  ]
-
-  const shadowOptions = [
-    { name: "None", value: "shadow-none" },
-    { name: "Small", value: "shadow-sm" },
-    { name: "Default", value: "shadow" },
-    { name: "Medium", value: "shadow-md" },
-    { name: "Large", value: "shadow-lg" },
-    { name: "Extra Large", value: "shadow-xl" },
-    { name: "2XL", value: "shadow-2xl" },
-  ]
-
-  const borderWidthOptions = [
-    { name: "1px", value: "border" },
-    { name: "2px", value: "border-2" },
-    { name: "4px", value: "border-4" },
-    { name: "8px", value: "border-8" },
-  ]
-
-  const colorShadeOptions = [
-    { name: "500", value: 500 },
-    { name: "600", value: 600 },
-    { name: "700", value: 700 }
-  ]
-
-  // Array de opciones de iconos
-  const iconOptions = [
-    { name: "Estrella", value: "star", icon: Star },
-    { name: "Corazón", value: "heart", icon: Heart },
-    { name: "Pulgar arriba", value: "thumbs-up", icon: ThumbsUp },
-    { name: "Check", value: "check-circle", icon: CheckCircle },
-    { name: "Bombilla", value: "lightbulb", icon: Lightbulb },
-    { name: "Regalo", value: "gift", icon: Gift },
-    { name: "Calendario", value: "calendar", icon: Calendar },
-    { name: "Gráfico", value: "bar-chart", icon: BarChart },
-    { name: "Carrito", value: "shopping-cart", icon: ShoppingCart },
-    { name: "Tienda", value: "store", icon: Store },
-    { name: "Chispas", value: "sparkles", icon: Sparkles },
-    { name: "Paquete", value: "package", icon: Package },
-    { name: "Etiqueta", value: "tag", icon: Tag },
-    { name: "Porcentaje", value: "percent", icon: Percent },
-    { name: "Trofeo", value: "trophy", icon: Trophy },
-    { name: "Premio", value: "award", icon: Award },
-    { name: "Campana", value: "bell", icon: Bell },
-    { name: "Marcador", value: "bookmark", icon: Bookmark },
-    { name: "Caja", value: "box", icon: Box },
-    { name: "Maletín", value: "briefcase", icon: Briefcase },
-    { name: "Edificio", value: "building", icon: Building },
-    { name: "Cámara", value: "camera", icon: Camera },
-    { name: "Carro", value: "car", icon: Car },
-    { name: "Café", value: "coffee", icon: Coffee },
-    { name: "Brújula", value: "compass", icon: Compass },
-    { name: "Tarjeta", value: "credit-card", icon: CreditCard },
-    { name: "Diamante", value: "diamond", icon: Diamond },
-    { name: "Bandera", value: "flag", icon: Flag },
-    { name: "Globo", value: "globe", icon: Globe },
-    { name: "Casa", value: "home", icon: Home },
-    { name: "Llave", value: "key", icon: Key },
-    { name: "Mapa", value: "map", icon: Map },
-    { name: "Música", value: "music", icon: Music },
-    { name: "Teléfono", value: "phone", icon: Phone },
-    { name: "Avión", value: "plane", icon: Plane },
-    { name: "Cohete", value: "rocket", icon: Rocket },
-    { name: "Escudo", value: "shield", icon: Shield },
-    { name: "Sonrisa", value: "smile", icon: Smile },
-    { name: "Sol", value: "sun", icon: Sun },
-    { name: "Objetivo", value: "target", icon: Target },
-    { name: "Paraguas", value: "umbrella", icon: Umbrella },
-    { name: "Usuarios", value: "users", icon: Users },
-    { name: "Video", value: "video", icon: Video },
-    { name: "Reloj", value: "watch", icon: Watch },
-    { name: "Rayo", value: "zap", icon: Zap }
-  ]
+    // Array de opciones de iconos
+    const iconOptions = [
+      { name: "Estrella", value: "star", icon: Star },
+      { name: "Corazón", value: "heart", icon: Heart },
+      { name: "Pulgar arriba", value: "thumbs-up", icon: ThumbsUp },
+      { name: "Check", value: "check-circle", icon: CheckCircle },
+      { name: "Bombilla", value: "lightbulb", icon: Lightbulb },
+      { name: "Regalo", value: "gift", icon: Gift },
+      { name: "Calendario", value: "calendar", icon: Calendar },
+      { name: "Gráfico", value: "bar-chart", icon: BarChart },
+      { name: "Carrito", value: "shopping-cart", icon: ShoppingCart },
+      { name: "Tienda", value: "store", icon: Store },
+      { name: "Chispas", value: "sparkles", icon: Sparkles },
+      { name: "Paquete", value: "package", icon: Package },
+      { name: "Etiqueta", value: "tag", icon: Tag },
+      { name: "Porcentaje", value: "percent", icon: Percent },
+      { name: "Trofeo", value: "trophy", icon: Trophy },
+      { name: "Premio", value: "award", icon: Award },
+      { name: "Campana", value: "bell", icon: Bell },
+      { name: "Marcador", value: "bookmark", icon: Bookmark },
+      { name: "Caja", value: "box", icon: Box },
+      { name: "Maletín", value: "briefcase", icon: Briefcase },
+      { name: "Edificio", value: "building", icon: Building },
+      { name: "Cámara", value: "camera", icon: Camera },
+      { name: "Carro", value: "car", icon: Car },
+      { name: "Café", value: "coffee", icon: Coffee },
+      { name: "Brújula", value: "compass", icon: Compass },
+      { name: "Tarjeta", value: "credit-card", icon: CreditCard },
+      { name: "Diamante", value: "diamond", icon: Diamond },
+      { name: "Bandera", value: "flag", icon: Flag },
+      { name: "Globo", value: "globe", icon: Globe },
+      { name: "Casa", value: "home", icon: Home },
+      { name: "Llave", value: "key", icon: Key },
+      { name: "Mapa", value: "map", icon: Map },
+      { name: "Música", value: "music", icon: Music },
+      { name: "Teléfono", value: "phone", icon: Phone },
+      { name: "Avión", value: "plane", icon: Plane },
+      { name: "Cohete", value: "rocket", icon: Rocket },
+      { name: "Escudo", value: "shield", icon: Shield },
+      { name: "Sonrisa", value: "smile", icon: Smile },
+      { name: "Sol", value: "sun", icon: Sun },
+      { name: "Objetivo", value: "target", icon: Target },
+      { name: "Paraguas", value: "umbrella", icon: Umbrella },
+      { name: "Usuarios", value: "users", icon: Users },
+      { name: "Video", value: "video", icon: Video },
+      { name: "Reloj", value: "watch", icon: Watch },
+      { name: "Rayo", value: "zap", icon: Zap }
+    ]
 
     return(<>
     <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
@@ -315,454 +269,454 @@ const colorOptions = [
           </div>
         </div>
 
-          {/* Contenido de la card */}
-          <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
-          <h4 className="text-sm font-medium text-zinc-900 ">Contenido de la card</h4>
+        {/* Contenido de la card */}
+        <div className="space-y-4 p-4 rounded-xl bg-zinc-50 ">
+        <h4 className="text-sm font-medium text-zinc-900 ">Contenido de la card</h4>
 
-          {/* Opción para mostrar imagen */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-zinc-500" />
-                <span className="text-sm text-zinc-500">Mostrar imagen</span>
-              </div>
-              <Switch
-                className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
-                style={{ transition: 'background-color 0.2s' }}
-                checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage || false}
-                onCheckedChange={(checked) => handleSettingsChange('showImage', checked)}
-              />
-            </div>
-          </div>
-          {/* Selección de icono */}
-          {/* <div className="space-y-2">
+        {/* Opción para mostrar imagen */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Star className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Icono de la card</span>
+              <ImageIcon className="w-4 h-4 text-zinc-500" />
+              <span className="text-sm text-zinc-500">Mostrar imagen</span>
             </div>
+            <Switch
+              className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
+              style={{ transition: 'background-color 0.2s' }}
+              checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage || false}
+              onCheckedChange={(checked) => handleSettingsChange('showImage', checked)}
+            />
+          </div>
+        </div>
+        {/* Selección de icono */}
+        {/* <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Star className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Icono de la card</span>
+          </div>
+          <Select
+            value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon || 'star'}
+            onValueChange={(value) => handleSettingsChange("icon", value)}
+          >
+            <SelectTrigger className="w-full h-18 bg-zinc-100 border-zinc-200 rounded-xl">
+              <div className="flex items-center gap-2">
+                {(() => {
+                  const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
+                  return <IconComponent className={`w-4 h-4 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                })()}
+                <SelectValue placeholder="Seleccione un icono" />
+              </div>
+            </SelectTrigger>
+            <SelectContent className="max-h-[300px] bg-white">
+              <div className="grid grid-cols-4 gap-2 p-2">
+                {iconOptions.map((option) => {
+                  const IconComponent = option.icon
+                  return (
+                    <SelectItem 
+                      key={option.value} 
+                      value={option.value}
+                      className="flex items-center justify-center p-2 hover:bg-zinc-100 rounded-lg"
+                    >
+                      <div className="flex flex-col items-center gap-1">
+                        <IconComponent className={`w-6 h-6 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
+                        <span className="text-xs text-center">{option.name}</span>
+                      </div>
+                    </SelectItem>
+                  )
+                })}
+              </div>
+            </SelectContent>
+          </Select>
+        </div> */}
+
+        {/* Color del fondo del icono */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Color del fondo del icono</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
             <Select
-              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon || 'star'}
-              onValueChange={(value) => handleSettingsChange("icon", value)}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate'}
+              onValueChange={(value) => handleSettingsChange('iconBgColor', value)}
             >
-              <SelectTrigger className="w-full h-18 bg-zinc-100 border-zinc-200 rounded-xl">
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                 <div className="flex items-center gap-2">
-                  {(() => {
-                    const IconComponent = iconOptions.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.icon)?.icon || Star
-                    return <IconComponent className={`w-4 h-4 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
-                  })()}
-                  <SelectValue placeholder="Seleccione un icono" />
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
                 </div>
               </SelectTrigger>
               <SelectContent className="max-h-[300px] bg-white">
-                <div className="grid grid-cols-4 gap-2 p-2">
-                  {iconOptions.map((option) => {
-                    const IconComponent = option.icon
-                    return (
-                      <SelectItem 
-                        key={option.value} 
-                        value={option.value}
-                        className="flex items-center justify-center p-2 hover:bg-zinc-100 rounded-lg"
-                      >
-                        <div className="flex flex-col items-center gap-1">
-                          <IconComponent className={`w-6 h-6 text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500}`} />
-                          <span className="text-xs text-center">{option.name}</span>
-                        </div>
-                      </SelectItem>
-                    )
-                  })}
-                </div>
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
+                      <span>{color.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-          </div> */}
 
-          {/* Color del fondo del icono */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del fondo del icono</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange('iconBgColor', value)}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
-                    <SelectValue placeholder="Seleccione un color" />
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="max-h-[300px] bg-white">
-                  {colorOptions.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade || 500) }}></div>
-                        <span>{color.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('iconBgShade', Number.parseInt(value))}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <SelectValue placeholder="Intensidad" />
-                </SelectTrigger>
-                <SelectContent className="bg-white">
-                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
-                    <SelectItem key={shade} value={shade.toString()}>
-                      {shade}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Color del icono */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del icono</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
-                onValueChange={(value) => handleSettingsChange('iconColor', value)}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
-                    <SelectValue placeholder="Seleccione un color" />
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="max-h-[300px] bg-white">
-                  {colorOptions.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
-                        <span>{color.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('iconColorShade', Number.parseInt(value))}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <SelectValue placeholder="Intensidad" />
-                </SelectTrigger>
-                <SelectContent className="bg-white">
-                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
-                    <SelectItem key={shade} value={shade.toString()}>
-                      {shade}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Color del título */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del título</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}
-                onValueChange={(value) => handleSettingsChange('titleColorCard', value)}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
-                    <SelectValue placeholder="Seleccione un color" />
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="max-h-[300px] bg-white">
-                  {colorOptions.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
-                        <span>{color.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('titleColorShadeCard', Number.parseInt(value))}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <SelectValue placeholder="Intensidad" />
-                </SelectTrigger>
-                <SelectContent className="bg-white">
-                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
-                    <SelectItem key={shade} value={shade.toString()}>
-                      {shade}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Palette className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Color del párrafo</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}
-                onValueChange={(value) => handleSettingsChange('paragraphColorCard', value)}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
-                    <SelectValue placeholder="Seleccione un color" />
-                  </div>
-                </SelectTrigger>
-                <SelectContent className="max-h-[300px] bg-white">
-                  {colorOptions.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
-                        <span>{color.name}</span>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard?.toString() || '500'}
-                onValueChange={(value) => handleSettingsChange('paragraphColorShadeCard', Number.parseInt(value))}
-              >
-                <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                  <SelectValue placeholder="Intensidad" />
-                </SelectTrigger>
-                <SelectContent className="bg-white">
-                  {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
-                    <SelectItem key={shade} value={shade.toString()}>
-                      {shade}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Alineación del texto */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <AlignLeft className="w-4 h-4 text-zinc-500" />
-              <span className="text-sm text-zinc-500">Alineación del texto</span>
-            </div>
-            <RadioGroup
-              defaultValue="text-left"
-              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}
-              onValueChange={(value) => {
-                const currentState = crearStore.get()
-                const selectedCategory = currentState.infoStage4?.categorySelectToEdit
-                if (selectedCategory) {
-                  const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
-                    if (cat.id === selectedCategory.id) {
-                      return {
-                        ...cat,
-                        cardInicioSettings: {
-                          ...cat.cardInicioSettings,
-                          textAlign: value
-                        }
-                      }
-                    }
-                    return cat
-                  })
-
-                  crearStore.set({
-                    ...currentState,
-                    infoStage4: {
-                      ...currentState.infoStage4,
-                      businessCategories: updatedCategories,
-                      categorySelectToEdit: {
-                        ...selectedCategory,
-                        cardInicioSettings: {
-                          ...selectedCategory.cardInicioSettings,
-                          textAlign: value
-                        }
-                      }
-                    }
-                  })
-                }
-              }}
-              className="flex space-x-2"
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconBgShade?.toString() || '500'}
+              onValueChange={(value) => handleSettingsChange('iconBgShade', Number.parseInt(value))}
             >
-              <div className="flex items-center space-x-2">
-                <div className="relative">
-                  <input
-                    type="radio"
-                    id="text-left"
-                    name="text-align"
-                    value="text-left"
-                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left'}
-                    onChange={(e) => {
-                      const currentState = crearStore.get()
-                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
-                      if (selectedCategory) {
-                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
-                          if (cat.id === selectedCategory.id) {
-                            return {
-                              ...cat,
-                              cardInicioSettings: {
-                                ...cat.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                          return cat
-                        })
-
-                        crearStore.set({
-                          ...currentState,
-                          infoStage4: {
-                            ...currentState.infoStage4,
-                            businessCategories: updatedCategories,
-                            categorySelectToEdit: {
-                              ...selectedCategory,
-                              cardInicioSettings: {
-                                ...selectedCategory.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                        })
-                      }
-                    }}
-                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
-                  />
-                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left' && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
-                  )}
-                </div>
-                <Label htmlFor="text-left" className="flex items-center cursor-pointer">
-                  <AlignLeft className="w-4 h-4 mr-1" /> Izquierda
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative">
-                  <input
-                    type="radio"
-                    id="text-center"
-                    name="text-align"
-                    value="text-center"
-                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center'}
-                    onChange={(e) => {
-                      const currentState = crearStore.get()
-                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
-                      if (selectedCategory) {
-                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
-                          if (cat.id === selectedCategory.id) {
-                            return {
-                              ...cat,
-                              cardInicioSettings: {
-                                ...cat.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                          return cat
-                        })
-
-                        crearStore.set({
-                          ...currentState,
-                          infoStage4: {
-                            ...currentState.infoStage4,
-                            businessCategories: updatedCategories,
-                            categorySelectToEdit: {
-                              ...selectedCategory,
-                              cardInicioSettings: {
-                                ...selectedCategory.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                        })
-                      }
-                    }}
-                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
-                  />
-                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center' && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
-                  )}
-                </div>
-                <Label htmlFor="text-center" className="flex items-center cursor-pointer">
-                  <AlignCenter className="w-4 h-4 mr-1" /> Centro
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="relative">
-                  <input
-                    type="radio"
-                    id="text-right"
-                    name="text-align"
-                    value="text-right"
-                    checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right'}
-                    onChange={(e) => {
-                      const currentState = crearStore.get()
-                      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
-                      if (selectedCategory) {
-                        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
-                          if (cat.id === selectedCategory.id) {
-                            return {
-                              ...cat,
-                              cardInicioSettings: {
-                                ...cat.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                          return cat
-                        })
-
-                        crearStore.set({
-                          ...currentState,
-                          infoStage4: {
-                            ...currentState.infoStage4,
-                            businessCategories: updatedCategories,
-                            categorySelectToEdit: {
-                              ...selectedCategory,
-                              cardInicioSettings: {
-                                ...selectedCategory.cardInicioSettings,
-                                textAlign: e.target.value
-                              }
-                            }
-                          }
-                        })
-                      }
-                    }}
-                    className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
-                  />
-                  {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right' && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
-                  )}
-                </div>
-                <Label htmlFor="text-right" className="flex items-center cursor-pointer">
-                  <AlignRight className="w-4 h-4 mr-1" /> Derecha
-                </Label>
-              </div>
-            </RadioGroup>
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Intensidad" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                  <SelectItem key={shade} value={shade.toString()}>
+                    {shade}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
+        </div>
 
+        {/* Color del icono */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Color del icono</span>
           </div>
+          <div className="grid grid-cols-2 gap-2">
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate'}
+              onValueChange={(value) => handleSettingsChange('iconColor', value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColor || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade || 500) }}></div>
+                      <span>{color.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.iconColorShade?.toString() || '500'}
+              onValueChange={(value) => handleSettingsChange('iconColorShade', Number.parseInt(value))}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Intensidad" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                  <SelectItem key={shade} value={shade.toString()}>
+                    {shade}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Color del título */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Color del título</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}
+              onValueChange={(value) => handleSettingsChange('titleColorCard', value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500) }}></div>
+                      <span>{color.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard?.toString() || '500'}
+              onValueChange={(value) => handleSettingsChange('titleColorShadeCard', Number.parseInt(value))}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Intensidad" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                  <SelectItem key={shade} value={shade.toString()}>
+                    {shade}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Palette className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Color del párrafo</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}
+              onValueChange={(value) => handleSettingsChange('paragraphColorCard', value)}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate', store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
+                  <SelectValue placeholder="Seleccione un color" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px] bg-white">
+                {colorOptions.map((color) => (
+                  <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color.value, store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500) }}></div>
+                      <span>{color.name}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard?.toString() || '500'}
+              onValueChange={(value) => handleSettingsChange('paragraphColorShadeCard', Number.parseInt(value))}
+            >
+              <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                <SelectValue placeholder="Intensidad" />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {[100, 200, 300, 400, 500, 600, 700, 800, 900].map((shade) => (
+                  <SelectItem key={shade} value={shade.toString()}>
+                    {shade}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* Alineación del texto */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <AlignLeft className="w-4 h-4 text-zinc-500" />
+            <span className="text-sm text-zinc-500">Alineación del texto</span>
+          </div>
+          <RadioGroup
+            defaultValue="text-left"
+            value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign || 'text-left'}
+            onValueChange={(value) => {
+              const currentState = crearStore.get()
+              const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+              if (selectedCategory) {
+                const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                  if (cat.id === selectedCategory.id) {
+                    return {
+                      ...cat,
+                      cardInicioSettings: {
+                        ...cat.cardInicioSettings,
+                        textAlign: value
+                      }
+                    }
+                  }
+                  return cat
+                })
+
+                crearStore.set({
+                  ...currentState,
+                  infoStage4: {
+                    ...currentState.infoStage4,
+                    businessCategories: updatedCategories,
+                    categorySelectToEdit: {
+                      ...selectedCategory,
+                      cardInicioSettings: {
+                        ...selectedCategory.cardInicioSettings,
+                        textAlign: value
+                      }
+                    }
+                  }
+                })
+              }
+            }}
+            className="flex space-x-2"
+          >
+            <div className="flex items-center space-x-2">
+              <div className="relative">
+                <input
+                  type="radio"
+                  id="text-left"
+                  name="text-align"
+                  value="text-left"
+                  checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left'}
+                  onChange={(e) => {
+                    const currentState = crearStore.get()
+                    const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                    if (selectedCategory) {
+                      const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                        if (cat.id === selectedCategory.id) {
+                          return {
+                            ...cat,
+                            cardInicioSettings: {
+                              ...cat.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                        return cat
+                      })
+
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          businessCategories: updatedCategories,
+                          categorySelectToEdit: {
+                            ...selectedCategory,
+                            cardInicioSettings: {
+                              ...selectedCategory.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                      })
+                    }
+                  }}
+                  className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                />
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-left' && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                )}
+              </div>
+              <Label htmlFor="text-left" className="flex items-center cursor-pointer">
+                <AlignLeft className="w-4 h-4 mr-1" /> Izquierda
+              </Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="relative">
+                <input
+                  type="radio"
+                  id="text-center"
+                  name="text-align"
+                  value="text-center"
+                  checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center'}
+                  onChange={(e) => {
+                    const currentState = crearStore.get()
+                    const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                    if (selectedCategory) {
+                      const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                        if (cat.id === selectedCategory.id) {
+                          return {
+                            ...cat,
+                            cardInicioSettings: {
+                              ...cat.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                        return cat
+                      })
+
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          businessCategories: updatedCategories,
+                          categorySelectToEdit: {
+                            ...selectedCategory,
+                            cardInicioSettings: {
+                              ...selectedCategory.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                      })
+                    }
+                  }}
+                  className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                />
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-center' && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                )}
+              </div>
+              <Label htmlFor="text-center" className="flex items-center cursor-pointer">
+                <AlignCenter className="w-4 h-4 mr-1" /> Centro
+              </Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="relative">
+                <input
+                  type="radio"
+                  id="text-right"
+                  name="text-align"
+                  value="text-right"
+                  checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right'}
+                  onChange={(e) => {
+                    const currentState = crearStore.get()
+                    const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+                    if (selectedCategory) {
+                      const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+                        if (cat.id === selectedCategory.id) {
+                          return {
+                            ...cat,
+                            cardInicioSettings: {
+                              ...cat.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                        return cat
+                      })
+
+                      crearStore.set({
+                        ...currentState,
+                        infoStage4: {
+                          ...currentState.infoStage4,
+                          businessCategories: updatedCategories,
+                          categorySelectToEdit: {
+                            ...selectedCategory,
+                            cardInicioSettings: {
+                              ...selectedCategory.cardInicioSettings,
+                              textAlign: e.target.value
+                            }
+                          }
+                        }
+                      })
+                    }
+                  }}
+                  className="w-4 h-4 appearance-none border-2 border-zinc-300 rounded-full checked:bg-blue-600 checked:border-blue-600 cursor-pointer"
+                />
+                {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.textAlign === 'text-right' && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full" />
+                )}
+              </div>
+              <Label htmlFor="text-right" className="flex items-center cursor-pointer">
+                <AlignRight className="w-4 h-4 mr-1" /> Derecha
+              </Label>
+            </div>
+          </RadioGroup>
+        </div>
+
+        </div>
 
         {/* Border radius */}
         <div className="space-y-2">
@@ -772,7 +726,7 @@ const colorOptions = [
           </div>
           
             <Select
-              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
+              value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.rounded || 'rounded-lg'}
               onValueChange={(value) => {
                 const currentState = crearStore.get()
                 const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -783,7 +737,10 @@ const colorOptions = [
                         ...cat,
                         cardInicioSettings: {
                           ...cat.cardInicioSettings,
-                          rounded: value
+                          classCardCustomization: {
+                            ...cat.cardInicioSettings.classCardCustomization,
+                            rounded: value
+                          }
                         }
                       }
                     }
@@ -799,7 +756,10 @@ const colorOptions = [
                         ...selectedCategory,
                         cardInicioSettings: {
                           ...selectedCategory.cardInicioSettings,
-                          rounded: value
+                          classCardCustomization: {
+                            ...selectedCategory.cardInicioSettings.classCardCustomization,
+                            rounded: value
+                          }
                         }
                       }
                     }
@@ -830,7 +790,7 @@ const colorOptions = [
             <span className="text-sm text-zinc-500">Sombra</span>
           </div>
           <Select
-            value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
+            value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.shadow || 'shadow-md'}
             onValueChange={(value) => {
               const currentState = crearStore.get()
               const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -841,7 +801,10 @@ const colorOptions = [
                       ...cat,
                       cardInicioSettings: {
                         ...cat.cardInicioSettings,
-                        shadow: value
+                        classCardCustomization: {
+                          ...cat.cardInicioSettings.classCardCustomization,
+                          shadow: value
+                        }
                       }
                     }
                   }
@@ -857,7 +820,10 @@ const colorOptions = [
                       ...selectedCategory,
                       cardInicioSettings: {
                         ...selectedCategory.cardInicioSettings,
-                        shadow: value
+                        classCardCustomization: {
+                          ...selectedCategory.cardInicioSettings.classCardCustomization,
+                          shadow: value
+                        }
                       }
                     }
                   }
@@ -890,7 +856,7 @@ const colorOptions = [
             <Switch
               className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
               style={{ transition: 'background-color 0.2s' }}
-              checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder || false}
+              checked={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.hasBorder || false}
               onCheckedChange={(checked) => {
                 const currentState = crearStore.get()
                 const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -901,7 +867,10 @@ const colorOptions = [
                         ...cat,
                         cardInicioSettings: {
                           ...cat.cardInicioSettings,
-                          hasBorder: checked
+                          classCardCustomization: {
+                            ...cat.cardInicioSettings.classCardCustomization,
+                            hasBorder: checked
+                          }
                         }
                       }
                     }
@@ -917,7 +886,10 @@ const colorOptions = [
                         ...selectedCategory,
                         cardInicioSettings: {
                           ...selectedCategory.cardInicioSettings,
-                          hasBorder: checked
+                          classCardCustomization: {
+                            ...selectedCategory.cardInicioSettings.classCardCustomization,
+                            hasBorder: checked
+                          }
                         }
                       }
                     }
@@ -927,10 +899,10 @@ const colorOptions = [
             />
           </div>
 
-          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder && (
+          {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.hasBorder && (
             <div className="grid grid-cols-2 gap-2 mt-2">
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderWidth || 'border'}
                 onValueChange={(value) => {
                   const currentState = crearStore.get()
                   const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -941,7 +913,10 @@ const colorOptions = [
                           ...cat,
                           cardInicioSettings: {
                             ...cat.cardInicioSettings,
-                            borderWidth: value
+                            classCardCustomization: {
+                              ...cat.cardInicioSettings.classCardCustomization,
+                              borderWidth: value
+                            }
                           }
                         }
                       }
@@ -957,7 +932,10 @@ const colorOptions = [
                           ...selectedCategory,
                           cardInicioSettings: {
                             ...selectedCategory.cardInicioSettings,
-                            borderWidth: value
+                            classCardCustomization: {
+                              ...selectedCategory.cardInicioSettings.classCardCustomization,
+                              borderWidth: value
+                            }
                           }
                         }
                       }
@@ -977,7 +955,7 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderColor || 'slate'}
                 onValueChange={(value) => {
                   const currentState = crearStore.get()
                   const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -988,7 +966,10 @@ const colorOptions = [
                           ...cat,
                           cardInicioSettings: {
                             ...cat.cardInicioSettings,
-                            borderColor: value
+                            classCardCustomization: {
+                              ...cat.cardInicioSettings.classCardCustomization,
+                              borderColor: value
+                            }
                           }
                         }
                       }
@@ -1004,7 +985,10 @@ const colorOptions = [
                           ...selectedCategory,
                           cardInicioSettings: {
                             ...selectedCategory.cardInicioSettings,
-                            borderColor: value
+                            classCardCustomization: {
+                              ...selectedCategory.cardInicioSettings.classCardCustomization,
+                              borderColor: value
+                            }
                           }
                         }
                       }
@@ -1015,7 +999,7 @@ const colorOptions = [
                 <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
                   <div className="flex items-center gap-2">
                     <div
-                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}`}
+                      className={`w-4 h-4 rounded-full bg-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade || '500'}`}
                     ></div>
                     <SelectValue placeholder="Color" />
                   </div>
@@ -1024,7 +1008,7 @@ const colorOptions = [
                   {colorOptions.map((color) => (
                     <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}`}></div>
+                        <div className={`w-4 h-4 rounded-full bg-${color.value}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade || '500'}`}></div>
                         <span>{color.name}</span>
                       </div>
                     </SelectItem>
@@ -1033,7 +1017,7 @@ const colorOptions = [
               </Select>
 
               <Select
-                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade?.toString() || '500'}
+                value={store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade?.toString() || '500'}
                 onValueChange={(value) => {
                   const currentState = crearStore.get()
                   const selectedCategory = currentState.infoStage4?.categorySelectToEdit
@@ -1044,7 +1028,10 @@ const colorOptions = [
                           ...cat,
                           cardInicioSettings: {
                             ...cat.cardInicioSettings,
-                            borderShade: value
+                            classCardCustomization: {
+                              ...cat.cardInicioSettings.classCardCustomization,
+                              borderShade: value
+                            }
                           }
                         }
                       }
@@ -1060,7 +1047,10 @@ const colorOptions = [
                           ...selectedCategory,
                           cardInicioSettings: {
                             ...selectedCategory.cardInicioSettings,
-                            borderShade: value
+                            classCardCustomization: {
+                              ...selectedCategory.cardInicioSettings.classCardCustomization,
+                              borderShade: value
+                            }
                           }
                         }
                       }

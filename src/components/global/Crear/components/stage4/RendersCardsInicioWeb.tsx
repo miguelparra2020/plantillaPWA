@@ -324,9 +324,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
         const cardClasses2 = `
     overflow-hidden
-    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
-    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
-    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}` : ""}
+    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.rounded || 'rounded-lg'}
+    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.shadow || 'shadow-md'}
+    ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade || '500'}` : ""}
     bg-white w-[70px] md:w-[120px]
   `
 
@@ -547,9 +547,9 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
 
         const cardClasses3 = `
   overflow-hidden
-  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.rounded || 'rounded-lg'}
-  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.shadow || 'shadow-md'}
-  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.borderShade || '500'}` : ""}
+  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.rounded || 'rounded-lg'}
+  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.shadow || 'shadow-md'}
+  ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.hasBorder ? `${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.classCardCustomization?.borderShade || '500'}` : ""}
   bg-white w-[230px] md:w-[230px]
 `
 
@@ -942,8 +942,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                                  <IconComponent className="w-3 h-3 text-white" />
+                                <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                  <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                 </div>
                               );
                             })()}
@@ -956,8 +956,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                             {(() => {
                               const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[0]?.iconCard)?.icon || Star;
                               return (
-                                <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                                  <IconComponent className="w-3 h-3 text-white" />
+                                <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                  <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                 </div>
                               );
                             })()}
@@ -1006,8 +1006,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 {(() => {
                                   const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
                                   return (
-                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                                      <IconComponent className="w-3 h-3 text-white" />
+                                    <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                      <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                     </div>
                                   );
                                 })()}
@@ -1020,8 +1020,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                                 {(() => {
                                   const IconComponent = iconOptionsToCard.find(opt => opt.value === cardDetails?.iconCard)?.icon || Star;
                                   return (
-                                    <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                                      <IconComponent className="w-3 h-3 text-white" />
+                                    <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                                      <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                                     </div>
                                   );
                                 })()}
@@ -1030,10 +1030,10 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                           )}
                           <div className={`p-1 md:p-2 ${textClasses} ${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.showImage ? 'mt-4' : 'mt-2'}`}>
                             <div className="flex flex-col gap-0.5 md:gap-1">
-                              <span className={`text-[8px] md:text-[8px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
+                              <span className={`text-[10px] ${store.infoStage2?.titleWeight || 'font-bold'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.titleColorShadeCard || 500} ${store.infoStage2?.titleFont || ''}`}>
                                 {cardDetails?.cardTitle || `Título de la card ${index + 1}`}
                               </span>
-                              <p className={`text-[6px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
+                              <p className={`text-[8px] ${store.infoStage2?.paragraphWeight || 'font-normal'} text-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorCard || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardInicioSettings?.paragraphColorShadeCard || 500} ${store.infoStage2?.paragraphFont || ''}`}>
                                 {cardDetails?.detailCard || `Descripción de la card ${index + 1}`}
                               </p>
                             </div>
@@ -1047,7 +1047,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                 <div className="w-full mt-2 pb-2 flex flex-col items-center justify-center text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer">
                   <button type="button" className={buttonClasses}>
                     {store.infoStage4.categorySelectToEdit?.cardInicioSettings?.nameButtonSesionCardsInicio || 'Ver categoría'} &nbsp; 
-                    <ArrowBigRightDash className='w-2 md:w-3 h-4' />
+                    <ArrowBigRightDash className='w-4 md:w-5 h-6' />
                   </button>
                 </div>
               </div>
@@ -1098,8 +1098,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         {(() => {
                           const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
                           return (
-                            <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                              <IconComponent className="w-3 h-3 text-white" />
+                            <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                              <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                             </div>
                           );
                         })()}
@@ -1112,8 +1112,8 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
                         {(() => {
                           const IconComponent = iconOptionsToCard.find(opt => opt.value === store.infoStage4.categorySelectToEdit?.cardInicioSettings?.cardsDetailsSesionCardsInicio[index]?.iconCard)?.icon || Star;
                           return (
-                            <div className={`flex items-center justify-center w-6 h-6 rounded-full ${isButtonGradient ? buttonGradientClass : `bg-${store.infoStage3?.bgColor || 'blue'}-${store.infoStage3?.bgShade || 500}`} shadow-lg`}>
-                              <IconComponent className="w-3 h-3 text-white" />
+                            <div className={`flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgColor || 'slate'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconBgShade || 500} shadow-lg`}>
+                              <IconComponent className={`w-4 h-4 md:w-5 md:h-5 text-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColor || 'white'}-${store.infoStage4.businessCategories?.find(cat => cat.id === store.infoStage4.categorySelectToEdit?.id)?.cardInicioSettings.iconColorShade || 500}`} />
                             </div>
                           );
                         })()}
