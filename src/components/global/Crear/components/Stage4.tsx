@@ -39,6 +39,7 @@ import { RenderEditSelectCategories } from "./stage4/RenderEditSelectCategories"
 import { crearStore } from 'src/stores/crearStore'
 import { RenderCardCustomizationComponent } from "./stage4/RenderCardCustomizationComponent"
 import { RendersCardsInicioWeb } from "./stage4/RendersCardsInicioWeb"
+import { RenderCardsSearchInCategory } from "./stage4/RenderCardsSearchInCategory"
 
 
 const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, handlePrev }) => {
@@ -234,6 +235,10 @@ const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
    <RendersCardsInicioWeb setCurrentStep={setCurrentStep} handlePrev={handlePrev} />
   )
 
+  const renderCardsSearchInCategory = () => (
+    <RenderCardsSearchInCategory setCurrentStep={setCurrentStep} handlePrev={handlePrev} />
+   )
+
   // Renderizar la pantalla de completado con botón de continuar
   const renderComplete = () => (
     <div className="flex flex-col h-full p-6">
@@ -326,6 +331,7 @@ const Stage4: React.FC<StageProps> = ({ totalStages, currentStage, handleNext, h
         {currentStep === "areas-list" && renderAreasList()}
         {currentStep === "card-customization" && renderCardCustomization()}
         {currentStep === "cards-inicio-web" && renderCardsInicioWebCustomization()}
+        {currentStep === "cards-search-in-category" && renderCardsSearchInCategory()}
         {currentStep === "complete" && renderComplete()}
         {currentStep === "finaly-process" && renderFinalyProcess()}
         {isLoading && (

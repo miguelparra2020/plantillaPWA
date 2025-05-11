@@ -6,6 +6,7 @@ export type CustomizationStep =
   | "intro-customization"
   | "product-card-customization"
   | "cards-inicio-web"
+  | "cards-search-in-category"
   | "product-detail-customization"
   | "cart-item-customization"
   | "complete"
