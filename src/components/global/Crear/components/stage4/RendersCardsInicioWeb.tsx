@@ -274,7 +274,7 @@ export const RendersCardsInicioWeb = ({ setCurrentStep, handlePrev }:
             <>
                
                <form  className="flex flex-col gap-4 flex-1 p-4 justify-between items-center">
-        <h1>Personalizando la categoría: <br /><strong>{store.infoStage4.categorySelectToEdit?.title}</strong></h1>
+        <h1>Personalizando la categoría: <br /><strong>{store.infoStage4.categorySelectToEdit?.id} - {store.infoStage4.categorySelectToEdit?.title}</strong></h1>
         <div className="space-y-4 p-4 rounded-xl bg-zinc-50  ">
           <div className="text-sm text-zinc-700 ">
             <p className="font-medium mb-2">Personzalización visual de apariencia en el inicio web</p>
