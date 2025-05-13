@@ -4,6 +4,7 @@ import { useStore } from '@nanostores/react'
 import { crearStore } from 'src/stores/crearStore'
 import { RenderCardSearchInCategory2 } from './categoryId2/RenderCardSearchInCategory2'
 import { RenderCardSearchInCategory1 } from './categoryId1/RenderCardSearchInCategory1'
+import { RenderCardSearchInCategory3 } from './categoryId3/RenderCardSearchInCategory3'
 
 export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }: 
     RenderInitialQuestionComponentProps) => {
@@ -24,6 +25,9 @@ export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }:
         </>: null}
         {store.infoStage4.categorySelectToEdit?.id === "2" ? <>
           <RenderCardSearchInCategory2 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
+        </>: null}
+        {store.infoStage4.categorySelectToEdit?.id === "3" ? <>
+          <RenderCardSearchInCategory3 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
         </>: null}
 
         
