@@ -5,6 +5,7 @@ import { crearStore } from 'src/stores/crearStore'
 import { RenderCardSearchInCategory2 } from './categoryId2/RenderCardSearchInCategory2'
 import { RenderCardSearchInCategory1 } from './categoryId1/RenderCardSearchInCategory1'
 import { RenderCardSearchInCategory3 } from './categoryId3/RenderCardSearchInCategory3'
+import { RenderCardSearchInCategory4 } from './categoryId4/RenderCardSearchInCategory4'
 
 export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }: 
     RenderInitialQuestionComponentProps) => {
@@ -29,7 +30,9 @@ export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }:
         {store.infoStage4.categorySelectToEdit?.id === "3" ? <>
           <RenderCardSearchInCategory3 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
         </>: null}
-
+        {store.infoStage4.categorySelectToEdit?.id === "4" ? <>
+          <RenderCardSearchInCategory4 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
+        </>: null}
         
         </form>
     )
