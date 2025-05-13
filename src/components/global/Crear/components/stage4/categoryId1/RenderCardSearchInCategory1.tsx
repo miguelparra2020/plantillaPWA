@@ -43,34 +43,32 @@ function ProductCard({
 
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg w-full max-w-sm rounded-xl">
-      <CardHeader className="p-0 relative bg-zinc-100">
-        <div className="relative aspect-square w-full flex items-start justify-between">
-          {/* Badge Nuevo */}
-          {isNew && (
-            <Badge className="absolute left-3 top-3 bg-green-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">Nuevo</Badge>
-          )}
-          {/* Corazón */}
-          <button
-            type="button"
-            onClick={() => setFavorite(!favorite)}
-            className="absolute right-3 top-3 z-10 bg-white rounded-full p-2 shadow-sm flex items-center justify-center"
-            style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
-          >
-            <Heart className={`h-5 w-5 ${favorite ? "fill-red-500 text-red-500" : "text-zinc-400"}`} />
-          </button>
-          {/* Imagen */}
-          <img
-            src={imageUrl || "/placeholder.svg"}
-            alt={name}
-            className="h-full w-full object-cover rounded-t-xl"
-            style={{ background: '#ededed' }}
-          />
-          {/* Badge Descuento */}
-          {discount > 0 && (
-            <Badge className="absolute left-3 bottom-3 bg-red-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">-{discount}%</Badge>
-          )}
-        </div>
-      </CardHeader>
+      <div className="relative w-full aspect-square">
+        {/* Badge Nuevo */}
+        {isNew && (
+          <Badge className="absolute left-3 top-3 bg-green-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">Nuevo</Badge>
+        )}
+        {/* Corazón */}
+        <button
+          type="button"
+          onClick={() => setFavorite(!favorite)}
+          className="absolute right-3 top-3 z-10 bg-white rounded-full p-2 shadow-sm flex items-center justify-center"
+          style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
+        >
+          <Heart className={`h-5 w-5 ${favorite ? "fill-red-500 text-red-500" : "text-zinc-400"}`} />
+        </button>
+        {/* Imagen */}
+        <img
+          src={imageUrl || "/placeholder.svg"}
+          alt={name}
+          className="w-full h-full object-cover"
+          style={{ background: '#ededed' }}
+        />
+        {/* Badge Descuento */}
+        {discount > 0 && (
+          <Badge className="absolute left-3 bottom-3 bg-red-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">-{discount}%</Badge>
+        )}
+      </div>
       <CardContent className="pb-2 pt-4 px-5">
         <div className="mb-1 text-sm text-zinc-500">{category}</div>
         <h3 className="mb-2 font-semibold text-lg leading-tight">{name}</h3>
