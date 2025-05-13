@@ -6,6 +6,7 @@ import { RenderCardSearchInCategory2 } from './categoryId2/RenderCardSearchInCat
 import { RenderCardSearchInCategory1 } from './categoryId1/RenderCardSearchInCategory1'
 import { RenderCardSearchInCategory3 } from './categoryId3/RenderCardSearchInCategory3'
 import { RenderCardSearchInCategory4 } from './categoryId4/RenderCardSearchInCategory4'
+import { RenderCardSearchInCategory5 } from './categoryId5/RenderCardSearchInCategory5'
 
 export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }: 
     RenderInitialQuestionComponentProps) => {
@@ -33,7 +34,9 @@ export const RenderCardsSearchInCategory = ({ setCurrentStep, handlePrev }:
         {store.infoStage4.categorySelectToEdit?.id === "4" ? <>
           <RenderCardSearchInCategory4 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
         </>: null}
-        
+        {store.infoStage4.categorySelectToEdit?.id === "5" ? <>
+          <RenderCardSearchInCategory5 setCurrentStep={setCurrentStep} handlePrev={handlePrev}/>
+        </>: null}
         </form>
     )
 }
