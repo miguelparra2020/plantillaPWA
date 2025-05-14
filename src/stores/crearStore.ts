@@ -137,11 +137,21 @@ export interface CardInicioSettings {
   }>
 }
 
+export interface CardSearchInCategory1 {
+  rounded: string
+  shadow: string
+  hasBorder: boolean
+  borderWidth: string
+  borderColor: string
+  borderShade: string
+}
+
 export interface BusinessCategory {
   id: string
   title: string
   description: string
   cardInicioSettings: CardInicioSettings
+  cardSearchInCategory1?: CardSearchInCategory1
 }
 
 interface CrearState {

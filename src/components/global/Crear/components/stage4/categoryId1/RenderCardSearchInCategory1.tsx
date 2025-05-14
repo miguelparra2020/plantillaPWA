@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { ArrowBigLeftDash, ArrowBigRightDash, Eye, Heart, Star } from "lucide-react"
+import React, { useState, useEffect } from 'react'
+import { ArrowBigLeftDash, ArrowBigRightDash, Eye, Heart, Star, CircleDashed, Layers, Square, Palette } from "lucide-react"
 import { Badge } from "../../../../../ui/badge"
 import { Button } from "../../../../../ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "../../../../../ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select"
+import { Switch } from "../../ui/switch"
 import { RenderInitialQuestionComponentProps } from "../../../interfaces/modelsStage4"
 import { useStore } from '@nanostores/react'
 import { crearStore } from 'src/stores/crearStore'
@@ -34,6 +36,7 @@ function ProductCard({
 }: ProductCardProps) {
   const [favorite, setFavorite] = useState(isFavorite)
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0
+  const store = useStore(crearStore)
 
   const formatPrice = (price: number) => {
     return price.toLocaleString("es-CO", {
@@ -41,8 +44,27 @@ function ProductCard({
     })
   }
 
+  // Construir la clase de la card basada en las propiedades de personalización
+  const cardClass = [
+    "overflow-hidden",
+    "transition-all", 
+    "hover:shadow-lg", 
+    "w-full", 
+    "max-w-sm",
+    store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.rounded || 'rounded-xl',
+    store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.shadow || 'shadow-md'
+  ].join(' ');
+  
+  // Añadir borde si está habilitado
+  const borderClass = store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.hasBorder 
+    ? `${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderWidth || 'border'} border-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderColor || 'slate'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderShade || '500'}` 
+    : "";
+  
+  // Combinar clases
+  const finalCardClass = `${cardClass} ${borderClass}`.trim()
+
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg w-full max-w-sm rounded-xl">
+    <Card className={finalCardClass}>
       <div className="relative w-full aspect-square">
         {/* Badge Nuevo */}
         {isNew && (
@@ -110,14 +132,259 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
         }
     ]
 
+    // Función para manejar los cambios en la personalización de la card
+    const handleCardCustomizationChange = (
+      key: keyof NonNullable<typeof store.infoStage4.categorySelectToEdit>['cardSearchInCategory1'],
+      value: string | boolean,
+    ) => {
+      const currentState = crearStore.get()
+      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+
+      if (selectedCategory) {
+        // Inicializar cardSearchInCategory1 si no existe
+        const currentCardSearchInCategory1 = selectedCategory.cardSearchInCategory1 || {
+          rounded: 'rounded-xl',
+          shadow: 'shadow-md',
+          hasBorder: false,
+          borderWidth: 'border',
+          borderColor: 'slate',
+          borderShade: '500'
+        }
+
+        const updatedCardSearchInCategory1 = {
+          ...currentCardSearchInCategory1,
+          [key]: value
+        }
+
+        const updatedCategories = currentState.infoStage4?.businessCategories?.map(cat => {
+          if (cat.id === selectedCategory.id) {
+            return {
+              ...cat,
+              cardSearchInCategory1: updatedCardSearchInCategory1
+            }
+          }
+          return cat
+        })
+
+        const updatedState = {
+          ...currentState,
+          infoStage4: {
+            ...currentState.infoStage4,
+            businessCategories: updatedCategories,
+            categorySelectToEdit: {
+              ...selectedCategory,
+              cardSearchInCategory1: updatedCardSearchInCategory1
+            }
+          }
+        }
+
+        crearStore.set(updatedState)
+        localStorage.setItem('crearStore', JSON.stringify(updatedState))
+      }
+    }
+
+    // Inicializar cardSearchInCategory1 si no existe
+    useEffect(() => {
+      const currentState = crearStore.get()
+      const selectedCategory = currentState.infoStage4?.categorySelectToEdit
+      
+      if (selectedCategory && !selectedCategory.cardSearchInCategory1) {
+        const updatedState = {
+          ...currentState,
+          infoStage4: {
+            ...currentState.infoStage4,
+            businessCategories: currentState.infoStage4?.businessCategories?.map(cat => 
+              cat.id === selectedCategory.id 
+                ? {
+                    ...cat,
+                    cardSearchInCategory1: {
+                      rounded: 'rounded-xl',
+                      shadow: 'shadow-md',
+                      hasBorder: false,
+                      borderWidth: 'border',
+                      borderColor: 'slate',
+                      borderShade: '500'
+                    }
+                  }
+                : cat
+            ),
+            categorySelectToEdit: {
+              ...selectedCategory,
+              cardSearchInCategory1: {
+                rounded: 'rounded-xl',
+                shadow: 'shadow-md',
+                hasBorder: false,
+                borderWidth: 'border',
+                borderColor: 'slate',
+                borderShade: '500'
+              }
+            }
+          }
+        }
+
+        crearStore.set(updatedState)
+        localStorage.setItem('crearStore', JSON.stringify(updatedState))
+      }
+    }, [store.infoStage4?.categorySelectToEdit])
+
     return (
-        <div className="flex flex-col gap-4 justify-center items-center">
-            <div className="flex flex-col gap-4 justify-center items-center">
-                {products.map((product) => (
-                    <ProductCard key={product.id} {...product} />
-                ))}
+        <div className="flex flex-col gap-6 justify-center items-center p-4">
+            <div className="space-y-4 w-full flex flex-col items-center gap-4">
+                <h1>Personalizando la categoría: <br /><strong>{store.infoStage4.categorySelectToEdit?.id} - {store.infoStage4.categorySelectToEdit?.title}</strong></h1>
+                <div className="space-y-4 p-4 rounded-xl bg-zinc-50 w-full max-w-lg">
+                    <div className="text-sm text-zinc-700">
+                        <p className="font-medium mb-2">Personalización de tarjeta de búsqueda</p>
+                        Esta tarjeta aparecerá en las búsquedas dentro de la categoría, permitiendo a sus usuarios visualizar los productos o servicios disponibles.
+                    </div>
+                </div>
+
+                {/* Visualización de la tarjeta */}
+                <div className="flex flex-col gap-6 w-full max-w-lg items-center">
+                    {products.map((product) => (
+                        <ProductCard key={product.id} {...product} />
+                    ))}
+                </div>
+
+                {/* Opciones de personalización */}
+                <div className="space-y-6 w-full max-w-lg bg-zinc-50 p-4 rounded-xl">
+                    <h3 className="text-sm font-medium text-zinc-900">Personalización de la tarjeta</h3>
+
+                    {/* Redondeo de esquinas */}
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            <CircleDashed className="w-4 h-4 text-zinc-500" />
+                            <span className="text-sm text-zinc-500">Redondeo de esquinas</span>
+                        </div>
+                        <Select
+                            value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.rounded || 'rounded-xl'}
+                            onValueChange={(value) => handleCardCustomizationChange('rounded', value)}
+                        >
+                            <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                <SelectValue placeholder="Redondeo" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white">
+                                <SelectItem value="rounded-none">Sin redondeo</SelectItem>
+                                <SelectItem value="rounded-sm">Pequeño</SelectItem>
+                                <SelectItem value="rounded">Mediano</SelectItem>
+                                <SelectItem value="rounded-lg">Grande</SelectItem>
+                                <SelectItem value="rounded-xl">Extra grande</SelectItem>
+                                <SelectItem value="rounded-2xl">2XL</SelectItem>
+                                <SelectItem value="rounded-3xl">3XL</SelectItem>
+                                <SelectItem value="rounded-full">Completo</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    {/* Sombra */}
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                            <Layers className="w-4 h-4 text-zinc-500" />
+                            <span className="text-sm text-zinc-500">Sombra</span>
+                        </div>
+                        <Select
+                            value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.shadow || 'shadow-md'}
+                            onValueChange={(value) => handleCardCustomizationChange('shadow', value)}
+                        >
+                            <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                <SelectValue placeholder="Sombra" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white">
+                                <SelectItem value="shadow-none">Sin sombra</SelectItem>
+                                <SelectItem value="shadow-sm">Sombra pequeña</SelectItem>
+                                <SelectItem value="shadow">Sombra normal</SelectItem>
+                                <SelectItem value="shadow-md">Sombra mediana</SelectItem>
+                                <SelectItem value="shadow-lg">Sombra grande</SelectItem>
+                                <SelectItem value="shadow-xl">Sombra extra grande</SelectItem>
+                                <SelectItem value="shadow-2xl">Sombra 2XL</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    {/* Borde */}
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Square className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Borde</span>
+                            </div>
+                            <Switch
+                                className="data-[state=checked]:bg-gray-300 border border-zinc-400 [&>span]:border [&>span]:border-zinc-400"
+                                style={{ transition: 'background-color 0.2s' }}
+                                checked={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.hasBorder || false}
+                                onCheckedChange={(checked) => handleCardCustomizationChange('hasBorder', checked)}
+                            />
+                        </div>
+
+                        {store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.hasBorder && (
+                            <div className="grid grid-cols-2 gap-2 mt-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderWidth || 'border'}
+                                    onValueChange={(value) => handleCardCustomizationChange('borderWidth', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Ancho de borde" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        <SelectItem value="border">Normal</SelectItem>
+                                        <SelectItem value="border-2">Grueso</SelectItem>
+                                        <SelectItem value="border-4">Extra grueso</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderColor || 'slate'}
+                                    onValueChange={(value) => handleCardCustomizationChange('borderColor', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color de borde" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderShade || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('borderShade', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
-            <div className="flex flex-row items-center justify-center gap-2">
+
+            {/* Botones de navegación */}
+            <div className="flex flex-row items-center justify-center gap-2 w-full max-w-lg">
                 <button
                     type="button"
                     onClick={() => setCurrentStep("cards-inicio-web")}
