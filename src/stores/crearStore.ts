@@ -168,6 +168,22 @@ export interface CardSearchInCategory1 {
   bgShadeButtonDetail: string
   textColorButtonDetail: string
   textShadeButtonDetail: string
+
+  // Texto de categoría ("Electrónica")
+  textColorCategory: string
+  textShadeCategory: string
+  fontCategory: string
+
+  // Texto de nombre del producto ("Smartphone Galaxy Ultra")
+  textColorProductName: string
+  textShadeProductName: string
+  fontProductName: string
+
+  // Texto de precios ("$ 4.200.000" y "$ 3.500.000")
+  textColorPrice: string
+  textShadePrice: string
+  textColorOriginalPrice: string
+  textShadeOriginalPrice: string
 }
 
 export interface BusinessCategory {
