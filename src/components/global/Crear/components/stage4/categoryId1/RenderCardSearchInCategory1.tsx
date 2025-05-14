@@ -68,16 +68,16 @@ function ProductCard({
       <div className="relative w-full aspect-square">
         {/* Badge Nuevo */}
         {isNew && (
-          <Badge className="absolute left-3 top-3 bg-green-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">Nuevo</Badge>
+          <Badge className={`absolute left-3 top-3 bg-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagNew || 'green'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagNew || '500'} text-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagNew || 'white'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagNew || '500'} px-4 py-1 rounded-full text-xs font-semibold z-10`}>Nuevo</Badge>
         )}
         {/* Corazón */}
         <button
           type="button"
           onClick={() => setFavorite(!favorite)}
-          className="absolute right-3 top-3 z-10 bg-white rounded-full p-2 shadow-sm flex items-center justify-center"
+          className={`absolute right-3 top-3 z-10 bg-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonFavorite || 'white'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonFavorite || '500'} rounded-full p-2 shadow-sm flex items-center justify-center`}
           style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
         >
-          <Heart className={`h-5 w-5 ${favorite ? "fill-red-500 text-red-500" : "text-zinc-400"}`} />
+          <Heart className={`h-5 w-5 ${favorite ? `fill-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonFavorite || 'red'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonFavorite || '500'} text-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonFavorite || 'red'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonFavorite || '500'}` : "text-zinc-400"}`} />
         </button>
         {/* Imagen */}
         <img
@@ -88,7 +88,7 @@ function ProductCard({
         />
         {/* Badge Descuento */}
         {discount > 0 && (
-          <Badge className="absolute left-3 bottom-3 bg-red-500 text-white px-4 py-1 rounded-full text-xs font-semibold z-10">-{discount}%</Badge>
+          <Badge className={`absolute left-3 bottom-3 bg-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagDcto || 'red'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagDcto || '500'} text-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagDcto || 'white'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagDcto || '500'} px-4 py-1 rounded-full text-xs font-semibold z-10`}>-{discount}%</Badge>
         )}
       </div>
       <CardContent className="pb-2 pt-4 px-5">
@@ -106,7 +106,7 @@ function ProductCard({
           )}
           <span className="text-2xl font-bold text-zinc-900 truncate">$ {formatPrice(price)}</span>
         </div>
-        <Button className="bg-zinc-900 hover:bg-zinc-800 text-white flex gap-2 px-4 py-2 rounded-lg">
+        <Button className={`bg-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonDetail || 'zinc'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonDetail || '900'} hover:bg-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonDetail || 'zinc'}-${Number(store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonDetail || '900') - 100} text-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonDetail || 'white'}-${store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonDetail || '500'} flex gap-2 px-4 py-2 rounded-lg`}>
           <Eye className="h-5 w-5" />
           <span>Detalle</span>
         </Button>
@@ -143,12 +143,37 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
       if (selectedCategory) {
         // Inicializar cardSearchInCategory1 si no existe
         const currentCardSearchInCategory1 = selectedCategory.cardSearchInCategory1 || {
+          // Propiedades básicas de la card
           rounded: 'rounded-xl',
           shadow: 'shadow-md',
           hasBorder: false,
           borderWidth: 'border',
           borderColor: 'slate',
-          borderShade: '500'
+          borderShade: '500',
+          
+          // Etiqueta "Nuevo"
+          bgColorTagNew: 'green',
+          bgShadeTagNew: '500',
+          textColorTagNew: 'white',
+          textShadeTagNew: '500',
+          
+          // Botón de favoritos (corazón)
+          bgColorButtonFavorite: 'white',
+          bgShadeButtonFavorite: '500',
+          textColorButtonFavorite: 'red',
+          textShadeButtonFavorite: '500',
+          
+          // Etiqueta de descuento "-17%"
+          bgColorTagDcto: 'red',
+          bgShadeTagDcto: '500',
+          textColorTagDcto: 'white',
+          textShadeTagDcto: '500',
+          
+          // Botón "Detalle"
+          bgColorButtonDetail: 'zinc',
+          bgShadeButtonDetail: '900',
+          textColorButtonDetail: 'white',
+          textShadeButtonDetail: '500'
         }
 
         const updatedCardSearchInCategory1 = {
@@ -189,6 +214,40 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
       const selectedCategory = currentState.infoStage4?.categorySelectToEdit
       
       if (selectedCategory && !selectedCategory.cardSearchInCategory1) {
+        const defaultCardSearchInCategory1 = {
+          // Propiedades básicas de la card
+          rounded: 'rounded-xl',
+          shadow: 'shadow-md',
+          hasBorder: false,
+          borderWidth: 'border',
+          borderColor: 'slate',
+          borderShade: '500',
+          
+          // Etiqueta "Nuevo"
+          bgColorTagNew: 'green',
+          bgShadeTagNew: '500',
+          textColorTagNew: 'white',
+          textShadeTagNew: '500',
+          
+          // Botón de favoritos (corazón)
+          bgColorButtonFavorite: 'white',
+          bgShadeButtonFavorite: '500',
+          textColorButtonFavorite: 'red',
+          textShadeButtonFavorite: '500',
+          
+          // Etiqueta de descuento "-17%"
+          bgColorTagDcto: 'red',
+          bgShadeTagDcto: '500',
+          textColorTagDcto: 'white',
+          textShadeTagDcto: '500',
+          
+          // Botón "Detalle"
+          bgColorButtonDetail: 'zinc',
+          bgShadeButtonDetail: '900',
+          textColorButtonDetail: 'white',
+          textShadeButtonDetail: '500'
+        };
+        
         const updatedState = {
           ...currentState,
           infoStage4: {
@@ -197,27 +256,13 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
               cat.id === selectedCategory.id 
                 ? {
                     ...cat,
-                    cardSearchInCategory1: {
-                      rounded: 'rounded-xl',
-                      shadow: 'shadow-md',
-                      hasBorder: false,
-                      borderWidth: 'border',
-                      borderColor: 'slate',
-                      borderShade: '500'
-                    }
+                    cardSearchInCategory1: defaultCardSearchInCategory1
                   }
                 : cat
             ),
             categorySelectToEdit: {
               ...selectedCategory,
-              cardSearchInCategory1: {
-                rounded: 'rounded-xl',
-                shadow: 'shadow-md',
-                hasBorder: false,
-                borderWidth: 'border',
-                borderColor: 'slate',
-                borderShade: '500'
-              }
+              cardSearchInCategory1: defaultCardSearchInCategory1
             }
           }
         }
@@ -379,6 +424,476 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                 </Select>
                             </div>
                         )}
+                    </div>
+
+                    {/* Personalización de etiqueta "Nuevo" */}
+                    <div className="space-y-2 border-t pt-4 mt-4">
+                        <h3 className="text-sm font-medium text-zinc-900">Etiqueta "Nuevo"</h3>
+                        
+                        {/* Color de fondo */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color de fondo</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagNew || 'green'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgColorTagNew', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagNew || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgShadeTagNew', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Color del texto */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color del texto</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagNew || 'white'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textColorTagNew', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="white">Blanco</SelectItem>
+                                        <SelectItem value="black">Negro</SelectItem>
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagNew || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textShadeTagNew', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Personalización del botón de favoritos */}
+                    <div className="space-y-2 border-t pt-4 mt-4">
+                        <h3 className="text-sm font-medium text-zinc-900">Botón de favoritos (corazón)</h3>
+                        
+                        {/* Color de fondo */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color de fondo</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonFavorite || 'white'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgColorButtonFavorite', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="white">Blanco</SelectItem>
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonFavorite || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgShadeButtonFavorite', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Color del icono */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color del corazón (activo)</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonFavorite || 'red'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textColorButtonFavorite', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonFavorite || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textShadeButtonFavorite', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Personalización de etiqueta descuento */}
+                    <div className="space-y-2 border-t pt-4 mt-4">
+                        <h3 className="text-sm font-medium text-zinc-900">Etiqueta descuento</h3>
+                        
+                        {/* Color de fondo */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color de fondo</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagDcto || 'red'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgColorTagDcto', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagDcto || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgShadeTagDcto', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Color del texto */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color del texto</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagDcto || 'white'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textColorTagDcto', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="white">Blanco</SelectItem>
+                                        <SelectItem value="black">Negro</SelectItem>
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagDcto || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textShadeTagDcto', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Personalización del botón Detalle */}
+                    <div className="space-y-2 border-t pt-4 mt-4">
+                        <h3 className="text-sm font-medium text-zinc-900">Botón Detalle</h3>
+                        
+                        {/* Color de fondo */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color de fondo</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonDetail || 'zinc'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgColorButtonDetail', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonDetail || '900'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgShadeButtonDetail', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Color del texto */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color del texto</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonDetail || 'white'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textColorButtonDetail', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Color" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                        <SelectItem value="white">Blanco</SelectItem>
+                                        <SelectItem value="black">Negro</SelectItem>
+                                        <SelectItem value="red">Rojo</SelectItem>
+                                        <SelectItem value="orange">Naranja</SelectItem>
+                                        <SelectItem value="amber">Ámbar</SelectItem>
+                                        <SelectItem value="yellow">Amarillo</SelectItem>
+                                        <SelectItem value="lime">Lima</SelectItem>
+                                        <SelectItem value="green">Verde</SelectItem>
+                                        <SelectItem value="emerald">Esmeralda</SelectItem>
+                                        <SelectItem value="teal">Verde azulado</SelectItem>
+                                        <SelectItem value="cyan">Cian</SelectItem>
+                                        <SelectItem value="sky">Cielo</SelectItem>
+                                        <SelectItem value="blue">Azul</SelectItem>
+                                        <SelectItem value="indigo">Índigo</SelectItem>
+                                        <SelectItem value="violet">Violeta</SelectItem>
+                                        <SelectItem value="purple">Morado</SelectItem>
+                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
+                                        <SelectItem value="pink">Rosa</SelectItem>
+                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                        <SelectItem value="slate">Pizarra</SelectItem>
+                                        <SelectItem value="zinc">Zinc</SelectItem>
+                                        <SelectItem value="gray">Gris</SelectItem>
+                                        <SelectItem value="neutral">Neutral</SelectItem>
+                                        <SelectItem value="stone">Piedra</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonDetail || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textShadeButtonDetail', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

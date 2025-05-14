@@ -144,6 +144,30 @@ export interface CardSearchInCategory1 {
   borderWidth: string
   borderColor: string
   borderShade: string
+  
+  // Etiqueta "Nuevo"
+  bgColorTagNew: string
+  bgShadeTagNew: string
+  textColorTagNew: string
+  textShadeTagNew: string
+  
+  // Botón de favoritos (corazón)
+  bgColorButtonFavorite: string
+  bgShadeButtonFavorite: string
+  textColorButtonFavorite: string
+  textShadeButtonFavorite: string
+  
+  // Etiqueta de descuento "-17%"
+  bgColorTagDcto: string
+  bgShadeTagDcto: string
+  textColorTagDcto: string
+  textShadeTagDcto: string
+  
+  // Botón "Detalle"
+  bgColorButtonDetail: string
+  bgShadeButtonDetail: string
+  textColorButtonDetail: string
+  textShadeButtonDetail: string
 }
 
 export interface BusinessCategory {
