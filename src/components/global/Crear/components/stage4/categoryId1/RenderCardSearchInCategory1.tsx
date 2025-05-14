@@ -117,6 +117,63 @@ function ProductCard({
 
 export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQuestionComponentProps) => {
     const store = useStore(crearStore)
+    const [isValid, setIsValid] = useState(false)
+    
+    // Mapa de colores para visualización
+    const colorMap = {
+        red: '#ef4444',
+        orange: '#f97316',
+        amber: '#f59e0b',
+        yellow: '#eab308',
+        lime: '#84cc16',
+        green: '#22c55e',
+        emerald: '#10b981',
+        teal: '#14b8a6',
+        cyan: '#06b6d4',
+        sky: '#0ea5e9',
+        blue: '#3b82f6',
+        indigo: '#6366f1',
+        violet: '#8b5cf6',
+        purple: '#a855f7',
+        fuchsia: '#d946ef',
+        pink: '#ec4899',
+        rose: '#f43f5e',
+        slate: '#64748b',
+        zinc: '#71717a',
+        gray: '#737373',
+        neutral: '#737373',
+        stone: '#78716c',
+        black: '#000000',
+        white: '#ffffff'
+    }
+    
+    // Función para obtener el color para mostrar en el círculo
+    const getIconColor = (color: string, shade: string) => {
+        return colorMap[color as keyof typeof colorMap] || color
+    }
+    
+    // Componente para mostrar un elemento de selección con un círculo de color
+    const ColorSelectItem = ({ color, label }: { color: string, label: string }) => {
+        return (
+            <SelectItem value={color} className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color, '500') }}></div>
+                    <span>{label}</span>
+                </div>
+            </SelectItem>
+        )
+    }
+    
+    // Componente para mostrar un color trigger
+    const ColorTrigger = ({ color, shade, placeholder }: { color: string, shade: string, placeholder: string }) => {
+        return (
+            <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: getIconColor(color, shade) }}></div>
+                <SelectValue placeholder={placeholder} />
+            </div>
+        )
+    }
+
     const products = [
         {
           id: "2",
@@ -407,31 +464,35 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('borderColor', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color de borde" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderColor || 'slate'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.borderShade || '500'}
+                                            placeholder="Color de borde"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="red" label="Rojo" />
+                                        <ColorSelectItem color="orange" label="Naranja" />
+                                        <ColorSelectItem color="amber" label="Ámbar" />
+                                        <ColorSelectItem color="yellow" label="Amarillo" />
+                                        <ColorSelectItem color="lime" label="Lima" />
+                                        <ColorSelectItem color="green" label="Verde" />
+                                        <ColorSelectItem color="emerald" label="Esmeralda" />
+                                        <ColorSelectItem color="teal" label="Verde azulado" />
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -468,31 +529,35 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('bgColorTagNew', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagNew || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagNew || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="red" label="Rojo" />
+                                        <ColorSelectItem color="orange" label="Naranja" />
+                                        <ColorSelectItem color="amber" label="Ámbar" />
+                                        <ColorSelectItem color="yellow" label="Amarillo" />
+                                        <ColorSelectItem color="lime" label="Lima" />
+                                        <ColorSelectItem color="green" label="Verde" />
+                                        <ColorSelectItem color="emerald" label="Esmeralda" />
+                                        <ColorSelectItem color="teal" label="Verde azulado" />
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -524,7 +589,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('textColorTagNew', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagNew || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagNew || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="white">Blanco</SelectItem>
@@ -537,20 +606,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -586,8 +655,12 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     value={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonFavorite || 'white'}
                                     onValueChange={(value) => handleCardCustomizationChange('bgColorButtonFavorite', value)}
                                 >
-                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                   <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonFavorite || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonFavorite || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="white">Blanco</SelectItem>
@@ -599,20 +672,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -644,7 +717,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('textColorButtonFavorite', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonFavorite || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonFavorite || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="red">Rojo</SelectItem>
@@ -700,7 +777,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('bgColorTagDcto', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorTagDcto || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeTagDcto || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="red">Rojo</SelectItem>
@@ -711,20 +792,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -756,7 +837,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('textColorTagDcto', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorTagDcto || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeTagDcto || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="white">Blanco</SelectItem>
@@ -769,20 +854,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -819,7 +904,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('bgColorButtonDetail', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgColorButtonDetail || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.bgShadeButtonDetail || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="red">Rojo</SelectItem>
@@ -830,20 +919,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -875,7 +964,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('textColorButtonDetail', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorButtonDetail || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeButtonDetail || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="white">Blanco</SelectItem>
@@ -888,20 +981,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -938,7 +1031,11 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                     onValueChange={(value) => handleCardCustomizationChange('textColorCategory', value)}
                                 >
                                     <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
-                                        <SelectValue placeholder="Color" />
+                                        <ColorTrigger 
+                                            color={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textColorCategory || 'green'}
+                                            shade={store.infoStage4.categorySelectToEdit?.cardSearchInCategory1?.textShadeCategory || '500'}
+                                            placeholder="Color"
+                                        />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
                                         <SelectItem value="black">Negro</SelectItem>
@@ -950,20 +1047,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1041,20 +1138,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1137,20 +1234,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1194,20 +1291,20 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectItem value="green">Verde</SelectItem>
                                         <SelectItem value="emerald">Esmeralda</SelectItem>
                                         <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
-                                        <SelectItem value="slate">Pizarra</SelectItem>
-                                        <SelectItem value="zinc">Zinc</SelectItem>
-                                        <SelectItem value="gray">Gris</SelectItem>
-                                        <SelectItem value="neutral">Neutral</SelectItem>
-                                        <SelectItem value="stone">Piedra</SelectItem>
+                                        <ColorSelectItem color="cyan" label="Cian" />
+                                        <ColorSelectItem color="sky" label="Cielo" />
+                                        <ColorSelectItem color="blue" label="Azul" />
+                                        <ColorSelectItem color="indigo" label="Índigo" />
+                                        <ColorSelectItem color="violet" label="Violeta" />
+                                        <ColorSelectItem color="purple" label="Morado" />
+                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                        <ColorSelectItem color="pink" label="Rosa" />
+                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
+                                        <ColorSelectItem color="slate" label="Pizarra" />
+                                        <ColorSelectItem color="zinc" label="Zinc" />
+                                        <ColorSelectItem color="gray" label="Gris" />
+                                        <ColorSelectItem color="neutral" label="Neutral" />
+                                        <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
