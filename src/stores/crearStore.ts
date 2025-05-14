@@ -186,12 +186,22 @@ export interface CardSearchInCategory1 {
   textShadeOriginalPrice: string
 }
 
+export interface CardSearchInCategory2 {
+  rounded: string
+  shadow: string
+  hasBorder: boolean
+  borderWidth: string
+  borderColor: string
+  borderShade: string
+}
+
 export interface BusinessCategory {
   id: string
   title: string
   description: string
   cardInicioSettings: CardInicioSettings
   cardSearchInCategory1?: CardSearchInCategory1
+  cardSearchInCategory2?: CardSearchInCategory2
 }
 
 interface CrearState {

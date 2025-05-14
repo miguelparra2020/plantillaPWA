@@ -471,28 +471,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <ColorSelectItem color="red" label="Rojo" />
-                                        <ColorSelectItem color="orange" label="Naranja" />
-                                        <ColorSelectItem color="amber" label="Ámbar" />
-                                        <ColorSelectItem color="yellow" label="Amarillo" />
-                                        <ColorSelectItem color="lime" label="Lima" />
-                                        <ColorSelectItem color="green" label="Verde" />
-                                        <ColorSelectItem color="emerald" label="Esmeralda" />
-                                        <ColorSelectItem color="teal" label="Verde azulado" />
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                    <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -536,28 +536,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <ColorSelectItem color="red" label="Rojo" />
-                                        <ColorSelectItem color="orange" label="Naranja" />
-                                        <ColorSelectItem color="amber" label="Ámbar" />
-                                        <ColorSelectItem color="yellow" label="Amarillo" />
-                                        <ColorSelectItem color="lime" label="Lima" />
-                                        <ColorSelectItem color="green" label="Verde" />
-                                        <ColorSelectItem color="emerald" label="Esmeralda" />
-                                        <ColorSelectItem color="teal" label="Verde azulado" />
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -596,30 +596,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="white">Blanco</SelectItem>
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -663,29 +661,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="white">Blanco</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -724,23 +721,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <SelectItem value="cyan">Cian</SelectItem>
-                                        <SelectItem value="sky">Cielo</SelectItem>
-                                        <SelectItem value="blue">Azul</SelectItem>
-                                        <SelectItem value="indigo">Índigo</SelectItem>
-                                        <SelectItem value="violet">Violeta</SelectItem>
-                                        <SelectItem value="purple">Morado</SelectItem>
-                                        <SelectItem value="fuchsia">Fucsia</SelectItem>
-                                        <SelectItem value="pink">Rosa</SelectItem>
-                                        <SelectItem value="rose">Rosa fuerte</SelectItem>
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -784,28 +786,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -844,30 +846,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="white">Blanco</SelectItem>
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -911,28 +911,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -971,30 +971,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="white">Blanco</SelectItem>
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1038,29 +1036,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1129,29 +1126,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectValue placeholder="Color" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1225,29 +1221,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectValue placeholder="Color" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 
@@ -1282,29 +1277,28 @@ export const RenderCardSearchInCategory1 = ({ setCurrentStep }: RenderInitialQue
                                         <SelectValue placeholder="Color" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white max-h-[300px]">
-                                        <SelectItem value="black">Negro</SelectItem>
-                                        <SelectItem value="red">Rojo</SelectItem>
-                                        <SelectItem value="orange">Naranja</SelectItem>
-                                        <SelectItem value="amber">Ámbar</SelectItem>
-                                        <SelectItem value="yellow">Amarillo</SelectItem>
-                                        <SelectItem value="lime">Lima</SelectItem>
-                                        <SelectItem value="green">Verde</SelectItem>
-                                        <SelectItem value="emerald">Esmeralda</SelectItem>
-                                        <SelectItem value="teal">Verde azulado</SelectItem>
-                                        <ColorSelectItem color="cyan" label="Cian" />
-                                        <ColorSelectItem color="sky" label="Cielo" />
-                                        <ColorSelectItem color="blue" label="Azul" />
-                                        <ColorSelectItem color="indigo" label="Índigo" />
-                                        <ColorSelectItem color="violet" label="Violeta" />
-                                        <ColorSelectItem color="purple" label="Morado" />
-                                        <ColorSelectItem color="fuchsia" label="Fucsia" />
-                                        <ColorSelectItem color="pink" label="Rosa" />
-                                        <ColorSelectItem color="rose" label="Rosa fuerte" />
-                                        <ColorSelectItem color="slate" label="Pizarra" />
-                                        <ColorSelectItem color="zinc" label="Zinc" />
-                                        <ColorSelectItem color="gray" label="Gris" />
-                                        <ColorSelectItem color="neutral" label="Neutral" />
-                                        <ColorSelectItem color="stone" label="Piedra" />
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
                                     </SelectContent>
                                 </Select>
 

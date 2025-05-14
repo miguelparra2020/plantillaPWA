@@ -22,7 +22,9 @@ export const ButtonsHandleNextBackStage2 = ({ handleNext, handlePrev }: ButtonHa
     titleColorIntensity: '',
     paragraphColorIntensity: '',
     colorTitlesSave: '',
-    colorParagraphSave: ''
+    colorParagraphSave: '',
+    classTitlesGeneral: '',
+    classParagraphGeneral: ''
   })
   const [isFormValid, setIsFormValid] = useState(false)
 
