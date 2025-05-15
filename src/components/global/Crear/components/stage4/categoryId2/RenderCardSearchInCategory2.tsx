@@ -69,7 +69,7 @@ function ServiceCard({
           alt={name}
           className="h-48 w-full object-cover"
         />
-        {isPopular && <Badge className="absolute right-2 top-2 bg-yellow-500 hover:bg-yellow-600">Popular</Badge>}
+        {isPopular && <Badge className={`absolute right-2 top-2 bg-${store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgColorTagPopular || 'yellow'}-${store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgShadeTagPopular || '500'} text-${store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textColorTagPopular || 'white'}-${store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textShadeTagPopular || '500'}`}>Popular</Badge>}
       </div>
 
       <CardHeader className="pb-2">
@@ -209,6 +209,12 @@ export const RenderCardSearchInCategory2 = ({ setCurrentStep, handlePrev }:
             borderWidth: 'border',
             borderColor: 'slate',
             borderShade: '500',
+
+            // Etiqueta "Popular"
+            bgColorTagPopular: 'green',
+            bgShadeTagPopular: '500',
+            textColorTagPopular: 'white',
+            textShadeTagPopular: '500',
           }
   
           const updatedCardSearchInCategory2 = {
@@ -250,6 +256,12 @@ export const RenderCardSearchInCategory2 = ({ setCurrentStep, handlePrev }:
             borderWidth: 'border',
             borderColor: 'slate',
             borderShade: '500',
+
+            // Etiqueta "Nuevo"
+            bgColorTagPopular: 'green',
+            bgShadeTagPopular: '500',
+            textColorTagPopular: 'white',
+            textShadeTagPopular: '500',
           };
           
           const updatedCategories = [...(currentState.infoStage4?.businessCategories || [])]
@@ -421,6 +433,131 @@ export const RenderCardSearchInCategory2 = ({ setCurrentStep, handlePrev }:
                                 </Select>
                             </div>
                         )}
+                    </div>
+
+                    {/* Personalización de etiqueta "Nuevo" */}
+                    <div className="space-y-2 border-t pt-4 mt-4">
+                        <h3 className="text-sm font-medium text-zinc-900">Etiqueta "Popular"</h3>
+                        
+                        {/* Color de fondo */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color de fondo</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgColorTagPopular || 'green'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgColorTagPopular', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <ColorTrigger 
+                                            color={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgColorTagPopular || 'green'}
+                                            shade={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgShadeTagPopular || '500'}
+                                            placeholder="Color"
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.bgShadeTagPopular || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('bgShadeTagPopular', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        {/* Color del texto */}
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                                <Palette className="w-4 h-4 text-zinc-500" />
+                                <span className="text-sm text-zinc-500">Color del texto</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                <Select
+                                    value={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textColorTagPopular || 'white'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textColorTagPopular', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <ColorTrigger 
+                                            color={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textColorTagPopular || 'white'}
+                                            shade={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textShadeTagPopular || '500'}
+                                            placeholder="Color"
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white max-h-[300px]">
+                                            <ColorSelectItem color="red" label="Rojo" />
+                                            <ColorSelectItem color="orange" label="Naranja" />
+                                            <ColorSelectItem color="amber" label="Ámbar" />
+                                            <ColorSelectItem color="yellow" label="Amarillo" />
+                                            <ColorSelectItem color="lime" label="Lima" />
+                                            <ColorSelectItem color="green" label="Verde" />
+                                            <ColorSelectItem color="emerald" label="Esmeralda" />
+                                            <ColorSelectItem color="teal" label="Verde azulado" />
+                                            <ColorSelectItem color="cyan" label="Cian" />
+                                            <ColorSelectItem color="sky" label="Celeste" />
+                                            <ColorSelectItem color="blue" label="Azul" />
+                                            <ColorSelectItem color="indigo" label="Índigo" />
+                                            <ColorSelectItem color="violet" label="Violeta" />
+                                            <ColorSelectItem color="purple" label="Púrpura" />
+                                            <ColorSelectItem color="fuchsia" label="Fucsia" />
+                                            <ColorSelectItem color="pink" label="Rosa" />
+                                            <ColorSelectItem color="rose" label="Rosado" />
+                                            <ColorSelectItem color="slate" label="Pizarra" />
+                                            <ColorSelectItem color="gray" label="Gris" />
+                                            <ColorSelectItem color="zinc" label="Zinc" />
+                                            <ColorSelectItem color="neutral" label="Neutro" />
+                                            <ColorSelectItem color="stone" label="Piedra" />
+                                    </SelectContent>
+                                </Select>
+
+                                <Select
+                                    value={store.infoStage4.businessCategories?.[1]?.cardSearchInCategory2?.textShadeTagPopular || '500'}
+                                    onValueChange={(value) => handleCardCustomizationChange('textShadeTagPopular', value)}
+                                >
+                                    <SelectTrigger className="w-full h-10 bg-zinc-100 border-zinc-200 rounded-xl">
+                                        <SelectValue placeholder="Intensidad" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        {['100', '200', '300', '400', '500', '600', '700', '800', '900'].map((shade) => (
+                                            <SelectItem key={shade} value={shade}>{shade}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

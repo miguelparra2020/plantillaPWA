@@ -193,6 +193,12 @@ export interface CardSearchInCategory2 {
   borderWidth: string
   borderColor: string
   borderShade: string
+
+  // Etiqueta "Popular"
+  bgColorTagPopular: string
+  bgShadeTagPopular: string
+  textColorTagPopular: string
+  textShadeTagPopular: string
 }
 
 export interface BusinessCategory {
