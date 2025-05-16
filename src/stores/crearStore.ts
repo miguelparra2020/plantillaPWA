@@ -199,6 +199,12 @@ export interface CardSearchInCategory2 {
   bgShadeTagPopular: string
   textColorTagPopular: string
   textShadeTagPopular: string
+
+  // Etiqueta "Peluquería"
+  bgColorTagBarber: string
+  bgShadeTagBarber: string
+  textColorTagBarber: string
+  textShadeTagBarber: string
 }
 
 export interface BusinessCategory {
