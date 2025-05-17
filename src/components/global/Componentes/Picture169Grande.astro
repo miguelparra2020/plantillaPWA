@@ -4,14 +4,14 @@ import { generalConfig } from "@util/generalConfig"
 ---
 <picture class="lg:w-[65%]">
     <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
+      srcset={generalConfig.Home.Wellcome.ImagenGrandeAvif} 
       type="image/avif" 
       media="(min-width: 1024px)" 
       class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 1024px"
     >
     <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
+      srcset={generalConfig.Home.Wellcome.ImagenGrandeWebp} 
       type="image/webp" 
       media="(min-width: 1024px)" 
       class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
@@ -25,42 +25,20 @@ import { generalConfig } from "@util/generalConfig"
     >
   
     <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
+      srcset={generalConfig.Home.Wellcome.ImagenMedianaAvif} 
       type="image/avif" 
-      media="(min-width: 600px)" 
+      media="(max-width: 1024px)" 
       class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px"
     >
     <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
+      srcset={generalConfig.Home.Wellcome.ImagenMedianaWebp} 
       type="image/webp" 
-      media="(min-width: 600px)" 
+      media="(max-width: 1024px)" 
       style="width: 600px"
     >
-    <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg}  
-      media="(min-width: 600px)" 
-      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
-      style="width: 600px"
-    >
-  
-    <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
-      type="image/avif" 
-      media="(min-width: 600px)" 
-      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
-      style="width: 600px"
-    >
-    <source 
-      srcset={generalConfig.Home.Wellcome.ImagenGrandeJpg} 
-      type="image/webp" 
-      media="(min-width: 600px)" 
-      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
-      style="width: 600px"
-    >
-  
     <img 
-      src={generalConfig.Home.Wellcome. ImagenGrandeJpg} 
+      src={generalConfig.Home.Wellcome. ImagenMedianaJpg} 
       alt="Imagen Genérica" 
       class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px" 
