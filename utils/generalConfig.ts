@@ -1,4 +1,8 @@
-import ImagenCompany from '@img/user.png';
+import ImagenCompanyGeneral from '@img/user.png'
+import ImagenCompanyAvif from '@img/logoCompany.avif'
+import ImagenCompanyWebp from '@img/logoCompany.webp'
+import ImagenCompanyJpg from '@img/logoCompany.jpg'
+import ImagenCompanyPng from '@img/logoCompany.png'
 import ImagenGrandeAvif from '@img/inicio/imagen-grande-bienvenida.avif'
 import ImagenGrandeWebp from '@img/inicio/imagen-grande-bienvenida.webp'
 import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
@@ -30,10 +34,10 @@ export const ModuelesActives = {
 }
 
 export const company = {
-  name: "Mi Comercio Electrónico",
-  principalColorTitles: "cyan",
+  name: "Class Barber",
+  principalColorTitles: "blue",
   principalColorParrafos: "slate",
-  principalColorButtonsBg: "blue",
+  principalColorButtonsBg: "yellow",
   principalColorButtonsText: "white",
 }
 
@@ -781,7 +785,13 @@ export const generalConfig = {
   principalColorParrafos:company.principalColorParrafos,
   NavBar: {
     nameCompany: company.name,
-    logoCompany: ImagenCompany,
+    logoCompanyGeneral: ImagenCompanyGeneral,
+    logoCompanyAvif: ImagenCompanyAvif,
+    logoCompanyWebp: ImagenCompanyWebp,
+    logoCompanyJpg: ImagenCompanyJpg,
+    logoCompanyPng: ImagenCompanyPng,
+    classLinksHome: "text-zinc-600 font-open-sans font-extrabold text-lg  hover:text-blue-500",
+    classLinksAll: "flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 text-slate-500 font-open-sans font-semibold hover:bg-zinc-100 text-base  hover:text-blue-500",
     linksPages: [
       { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
         icon: "bi-box-arrow-in-down",  active: false,
@@ -794,12 +804,12 @@ export const generalConfig = {
         path2:pathsIconos.path2home
       },
       { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
-        icon: "bi-box-seam", active: true,
+        icon: "bi-box-seam", active: false,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
       { href: "/servicios", id: "services", text: getTranslation("/es/","services"), 
-        icon: "bi-tools", active: false,
+        icon: "bi-tools", active: true,
         path1:pathsIconos.path1services,
         path2:pathsIconos.path2services
       },

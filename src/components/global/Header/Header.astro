@@ -5,19 +5,16 @@ import CarShopping from '@img/carShopping.png';
 import { generalConfig } from "@util/generalConfig"
 
 // Estilos
-const classLinks = "text-blue-900  hover:text-blue-600"
 const styleNav = "bg-white border-gray-200 shadow-sm"
 const styleDiv1Nav = "bg-white border-gray-200 shadow-sm flex items-center justify-around flex-row pt-5 pb-5 px-4 md:px-6 lg:px-8"
 const styleDiv2Nav = "flex items-center space-x-3 rtl:space-x-reverse"
-const styleSpan1Nav = `text-lg font-semibold ${classLinks}`
 const styleDiv4Nav = "flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-1"
-const styleA1Nav = `relative inline-flex items-center p-1 text-sm font-medium text-center ${classLinks}` 
+const styleA1Nav = `relative inline-flex items-center p-1 text-sm font-medium text-center` 
 const styleSpan2Nav = "sr-only"
 const styleDiv5Nav = "absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2"
 const styleImg1Nav = "rounded-full bg-white"
 const styleDiv6Nav = "items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1"
 const styleUl1Nav = "flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white"
-const styleLi1Nav = `flex flex-row items-center justify-center gap-2 py-2 px-3 md:p-0 ${classLinks}`
 ---
 
 <nav class:list={styleNav}>
@@ -25,9 +22,21 @@ const styleLi1Nav = `flex flex-row items-center justify-center gap-2 py-2 px-3 m
       <a href="/">
         <div class:list={styleDiv2Nav}>
           <div class:list={styleDiv2Nav}>            
-            <CustomImagen width={40} height={40} src={generalConfig.NavBar.logoCompany} alt="Logo de la compañia"/>
+            <picture class="rounded-full">
+              <source srcset={generalConfig.NavBar.logoCompanyAvif} type="image/avif" class="rounded-full shadow"/>
+              <source srcset={generalConfig.NavBar.logoCompanyWebp} type="image/webp" class="rounded-full shadow"/>
+              <source srcset={generalConfig.NavBar.logoCompanyJpg} type="image/jpeg" class="rounded-full shadow"/>
+              <img
+              class="rounded-full shadow"
+                src={generalConfig.NavBar.logoCompanyPng}
+                alt="Logo de la compañía"
+                width={40}
+                height={40}
+              />
+            </picture>
+            
           </div>          
-          <span class:list={styleSpan1Nav} style={{ wordWrap: "break-word" }}>
+          <span class:list={generalConfig.NavBar.classLinksHome} style={{ wordWrap: "break-word" }}>
             {generalConfig.NavBar.nameCompany}
           </span>
            
@@ -53,7 +62,7 @@ const styleLi1Nav = `flex flex-row items-center justify-center gap-2 py-2 px-3 m
           <ul class:list={styleUl1Nav}>
             {generalConfig.NavBar.linksPages.map(link => ( <>
               {link.active && 
-              <li class:list={styleLi1Nav}>
+              <li class:list={generalConfig.NavBar.classLinksAll}>
                 {link.icon && (
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class:list={['bi', link.icon]} viewBox="0 0 16 16">
                     <path d={link.path1}/>
