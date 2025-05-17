@@ -1034,7 +1034,7 @@ export const generalConfig = {
           subtitleWellcome: getTranslationHomeWelcome("/fr/","DescriptionWellcome")
         },
       }, 
-      ClassImagenWellcome: "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video bg-gray-500  shadow-md lg:shadow-gray-300 hover:shadow-gray-500 rounded-md",
+      ClassImagenWellcome: " bg-gray-500  shadow-md lg:shadow-gray-300 hover:shadow-gray-500 rounded-md",
       ImagenGrandeAvif:  ImagenGrandeAvif, // Imagen grande de la empresa de Bienvenida
       ImagenGrandeWebp: ImagenGrandeWebp,  // 16:9 grande -> 1024 × 576 px -> 600 × 338 px 
       ImagenGrandeJpg: ImagenGrandeJpg,
