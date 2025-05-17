@@ -1,15 +1,19 @@
 ---
 // Importaciones
-import { Titulos, Sesion, DivVertical, Parrafos, Picture169Grande } from "@globals"
+import {Sesion, DivVertical,Picture169Grande } from "@globals"
 import { generalConfig } from "@util/generalConfig"
+import TituloInicioBienvenida  from "./TituloInicioBienvenida"
+import ParrafoInicioBienvenida from "./ParrafoInicioBienvenida"
+
 ---
 
 {generalConfig.Home.Wellcome.WellcomeActive && <>
     <Sesion color={generalConfig.Home.Wellcome.colorBgSesion} image={generalConfig.Home.Wellcome.urlImgBgSesion}>
         <DivVertical>
-            <Titulos title={generalConfig.Home.Wellcome.Wellcome + " " + generalConfig.Home.Wellcome.Company}/>
-            <Parrafos texto={generalConfig.Home.Wellcome.DescriptionWellcome}/>
-            <br/><br/>
+            <TituloInicioBienvenida client:idle/>
+            <br/>
+            <ParrafoInicioBienvenida client:idle/>
+            <br/>
             <Picture169Grande/>
             <br/>
         </DivVertical>

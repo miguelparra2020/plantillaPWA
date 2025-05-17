@@ -116,19 +116,19 @@ export const getTranslation = (languajeChoose: string, key: string): string => {
 export const translationHomeWellcome = {
   "/en/": {
     Wellcome: "Welcome to",
-    DescriptionWellcome: "We are an e-commerce company that promises the sale of technological products through partnerships with regional suppliers and the provision of technology services."
+    DescriptionWellcome: "Where every detail matters and your style has the final word"
   }, 
   "/es/": {
     Wellcome: "Bienvenido a",
-    DescriptionWellcome: "Somos una empresa de comercio electrónico que promete la venta de productos tecnológicos mediante alianzas con proveedores regionales y la prestación de servicios en tecnología"
+    DescriptionWellcome: "Donde cada detalle cuenta y tu estilo tiene la última palabra."
   },
   "/pt/": {
     Wellcome: "Bem-vindo a",
-    DescriptionWellcome: "Somos uma empresa de comércio eletrônico que promete a venda de produtos tecnológicos por meio de parcerias com fornecedores regionais e a prestação de serviços em tecnologia."
+    DescriptionWellcome: "Onde cada detalhe conta e seu estilo tem a palavra final."
   },
   "/fr/": {
     Wellcome: "Bienvenue à",
-    DescriptionWellcome: "Nous sommes une entreprise de commerce électronique qui s'engage à vendre des produits technologiques grâce à des partenariats avec des fournisseurs régionaux et à la prestation de services technologiques."
+    DescriptionWellcome: "Où chaque détail compte et votre style a le dernier mot"
   },
 }
 export  const getTranslationHomeWelcome = (languajeChoose: string, key: string): string => {
@@ -781,8 +781,8 @@ export  const getTranslationCreateProject = (languajeChoose: string, key: string
 export const generalConfig = {
   idioma: "/es/",
   name: company.name,
-  principalColorTitles:company.principalColorTitles,
-  principalColorParrafos:company.principalColorParrafos,
+  classTitlesGeneral: "text-transparent bg-clip-text bg-gradient-to-r from-slate-400 via-slate-600 to-slate-800 font-roboto font-extrabold text-4xl",
+  classParagraphGeneral:"text-stone-500 font-poppins font-normal text-base",
   NavBar: {
     nameCompany: company.name,
     logoCompanyGeneral: ImagenCompanyGeneral,
@@ -1002,12 +1002,39 @@ export const generalConfig = {
   Home:{
     Wellcome:{
       WellcomeActive: true, // Bienvenida activa o inactiva true o false
-      colorBgSesion: "blue", // Color de fondo de la bienvenida red, blue, orange, yellow, lime, green, etc...
-      urlImgBgSesion: "/bgSesion1.svg",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
+      colorBgSesion: "white", // Color de fondo de la bienvenida red, blue, orange, yellow, lime, green, etc...
+      urlImgBgSesion: "",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
       WellcomeTypePosition: "vertical", // estilo "vertical", "horizontal"
-      Wellcome: getTranslationHomeWelcome("/es/","Wellcome"), // Bienvenido traducido en todos los idiomas
-      Company:company.name, // Nombre de la empresa
-      DescriptionWellcome:getTranslationHomeWelcome("/es/","DescriptionWellcome"), // Descripción de la empresa traducida
+      Wellcome: {
+        es: {
+          titleWellcome: getTranslationHomeWelcome("/es/","Wellcome") 
+        },
+        en: {
+          titleWellcome: getTranslationHomeWelcome("/en/","Wellcome")
+        },
+        pt: {
+          titleWellcome: getTranslationHomeWelcome("/pt/","Wellcome")
+        },
+        fr: {
+          titleWellcome: getTranslationHomeWelcome("/fr/","Wellcome")
+        },
+      },     
+      Company: company.name, // Nombre de la empresa
+      DescriptionWellcome:{
+        es: {
+          subtitleWellcome: getTranslationHomeWelcome("/es/","DescriptionWellcome") 
+        },
+        en: {
+          subtitleWellcome: getTranslationHomeWelcome("/en/","DescriptionWellcome")
+        },
+        pt: {
+          subtitleWellcome: getTranslationHomeWelcome("/pt/","DescriptionWellcome")
+        },
+        fr: {
+          subtitleWellcome: getTranslationHomeWelcome("/fr/","DescriptionWellcome")
+        },
+      }, 
+      ClassImagenWellcome: "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video bg-gray-500  shadow-md lg:shadow-gray-300 hover:shadow-gray-500 rounded-md",
       ImagenGrandeAvif:  ImagenGrandeAvif, // Imagen grande de la empresa de Bienvenida
       ImagenGrandeWebp: ImagenGrandeWebp,  // 16:9 grande -> 1024 × 576 px -> 600 × 338 px 
       ImagenGrandeJpg: ImagenGrandeJpg,

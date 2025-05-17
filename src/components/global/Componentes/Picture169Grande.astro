@@ -1,5 +1,6 @@
 ---
 import DefaultPicture169Grande from '@img/imgsGenerales/Picture169Grande.jpg'
+import { generalConfig } from "@util/generalConfig"
 interface Props {
     ImagenGrandeAvif?: any
     ImagenGrandeWebp?: any
@@ -10,26 +11,27 @@ interface Props {
 }
 
 const { ImagenGrandeAvif,ImagenGrandeWebp, ImagenGrandeJpg, ImagenMedianaAvif,ImagenMedianaWebp, ImagenMedianaJpg=DefaultPicture169Grande } = Astro.props
-
-const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video"
 ---
 
-<picture class:list={stylePicture} >
+<picture class:list={generalConfig.Home.Wellcome.ClassImagenWellcome} >
     <source 
       srcset={ImagenGrandeAvif} 
       type="image/avif" 
       media="(min-width: 1024px)" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 1024px"
     >
     <source 
       srcset={ImagenGrandeWebp} 
       type="image/webp" 
       media="(min-width: 1024px)" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 1024px"
     >
     <source 
       srcset={ImagenGrandeJpg} 
       media="(min-width: 1024px)" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 1024px"
     >
   
@@ -37,6 +39,7 @@ const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video"
       srcset={ImagenMedianaAvif} 
       type="image/avif" 
       media="(min-width: 600px)" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px"
     >
     <source 
@@ -48,23 +51,27 @@ const stylePicture = "h-auto w-[96%] sm:w-[80%] lg:w-[50%] z-10 aspect-video"
     <source 
       srcset={ImagenMedianaJpg} 
       media="(min-width: 600px)" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px"
     >
   
     <source 
       srcset={ImagenMedianaAvif} 
       type="image/avif" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px"
     >
     <source 
       srcset={ImagenMedianaWebp} 
       type="image/webp" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px"
     >
   
     <img 
       src={ImagenMedianaJpg} 
       alt="Imagen Genérica" 
+      class:list={generalConfig.Home.Wellcome.ClassImagenWellcome}
       style="width: 600px" 
     >
   </picture>
