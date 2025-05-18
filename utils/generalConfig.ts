@@ -868,12 +868,12 @@ export const generalConfig = {
         path2:pathsIconos.path2home
       },
       { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
-        icon: "bi-box-seam", active: true,
+        icon: "bi-box-seam", active: false,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
       { href: "/servicios", id: "services", text: getTranslation("/es/","services"), 
-        icon: "bi-tools", active: false,
+        icon: "bi-tools", active: true,
         path1:pathsIconos.path1services,
         path2:pathsIconos.path2services
       },
@@ -942,7 +942,7 @@ export const generalConfig = {
         path2:pathsIconos.path2home
       },
       { href: "/productos", id: "products", text: getTranslation("/es/","products"), 
-        icon: "bi-box-seam", active: true,
+        icon: "bi-box-seam", active: false,
         path1:pathsIconos.path1products,
         path2:pathsIconos.path2products
       },
@@ -962,22 +962,22 @@ export const generalConfig = {
       //   path2:pathsIconos.path2publications
       // },
       { href: "/eventos", id: "events", text: getTranslation("/es/","events"), 
-        icon: "bi-calendar-event", active: true,
+        icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1events,
         path2:pathsIconos.path2events
       },
       { href: "/citas", id: "quotes", text: getTranslation("/es/","quotes"), 
-        icon: "bi-calendar-event", active: true,
+        icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1quotes,
         path2:pathsIconos.path2quotes
       },
       { href: "/reservas", id: "reservations", text: getTranslation("/es/","reservations"), 
-        icon: "bi-calendar-event", active: true,
+        icon: "bi-calendar-event", active: false,
         path1:pathsIconos.path1reservations,
         path2:pathsIconos.path2reservations
       },
       { href: "/nosotros",id: "us", text: getTranslation("/es/","us"), 
-        icon: "bi-buildings-fill", active: true,
+        icon: "bi-buildings-fill", active: false,
         path1:pathsIconos.path1us,
         path2:pathsIconos.path2us
       },
@@ -987,12 +987,12 @@ export const generalConfig = {
         path2:pathsIconos.path2location
       },
       { href: "/contacto", id:"contact", text: getTranslation("/es/","contact"), 
-        icon: "bi-chat-fill", active: true,
+        icon: "bi-chat-fill", active: false,
         path1:pathsIconos.path1contact,
         path2:pathsIconos.path2contact
       },
       { href: "/crear", id:"crear", text: getTranslation("/es/","crear"), 
-        icon: "bi-pencil-square", active: true,
+        icon: "bi-pencil-square", active: false,
         path1:pathsIconos.path1crear,
         path2:pathsIconos.path2crear
       }
@@ -1002,7 +1002,7 @@ export const generalConfig = {
   Home:{
     Wellcome:{
       WellcomeActive: true, // Bienvenida activa o inactiva true o false
-      colorBgSesion: "white", // Color de fondo de la bienvenida red, blue, orange, yellow, lime, green, etc...
+      colorBgSesion: "white", // Color de fondo
       urlImgBgSesion: "",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
       WellcomeTypePosition: "vertical", // estilo "vertical", "horizontal"
       Wellcome: {
