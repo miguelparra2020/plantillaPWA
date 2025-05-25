@@ -1,6 +1,6 @@
 ---
 // Importaciones
-import {   LayoutGeneral, InicioBienvenida, InicioRedesSociales, InicioProductos, InicioServicios } from "@globals"
+import {   LayoutGeneral, InicioBienvenida, InicioRedesSociales, InicioProductos, InicioServicios, Carrusel } from "@globals"
 import { ModuelesActives } from "@util/generalConfig"
 if (!ModuelesActives.Home) {
   return Astro.redirect('/nofound');
@@ -13,6 +13,8 @@ import LanguageSelector from "../components/global/Lenguaje/LanguageIndex"
         <InicioBienvenida/>
         <!-- Inicio Redes Sociales -->
          <InicioRedesSociales/>
+         <!-- Carrusel -->
+         <Carrusel client:idle/>
         <!-- Inicio Productos -->
         <!-- <InicioProductos/> -->
         <!-- Inicio Servicios -->
