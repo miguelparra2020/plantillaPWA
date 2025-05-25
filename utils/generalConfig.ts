@@ -9,6 +9,7 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
+import { ButtonGeneral } from '@globals'
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
 export const getCurrentLanguage = (languajeChoose: string): Idioma => {
@@ -1004,6 +1005,7 @@ export const generalConfig = {
       WellcomeActive: true, // Bienvenida activa o inactiva true o false
       colorBgSesion: "white", // Color de fondo
       urlImgBgSesion: "",// /bgSesion1.svg, /bgSesion2.svg, /bgSesion3.svg etc... quedan en public
+      heighMinSesion: "90",
       WellcomeTypePosition: "vertical", // estilo "vertical", "horizontal"
       Wellcome: {
         es: {
@@ -1040,7 +1042,28 @@ export const generalConfig = {
       ImagenGrandeJpg: ImagenGrandeJpg,
       ImagenMedianaAvif: ImagenMedianaAvif,
       ImagenMedianaWebp: ImagenMedianaWebp,
-      ImagenMedianaJpg: ImagenMedianaJpg
+      ImagenMedianaJpg: ImagenMedianaJpg,
+      ButtonGeneralAs: "a",
+      ButtonGeneralHref: "/servicios",
+      ButtonGeneralClass: "flex flex-row gap-2 justify-center items-center px-4 py-2 text-white rounded-lg bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 shadow-lg shadow-slate-700/50 font-roboto font-bold text-lg transition-all duration-200 border border-slate-400 hover:bg-green-300 hover:shadow-xl",
+      ButtonGeneralName: "Agendar cita",
+      ButtonGeneralIconActive: true,
+    },
+    socialRedes:{
+      socialRedesActive: true, // Redes sociales activa o inactiva true o false
+      colorBgSesion: "black1", // Color de fondo
+      urlImgBgSesion: "",
+      heighMinSesion: "90",
+      classCardContent: "relative z-10 backdrop-blur-sm bg-black/40 border border-gray-700 rounded-2xl p-8 shadow-xl", 
+      classTextInicialesLogo: "bg-black/80 text-white text-3xl",
+      textInicialesLogo: "CB",
+      gradientFrom: "slate-500",
+      gradientVia: "gray-500",
+      gradientTo: "stone-500",
+      shadowColor: "amber-500/20",
+      innerBg: "black/80",
+      textColor: "white",
+
     },
     homeProducts:{
       homeProductsActive: true, // Inicio productos activa o inactiva true o false

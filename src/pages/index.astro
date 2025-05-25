@@ -1,6 +1,6 @@
 ---
 // Importaciones
-import {   LayoutGeneral, InicioBienvenida, InicioProductos, InicioServicios } from "@globals"
+import {   LayoutGeneral, InicioBienvenida, InicioRedesSociales, InicioProductos, InicioServicios } from "@globals"
 import { ModuelesActives } from "@util/generalConfig"
 if (!ModuelesActives.Home) {
   return Astro.redirect('/nofound');
@@ -11,6 +11,8 @@ import LanguageSelector from "../components/global/Lenguaje/LanguageIndex"
     <LayoutGeneral>   
         <!-- Bienvenida -->
         <InicioBienvenida/>
+        <!-- Inicio Redes Sociales -->
+         <InicioRedesSociales/>
         <!-- Inicio Productos -->
         <!-- <InicioProductos/> -->
         <!-- Inicio Servicios -->

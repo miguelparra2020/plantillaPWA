@@ -18,7 +18,7 @@ const   ButtonGeneral = ({
   if (as === 'a' && href) {
     return (
       <a href={href} target={target} className={className} type={type} onClick={onClick}>
-        {children} {iconActive &&  <IconGeneral params={{color:iconColor,  size: iconSize, className: "ml-2" }}/>} 
+        {children} {iconActive ?  <IconGeneral params={{color:iconColor,  size: iconSize, className: "ml-2" }}/> : null}  
       </a>
     )
   }

@@ -1,34 +1,35 @@
 ---
 // Importaciones
-import { Sesion, DivVertical, Picture169Grande, ButtonGeneral } from "@globals";
-import { generalConfig } from "@util/generalConfig";
-import TituloInicioBienvenida from "./TituloInicioBienvenida";
-import ParrafoInicioBienvenida from "./ParrafoInicioBienvenida";
+import { Sesion, DivVertical, Picture169Grande, ButtonGeneral } from "@globals"
+import { generalConfig } from "@util/generalConfig"
+import TituloInicioBienvenida from "./TituloInicioBienvenida"
+import ParrafoInicioBienvenida from "./ParrafoInicioBienvenida"
 ---
 
 {
-  generalConfig.Home.Wellcome.WellcomeActive && (
+  generalConfig.Home.Wellcome.WellcomeActive ? (
     <>
       <Sesion
         color={generalConfig.Home.Wellcome.colorBgSesion}
         image={generalConfig.Home.Wellcome.urlImgBgSesion}
+        heigh={generalConfig.Home.Wellcome.heighMinSesion}
       >
         <DivVertical>
           <TituloInicioBienvenida client:idle />
           <br />
           <ParrafoInicioBienvenida client:idle />
           <br />
-          <Picture169Grande />
+          <Picture169Grande client:idle/>
           <br />
           <ButtonGeneral
-            as="a"
-            href="/servicios"
-            className="flex flex-row gap-2 justify-center items-center px-4 py-2 text-white rounded-lg bg-gradient-to-r bg-gradient-to-r from-slate-400 via-slate-500 to-slate-600 shadow-lg shadow-slate-700/50 font-roboto font-bold text-lg transition-all duration-200 border border-slate-400 hover:bg-green-300 hover:shadow-xl"
-            children="Agendar cita"
-            iconActive={true}
+            as={generalConfig.Home.Wellcome.ButtonGeneralAs}
+            href={generalConfig.Home.Wellcome.ButtonGeneralHref}
+            className={generalConfig.Home.Wellcome.ButtonGeneralClass}
+            children={generalConfig.Home.Wellcome.ButtonGeneralName}
+            iconActive={generalConfig.Home.Wellcome.ButtonGeneralIconActive}
           />
         </DivVertical>
       </Sesion>
     </>
-  )
+  ):null
 }

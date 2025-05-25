@@ -2,8 +2,9 @@
 interface Props {
     image?: string
     color?: string
+    heigh?: string
 }
-const { image, color } = Astro.props;
+const { image, color, heigh } = Astro.props
 const colorBg1 = `absolute inset-0 bg-gradient-to-b from-red-50 to-transparent`
 const colorBg2 = `absolute inset-0 bg-gradient-to-b from-orange-50 to-transparent`
 const colorBg3 = `absolute inset-0 bg-gradient-to-b from-amber-50 to-transparent`
@@ -27,12 +28,35 @@ const colorBg20 = `absolute inset-0 bg-gradient-to-b from-zinc-50 to-transparent
 const colorBg21 = `absolute inset-0 bg-gradient-to-b from-neutral-50 to-transparent`
 const colorBg22 = `absolute inset-0 bg-gradient-to-b from-stone-50 to-transparent`
 const colorBg23 = `bg-white`
-const colorBg = color === "red" ? colorBg1 : color === "orange" ? colorBg2 : color === "amber" ? colorBg3 : color === "yellow" ? colorBg4 : color === "lime" ? colorBg5 : color === "green" ? colorBg6 : color === "emerald" ? colorBg7 : color === "teal" ? colorBg8 : color === "cyan" ? colorBg9 : color === "sky" ? colorBg10 : color === "blue" ? colorBg11 : color === "indigo" ? colorBg12 : color === "violet" ? colorBg13 : color === "purple" ? colorBg14 : color === "fuchsia" ? colorBg15 : color === "pink" ? colorBg16 : color === "rose" ? colorBg17 : color === "slate" ? colorBg18 : color === "gray" ? colorBg19 : color === "zinc" ? colorBg20 : color === "neutral" ? colorBg21 : color === "stone" ? colorBg22 : colorBg23
+const colorBg24 = `absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black`
+const colorBg = color === "red" ? colorBg1 : color === "orange" ? colorBg2 : color === "amber" ? colorBg3 : color === "yellow" ? colorBg4 : color === "lime" ? colorBg5 : color === "green" ? colorBg6 : color === "emerald" ? colorBg7 : color === "teal" ? colorBg8 : color === "cyan" ? colorBg9 : color === "sky" ? colorBg10 : color === "blue" ? colorBg11 : color === "indigo" ? colorBg12 : color === "violet" ? colorBg13 : color === "purple" ? colorBg14 : color === "fuchsia" ? colorBg15 : color === "pink" ? colorBg16 : color === "rose" ? colorBg17 : color === "slate" ? colorBg18 : color === "gray" ? colorBg19 : color === "zinc" ? colorBg20 : color === "neutral" ? colorBg21 : color === "stone" ? colorBg22 : color === "black1" ? colorBg24: colorBg23
+
+const heigh10  = `relative w-full min-h-[5dvh] md:min-h-[10dvh] flex items-center justify-center`
+const heigh15  = `relative w-full min-h-[5dvh] md:min-h-[15dvh] flex items-center justify-center`
+const heigh20  = `relative w-full min-h-[10dvh] md:min-h-[20dvh] flex items-center justify-center`
+const heigh25  = `relative w-full min-h-[15dvh] md:min-h-[25dvh] flex items-center justify-center`
+const heigh30  = `relative w-full min-h-[20dvh] md:min-h-[30dvh] flex items-center justify-center`
+const heigh35  = `relative w-full min-h-[25dvh] md:min-h-[35dvh] flex items-center justify-center`
+const heigh40  = `relative w-full min-h-[30dvh] md:min-h-[40dvh] flex items-center justify-center`
+const heigh45  = `relative w-full min-h-[35dvh] md:min-h-[45dvh] flex items-center justify-center`
+const heigh50  = `relative w-full min-h-[40dvh] md:min-h-[50dvh] flex items-center justify-center`
+const heigh55  = `relative w-full min-h-[45dvh] md:min-h-[55dvh] flex items-center justify-center`
+const heigh60  = `relative w-full min-h-[50dvh] md:min-h-[60dvh] flex items-center justify-center`
+const heigh65  = `relative w-full min-h-[55dvh] md:min-h-[65dvh] flex items-center justify-center`
+const heigh70  = `relative w-full min-h-[60dvh] md:min-h-[70dvh] flex items-center justify-center`
+const heigh75  = `relative w-full min-h-[65dvh] md:min-h-[75dvh] flex items-center justify-center`
+const heigh80  = `relative w-full min-h-[70dvh] md:min-h-[80dvh] flex items-center justify-center`
+const heigh85  = `relative w-full min-h-[75dvh] md:min-h-[85dvh] flex items-center justify-center`
+const heigh90  = `relative w-full min-h-[80dvh] md:min-h-[90dvh] flex items-center justify-center`
+const heigh95  = `relative w-full min-h-[85dvh] md:min-h-[95dvh] flex items-center justify-center`
+const heigh100 = `relative w-full min-h-[90dvh] md:min-h-[100dvh] flex items-center justify-center`
+
+const heighSelect = heigh === "10" ? heigh10 : heigh === "15" ? heigh15 : heigh === "20" ? heigh20 : heigh === "25" ? heigh25 : heigh === "30" ? heigh30 : heigh === "35" ? heigh35 : heigh === "40" ? heigh40 : heigh === "45" ? heigh45 : heigh === "50" ? heigh50 : heigh === "55" ? heigh55 : heigh === "60" ? heigh60 : heigh === "65" ? heigh65 : heigh === "70" ? heigh70 : heigh === "75" ? heigh75 : heigh === "80" ? heigh80 : heigh === "85" ? heigh85 : heigh === "90" ? heigh90 : heigh === "95" ? heigh95:heigh100
 ---
 
-<section class:list={`relative w-full`}>
+<section class:list={heighSelect}>
   <!-- Imagen de fondo -->
-  <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url(${image})`}></div>
+  <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url(${image}) `}></div>
 
   <!-- Gradiente encima de la imagen -->
   <div class:list={colorBg}></div>
