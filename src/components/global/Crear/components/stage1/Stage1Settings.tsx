@@ -157,15 +157,15 @@ export const Stage1Settings = () => {
           </div>
         </div>
         {/* Preguntas por que elegirnos */}
-        <div className='space-y-4 p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50'>
-          <div className='text-sm text-zinc-700 dark:text-zinc-300'>
+        <div className='space-y-4 p-4 rounded-xl bg-zinc-50 '>
+          <div className='text-sm text-zinc-700 '>
             <p className='font-medium mb-2'>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.proofQuestionStage1:""}
   {dataLanguaje.languajeChoose === "/en/" ? generalConfig.Create.stage1.en.proofQuestionStage1:""}
   {dataLanguaje.languajeChoose === "/pt/" ? generalConfig.Create.stage1.pt.proofQuestionStage1:""}
   {dataLanguaje.languajeChoose === "/fr/" ? generalConfig.Create.stage1.fr.proofQuestionStage1:""}
             </p>
-            <ul className='space-y-1 text-xs text-zinc-500 dark:text-zinc-400'>
+            <ul className='space-y-1 text-xs text-zinc-500 '>
               <li className='flex items-center gap-1'>
                 <span className='w-1 h-1 bg-fuchsia-500 rounded-full'></span>
   {dataLanguaje.languajeChoose === "/es/" ? generalConfig.Create.stage1.es.proofItem1Stage1:""}

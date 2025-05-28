@@ -167,7 +167,7 @@ function CategoryCard({ category, onEdit }: CategoryProps) {
         <div className="space-y-3">
           <div className="flex justify-between items-center text-sm text-gray-600">
             <span>Progreso</span>
-            <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{category.editedPercentage}% editado</span>
+            <span className="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm  ">{category.editedPercentage}% editado</span>
           </div>
 
           <div className="w-full bg-gray-200 rounded-full h-2.5">
