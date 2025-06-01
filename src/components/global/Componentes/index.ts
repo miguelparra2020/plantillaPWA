@@ -24,3 +24,4 @@ export { default as ServiciosConAgendamientoInicio } from "./ServiciosConAgendam
 export { default as TeamWork } from "./TeamWork.tsx"
 export { default as Ubicacion } from "./Ubicacion.tsx"
 export { default as Footer } from "./Footer.tsx"
+export { default as CardServiciosAgendamiento } from "./CardServiciosAgendamiento.tsx"

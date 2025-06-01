@@ -1,5 +1,5 @@
 export { Header } from "./Header"
 export { Layout } from "./Layout"
 export { LayoutGeneral } from "./LayoutGeneral"
-export { ButtonRouter, CustomImagen, InicioBienvenida, InicioProductos, InicioServicios, Titulos, Parrafos, Sesion, DivVertical, Picture169Grande, DivHorizontal, CardInfo, ButtonGeneral, MenuView, GoogleAuth, GetImgPerfil, ProductsAll, IconGeneral, InicioRedesSociales, CardRedesSociales, Carrusel, ServiciosConAgendamientoInicio, TeamWork, Ubicacion, Footer} from "./Componentes"
+export { ButtonRouter, CustomImagen, InicioBienvenida, InicioProductos, InicioServicios, Titulos, Parrafos, Sesion, DivVertical, Picture169Grande, DivHorizontal, CardInfo, ButtonGeneral, MenuView, GoogleAuth, GetImgPerfil, ProductsAll, IconGeneral, InicioRedesSociales, CardRedesSociales, Carrusel, ServiciosConAgendamientoInicio, TeamWork, Ubicacion, Footer, CardServiciosAgendamiento} from "./Componentes"
 export { Crear, PaginateStages, Stage1, Stage2, Stage3, Stage4, Stage5 } from "./Crear"

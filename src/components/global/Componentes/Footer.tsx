@@ -18,7 +18,7 @@ const Footer = () => {
                     
                     {/* Navigation Links */}
                     <nav className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm text-gray-600">
-                        <a href="/citas" className="hover:text-gray-900 transition-colors duration-200">Citas</a>
+                        <a href="/servicios" className="hover:text-gray-900 transition-colors duration-200">Servicios</a>
                         <a href="/fotos" className="hover:text-gray-900 transition-colors duration-200">Fotos</a>
                         <a href="/ubicacion" className="hover:text-gray-900 transition-colors duration-200">Ubicación</a>
                     </nav>
