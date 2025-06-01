@@ -86,7 +86,7 @@ const TeamWork = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                         {/* Experience Badge */}
-                        <Badge className="absolute top-4 right-4 bg-amber-600 hover:bg-amber-700 text-white border-0">
+                        <Badge className="absolute top-4 right-4 bg-slate-600 hover:bg-slate-700 text-white border-0">
                         <Star className="h-3 w-3 mr-1" />
                         {member.experience}
                         </Badge>
