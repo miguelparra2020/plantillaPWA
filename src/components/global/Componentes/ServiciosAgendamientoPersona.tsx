@@ -18,6 +18,45 @@ interface Persona {
   descripcion: string
   destacado?: boolean
   imagen: string
+  dayNotWork?: string // Día que no trabaja (ejemplo: 'lunes', 'martes', etc.)
+  
+  // Franjas horarias generales
+  earlyMorning?: boolean // Trabaja en madrugada (12am-6am)
+  inTheMorning?: boolean // Trabaja en la mañana (6am-12pm)
+  inTheAfternoon?: boolean // Trabaja en la tarde (12pm-6pm)
+  atNight?: boolean // Trabaja en la noche (6pm-12am)
+  
+  // Horarios detallados por hora - Madrugada (12am-6am)
+  earlyMorning12am1am?: boolean // 12:00 AM - 1:00 AM
+  earlyMorning1am2am?: boolean // 1:00 AM - 2:00 AM
+  earlyMorning2am3am?: boolean // 2:00 AM - 3:00 AM
+  earlyMorning3am4am?: boolean // 3:00 AM - 4:00 AM
+  earlyMorning4am5am?: boolean // 4:00 AM - 5:00 AM
+  earlyMorning5am6am?: boolean // 5:00 AM - 6:00 AM
+  
+  // Horarios detallados por hora - Mañana (6am-12pm)
+  inTheMorning6am7am?: boolean // 6:00 AM - 7:00 AM
+  inTheMorning7am8am?: boolean // 7:00 AM - 8:00 AM
+  inTheMorning8am9am?: boolean // 8:00 AM - 9:00 AM
+  inTheMorning9am10am?: boolean // 9:00 AM - 10:00 AM
+  inTheMorning10am11am?: boolean // 10:00 AM - 11:00 AM
+  inTheMorning11am12pm?: boolean // 11:00 AM - 12:00 PM
+  
+  // Horarios detallados por hora - Tarde (12pm-6pm)
+  inTheAfternoon12pm1pm?: boolean // 12:00 PM - 1:00 PM
+  inTheAfternoon1pm2pm?: boolean // 1:00 PM - 2:00 PM
+  inTheAfternoon2pm3pm?: boolean // 2:00 PM - 3:00 PM
+  inTheAfternoon3pm4pm?: boolean // 3:00 PM - 4:00 PM
+  inTheAfternoon4pm5pm?: boolean // 4:00 PM - 5:00 PM
+  inTheAfternoon5pm6pm?: boolean // 5:00 PM - 6:00 PM
+  
+  // Horarios detallados por hora - Noche (6pm-12am)
+  atNight6pm7pm?: boolean // 6:00 PM - 7:00 PM
+  atNight7pm8pm?: boolean // 7:00 PM - 8:00 PM
+  atNight8pm9pm?: boolean // 8:00 PM - 9:00 PM
+  atNight9pm10pm?: boolean // 9:00 PM - 10:00 PM
+  atNight10pm11pm?: boolean // 10:00 PM - 11:00 PM
+  atNight11pm12am?: boolean // 11:00 PM - 12:00 AM
 }
 
 type CargoFiltro = 'todos' | 'barbero' 
@@ -29,7 +68,46 @@ const personas: Persona[] = [
     cargo: 'barbero',
     descripcion: 'Especialista en cortes clásicos y degradados con 8 años de experiencia',
     destacado: true,
-    imagen: BarberoOscar
+    imagen: BarberoOscar,
+    dayNotWork: 'domingo',
+    
+    // Franjas horarias generales
+    earlyMorning: false,
+    inTheMorning: true,
+    inTheAfternoon: true,
+    atNight: true,
+    
+    // Horarios detallados - Madrugada (no trabaja)
+    earlyMorning12am1am: false,
+    earlyMorning1am2am: false,
+    earlyMorning2am3am: false,
+    earlyMorning3am4am: false,
+    earlyMorning4am5am: false,
+    earlyMorning5am6am: false,
+    
+    // Horarios detallados - Mañana (8am a 12pm)
+    inTheMorning6am7am: false,
+    inTheMorning7am8am: false,
+    inTheMorning8am9am: false,
+    inTheMorning9am10am: false,
+    inTheMorning10am11am: true,
+    inTheMorning11am12pm: true,
+    
+    // Horarios detallados - Tarde (completo)
+    inTheAfternoon12pm1pm: true,
+    inTheAfternoon1pm2pm: true,
+    inTheAfternoon2pm3pm: false,
+    inTheAfternoon3pm4pm: false,
+    inTheAfternoon4pm5pm: true,
+    inTheAfternoon5pm6pm: true,
+    
+    // Horarios detallados - Noche (6pm a 9pm)
+    atNight6pm7pm: true,
+    atNight7pm8pm: true,
+    atNight8pm9pm: true,
+    atNight9pm10pm: false,
+    atNight10pm11pm: false,
+    atNight11pm12am: false
   },
   {
     id: '2',
@@ -37,7 +115,46 @@ const personas: Persona[] = [
     cargo: 'barbero',
     descripcion: 'Especialista en cortes clásicos y degradados con 6 años de experiencia',
     destacado: true,
-    imagen: BarberoDaniel
+    imagen: BarberoDaniel,
+    dayNotWork: 'domingo',
+    
+    // Franjas horarias generales
+    earlyMorning: false,
+    inTheMorning: true,
+    inTheAfternoon: true,
+    atNight: true,
+    
+    // Horarios detallados - Madrugada (no trabaja)
+    earlyMorning12am1am: false,
+    earlyMorning1am2am: false,
+    earlyMorning2am3am: false,
+    earlyMorning3am4am: false,
+    earlyMorning4am5am: false,
+    earlyMorning5am6am: false,
+    
+    // Horarios detallados - Mañana (7am a 12pm)
+    inTheMorning6am7am: false,
+    inTheMorning7am8am: false,
+    inTheMorning8am9am: false,
+    inTheMorning9am10am: false,
+    inTheMorning10am11am: true,
+    inTheMorning11am12pm: true,
+    
+    // Horarios detallados - Tarde (excepto de 2pm a 3pm)
+    inTheAfternoon12pm1pm: true,
+    inTheAfternoon1pm2pm: true,
+    inTheAfternoon2pm3pm: false, // Hora de almuerzo
+    inTheAfternoon3pm4pm: false,
+    inTheAfternoon4pm5pm: true,
+    inTheAfternoon5pm6pm: true,
+    
+    // Horarios detallados - Noche (hasta las 10pm)
+    atNight6pm7pm: true,
+    atNight7pm8pm: true,
+    atNight8pm9pm: true,
+    atNight9pm10pm: false,
+    atNight10pm11pm: false,
+    atNight11pm12am: false
   }
 ]
 
@@ -227,7 +344,46 @@ const ServiciosAgendamientoPersona = () => {
                         cargo: persona.cargo,
                         descripcion: persona.descripcion,
                         destacado: persona.destacado,
-                        imagen: persona.imagen
+                        imagen: persona.imagen,
+                        dayNotWork: persona.dayNotWork,
+                        
+                        // Franjas horarias generales
+                        earlyMorning: persona.earlyMorning,
+                        inTheMorning: persona.inTheMorning,
+                        inTheAfternoon: persona.inTheAfternoon,
+                        atNight: persona.atNight,
+                        
+                        // Horarios detallados - Madrugada (12am-6am)
+                        earlyMorning12am1am: persona.earlyMorning12am1am,
+                        earlyMorning1am2am: persona.earlyMorning1am2am,
+                        earlyMorning2am3am: persona.earlyMorning2am3am,
+                        earlyMorning3am4am: persona.earlyMorning3am4am,
+                        earlyMorning4am5am: persona.earlyMorning4am5am,
+                        earlyMorning5am6am: persona.earlyMorning5am6am,
+                        
+                        // Horarios detallados - Mañana (6am-12pm)
+                        inTheMorning6am7am: persona.inTheMorning6am7am,
+                        inTheMorning7am8am: persona.inTheMorning7am8am,
+                        inTheMorning8am9am: persona.inTheMorning8am9am,
+                        inTheMorning9am10am: persona.inTheMorning9am10am,
+                        inTheMorning10am11am: persona.inTheMorning10am11am,
+                        inTheMorning11am12pm: persona.inTheMorning11am12pm,
+                        
+                        // Horarios detallados - Tarde (12pm-6pm)
+                        inTheAfternoon12pm1pm: persona.inTheAfternoon12pm1pm,
+                        inTheAfternoon1pm2pm: persona.inTheAfternoon1pm2pm,
+                        inTheAfternoon2pm3pm: persona.inTheAfternoon2pm3pm,
+                        inTheAfternoon3pm4pm: persona.inTheAfternoon3pm4pm,
+                        inTheAfternoon4pm5pm: persona.inTheAfternoon4pm5pm,
+                        inTheAfternoon5pm6pm: persona.inTheAfternoon5pm6pm,
+                        
+                        // Horarios detallados - Noche (6pm-12am)
+                        atNight6pm7pm: persona.atNight6pm7pm,
+                        atNight7pm8pm: persona.atNight7pm8pm,
+                        atNight8pm9pm: persona.atNight8pm9pm,
+                        atNight9pm10pm: persona.atNight9pm10pm,
+                        atNight10pm11pm: persona.atNight10pm11pm,
+                        atNight11pm12am: persona.atNight11pm12am
                       }
                       seleccionarPersona(personaParaAgendar);
                       setPersonaSeleccionadaId(persona.id);

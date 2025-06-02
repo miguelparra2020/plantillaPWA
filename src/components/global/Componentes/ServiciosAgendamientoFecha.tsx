@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { servicioAgendadoStore, establecerFechaHora } from '../../../stores/ServicesScheduling'
 import { generalConfig } from '@util/generalConfig'
 import { ToastContainer } from 'react-toastify'
+import { ServicioAgendadoInfo } from '@globals'
+import TimeScheduler from './TimeScheduler'
 
 interface DateOption {
   date: Date
@@ -14,6 +16,7 @@ const MONTHS = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "
 
 const ServiciosAgendamientoFecha = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [selectedTime, setSelectedTime] = useState<string | null>(null)
   // Usamos la fecha actual como punto de inicio
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date())
   
@@ -25,80 +28,76 @@ const ServiciosAgendamientoFecha = () => {
   maxDate.setDate(today.getDate() + 30) // Límite de 30 días hacia adelante
   const [storeState, setStoreState] = useState(servicioAgendadoStore.get())
 
+  // Efecto que se ejecuta al montar el componente para reiniciar fecha y hora
+  useEffect(() => {
+    // Resetear la fecha seleccionada al montar el componente
+    setSelectedDate(null)
+    establecerFechaHora('', '')
+    
+    // Iniciar el estado actual de la semana con la fecha actual
+    setCurrentWeekStart(new Date())
+    
+    // Para debugging
+    console.log('Estado del servicio agendado:', servicioAgendadoStore.get())
+  }, []) // El array de dependencias vacío asegura que se ejecute solo al montar el componente
+  
   // Suscribirse a cambios en el store
   useEffect(() => {
     const unsubscribe = servicioAgendadoStore.listen(state => {
       setStoreState(state)
-      // Si ya hay una fecha en el store, seleccionarla
-      if (state.data.fecha) {
-        try {
-          // Intentar encontrar una fecha válida en el texto
-          const dateRegex = /(\d{1,2})\s+de\s+(\w+)\s+de\s+(\d{4})/;
-          const match = state.data.fecha.match(dateRegex);
-          
-          if (match) {
-            const day = parseInt(match[1]);
-            const monthName = match[2].toLowerCase();
-            const year = parseInt(match[3]);
-            
-            // Mapeo de nombres de meses en español a números (0-11)
-            const monthMap: {[key: string]: number} = {
-              'enero': 0, 'febrero': 1, 'marzo': 2, 'abril': 3,
-              'mayo': 4, 'junio': 5, 'julio': 6, 'agosto': 7,
-              'septiembre': 8, 'octubre': 9, 'noviembre': 10, 'diciembre': 11
-            };
-            
-            const month = monthMap[monthName];
-            
-            if (!isNaN(day) && month !== undefined && !isNaN(year)) {
-              const newDate = new Date(year, month, day);
-              setSelectedDate(newDate);
-            } else {
-              console.error('Formato de fecha no reconocido:', state.data.fecha);
-            }
-          } else {
-            // Si no se encuentra un patrón de fecha en español, intentar como fecha estándar
-            const newDate = new Date(state.data.fecha);
-            if (!isNaN(newDate.getTime())) {
-              setSelectedDate(newDate);
-            }
-          }
-        } catch (e) {
-          console.error('Error al parsear la fecha', e);
-        }
-      }
+      // No intentamos recuperar la fecha del store al iniciar
+      // Ya que queremos que siempre se inicie sin fecha seleccionada
     });
     
     return () => unsubscribe();
   }, []);
 
   // Generar fechas para mostrar, asegurando que no sean anteriores a hoy ni posteriores a maxDate
-  const generateWeekDates = (startDate: Date): DateOption[] => {
-    const dates: DateOption[] = []
-    const currentDate = new Date(startDate) // Usar la fecha de inicio tal cual
+  const generateDateOptions = (): DateOption[] => {
+    const options: DateOption[] = []
+    const startDate = new Date(currentWeekStart)
     
-    // Asegurarse de que no estamos antes del día actual
-    if (currentDate < today) {
-      currentDate.setTime(today.getTime())
+    // Obtener el día que no trabaja el profesional del store
+    const personaSeleccionada = servicioAgendadoStore.get().data.persona
+    const dayNotWork = personaSeleccionada?.dayNotWork?.toLowerCase() || null
+    
+    // Mapeo de nombres de días en español a números (0=domingo, 1=lunes, etc.)
+    const daysMap: Record<string, number> = {
+      'domingo': 0,
+      'lunes': 1,
+      'martes': 2,
+      'miércoles': 3,
+      'miercoles': 3,
+      'jueves': 4,
+      'viernes': 5,
+      'sábado': 6,
+      'sabado': 6
     }
     
+    // Día de la semana que no trabaja (número)
+    const dayOffNumber = dayNotWork ? daysMap[dayNotWork] : -1
+    
+    // Generar 5 días desde la fecha de inicio actual
     for (let i = 0; i < 5; i++) {
-      const date = new Date(currentDate)
-      date.setDate(currentDate.getDate() + i)
+      const date = new Date(startDate)
+      date.setDate(startDate.getDate() + i)
       
-      // No añadir fechas más allá del límite de 30 días
-      if (date > maxDate) break
+      // No permitir fechas anteriores a hoy o posteriores al límite
+      // Tampoco permitir el día que no trabaja el profesional
+      const isDayOff = dayOffNumber !== -1 && date.getDay() === dayOffNumber
+      const isAvailable = date >= today && date <= maxDate && !isDayOff
       
-      dates.push({
+      options.push({
         date,
-        available: true, // Todos los días disponibles
-        slots: 5, // Número fijo de espacios disponibles
+        available: isAvailable,
+        slots: isAvailable ? Math.floor(Math.random() * 10) + 1 : 0 // Generar slots aleatorios
       })
     }
-    return dates
+    
+    return options
   }
 
-  const [weekDates, setWeekDates] = useState(generateWeekDates(currentWeekStart))
+  const [weekDates, setWeekDates] = useState(generateDateOptions())
 
   const navigateWeek = (direction: "prev" | "next") => {
     const newStart = new Date(currentWeekStart)
@@ -127,7 +126,7 @@ const ServiciosAgendamientoFecha = () => {
     }
     
     setCurrentWeekStart(newStart)
-    setWeekDates(generateWeekDates(newStart))
+    setWeekDates(generateDateOptions())
   }
 
   const formatDate = (date: Date) => {
@@ -146,6 +145,7 @@ const ServiciosAgendamientoFecha = () => {
     if (!available) return
     
     setSelectedDate(date)
+    setSelectedTime(null) // Resetear la hora seleccionada al cambiar de fecha
     
     // Formatear la fecha para guardarla en el store
     // Importante: guardar una cadena en formato estándar que pueda ser reconvertida a fecha
@@ -159,17 +159,35 @@ const ServiciosAgendamientoFecha = () => {
       day: 'numeric'
     })
     
-    // Actualizar el store con la fecha seleccionada
-    // Dejamos la hora vacía por ahora, se llenará en otro componente
+    // Actualizar el store con la fecha seleccionada y resetear la hora
     establecerFechaHora(formattedDate, '')
     
     // Para debugging
     console.log('Fecha seleccionada:', formattedDate)
   }
+  
+  // Manejar la selección de hora
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time)
+    
+    // Actualizar el store con la hora seleccionada
+    // Mantenemos la fecha que ya está en el store
+    const currentState = servicioAgendadoStore.get()
+    establecerFechaHora(currentState.data.fecha, time)
+    
+    console.log('Hora seleccionada:', time)
+  }
 
   const handleContinuar = () => {
     // Aquí se podría implementar la navegación al siguiente paso
-    console.log('Continuar con la reserva')
+    const currentState = servicioAgendadoStore.get()
+    console.log('Continuar con la reserva:', {
+      fecha: currentState.data.fecha,
+      hora: selectedTime
+    })
+    
+    // Aquí podrías navegar a la siguiente página
+    // window.location.href = '/siguiente-paso'
   }
 
   return (
@@ -261,6 +279,7 @@ const ServiciosAgendamientoFecha = () => {
         </div>
         {/* Selected Date Info */}
       {selectedDate && (
+        <div>
         <div className="bg-primary/5 border border-primary/20 rounded-lg">
           <div className="p-4">
             <div className="flex items-center justify-between">
@@ -275,18 +294,43 @@ const ServiciosAgendamientoFecha = () => {
                   })}
                 </p>
               </div>
-              <button 
-                onClick={handleContinuar}
-                className="ml-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-              >
-                Continuar con la reserva
-              </button>
             </div>
           </div>
         </div>
+        {/* Título del componente */}
+        <div className="w-full mt-2 flex flex-col justify-center items-center text-center gap-2">
+            <h1 className={generalConfig.classTitlesGeneral}>
+            Selección de Hora
+            </h1>
+            <p className={generalConfig.classParagraphGeneral}>
+                Escoge la hora en la que deseas agendar tu servicio
+            </p>
+        </div>
+        
+        {/* Selector de Horarios */}
+        <div className="mt-4">
+          <TimeScheduler 
+            selectedDate={selectedDate} 
+            onTimeSelect={handleTimeSelect} 
+            selectedTime={selectedTime} 
+          />
+        </div>
+        
+        {/* Botón para continuar */}
+        {selectedDate && selectedTime && (
+          <div className="flex justify-center mt-6">
+            <button 
+              onClick={handleContinuar}
+              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+            >
+              Continuar con la reserva
+            </button>
+          </div>
+        )}
+        </div>
       )}
       </div>
-      
+      <ServicioAgendadoInfo/>
     </div>
   )
 }
