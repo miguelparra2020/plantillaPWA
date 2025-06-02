@@ -1,6 +1,6 @@
 import { Button } from "@component/ui/button"
 import { generalConfig } from "@util/generalConfig"
-import { Calendar, Clock, Scissors, Sparkles, ScissorsLineDashed, Droplets, Search, X, Filter, Check } from "lucide-react"
+import { Calendar, Clock,  Search, X, Filter } from "lucide-react"
 import React, { useState, useEffect } from "react"
 import { Servicio as ServicioAgendamiento, seleccionarServicio, servicioAgendadoStore } from "../../../stores/ServicesScheduling"
 import { useStore } from "@nanostores/react"
@@ -82,21 +82,6 @@ const servicios: Servicio[] = [
   }
 ]
 
-const getServiceIcon = (id: string) => {
-  switch (id) {
-    case 'corte':
-    case 'corte-barba':
-    case 'corte-cejas':
-    case 'completo':
-      return <Scissors className="w-6 h-6 text-gray-600" />
-    case 'barba':
-      return <ScissorsLineDashed className="w-6 h-6 text-gray-600" />
-    case 'colorimetria':
-      return <Droplets className="w-6 h-6 text-gray-600" />
-    default:
-      return <Sparkles className="w-6 h-6 text-gray-600" />
-  }
-}
 
 const getFiltroCategoriaDuracion = (duracion: number): DuracionFiltro => {
   if (duracion <= 15) return 'corta'

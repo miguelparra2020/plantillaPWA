@@ -1,6 +1,6 @@
 import { Button } from "@component/ui/button"
 import { generalConfig } from "@util/generalConfig"
-import { MapPin, Phone, Building, Search, X, Filter, Check, Home, Star, Info, Calendar } from "lucide-react"
+import { MapPin, Building,  Star, Calendar } from "lucide-react"
 import React, { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

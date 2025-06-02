@@ -31,11 +31,22 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
   // Efecto para actualizar los horarios cuando cambia la fecha seleccionada
   useEffect(() => {
     if (selectedDate) {
-      const allSlots = generateTimeSlots();
+      // Obtenemos el servicio seleccionado para conocer su duración
+      const servicio = servicioAgendadoStore.get().data.servicio;
       const profesional = servicioAgendadoStore.get().data.persona;
       
+      // Generamos franjas horarias según la duración del servicio
+      const allSlots = generateTimeSlots(servicio?.duracion || 30);
+      
       // Filtramos los horarios según las franjas que trabaja el profesional
-      const filteredSlots = filterSlotsByProfessionalSchedule(allSlots, profesional);
+      let filteredSlots = filterSlotsByProfessionalSchedule(allSlots, profesional);
+      
+      // Filtramos los horarios que ya han pasado si la fecha seleccionada es la fecha actual
+      const now = new Date();
+      if (isSameDay(selectedDate, now)) {
+        filteredSlots = filterPastTimeSlots(filteredSlots, now);
+      }
+      
       setFilteredTimeSlots(filteredSlots);
     }
   }, [selectedDate]);
@@ -57,6 +68,49 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
     }
     
     return totalMinutes;
+  };
+  
+  // Función para determinar si dos fechas son el mismo día
+  const isSameDay = (date1: Date, date2: Date): boolean => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  };
+  
+  // Función para filtrar los horarios que ya han pasado en el día actual
+  const filterPastTimeSlots = (slots: TimeSlotsByCategory, currentTime: Date): TimeSlotsByCategory => {
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    const currentTotalMinutes = currentHour * 60 + currentMinute;
+    
+    // Creamos una copia profunda del objeto slots para no modificar el original
+    const filteredSlots: TimeSlotsByCategory = {
+      earlyMorning: [...slots.earlyMorning],
+      morning: [...slots.morning],
+      afternoon: [...slots.afternoon],
+      evening: [...slots.evening]
+    };
+    
+    // Filtramos cada categoría para marcar como no disponibles los horarios que ya pasaron
+    const filterCategory = (category: TimeSlot[]): TimeSlot[] => {
+      return category.map(slot => {
+        const slotMinutes = timeToMinutes(slot.time);
+        if (slotMinutes <= currentTotalMinutes) {
+          return { ...slot, available: false };
+        }
+        return slot;
+      });
+    };
+    
+    // Aplicamos el filtro a cada categoría
+    filteredSlots.earlyMorning = filterCategory(filteredSlots.earlyMorning);
+    filteredSlots.morning = filterCategory(filteredSlots.morning);
+    filteredSlots.afternoon = filterCategory(filteredSlots.afternoon);
+    filteredSlots.evening = filterCategory(filteredSlots.evening);
+    
+    return filteredSlots;
   };
 
   // Función para filtrar horarios por las franjas que trabaja el profesional
@@ -227,82 +281,61 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       })
     };
   };
-  
-  // Generar horarios disponibles - todos disponibles según el requerimiento
-  const generateTimeSlots = (): TimeSlot[] => {
+
+  // Función para generar un array de slots de tiempo basándonos en la duración del servicio
+  const generateTimeSlots = (duracionServicio: number = 30): TimeSlot[] => {
     const slots: TimeSlot[] = []
     
-    // Horarios completos para todo el día, organizados por categorías
-    const times = [
+    // Lista completa de todos los horarios en intervalos de 30 minutos
+    const allTimes = [
       // Madrugada (12am-6am)
-      "12:00 AM",
-      "12:30 AM",
-      "01:00 AM",
-      "01:30 AM",
-      "02:00 AM",
-      "02:30 AM",
-      "03:00 AM",
-      "03:30 AM",
-      "04:00 AM",
-      "04:30 AM",
-      "05:00 AM",
-      "05:30 AM",
+      "12:00 AM", "12:30 AM", "01:00 AM", "01:30 AM", "02:00 AM", "02:30 AM",
+      "03:00 AM", "03:30 AM", "04:00 AM", "04:30 AM", "05:00 AM", "05:30 AM",
       
       // Mañana (6am-12pm)
-      "06:00 AM",
-      "06:30 AM",
-      "07:00 AM",
-      "07:30 AM",
-      "08:00 AM",
-      "08:30 AM",
-      "09:00 AM",
-      "09:30 AM",
-      "10:00 AM",
-      "10:30 AM",
-      "11:00 AM",
-      "11:30 AM",
+      "06:00 AM", "06:30 AM", "07:00 AM", "07:30 AM", "08:00 AM", "08:30 AM",
+      "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
       
       // Tarde (12pm-6pm)
-      "12:00 PM",
-      "12:30 PM",
-      "01:00 PM",
-      "01:30 PM",
-      "02:00 PM",
-      "02:30 PM",
-      "03:00 PM",
-      "03:30 PM",
-      "04:00 PM",
-      "04:30 PM",
-      "05:00 PM",
-      "05:30 PM",
+      "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
+      "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM",
       
       // Noche (6pm-12am)
-      "06:00 PM",
-      "06:30 PM",
-      "07:00 PM",
-      "07:30 PM",
-      "08:00 PM",
-      "08:30 PM",
-      "09:00 PM",
-      "09:30 PM",
-      "10:00 PM",
-      "10:30 PM",
-      "11:00 PM",
-      "11:30 PM",
-    ]
-
-    times.forEach((time, index) => {
+      "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM",
+      "09:00 PM", "09:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM",
+    ];
+    
+    // Seleccionamos los horarios según la duración del servicio
+    let timesToShow = [];
+    
+    if (duracionServicio <= 30) {
+      // Si el servicio dura 30 minutos o menos, mostramos todos los slots cada 30 minutos
+      timesToShow = allTimes;
+    } else if (duracionServicio <= 60) {
+      // Si el servicio dura entre 31 y 60 minutos, mostramos slots cada hora
+      timesToShow = allTimes.filter((_, index) => index % 2 === 0);
+    } else if (duracionServicio <= 90) {
+      // Si el servicio dura entre 61 y 90 minutos, mostramos slots cada hora y media
+      timesToShow = allTimes.filter((_, index) => index % 3 === 0);
+    } else {
+      // Si el servicio dura más de 90 minutos, mostramos slots cada 2 horas
+      timesToShow = allTimes.filter((_, index) => index % 4 === 0);
+    }
+    
+    // Creamos los slots con los horarios seleccionados
+    timesToShow.forEach((time) => {
       const slot: TimeSlot = {
         time,
         available: true
       }
       slots.push(slot)
     })
-
-    return slots
-  }
-
-  const [timeSlots] = useState(generateTimeSlots())
+    
+    return slots;
+  };
+  
+  // Estado inicial de slots de tiempo
+  const [timeSlots] = useState<TimeSlot[]>([]);
 
   if (!selectedDate) {
     return (
@@ -332,7 +365,7 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
     return (
       <button
         className={`
-          h-12 relative transition-all duration-200 border rounded-md px-3
+          h-16 relative transition-all duration-200 border rounded-md px-3
           ${isSelected
             ? "bg-gray-800 text-white shadow-md"
             : slot.available
@@ -345,6 +378,9 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       >
         <div className="flex flex-col items-center gap-1">
           <span className="font-medium">{slot.time}</span>
+          {!slot.available && (
+            <span className="text-xs text-red-500 font-medium">No disponible</span>
+          )}
         </div>
 
         {isSelected && <CheckCircle className="absolute -top-1 -right-1 h-4 w-4 text-white bg-gray-800 rounded-full" />}

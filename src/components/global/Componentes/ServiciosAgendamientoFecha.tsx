@@ -211,10 +211,10 @@ const ServiciosAgendamientoFecha = () => {
       {/* Título del componente */}
       <div className="w-full mt-2 flex flex-col justify-center items-center text-center gap-2">
         <h1 className={generalConfig.classTitlesGeneral}>
-        Selección de Fecha
+        Selección de Fecha y Hora
         </h1>
         <p className={generalConfig.classParagraphGeneral}>
-          Escoge la fecha en la que deseas agendar tu servicio
+          Escoge la fecha y hora en la que deseas agendar tu servicio
         </p>
       </div>
       <br />
@@ -296,15 +296,6 @@ const ServiciosAgendamientoFecha = () => {
               </div>
             </div>
           </div>
-        </div>
-        {/* Título del componente */}
-        <div className="w-full mt-2 flex flex-col justify-center items-center text-center gap-2">
-            <h1 className={generalConfig.classTitlesGeneral}>
-            Selección de Hora
-            </h1>
-            <p className={generalConfig.classParagraphGeneral}>
-                Escoge la hora en la que deseas agendar tu servicio
-            </p>
         </div>
         
         {/* Selector de Horarios */}
