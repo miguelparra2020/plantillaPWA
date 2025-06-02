@@ -2,6 +2,12 @@ import { Button } from "@component/ui/button"
 import { generalConfig } from "@util/generalConfig"
 import { Calendar, Clock, Scissors, Sparkles, ScissorsLineDashed, Droplets, Search, X, Filter, Check } from "lucide-react"
 import React, { useState, useEffect } from "react"
+import { Servicio as ServicioAgendamiento, seleccionarServicio, servicioAgendadoStore } from "../../../stores/ServicesScheduling"
+import { useStore } from "@nanostores/react"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import './toast-custom.css' // Importamos nuestros estilos personalizados
+import { ServicioAgendadoInfo } from "@globals"
 
 interface Servicio {
   id: string
@@ -98,12 +104,14 @@ const getFiltroCategoriaDuracion = (duracion: number): DuracionFiltro => {
   return 'larga'
 }
 
-const CardServiciosAgendamiento = () => {
+const ServiciosAgendamientoCards = () => {
   const [busqueda, setBusqueda] = useState('')
   const [filtroDuracion, setFiltroDuracion] = useState<DuracionFiltro>('todas')
   const [mostrarFiltros, setMostrarFiltros] = useState(false)
   const [serviciosFiltrados, setServiciosFiltrados] = useState<Servicio[]>(servicios)
-
+  const [servicioSeleccionado, setServicioSeleccionado] = useState<string | null>(null)
+  const servicioAgendado = useStore(servicioAgendadoStore)
+  const { servicio } = servicioAgendado.data
   useEffect(() => {
     const resultado = servicios.filter(servicio => {
       // Filtro por texto de búsqueda
@@ -128,6 +136,22 @@ const CardServiciosAgendamiento = () => {
 
   return (
     <div>
+      {/* Contenedor de notificaciones */}
+      <div className="fixed top-0 left-0 right-0 z-50" style={{ pointerEvents: 'none' }}>
+        <div className="mx-auto max-w-screen-md pt-24">
+          <ToastContainer 
+            position="top-center"
+            autoClose={3000}
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            style={{ position: 'relative', top: '0', left: '0', margin: '0 auto', pointerEvents: 'auto' }}
+          />
+        </div>
+      </div>
       <div className="w-full mt-2 flex flex-col justify-center items-center text-center gap-2">
         <h1 className={generalConfig.classTitlesGeneral}>
           Servicios con agendamiento
@@ -148,7 +172,7 @@ const CardServiciosAgendamiento = () => {
             </div>
             <input
               type="text"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 focus:ring-blue-500 focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 p-2.5 focus:ring-slate-500 focus:border-slate-500"
               placeholder="Buscar servicio..."
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
@@ -272,18 +296,59 @@ const CardServiciosAgendamiento = () => {
               </div>
 
               <Button 
-                className="w-full bg-gray-900 hover:bg-gray-800 text-white text-xs font-medium py-2 rounded flex items-center justify-center gap-1"
-                onClick={() => console.log('Agendando:', servicio.id)}
+                className={`w-full ${servicioAgendado.data.servicio?.id === servicio.id ? 'bg-slate-500 hover:bg-slate-600' : 'bg-gray-900 hover:bg-gray-800'} text-white text-xs font-medium py-2 rounded flex items-center justify-center gap-1`}
+                onClick={() => {
+                  const servicioParaAgendar: ServicioAgendamiento = {
+                    id: servicio.id,
+                    nombre: servicio.nombre,
+                    descripcion: servicio.descripcion,
+                    precio: servicio.precio,
+                    duracion: servicio.duracion,
+                    popular: servicio.popular
+                  }
+                  seleccionarServicio(servicioParaAgendar)
+                  setServicioSeleccionado(servicio.id)
+                  toast.success(`Servicio '${servicio.nombre}' seleccionado para agendar`, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  })
+                  setTimeout(() => {
+                    window.location.href = '/serviciosagendamientosedes'
+                  }, 2000)
+                }}
               >
                 <Calendar className="w-3.5 h-3.5" />
-                Agendar servicio
+                {servicioAgendado.data.servicio?.id === servicio.id ? 'Servicio agendado' : 'Agendar servicio'}
               </Button>
             </div>
           </div>
         ))}
       </div>
+      
+      <ServicioAgendadoInfo/>
+      {/* Botu00f3n de continuar */}
+      <div className="w-full flex justify-center items-center mb-10">
+      {servicio ?  (
+          <Button 
+            className="mx-auto p-4 mt-5 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded flex items-center justify-center gap-2"
+            onClick={() => {
+              toast.success('Continuando con el agendamiento')
+              window.location.href = '/serviciosagendamientosedes'
+            }}
+          >
+            <Calendar className="w-4 h-4" />
+            Continuar con el agendamiento
+          </Button>
+        ): null} 
+        </div> 
     </div>
   )
 }
 
-export default CardServiciosAgendamiento
+export default ServiciosAgendamientoCards

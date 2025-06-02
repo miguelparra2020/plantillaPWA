@@ -1,0 +1,14 @@
+/* Estilos personalizados para react-toastify */
+.Toastify__toast-container--top-center {
+  top: 80px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 90% !important;
+  max-width: 500px !important;
+  z-index: 9999 !important;
+  position: fixed !important;
+}
+
+.Toastify__toast {
+  margin-top: 10px !important;
+}

@@ -1,15 +1,15 @@
 ---
 import LanguageSelector from "@component/global/Lenguaje/LanguageIndex";
-import {   ServiciosAgendamientoCards, Footer, LayoutGeneral, Ubicacion } from "@globals"
+import {   ServiciosAgendamientoSedes, Footer, LayoutGeneral, Ubicacion } from "@globals"
 import { ModuelesActives } from "@util/generalConfig"
 if (!ModuelesActives.Services) {
-  return Astro.redirect('/crear');
+  return Astro.redirect('/crear')
 }
 ---
 
     <LayoutGeneral>
       <!-- Servicios con agendamiento -->
-       <ServiciosAgendamientoCards client:idle />
+       <ServiciosAgendamientoSedes client:idle />
        <!-- Ubicación -->
       <Ubicacion client:idle />
       <!-- Lenguaje -->
