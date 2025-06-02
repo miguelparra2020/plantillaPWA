@@ -20,9 +20,19 @@ export interface Sede {
   destacada?: boolean
 }
 
+export interface Persona {
+  id: string
+  nombre: string
+  cargo: string
+  descripcion: string
+  destacado?: boolean
+  imagen: string
+}
+
 interface AgendamientoInfo {
   servicio: Servicio | null
   sede: Sede | null
+  persona: Persona | null
   fecha?: string
   hora?: string
   comentarios?: string
@@ -37,11 +47,11 @@ interface ServicesSchedulingState {
 // Función para cargar el estado desde localStorage
 const loadState = (): ServicesSchedulingState => {
   if (typeof window === 'undefined') {
-    return { data: { servicio: null, sede: null }, loading: false, error: null }
+    return { data: { servicio: null, sede: null, persona: null }, loading: false, error: null }
   }
   
   const savedState = localStorage.getItem('servicioAgendado')
-  return savedState ? JSON.parse(savedState) : { data: { servicio: null, sede: null }, loading: false, error: null }
+  return savedState ? JSON.parse(savedState) : { data: { servicio: null, sede: null, persona: null }, loading: false, error: null }
 }
 
 // Crear el store con el estado inicial cargado desde localStorage
@@ -119,7 +129,7 @@ export const agregarComentarios = (comentarios: string) => {
  */
 export const limpiarAgendamiento = () => {
   servicioAgendadoStore.set({
-    data: { servicio: null, sede: null },
+    data: { servicio: null, sede: null, persona: null },
     loading: false,
     error: null
   })
@@ -142,5 +152,18 @@ export const setError = (error: string | null) => {
   servicioAgendadoStore.set({
     ...servicioAgendadoStore.get(),
     error
+  })
+}
+
+/**
+ * Selecciona una persona para el agendamiento
+ */
+export const seleccionarPersona = (persona: Persona) => {
+  servicioAgendadoStore.set({
+    ...servicioAgendadoStore.get(),
+    data: {
+      ...servicioAgendadoStore.get().data,
+      persona
+    }
   })
 }

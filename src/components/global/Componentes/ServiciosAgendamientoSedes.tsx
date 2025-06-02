@@ -67,18 +67,21 @@ const ServiciosAgendamientoSedes = () => {
   return (
     <div>
       {/* Contenedor de notificaciones */}
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <div className="fixed top-0 left-0 right-0 z-50" style={{ pointerEvents: 'none' }}>
+        <div className="mx-auto max-w-screen-md pt-24">
+          <ToastContainer 
+            position="top-center"
+            autoClose={3000}
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            style={{ position: 'relative', top: '0', left: '0', margin: '0 auto', pointerEvents: 'auto' }}
+          />
+        </div>
+      </div>
       {/* Título del componente */}
       <div className="w-full mt-2 flex flex-col justify-center items-center text-center gap-2">
         <h1 className={generalConfig.classTitlesGeneral}>
@@ -248,7 +251,10 @@ const ServiciosAgendamientoSedes = () => {
                       draggable: true,
                       progress: undefined,
                       theme: "light",
-                    });
+                    })
+                    setTimeout(() => {
+                      window.location.href = '/serviciosagendamientopersona'
+                    }, 2000)
                   }}
                 >
                   <Building className="w-3.5 h-3.5" />
@@ -267,9 +273,8 @@ const ServiciosAgendamientoSedes = () => {
           <Button 
             className="mx-auto p-4 mt-5 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded flex items-center justify-center gap-2"
             onClick={() => {
-              toast.success('Continuando con el agendamiento');
-              // Aquu00ed podru00edas redirigir a la pu00e1gina de selecciu00f3n de fecha y hora
-              // window.location.href = '/seleccion-fecha';
+              toast.success('Continuando con el agendamiento')
+              window.location.href = '/serviciosagendamientopersona'
             }}
           >
             <Calendar className="w-4 h-4" />
