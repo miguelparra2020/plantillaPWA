@@ -1,42 +1,21 @@
 import React from 'react'
-import { servicioAgendadoStore, seleccionarServicio, seleccionarSede, seleccionarPersona } from '../../../stores/ServicesScheduling'
+import { servicioAgendadoStore} from '../../../stores/ServicesScheduling'
 import { useStore } from '@nanostores/react'
 import { Button } from '@component/ui/button'
-import { MapPin, Phone, Building, Calendar, Clock, Scissors, X, User, Briefcase } from 'lucide-react'
-import { toast, ToastContainer } from 'react-toastify'
+import { MapPin, Building, Calendar, Clock, Scissors, User, Briefcase } from 'lucide-react'
+import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './toast-custom.css'
+import ContenedorNotificaciones from './ContenedorNotificaciones'
 
 const ServicioAgendadoInfo = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
   const { servicio, sede, persona, fecha, hora } = servicioAgendado.data
-  
-  const formatearPrecio = (precio: number) => {
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0
-    }).format(precio)
-  }
-  
   return (
     <div className="mt-6 mb-8">
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      
+      <ContenedorNotificaciones/>      
       <div className="bg-gray-50 rounded-lg p-4 mx-4 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Resumen de agendamiento</h2>
-        
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Resumen de agendamiento</h2>     
         {/* Informaciu00f3n del servicio seleccionado */}
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Servicio seleccionado</h3>
@@ -67,7 +46,6 @@ const ServicioAgendadoInfo = () => {
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ningún servicio</p>
           )}
         </div>
-        
         {/* Informaciu00f3n de sede seleccionada */}
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Sede seleccionada</h3>
@@ -97,10 +75,7 @@ const ServicioAgendadoInfo = () => {
           ) : (
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ninguna sede</p>
           )}
-        </div>
-        
-        
-        
+        </div>   
         {/* Información de profesional seleccionado */}
         <div>
           <h3 className="text-sm font-medium text-gray-700 mb-2">Profesional seleccionado</h3>
@@ -138,7 +113,7 @@ const ServicioAgendadoInfo = () => {
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ningún profesional</p>
           )}
         </div>
-          <br />
+        <br />
         {/* Información de fecha y hora seleccionada */}
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Fecha y hora</h3>
@@ -169,8 +144,7 @@ const ServicioAgendadoInfo = () => {
               <span>Editar</span>
             </Button>
           </div>
-        </div>
-        
+        </div>        
       </div>
     </div>
   )

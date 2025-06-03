@@ -1,14 +1,7 @@
 // src/stores/ServicesScheduling.ts
+import { Servicio } from '@component/global/interfaces/ServiciosAgendamientoCardsInterface'
 import { atom } from 'nanostores'
 
-export interface Servicio {
-  id: string
-  nombre: string
-  descripcion: string
-  precio: number
-  duracion: number
-  popular?: boolean
-}
 
 export interface Sede {
   id: string
