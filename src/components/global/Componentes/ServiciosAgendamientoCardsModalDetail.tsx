@@ -84,7 +84,7 @@ const ServiciosAgendamientoCardsModalDetail = ({ servicio, seleccionarServicio }
       </Button>
       
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 py-16 px-4 overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 py-20 px-4 overflow-hidden">
           <div 
             ref={modalRef}
             className="bg-white rounded-lg w-full max-w-[800px] my-auto max-h-[70vh] overflow-y-auto shadow-xl"
@@ -113,12 +113,8 @@ const ServiciosAgendamientoCardsModalDetail = ({ servicio, seleccionarServicio }
                     />
                   ) : (
                     servicio.video && (
-                      <iframe
-                        src={servicio.video}
-                        className="w-full h-full"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+                      <iframe width="300" height="400" src={servicio.video} title="Corte de cabello" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
                     )
                   )}
                   {servicio.video && !showVideo && (
@@ -170,12 +166,6 @@ const ServiciosAgendamientoCardsModalDetail = ({ servicio, seleccionarServicio }
                     >
                       Detalles
                     </button>
-                    <button 
-                      onClick={() => setActiveTab('info')} 
-                      className={`py-2 text-center ${activeTab === 'info' ? 'border-b-2 border-blue-500 font-medium' : ''}`}
-                    >
-                      Información
-                    </button>
                   </div>
                   <div className={`space-y-4 mt-4 ${activeTab === 'details' ? 'block' : 'hidden'}`}>
                     {servicio.viewDetailsService && servicio.allDetailsService && (
@@ -207,15 +197,6 @@ const ServiciosAgendamientoCardsModalDetail = ({ servicio, seleccionarServicio }
                           <Calendar className="w-3.5 h-3.5" />
                           <span>Disponible para agendar</span>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className={`space-y-4 mt-4 ${activeTab === 'info' ? 'block' : 'hidden'}`}>
-                    <div className="text-sm">
-                      {servicio.allDetailsService ? (
-                        <div dangerouslySetInnerHTML={{ __html: servicio.allDetailsService }}></div>
-                      ) : (
-                        <p>No hay información adicional disponible para este servicio.</p>
                       )}
                     </div>
                   </div>
