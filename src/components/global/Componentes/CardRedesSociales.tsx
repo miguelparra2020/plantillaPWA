@@ -28,7 +28,7 @@ const CardRedesSociales = () => {
 
       {/* Company name */}
       <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-400 via-gray-400 to-stone-400 mb-2">
-        className BARBER
+        Class Barber
       </h1>
 
       {/* Glowing line */}

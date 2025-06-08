@@ -11,6 +11,8 @@ import ContenedorNotificaciones from './ContenedorNotificaciones'
 const ServicioAgendadoInfo = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
   const { servicio, sede, persona, fecha, hora } = servicioAgendado.data
+
+  console.log("servicio info:",  servicio)
   return (
     <div className="mt-6 mb-8">
       <ContenedorNotificaciones/>      
@@ -46,7 +48,9 @@ const ServicioAgendadoInfo = () => {
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ningún servicio</p>
           )}
         </div>
-        {/* Informaciu00f3n de sede seleccionada */}
+       
+        {/* Informaciu00f3n de sede seleccionada */} 
+        {servicio?.serviceInSede ? 
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Sede seleccionada</h3>
           {sede ? (
@@ -75,8 +79,9 @@ const ServicioAgendadoInfo = () => {
           ) : (
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ninguna sede</p>
           )}
-        </div>   
+        </div> : null }
         {/* Información de profesional seleccionado */}
+        {servicio?.serviceForPerson ? 
         <div>
           <h3 className="text-sm font-medium text-gray-700 mb-2">Profesional seleccionado</h3>
           {persona ? (
@@ -112,7 +117,7 @@ const ServicioAgendadoInfo = () => {
           ) : (
             <p className="text-gray-500 text-sm bg-white p-3 rounded-md border border-gray-100">No has seleccionado ningún profesional</p>
           )}
-        </div>
+        </div> : null }
         <br />
         {/* Información de fecha y hora seleccionada */}
         <div className="mb-4">

@@ -335,7 +335,7 @@ const ServiciosAgendamientoPersona = () => {
                   )}
 
                   <Button 
-                    disabled={!servicio || !sede}
+                    disabled={!servicio || (servicio?.serviceInSede && !sede)}
                     className={`w-full ${servicioAgendado.data.persona?.id === persona.id ? 'bg-slate-500 hover:bg-slate-600' : 'bg-gray-900 hover:bg-gray-800'} text-white text-xs font-medium py-2 rounded flex items-center justify-center gap-1`}
                     onClick={() => {
                       const personaParaAgendar: PersonaAgendamiento = {
@@ -422,7 +422,7 @@ const ServiciosAgendamientoPersona = () => {
       <ServicioAgendadoInfo/>
         {/* Botón de continuar */}
       <div className="w-full flex justify-center items-center mb-10">
-      {servicio && sede && persona && (
+      {servicio && (servicio?.serviceInSede && sede) && persona && (
           <Button 
             className="mx-auto p-4 mt-5 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded flex items-center justify-center gap-2"
             onClick={() => {
