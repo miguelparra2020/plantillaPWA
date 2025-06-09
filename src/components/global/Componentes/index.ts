@@ -35,3 +35,5 @@ export { default as ServiciosAgendamientoCardsSearchFilter } from "./ServiciosAg
 export { default as ServiciosAgendamientoCardsServicesMap } from "./ServiciosAgendamientoCardsServicesMap"
 export { default as ServiciosAgendamientoButtonNext } from "./ServiciosAgendamientoButtonNext"
 export { default as ServiciosAgendamientoCardsModalDetail } from "./ServiciosAgendamientoCardsModalDetail"
+export { default as QueryProvider } from "./QueryProvider"
+export { default as MyComponent } from "./MyComponent"

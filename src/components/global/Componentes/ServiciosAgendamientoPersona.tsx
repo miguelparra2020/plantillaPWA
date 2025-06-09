@@ -422,7 +422,7 @@ const ServiciosAgendamientoPersona = () => {
       <ServicioAgendadoInfo/>
         {/* Botón de continuar */}
       <div className="w-full flex justify-center items-center mb-10">
-      {servicio && (servicio?.serviceInSede && sede) && persona && (
+      {servicio && (servicio?.serviceInSede ? sede : true) && persona && (
           <Button 
             className="mx-auto p-4 mt-5 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded flex items-center justify-center gap-2"
             onClick={() => {
