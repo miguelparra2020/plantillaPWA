@@ -57,6 +57,8 @@ interface Persona {
   atNight9pm10pm?: boolean // 9:00 PM - 10:00 PM
   atNight10pm11pm?: boolean // 10:00 PM - 11:00 PM
   atNight11pm12am?: boolean // 11:00 PM - 12:00 AM
+
+  calendarId?: string
 }
 
 type CargoFiltro = 'todos' | 'barbero' 
@@ -107,7 +109,9 @@ const personas: Persona[] = [
     atNight8pm9pm: true,
     atNight9pm10pm: false,
     atNight10pm11pm: false,
-    atNight11pm12am: false
+    atNight11pm12am: false,
+
+    calendarId: "8c7ab21ba8a0d96b02f493d0b58abaa286f9af12db4366f4356baf8ad30d208f@group.calendar.google.com",
   },
   {
     id: '2',
@@ -154,7 +158,9 @@ const personas: Persona[] = [
     atNight8pm9pm: true,
     atNight9pm10pm: false,
     atNight10pm11pm: false,
-    atNight11pm12am: false
+    atNight11pm12am: false,
+
+    calendarId: "5d9a781b707c3da4ea852b317eb62c6204f1eb538e0dbb4bec0bb2de7d650a1c@group.calendar.google.com",
   }
 ]
 
@@ -383,7 +389,8 @@ const ServiciosAgendamientoPersona = () => {
                         atNight8pm9pm: persona.atNight8pm9pm,
                         atNight9pm10pm: persona.atNight9pm10pm,
                         atNight10pm11pm: persona.atNight10pm11pm,
-                        atNight11pm12am: persona.atNight11pm12am
+                        atNight11pm12am: persona.atNight11pm12am,
+                        calendarId: persona.calendarId
                       }
                       seleccionarPersona(personaParaAgendar);
                       setPersonaSeleccionadaId(persona.id);

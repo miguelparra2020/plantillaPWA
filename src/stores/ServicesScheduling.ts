@@ -59,6 +59,8 @@ export interface Persona {
   atNight9pm10pm?: boolean // 9:00 PM - 10:00 PM
   atNight10pm11pm?: boolean // 10:00 PM - 11:00 PM
   atNight11pm12am?: boolean // 11:00 PM - 12:00 AM
+
+  calendarId?: string
 }
 
 interface AgendamientoInfo {
