@@ -283,57 +283,47 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
   };
 
   // Función para generar un array de slots de tiempo basándonos en la duración del servicio
-  const generateTimeSlots = (duracionServicio: number = 30): TimeSlot[] => {
-    const slots: TimeSlot[] = []
-    
-    // Lista completa de todos los horarios en intervalos de 30 minutos
-    const allTimes = [
-      // Madrugada (12am-6am)
-      "12:00 AM", "12:30 AM", "01:00 AM", "01:30 AM", "02:00 AM", "02:30 AM",
-      "03:00 AM", "03:30 AM", "04:00 AM", "04:30 AM", "05:00 AM", "05:30 AM",
-      
-      // Mañana (6am-12pm)
-      "06:00 AM", "06:30 AM", "07:00 AM", "07:30 AM", "08:00 AM", "08:30 AM",
-      "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-      
-      // Tarde (12pm-6pm)
-      "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM",
-      "03:00 PM", "03:30 PM", "04:00 PM", "04:30 PM", "05:00 PM", "05:30 PM",
-      
-      // Noche (6pm-12am)
-      "06:00 PM", "06:30 PM", "07:00 PM", "07:30 PM", "08:00 PM", "08:30 PM",
-      "09:00 PM", "09:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM",
-    ];
-    
-    // Seleccionamos los horarios según la duración del servicio
-    let timesToShow = [];
-    
-    if (duracionServicio <= 30) {
-      // Si el servicio dura 30 minutos o menos, mostramos todos los slots cada 30 minutos
-      timesToShow = allTimes;
-    } else if (duracionServicio <= 60) {
-      // Si el servicio dura entre 31 y 60 minutos, mostramos slots cada hora
-      timesToShow = allTimes.filter((_, index) => index % 2 === 0);
-    } else if (duracionServicio <= 90) {
-      // Si el servicio dura entre 61 y 90 minutos, mostramos slots cada hora y media
-      timesToShow = allTimes.filter((_, index) => index % 3 === 0);
-    } else {
-      // Si el servicio dura más de 90 minutos, mostramos slots cada 2 horas
-      timesToShow = allTimes.filter((_, index) => index % 4 === 0);
-    }
-    
-    // Creamos los slots con los horarios seleccionados
-    timesToShow.forEach((time) => {
-      const slot: TimeSlot = {
-        time,
-        available: true
-      }
-      slots.push(slot)
-    })
-    
-    return slots;
-  };
+const generateTimeSlots = (duracionServicio: number = 30): TimeSlot[] => {
+  const slots: TimeSlot[] = []
   
+  // Generamos todos los horarios posibles en intervalos de 15 minutos (la unidad mínima)
+  const baseHours = Array.from({ length: 24 }, (_, hour) => hour); // 0-23 horas
+  const baseMinutes = [0, 15, 30, 45]; // Intervalos de 15 minutos
+  
+  // Convertimos las horas y minutos a formato de 12 horas (AM/PM)
+  const allTimes: string[] = [];
+  baseHours.forEach(hour => {
+    baseMinutes.forEach(minute => {
+      // Formato 12 horas
+      const h12 = hour % 12 === 0 ? 12 : hour % 12;
+      const ampm = hour < 12 ? 'AM' : 'PM';
+      const formattedHour = h12.toString().padStart(2, '0');
+      const formattedMinute = minute.toString().padStart(2, '0');
+      allTimes.push(`${formattedHour}:${formattedMinute} ${ampm}`);
+    });
+  });
+  
+  // Calculamos cada cuántos slots de 15 minutos debemos mostrar según la duración del servicio
+  // Ejemplo: Si el servicio dura 45 minutos, debemos mostrar un slot cada 45/15 = 3 slots de 15 min
+  const slotInterval = Math.max(1, Math.ceil(duracionServicio / 15));
+  
+  // Filtramos los horarios según la duración del servicio
+  // Si la duración es 15 min o menos, se mostrarán todos los slots cada 15 minutos
+  // Si es mayor, se mostrarán intervalos proporcionales a la duración
+  const timesToShow = allTimes.filter((_, index) => index % slotInterval === 0);
+  
+  // Creamos los slots con los horarios seleccionados
+  timesToShow.forEach((time) => {
+    const slot: TimeSlot = {
+      time,
+      available: true
+    }
+    slots.push(slot)
+  })
+  
+  return slots;
+};  
+
   // Estado inicial de slots de tiempo
   const [timeSlots] = useState<TimeSlot[]>([]);
 
