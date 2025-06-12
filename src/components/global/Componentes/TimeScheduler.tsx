@@ -11,6 +11,8 @@ interface TimeSchedulerProps {
   selectedDate: Date | null;
   onTimeSelect: (time: string) => void;
   selectedTime: string | null;
+  calendarEvents?: any[];
+  isLoadingEvents?: boolean;
 }
 
 interface TimeSlotsByCategory {
@@ -20,7 +22,7 @@ interface TimeSlotsByCategory {
   evening: TimeSlot[];
 }
 
-export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime }: TimeSchedulerProps) {
+export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime, calendarEvents = [], isLoadingEvents = false }: TimeSchedulerProps) {
   const [filteredTimeSlots, setFilteredTimeSlots] = useState<TimeSlotsByCategory>({
     earlyMorning: [],
     morning: [],
@@ -28,7 +30,7 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
     evening: []
   });
 
-  // Efecto para actualizar los horarios cuando cambia la fecha seleccionada
+  // Efecto para actualizar los horarios cuando cambia la fecha seleccionada o los eventos del calendario
   useEffect(() => {
     if (selectedDate) {
       // Obtenemos el servicio seleccionado para conocer su duración
@@ -47,9 +49,14 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
         filteredSlots = filterPastTimeSlots(filteredSlots, now);
       }
       
+      // Filtramos los horarios que ya están ocupados según los eventos del calendario
+      if (calendarEvents && calendarEvents.length > 0) {
+        filteredSlots = filterSlotsWithCalendarEvents(filteredSlots, calendarEvents);
+      }
+      
       setFilteredTimeSlots(filteredSlots);
     }
-  }, [selectedDate]);
+  }, [selectedDate, calendarEvents]);
   
   // Función para convertir una cadena de hora ("9:00 AM") a minutos desde medianoche
   const timeToMinutes = (timeString: string): number => {
@@ -79,6 +86,90 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
     );
   };
   
+  // Función para filtrar los horarios que ya están ocupados según los eventos del calendario
+  const filterSlotsWithCalendarEvents = (slots: TimeSlotsByCategory, events: any[]): TimeSlotsByCategory => {
+    // Creamos una copia profunda del objeto slots para no modificar el original
+    const filteredSlots: TimeSlotsByCategory = {
+      earlyMorning: [...slots.earlyMorning],
+      morning: [...slots.morning],
+      afternoon: [...slots.afternoon],
+      evening: [...slots.evening]
+    };
+
+    // Convertimos los eventos a intervalos de tiempo
+    const busyIntervals = events.map(event => {
+      if (event.start && event.end) {
+        const start = new Date(event.start.dateTime || event.start.date);
+        const end = new Date(event.end.dateTime || event.end.date);
+        return { start, end };
+      }
+      return null;
+    }).filter(interval => interval !== null);
+
+    // Función para verificar si un horario está ocupado
+    const isTimeSlotBusy = (timeString: string): boolean => {
+      // Convertir el timeString a Date
+      if (!selectedDate) return false;
+      
+      const [timePart, ampm] = timeString.split(' ');
+      const [hours, minutes] = timePart.split(':').map(Number);
+      
+      const slotDate = new Date(selectedDate);
+      let hour = hours;
+      
+      // Ajustar para PM
+      if (ampm === 'PM' && hours !== 12) {
+        hour += 12;
+      }
+      // Ajustar para 12 AM
+      else if (ampm === 'AM' && hours === 12) {
+        hour = 0;
+      }
+      
+      slotDate.setHours(hour, minutes, 0, 0);
+      
+      // Tiempo estimado del servicio (usar 30 minutos por defecto)
+      const servicio = servicioAgendadoStore.get().data.servicio;
+      const serviceDuration = servicio?.duracion || 30;
+      
+      // Calcular hora de fin
+      const slotEndDate = new Date(slotDate);
+      slotEndDate.setMinutes(slotEndDate.getMinutes() + serviceDuration);
+      
+      // Verificar si el horario se solapa con algún evento ocupado
+      return busyIntervals.some(interval => {
+        if (!interval) return false;
+        // El horario está ocupado si:
+        // 1. La hora de inicio está dentro del intervalo ocupado
+        // 2. La hora de fin está dentro del intervalo ocupado
+        // 3. El intervalo ocupado está contenido dentro del horario
+        return (
+          (slotDate >= interval.start && slotDate < interval.end) || 
+          (slotEndDate > interval.start && slotEndDate <= interval.end) ||
+          (slotDate <= interval.start && slotEndDate >= interval.end)
+        );
+      });
+    };
+    
+    // Filtramos cada categoría
+    const filterCategoryWithCalendar = (category: TimeSlot[]): TimeSlot[] => {
+      return category.map(slot => {
+        if (slot.available && isTimeSlotBusy(slot.time)) {
+          return { ...slot, available: false };
+        }
+        return slot;
+      });
+    };
+    
+    // Aplicamos el filtro a cada categoría
+    filteredSlots.earlyMorning = filterCategoryWithCalendar(filteredSlots.earlyMorning);
+    filteredSlots.morning = filterCategoryWithCalendar(filteredSlots.morning);
+    filteredSlots.afternoon = filterCategoryWithCalendar(filteredSlots.afternoon);
+    filteredSlots.evening = filterCategoryWithCalendar(filteredSlots.evening);
+    
+    return filteredSlots;
+  };
+
   // Función para filtrar los horarios que ya han pasado en el día actual
   const filterPastTimeSlots = (slots: TimeSlotsByCategory, currentTime: Date): TimeSlotsByCategory => {
     const currentHour = currentTime.getHours();
@@ -403,14 +494,20 @@ const generateTimeSlots = (duracionServicio: number = 30): TimeSlot[] => {
             <Clock className="h-5 w-5 text-gray-600" />
             <h2 className="text-xl font-bold">Horarios disponibles del {formatSelectedDate(selectedDate)}</h2>
           </div>
-          <span className="text-sm border border-gray-200 rounded-full px-3 py-1">
-            {
-              filteredTimeSlots.earlyMorning.filter(s => s.available).length +
-              filteredTimeSlots.morning.filter(s => s.available).length +
-              filteredTimeSlots.afternoon.filter(s => s.available).length +
-              filteredTimeSlots.evening.filter(s => s.available).length
-            } espacios libres
-          </span>
+          {isLoadingEvents ? (
+            <span className="text-sm border border-gray-200 rounded-full px-3 py-1 bg-gray-50">
+              Cargando disponibilidad...
+            </span>
+          ) : (
+            <span className="text-sm border border-gray-200 rounded-full px-3 py-1">
+              {
+                filteredTimeSlots.earlyMorning.filter(s => s.available).length +
+                filteredTimeSlots.morning.filter(s => s.available).length +
+                filteredTimeSlots.afternoon.filter(s => s.available).length +
+                filteredTimeSlots.evening.filter(s => s.available).length
+              } espacios libres
+            </span>
+          )}
         </div>
       </div>
 

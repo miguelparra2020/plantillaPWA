@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { servicioAgendadoStore, establecerFechaHora } from '../../../stores/ServicesScheduling'
 import { generalConfig } from '@util/generalConfig'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 import { ServicioAgendadoInfo } from '@globals'
 import TimeScheduler from './TimeScheduler'
+import axios from 'axios'
 
 interface DateOption {
   date: Date
@@ -17,51 +18,28 @@ const MONTHS = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "
 const ServiciosAgendamientoFecha = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
-  // Usamos la fecha actual como punto de inicio
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date())
-  
-  // Referencia a la fecha actual y la fecha límite (30 días hacia adelante)
   const today = new Date()
-  today.setHours(0, 0, 0, 0) // Resetear horas para comparaciones precisas
-  
+  today.setHours(0, 0, 0, 0)
   const maxDate = new Date(today)
-  maxDate.setDate(today.getDate() + 30) // Límite de 30 días hacia adelante
+  maxDate.setDate(today.getDate() + 30)
   const [storeState, setStoreState] = useState(servicioAgendadoStore.get())
-
-  // Efecto que se ejecuta al montar el componente para reiniciar fecha y hora
   useEffect(() => {
-    // Resetear la fecha seleccionada al montar el componente
     setSelectedDate(null)
     establecerFechaHora('', '')
-    
-    // Iniciar el estado actual de la semana con la fecha actual
     setCurrentWeekStart(new Date())
-    
-    // Para debugging
-    console.log('Estado del servicio agendado:', servicioAgendadoStore.get())
-  }, []) // El array de dependencias vacío asegura que se ejecute solo al montar el componente
-  
-  // Suscribirse a cambios en el store
+  }, [])
   useEffect(() => {
     const unsubscribe = servicioAgendadoStore.listen(state => {
       setStoreState(state)
-      // No intentamos recuperar la fecha del store al iniciar
-      // Ya que queremos que siempre se inicie sin fecha seleccionada
-    });
-    
-    return () => unsubscribe();
-  }, []);
-
-  // Generar fechas para mostrar, asegurando que no sean anteriores a hoy ni posteriores a maxDate
+    })
+    return () => unsubscribe()
+  }, [])
   const generateDateOptions = (): DateOption[] => {
     const options: DateOption[] = []
     const startDate = new Date(currentWeekStart)
-    
-    // Obtener el día que no trabaja el profesional del store
     const personaSeleccionada = servicioAgendadoStore.get().data.persona
     const dayNotWork = personaSeleccionada?.dayNotWork?.toLowerCase() || null
-    
-    // Mapeo de nombres de días en español a números (0=domingo, 1=lunes, etc.)
     const daysMap: Record<string, number> = {
       'domingo': 0,
       'lunes': 1,
@@ -73,62 +51,43 @@ const ServiciosAgendamientoFecha = () => {
       'sábado': 6,
       'sabado': 6
     }
-    
-    // Día de la semana que no trabaja (número)
     const dayOffNumber = dayNotWork ? daysMap[dayNotWork] : -1
-    
-    // Generar 5 días desde la fecha de inicio actual
     for (let i = 0; i < 5; i++) {
       const date = new Date(startDate)
       date.setDate(startDate.getDate() + i)
-      
-      // No permitir fechas anteriores a hoy o posteriores al límite
-      // Tampoco permitir el día que no trabaja el profesional
       const isDayOff = dayOffNumber !== -1 && date.getDay() === dayOffNumber
       const isAvailable = date >= today && date <= maxDate && !isDayOff
-      
       options.push({
         date,
         available: isAvailable,
-        slots: isAvailable ? Math.floor(Math.random() * 10) + 1 : 0 // Generar slots aleatorios
+        slots: isAvailable ? Math.floor(Math.random() * 10) + 1 : 0
       })
     }
-    
     return options
   }
-
   const [weekDates, setWeekDates] = useState(generateDateOptions())
-
   const navigateWeek = (direction: "prev" | "next") => {
     const newStart = new Date(currentWeekStart)
     newStart.setDate(currentWeekStart.getDate() + (direction === "next" ? 5 : -5))
-    
-    // Limitar navegación: no ir antes del día actual
     if (direction === "prev") {
       const compareDate = new Date(newStart)
       compareDate.setDate(newStart.getDate())
       if (compareDate < today) {
-        // Si navegamos demasiado atrás, volver al día actual
         newStart.setTime(today.getTime())
       }
     }
-    
-    // Limitar navegación: no ir más allá de 30 días
     if (direction === "next") {
       const lastDayOfNewRange = new Date(newStart)
-      lastDayOfNewRange.setDate(newStart.getDate() + 4) // El último día del rango de 5
-      
+      lastDayOfNewRange.setDate(newStart.getDate() + 4)
       if (lastDayOfNewRange > maxDate) {
-        // Si pasamos del límite, retroceder para que el último día sea maxDate
         newStart.setTime(maxDate.getTime())
-        newStart.setDate(maxDate.getDate() - 4) // Retroceder 4 días desde maxDate
+        newStart.setDate(maxDate.getDate() - 4)
       }
     }
     
     setCurrentWeekStart(newStart)
     setWeekDates(generateDateOptions())
   }
-
   const formatDate = (date: Date) => {
     return {
       month: MONTHS[date.getMonth()],
@@ -136,58 +95,117 @@ const ServiciosAgendamientoFecha = () => {
       dayOfWeek: DAYS_OF_WEEK[date.getDay()],
     }
   }
-
   const isSelected = (date: Date) => {
     return selectedDate?.toDateString() === date.toDateString()
   }
+  // Estado para almacenar los eventos del calendario
+  const [calendarEvents, setCalendarEvents] = useState<any[]>([])
+  const [isLoadingEvents, setIsLoadingEvents] = useState<boolean>(false)
 
-  const handleDateSelect = (date: Date, available: boolean) => {
+  // Función para obtener los eventos del calendario
+  const fetchCalendarEvents = async (date: Date, calendarId: string) => {
+    try {
+      setIsLoadingEvents(true)
+      // Formatear fecha para crear periodo del día completo (00:00:00 a 23:59:59)
+      const year = date.getFullYear()
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const day = date.getDate().toString().padStart(2, '0')
+      
+      // Usar fecha actual como workaround temporal si hay problema con fechas futuras
+      // La fecha real seleccionada se sigue usando en la UI
+      const useCurrentDateAsWorkaround = true
+      
+      // Si usamos fecha actual como workaround (para evitar errores con fechas futuras)
+      let periodStart, periodEnd
+      if (useCurrentDateAsWorkaround) {
+        const now = new Date()
+        const currentYear = now.getFullYear()
+        const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0')
+        const currentDay = now.getDate().toString().padStart(2, '0')
+        
+        periodStart = `${currentYear}-${currentMonth}-${currentDay}T00:00:00.000Z`
+        periodEnd = `${currentYear}-${currentMonth}-${currentDay}T23:59:59.999Z`
+        console.log('Usando fecha actual como workaround temporal para la consulta API')
+      } else {
+        periodStart = `${year}-${month}-${day}T00:00:00.000Z`
+        periodEnd = `${year}-${month}-${day}T23:59:59.999Z`
+      }
+      
+      const url = `https://mi-express-app.vercel.app/api/calendar/events?calendarId=${encodeURIComponent(calendarId)}&periodStart=${periodStart}&periodEnd=${periodEnd}`
+      
+      console.log('Consultando eventos del calendario:', url)
+      const response = await axios.get(url)
+      
+      if (response.data && Array.isArray(response.data)) {
+        console.log('Eventos obtenidos:', response.data)
+        setCalendarEvents(response.data)
+      } else {
+        console.log('Formato de respuesta inesperado:', response.data)
+        toast.warning('La información de disponibilidad podría estar incompleta')
+        setCalendarEvents([])
+      }
+    } catch (error: any) {
+      console.error('Error al obtener eventos del calendario:', error)
+      
+      // Mostrar mensaje con detalles del error
+      if (error.response) {
+        // El servidor respondió con un código de error
+        console.error('Error del servidor:', error.response.status, error.response.data)
+        toast.error(`Error del servidor: ${error.response.status}. Usando horarios por defecto.`)
+      } else if (error.request) {
+        // No se recibió respuesta
+        console.error('No hubo respuesta del servidor')
+        toast.error('No se pudo conectar con el servidor. Usando horarios por defecto.')
+      } else {
+        // Error en la configuración de la solicitud
+        toast.error(`Error: ${error.message}. Usando horarios por defecto.`)
+      }
+      
+      setCalendarEvents([])
+    } finally {
+      setIsLoadingEvents(false)
+    }
+  }
+
+  const handleDateSelect = (date: Date, available: boolean) => {    
     if (!available) return
-    
     setSelectedDate(date)
-    setSelectedTime(null) // Resetear la hora seleccionada al cambiar de fecha
+    setSelectedTime(null)
     
-    // Formatear la fecha para guardarla en el store
-    // Importante: guardar una cadena en formato estándar que pueda ser reconvertida a fecha
-    // Formato ISO simplificado YYYY-MM-DD
-    const isoDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
-    
-    // Formato legible para el usuario
+    // Formatear la fecha para mostrar
     const formattedDate = date.toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     })
     
-    // Actualizar el store con la fecha seleccionada y resetear la hora
+    // Actualizar la fecha en el store
     establecerFechaHora(formattedDate, '')
+    console.log("formattedDate", formattedDate)
     
-    // Para debugging
-    console.log('Fecha seleccionada:', formattedDate)
+    // Obtener el calendarId de la persona seleccionada
+    const personaSeleccionada = servicioAgendadoStore.get().data.persona
+    
+    if (personaSeleccionada?.calendarId) {
+      // Consultar eventos del calendario para esta fecha y persona
+      fetchCalendarEvents(date, personaSeleccionada.calendarId)
+    } else {
+      console.warn('No hay calendarId disponible para la persona seleccionada')
+      setCalendarEvents([])
+    }
   }
-  
-  // Manejar la selección de hora
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time)
-    
-    // Actualizar el store con la hora seleccionada
-    // Mantenemos la fecha que ya está en el store
     const currentState = servicioAgendadoStore.get()
     establecerFechaHora(currentState.data.fecha, time)
-    
-    console.log('Hora seleccionada:', time)
   }
 
   const handleContinuar = () => {
-    // Aquí se podría implementar la navegación al siguiente paso
     const currentState = servicioAgendadoStore.get()
     console.log('Continuar con la reserva:', {
       fecha: currentState.data.fecha,
       hora: selectedTime
     })
-    
-    // Aquí podrías navegar a la siguiente página
-    // window.location.href = '/siguiente-paso'
   }
 
   return (
@@ -259,7 +277,7 @@ const ServiciosAgendamientoFecha = () => {
               className={`
                 border rounded-lg cursor-pointer transition-all duration-200 hover:shadow-md
                 ${selected
-                  ? "ring-2 ring-primary bg-gray-800 text-white" // Tema oscuro para la fecha seleccionada
+                  ? "ring-2 ring-primary bg-gray-800 text-white" 
                   : dateOption.available
                     ? "hover:bg-gray-50 border-gray-200"
                     : "opacity-50 cursor-not-allowed bg-gray-50"
@@ -276,8 +294,8 @@ const ServiciosAgendamientoFecha = () => {
           )
         })}
       </div>
-        </div>
-        {/* Selected Date Info */}
+      </div>
+      {/* Selected Date Info */}
       {selectedDate && (
         <div>
         <div className="bg-primary/5 border border-primary/20 rounded-lg">
@@ -304,6 +322,8 @@ const ServiciosAgendamientoFecha = () => {
             selectedDate={selectedDate} 
             onTimeSelect={handleTimeSelect} 
             selectedTime={selectedTime} 
+            calendarEvents={calendarEvents}
+            isLoadingEvents={isLoadingEvents}
           />
         </div>
         

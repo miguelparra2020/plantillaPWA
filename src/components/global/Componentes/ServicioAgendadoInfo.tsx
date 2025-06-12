@@ -11,8 +11,6 @@ import ContenedorNotificaciones from './ContenedorNotificaciones'
 const ServicioAgendadoInfo = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
   const { servicio, sede, persona, fecha, hora } = servicioAgendado.data
-
-  console.log("servicio info:",  servicio)
   return (
     <div className="mt-6 mb-8">
       <ContenedorNotificaciones/>      
