@@ -3,6 +3,7 @@ import ServicioAgendadoInfo from './ServicioAgendadoInfo'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google'
 import { generalConfig } from '@util/generalConfig'
 import { ToastContainer, toast } from 'react-toastify'
+import { Calendar } from 'lucide-react'
 
 const ServiciosAgendamientoFinalUser = () => {
   const [user, setUser] = useState<any>(null)
@@ -67,9 +68,7 @@ const ServiciosAgendamientoFinalUser = () => {
                   Inicia sesión para completar el agendamiento
         </p>
       </div>
-      <div className="mt-8">
-        <ServicioAgendadoInfo/>
-      </div>
+      
 
       {/* Información del usuario o botón de inicio de sesión */}
       <div className="mt-8 p-6 bg-gray-50 rounded-lg shadow">
@@ -100,9 +99,10 @@ const ServiciosAgendamientoFinalUser = () => {
                         window.location.href = '/'
                       }, 2000)
                     }}
-                    className="px-6 py-3 bg-slate-600 text-white rounded-md hover:bg-primary/90 transition duration-300 font-medium"
+                    className="px-6 py-3 bg-slate-600 text-white rounded-md hover:bg-primary/90 transition duration-300 font-medium flex flex-row items-center justify-center gap-2"
                   >
-                    Agendar Cita
+                    
+                    Agendar Cita <Calendar className="w-3.5 h-3.5" />
                   </button>
                   
                   <button
@@ -130,6 +130,10 @@ const ServiciosAgendamientoFinalUser = () => {
             </div>
           )}
         </GoogleOAuthProvider>
+      </div>
+
+      <div className="mt-8">
+        <ServicioAgendadoInfo/>
       </div>
     </div>
   )
