@@ -106,8 +106,10 @@ const ServiciosAgendamientoFecha = () => {
 
   // Función para obtener los eventos del calendario
   const fetchCalendarEvents = async (date: Date, calendarId: string) => {
+    // Al inicio de cada consulta: marcamos como cargando y reiniciamos horarios ocupados
+    setIsLoadingEvents(true)
+    setHorariosOcupados([])
     try {
-      setIsLoadingEvents(true)
       // Formatear fecha para crear periodo del día completo (00:00:00 a 23:59:59)
       const year = date.getFullYear()
       const month = (date.getMonth() + 1).toString().padStart(2, '0')
@@ -365,14 +367,22 @@ const ServiciosAgendamientoFecha = () => {
         
         {/* Selector de Horarios */}
         <div className="mt-4">
-          <TimeScheduler 
-            selectedDate={selectedDate} 
-            onTimeSelect={handleTimeSelect} 
-            selectedTime={selectedTime} 
-            calendarEvents={calendarEvents}
-            isLoadingEvents={isLoadingEvents}
-            horariosOcupados={horariosOcupados}
-          />
+          {isLoadingEvents ? (
+            <div className="p-8 border border-gray-200 rounded-lg bg-white flex flex-col items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-3"></div>
+              <p className="text-gray-700 font-medium">Cargando disponibilidad...</p>
+              <p className="text-gray-500 text-sm mt-2">Estamos consultando la disponibilidad para esta fecha.</p>
+            </div>
+          ) : (
+            <TimeScheduler 
+              selectedDate={selectedDate} 
+              onTimeSelect={handleTimeSelect} 
+              selectedTime={selectedTime} 
+              calendarEvents={calendarEvents}
+              isLoadingEvents={false}
+              horariosOcupados={horariosOcupados}
+            />
+          )}
         </div>
         
         {/* Botón para continuar */}
