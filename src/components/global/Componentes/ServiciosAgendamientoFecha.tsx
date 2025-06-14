@@ -111,9 +111,9 @@ const ServiciosAgendamientoFecha = () => {
       const month = (date.getMonth() + 1).toString().padStart(2, '0')
       const day = date.getDate().toString().padStart(2, '0')
       
-      // Usar fecha actual como workaround temporal si hay problema con fechas futuras
-      // La fecha real seleccionada se sigue usando en la UI
-      const useCurrentDateAsWorkaround = true
+      // Usar la fecha seleccionada para la consulta a la API
+    // Si hay problemas con fechas futuras, ajustar lógica según sea necesario
+    const useCurrentDateAsWorkaround = false
       
       // Si usamos fecha actual como workaround (para evitar errores con fechas futuras)
       let periodStart, periodEnd
@@ -136,12 +136,29 @@ const ServiciosAgendamientoFecha = () => {
       console.log('Consultando eventos del calendario:', url)
       const response = await axios.get(url)
       
-      if (response.data && Array.isArray(response.data)) {
-        console.log('Eventos obtenidos:', response.data)
-        setCalendarEvents(response.data)
+      // Verificación de la estructura de respuesta
+      if (response.data) {
+        console.log('Respuesta API completa:', response.data)
+        
+        // Si la respuesta tiene el formato correcto con campo events y total
+        if (response.data.events && Array.isArray(response.data.events) && response.data.total !== undefined) {
+          console.log(`Eventos encontrados: ${response.data.total}`, response.data.events)
+          // Pasamos toda la respuesta para que TimeScheduler pueda procesar tanto el total como los events
+          setCalendarEvents(response.data)
+        }
+        // Si la respuesta es directamente un array de eventos
+        else if (Array.isArray(response.data)) {
+          console.log('Eventos obtenidos como array:', response.data)
+          setCalendarEvents(response.data)
+        }
+        // Cualquier otro formato que no reconocemos
+        else {
+          console.log('Formato de respuesta inesperado:', response.data)
+          toast.warning('La información de disponibilidad podría estar incompleta')
+          setCalendarEvents([])
+        }
       } else {
-        console.log('Formato de respuesta inesperado:', response.data)
-        toast.warning('La información de disponibilidad podría estar incompleta')
+        console.log('No hay datos en la respuesta')
         setCalendarEvents([])
       }
     } catch (error: any) {

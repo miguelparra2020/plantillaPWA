@@ -50,8 +50,46 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       }
       
       // Filtramos los horarios que ya están ocupados según los eventos del calendario
-      if (calendarEvents && calendarEvents.length > 0) {
-        filteredSlots = filterSlotsWithCalendarEvents(filteredSlots, calendarEvents);
+      if (calendarEvents) {
+        console.log('Eventos del calendario recibidos:', calendarEvents);
+        
+        // Verificar si hay eventos o si la estructura contiene total > 0
+        let hasEvents = false;
+        let hasResponseWithEvents = false;
+        
+        // Verificar si calendarEvents es un array con elementos
+        if (Array.isArray(calendarEvents)) {
+          hasEvents = calendarEvents.length > 0;
+        } 
+        // Verificar si calendarEvents es un objeto con propiedades total y events
+        else if (typeof calendarEvents === 'object' && calendarEvents !== null) {
+          const eventsObj = calendarEvents as { total?: number; events?: any[] };
+          hasResponseWithEvents = 
+            (eventsObj.total !== undefined && eventsObj.total > 0 && 
+             Array.isArray(eventsObj.events) && eventsObj.events.length > 0);
+        }
+        
+        console.log(`¿Tiene eventos como array? ${hasEvents}`);
+        console.log(`¿Tiene respuesta con eventos? ${hasResponseWithEvents}`);
+        
+        if (hasEvents || hasResponseWithEvents) {
+          // Normalizar la estructura para filtrarSlots
+          let eventsToProcess: any[] = [];
+          
+          if (Array.isArray(calendarEvents)) {
+            eventsToProcess = calendarEvents;
+          } else if (typeof calendarEvents === 'object' && calendarEvents !== null) {
+            const eventsObj = calendarEvents as { events?: any[] };
+            if (Array.isArray(eventsObj.events)) {
+              eventsToProcess = [calendarEvents]; // Pasar el objeto completo para procesarlo
+            } else {
+              eventsToProcess = [calendarEvents]; // En cualquier otro caso, envolver en array
+            }
+          }
+          
+          console.log('Procesando eventos:', eventsToProcess);
+          filteredSlots = filterSlotsWithCalendarEvents(filteredSlots, eventsToProcess);
+        }
       }
       
       setFilteredTimeSlots(filteredSlots);
@@ -95,25 +133,79 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       afternoon: [...slots.afternoon],
       evening: [...slots.evening]
     };
+    
+    console.log('Procesando eventos del calendario:', events);
+    
+    // Manejo para la estructura de respuesta actual del endpoint
+    let eventsToProcess: any[] = events;
+    
+    // Verificar si la respuesta viene en el formato completo con el campo 'events'
+    if (events.length === 1 && events[0]?.events && Array.isArray(events[0].events)) {
+      console.log('Detectada estructura de respuesta con campo events');
+      eventsToProcess = events[0].events;
+      console.log(`Total de eventos en la respuesta: ${events[0].total}`);
+    }
 
-    // Convertimos los eventos a intervalos de tiempo
-    const busyIntervals = events.map(event => {
-      if (event.start && event.end) {
-        const start = new Date(event.start.dateTime || event.start.date);
-        const end = new Date(event.end.dateTime || event.end.date);
-        return { start, end };
-      }
-      return null;
-    }).filter(interval => interval !== null);
+    // Convertimos los eventos a intervalos de tiempo y manejamos correctamente las zonas horarias
+    const busyIntervals = eventsToProcess
+      .map(event => {
+        try {
+          // Caso 1: Estructura directa con start y end que contienen dateTime
+          if (event.start?.dateTime && event.end?.dateTime) {
+            // Crear fechas a partir de las cadenas ISO con zona horaria
+            // JavaScript las interpretará correctamente según la zona horaria del string
+            const eventStart = new Date(event.start.dateTime);
+            const eventEnd = new Date(event.end.dateTime);
+            
+            const timeZone = event.start.timeZone || 'Europe/Madrid';
+            console.log(`Evento con zona horaria: ${timeZone}`);
+            console.log(`Evento encontrado: ${event.summary || 'Sin título'}`);
+            console.log(`  Original: ${event.start.dateTime} a ${event.end.dateTime}`);
+            console.log(`  Convertido UTC: ${eventStart.toISOString()} a ${eventEnd.toISOString()}`);
+            console.log(`  Hora local: ${eventStart.toString()} a ${eventEnd.toString()}`);
+            
+            return { 
+              start: eventStart, 
+              end: eventEnd,
+              summary: event.summary || 'Reservado',
+              timeZone: timeZone
+            };
+          }
+          // Caso 2: Estructura anidada
+          else if (event.start && event.end) {
+            const start = new Date(event.start.dateTime || event.start.date);
+            const end = new Date(event.end.dateTime || event.end.date);
+            return { start, end, summary: event.summary || 'Reservado' };
+          }
+        } catch (error) {
+          console.error('Error procesando evento del calendario:', error, event);
+        }
+        return null;
+      })
+      .filter(interval => interval !== null);
+      
+    console.log(`Intervalos ocupados encontrados: ${busyIntervals.length}`);
+    if (busyIntervals.length > 0) {
+      console.log('Detalles de los intervalos ocupados:');
+      busyIntervals.forEach((interval, index) => {
+        if (interval) {
+          console.log(`${index + 1}. ${interval.summary}: ${interval.start.toLocaleTimeString()} - ${interval.end.toLocaleTimeString()}`);
+        }
+      });
+    }
 
     // Función para verificar si un horario está ocupado
     const isTimeSlotBusy = (timeString: string): boolean => {
       // Convertir el timeString a Date
       if (!selectedDate) return false;
       
+      // Depuración detallada
+      console.log(`Verificando disponibilidad para horario: ${timeString}`);
+      
       const [timePart, ampm] = timeString.split(' ');
       const [hours, minutes] = timePart.split(':').map(Number);
       
+      // Crear fecha del slot en zona horaria local
       const slotDate = new Date(selectedDate);
       let hour = hours;
       
@@ -128,6 +220,10 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       
       slotDate.setHours(hour, minutes, 0, 0);
       
+      // Mostrar la hora exacta del slot en formato ISO para debug
+      console.log(`Horario en formato UTC ISO: ${slotDate.toISOString()}`);
+      console.log(`Horario en hora local: ${slotDate.toString()}`);
+      
       // Tiempo estimado del servicio (usar 30 minutos por defecto)
       const servicio = servicioAgendadoStore.get().data.servicio;
       const serviceDuration = servicio?.duracion || 30;
@@ -136,19 +232,44 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       const slotEndDate = new Date(slotDate);
       slotEndDate.setMinutes(slotEndDate.getMinutes() + serviceDuration);
       
+      // Convertir a timestamp para comparación
+      const slotStartTime = slotDate.getTime();
+      const slotEndTime = slotEndDate.getTime();
+      
       // Verificar si el horario se solapa con algún evento ocupado
-      return busyIntervals.some(interval => {
+      const isBusy = busyIntervals.some(interval => {
         if (!interval) return false;
+        
+        // Obtener timestamps para comparación
+        // Los eventos vienen en zona horaria Europe/Madrid (UTC+2)
+        const eventStartTime = interval.start.getTime();
+        const eventEndTime = interval.end.getTime();
+        
+        // Depurar cada comparación
+        console.log(`Comparando con evento: ${interval.summary || 'Sin título'}`);
+        console.log(`  Evento (original): ${interval.start.toString()} - ${interval.end.toString()}`);
+        console.log(`  Evento (timestamp): ${eventStartTime} - ${eventEndTime}`);
+        console.log(`  Slot (timestamp): ${slotStartTime} - ${slotEndTime}`);
+        
         // El horario está ocupado si:
         // 1. La hora de inicio está dentro del intervalo ocupado
         // 2. La hora de fin está dentro del intervalo ocupado
         // 3. El intervalo ocupado está contenido dentro del horario
-        return (
-          (slotDate >= interval.start && slotDate < interval.end) || 
-          (slotEndDate > interval.start && slotEndDate <= interval.end) ||
-          (slotDate <= interval.start && slotEndDate >= interval.end)
+        const overlap = (
+          (slotStartTime >= eventStartTime && slotStartTime < eventEndTime) || 
+          (slotEndTime > eventStartTime && slotEndTime <= eventEndTime) ||
+          (slotStartTime <= eventStartTime && slotEndTime >= eventEndTime)
         );
+        
+        console.log(`  ¿Ocupado? ${overlap ? 'SÍ' : 'NO'}`);
+        return overlap;
       });
+      
+      if (isBusy) {
+        console.log(`⛔ Horario ${timeString} marcado como OCUPADO`);
+      }
+      
+      return isBusy;
     };
     
     // Filtramos cada categoría
