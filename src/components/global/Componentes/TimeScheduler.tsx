@@ -13,6 +13,7 @@ interface TimeSchedulerProps {
   selectedTime: string | null;
   calendarEvents?: any[];
   isLoadingEvents?: boolean;
+  horariosOcupados?: Array<{start: string, end: string}>;
 }
 
 interface TimeSlotsByCategory {
@@ -22,7 +23,7 @@ interface TimeSlotsByCategory {
   evening: TimeSlot[];
 }
 
-export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime, calendarEvents = [], isLoadingEvents = false }: TimeSchedulerProps) {
+export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime, calendarEvents = [], isLoadingEvents = false, horariosOcupados = [] }: TimeSchedulerProps) {
   const [filteredTimeSlots, setFilteredTimeSlots] = useState<TimeSlotsByCategory>({
     earlyMorning: [],
     morning: [],
@@ -50,7 +51,7 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
       }
       
       // Filtramos los horarios que ya están ocupados según los eventos del calendario
-      if (calendarEvents) {
+      if (calendarEvents && calendarEvents.length > 0) {
         console.log('Eventos del calendario recibidos:', calendarEvents);
         
         // Verificar si hay eventos o si la estructura contiene total > 0
@@ -92,9 +93,16 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
         }
       }
       
+      // Usar también el nuevo formato de horarios ocupados si está disponible
+      if (horariosOcupados && horariosOcupados.length > 0) {
+        console.log('Utilizando horarios ocupados en formato simplificado:', horariosOcupados);
+        // Procesamos los horarios ocupados en formato simplificado
+        filteredSlots = filterSlotsWithSimpleEvents(filteredSlots, horariosOcupados);
+      }
+      
       setFilteredTimeSlots(filteredSlots);
     }
-  }, [selectedDate, calendarEvents]);
+  }, [selectedDate, calendarEvents, horariosOcupados]);
   
   // Función para convertir una cadena de hora ("9:00 AM") a minutos desde medianoche
   const timeToMinutes = (timeString: string): number => {
@@ -292,6 +300,79 @@ export default function TimeScheduler({ selectedDate, onTimeSelect, selectedTime
   };
 
   // Función para filtrar los horarios que ya han pasado en el día actual
+  // Función para filtrar los horarios ocupados con el formato simplificado
+  const filterSlotsWithSimpleEvents = (slots: TimeSlotsByCategory, ocupados: Array<{start: string, end: string}>): TimeSlotsByCategory => {
+    // Creamos una copia profunda del objeto slots para no modificar el original
+    const filteredSlots: TimeSlotsByCategory = {
+      earlyMorning: [...slots.earlyMorning],
+      morning: [...slots.morning],
+      afternoon: [...slots.afternoon],
+      evening: [...slots.evening]
+    };
+    
+    console.log('Procesando horarios ocupados simplificados:', ocupados);
+    
+    // Función para verificar si un horario está ocupado según el formato simplificado
+    const isTimeSlotBusy = (timeString: string): boolean => {
+      if (!selectedDate) return false;
+      
+      // Convertir el timeString a minutos desde medianoche para comparación
+      const slotMinutes = timeToMinutes(timeString);
+      
+      // Tiempo estimado del servicio (usar 30 minutos por defecto)
+      const servicio = servicioAgendadoStore.get().data.servicio;
+      const serviceDuration = servicio?.duracion || 30;
+      
+      // Calcular minutos de finalización del slot
+      const slotEndMinutes = slotMinutes + serviceDuration;
+      
+      // Verificar si el horario se solapa con algún horario ocupado
+      return ocupados.some(horario => {
+        // Extraer horas y minutos de las cadenas HH:MM:SS
+        const startParts = horario.start.split(':').map(Number);
+        const endParts = horario.end.split(':').map(Number);
+        
+        // Convertir a minutos desde medianoche
+        const eventStartMinutes = startParts[0] * 60 + startParts[1];
+        const eventEndMinutes = endParts[0] * 60 + endParts[1];
+        
+        // Depurar cada comparación
+        console.log(`Comparando slot ${timeString} (${slotMinutes}-${slotEndMinutes}) con ocupado ${horario.start}-${horario.end} (${eventStartMinutes}-${eventEndMinutes})`);
+        
+        // El horario está ocupado si:
+        // 1. La hora de inicio está dentro del intervalo ocupado
+        // 2. La hora de fin está dentro del intervalo ocupado
+        // 3. El intervalo ocupado está contenido dentro del horario
+        const overlap = (
+          (slotMinutes >= eventStartMinutes && slotMinutes < eventEndMinutes) || 
+          (slotEndMinutes > eventStartMinutes && slotEndMinutes <= eventEndMinutes) ||
+          (slotMinutes <= eventStartMinutes && slotEndMinutes >= eventEndMinutes)
+        );
+        
+        console.log(`  ¿Ocupado? ${overlap ? 'SÍ' : 'NO'}`);
+        return overlap;
+      });
+    };
+    
+    // Filtramos cada categoría
+    const filterCategoryWithSimpleEvents = (category: TimeSlot[]): TimeSlot[] => {
+      return category.map(slot => {
+        if (slot.available && isTimeSlotBusy(slot.time)) {
+          return { ...slot, available: false };
+        }
+        return slot;
+      });
+    };
+    
+    // Aplicamos el filtro a cada categoría
+    filteredSlots.earlyMorning = filterCategoryWithSimpleEvents(filteredSlots.earlyMorning);
+    filteredSlots.morning = filterCategoryWithSimpleEvents(filteredSlots.morning);
+    filteredSlots.afternoon = filterCategoryWithSimpleEvents(filteredSlots.afternoon);
+    filteredSlots.evening = filterCategoryWithSimpleEvents(filteredSlots.evening);
+    
+    return filteredSlots;
+  };
+  
   const filterPastTimeSlots = (slots: TimeSlotsByCategory, currentTime: Date): TimeSlotsByCategory => {
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();

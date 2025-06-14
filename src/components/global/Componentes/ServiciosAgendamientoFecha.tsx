@@ -100,6 +100,8 @@ const ServiciosAgendamientoFecha = () => {
   }
   // Estado para almacenar los eventos del calendario
   const [calendarEvents, setCalendarEvents] = useState<any[]>([])
+  // Estado específico para horarios ocupados
+  const [horariosOcupados, setHorariosOcupados] = useState<Array<{start: string, end: string}>>([])
   const [isLoadingEvents, setIsLoadingEvents] = useState<boolean>(false)
 
   // Función para obtener los eventos del calendario
@@ -137,52 +139,80 @@ const ServiciosAgendamientoFecha = () => {
       const response = await axios.get(url)
       
       // Verificación de la estructura de respuesta
-      if (response.data) {
-        console.log('Respuesta API completa:', response.data)
-        
-        // Si la respuesta tiene el formato correcto con campo events y total
-        if (response.data.events && Array.isArray(response.data.events) && response.data.total !== undefined) {
-          console.log(`Eventos encontrados: ${response.data.total}`, response.data.events)
-          // Pasamos toda la respuesta para que TimeScheduler pueda procesar tanto el total como los events
-          setCalendarEvents(response.data)
-        }
-        // Si la respuesta es directamente un array de eventos
-        else if (Array.isArray(response.data)) {
-          console.log('Eventos obtenidos como array:', response.data)
-          setCalendarEvents(response.data)
-        }
-        // Cualquier otro formato que no reconocemos
-        else {
-          console.log('Formato de respuesta inesperado:', response.data)
-          toast.warning('La información de disponibilidad podría estar incompleta')
-          setCalendarEvents([])
-        }
-      } else {
-        console.log('No hay datos en la respuesta')
+    if (response.data) {
+      console.log('Respuesta API completa:', response.data)
+      
+      let eventsToProcess = [];
+      
+      // Si la respuesta tiene el formato correcto con campo events y total
+      if (response.data.events && Array.isArray(response.data.events) && response.data.total !== undefined) {
+        console.log(`Eventos encontrados: ${response.data.total}`, response.data.events)
+        eventsToProcess = response.data.events
+        // Pasamos toda la respuesta para que TimeScheduler pueda procesar tanto el total como los events
+        setCalendarEvents(response.data)
+      }
+      // Si la respuesta es directamente un array de eventos
+      else if (Array.isArray(response.data)) {
+        console.log('Eventos obtenidos como array:', response.data)
+        eventsToProcess = response.data
+        setCalendarEvents(response.data)
+      }
+      // Cualquier otro formato que no reconocemos
+      else {
+        console.log('Formato de respuesta inesperado:', response.data)
+        toast.warning('La información de disponibilidad podría estar incompleta')
         setCalendarEvents([])
       }
-    } catch (error: any) {
-      console.error('Error al obtener eventos del calendario:', error)
       
-      // Mostrar mensaje con detalles del error
-      if (error.response) {
-        // El servidor respondió con un código de error
-        console.error('Error del servidor:', error.response.status, error.response.data)
-        toast.error(`Error del servidor: ${error.response.status}. Usando horarios por defecto.`)
-      } else if (error.request) {
-        // No se recibió respuesta
-        console.error('No hubo respuesta del servidor')
-        toast.error('No se pudo conectar con el servidor. Usando horarios por defecto.')
-      } else {
-        // Error en la configuración de la solicitud
-        toast.error(`Error: ${error.message}. Usando horarios por defecto.`)
+      // Procesamos los eventos para obtener las horas en el formato requerido
+      if (eventsToProcess.length > 0) {
+        const horasRegistradas = eventsToProcess.map(event => {
+          // Extraer solo la hora de las fechas (formato 'HH:MM:SS')
+          const startDateTime = event.start.dateTime
+          const endDateTime = event.end.dateTime
+          
+          // Extraemos solo la hora que está entre T y + en la fecha ISO
+          const startTime = startDateTime.split('T')[1].split('+')[0]
+          const endTime = endDateTime.split('T')[1].split('+')[0]
+          
+          // Creamos un objeto con el formato de propiedades start y end
+          return {
+            start: startTime,
+            end: endTime
+          }
+        })
+        
+        console.log('Horas registradas:', horasRegistradas)
+        
+        // Actualizamos el estado de horarios ocupados
+        setHorariosOcupados(horasRegistradas)
       }
-      
+    } else {
+      console.log('No hay datos en la respuesta')
       setCalendarEvents([])
-    } finally {
-      setIsLoadingEvents(false)
     }
+  } catch (error: any) {
+    console.error('Error al obtener eventos del calendario:', error)
+    
+    // Mostrar mensaje con detalles del error
+    if (error.response) {
+      // El servidor respondió con un código de error
+      console.error('Error del servidor:', error.response.status, error.response.data)
+      toast.error(`Error del servidor: ${error.response.status}. Usando horarios por defecto.`)
+    } else if (error.request) {
+      // No se recibió respuesta
+      console.error('No hubo respuesta del servidor')
+      toast.error('No se pudo conectar con el servidor. Usando horarios por defecto.')
+    } else {
+      // Error en la configuración de la solicitud
+      toast.error(`Error: ${error.message}. Usando horarios por defecto.`)
+    }
+    
+    setCalendarEvents([])
+  } finally {
+    setIsLoadingEvents(false)
   }
+}
 
   const handleDateSelect = (date: Date, available: boolean) => {    
     if (!available) return
@@ -341,6 +371,7 @@ const ServiciosAgendamientoFecha = () => {
             selectedTime={selectedTime} 
             calendarEvents={calendarEvents}
             isLoadingEvents={isLoadingEvents}
+            horariosOcupados={horariosOcupados}
           />
         </div>
         
