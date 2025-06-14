@@ -136,32 +136,27 @@ const ServiciosAgendamientoFecha = () => {
       }
       
       const url = `https://mi-express-app.vercel.app/api/calendar/events?calendarId=${encodeURIComponent(calendarId)}&periodStart=${periodStart}&periodEnd=${periodEnd}`
-      
-      console.log('Consultando eventos del calendario:', url)
+
       const response = await axios.get(url)
       
       // Verificación de la estructura de respuesta
     if (response.data) {
-      console.log('Respuesta API completa:', response.data)
       
       let eventsToProcess = [];
       
       // Si la respuesta tiene el formato correcto con campo events y total
       if (response.data.events && Array.isArray(response.data.events) && response.data.total !== undefined) {
-        console.log(`Eventos encontrados: ${response.data.total}`, response.data.events)
         eventsToProcess = response.data.events
         // Pasamos toda la respuesta para que TimeScheduler pueda procesar tanto el total como los events
         setCalendarEvents(response.data)
       }
       // Si la respuesta es directamente un array de eventos
       else if (Array.isArray(response.data)) {
-        console.log('Eventos obtenidos como array:', response.data)
         eventsToProcess = response.data
         setCalendarEvents(response.data)
       }
       // Cualquier otro formato que no reconocemos
       else {
-        console.log('Formato de respuesta inesperado:', response.data)
         toast.warning('La información de disponibilidad podría estar incompleta')
         setCalendarEvents([])
       }
@@ -184,13 +179,11 @@ const ServiciosAgendamientoFecha = () => {
           }
         })
         
-        console.log('Horas registradas:', horasRegistradas)
         
         // Actualizamos el estado de horarios ocupados
         setHorariosOcupados(horasRegistradas)
       }
     } else {
-      console.log('No hay datos en la respuesta')
       setCalendarEvents([])
     }
   } catch (error: any) {
@@ -230,7 +223,6 @@ const ServiciosAgendamientoFecha = () => {
     
     // Actualizar la fecha en el store
     establecerFechaHora(formattedDate, '')
-    console.log("formattedDate", formattedDate)
     
     // Obtener el calendarId de la persona seleccionada
     const personaSeleccionada = servicioAgendadoStore.get().data.persona
@@ -251,10 +243,6 @@ const ServiciosAgendamientoFecha = () => {
 
   const handleContinuar = () => {
     const currentState = servicioAgendadoStore.get()
-    console.log('Continuar con la reserva:', {
-      fecha: currentState.data.fecha,
-      hora: selectedTime
-    })
   }
 
   return (
