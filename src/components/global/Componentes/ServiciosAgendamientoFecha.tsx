@@ -29,6 +29,14 @@ const ServiciosAgendamientoFecha = () => {
     establecerFechaHora('', '')
     setCurrentWeekStart(new Date())
   }, [])
+  
+  // Efecto para navegar cuando se selecciona una hora
+  useEffect(() => {
+    if (selectedTime) {
+      // Navegar a la página de finalización cuando se selecciona una hora
+      window.location.href = '/ServiciosAgendamientoFinalUser'
+    }
+  }, [selectedTime])
   useEffect(() => {
     const unsubscribe = servicioAgendadoStore.listen(state => {
       setStoreState(state)
@@ -282,6 +290,7 @@ const ServiciosAgendamientoFecha = () => {
   }
 
   const handleContinuar = () => {
+    // Ya no necesitamos navegar aquí, el useEffect se encarga de ello
     const currentState = servicioAgendadoStore.get()
   }
 
@@ -413,20 +422,10 @@ const ServiciosAgendamientoFecha = () => {
           )}
         </div>
         
-        {/* Botón para continuar */}
-        {selectedDate && selectedTime && (
-          <div className="flex justify-center mt-6">
-            <button 
-              onClick={handleContinuar}
-              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-            >
-              Continuar con la reserva
-            </button>
-          </div>
-        )}
         </div>
       )}
       </div>
+      
       <ServicioAgendadoInfo/>
     </div>
   )

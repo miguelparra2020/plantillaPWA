@@ -15,7 +15,7 @@ const ServicioAgendadoInfo = () => {
     <div className="mt-6 mb-8">
       <ContenedorNotificaciones/>      
       <div className="bg-gray-50 rounded-lg p-4 mx-4 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Resumen de agendamiento</h2>     
+        <h2 className="text-base font-semibold text-gray-900 mb-3 text-center">Resumen de agendamiento</h2>     
         {/* Informaciu00f3n del servicio seleccionado */}
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Servicio seleccionado</h3>

@@ -1,8 +1,9 @@
 import React from 'react'
+import ServicioAgendadoInfo from './ServicioAgendadoInfo'
 const ServiciosAgendamientoFinalUser = () => {
   return (
     <div>
-      <h2>Final User</h2>
+      <ServicioAgendadoInfo/>
     </div>
   )
 }
