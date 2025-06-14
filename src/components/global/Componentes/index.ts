@@ -37,3 +37,4 @@ export { default as ServiciosAgendamientoButtonNext } from "./ServiciosAgendamie
 export { default as ServiciosAgendamientoCardsModalDetail } from "./ServiciosAgendamientoCardsModalDetail"
 export { default as QueryProvider } from "./QueryProvider"
 export { default as MyComponent } from "./MyComponent"
+export { default as ServiciosAgendamientoFinalUser } from "./ServiciosAgendamientoFinalUser"

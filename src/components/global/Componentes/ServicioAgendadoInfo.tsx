@@ -10,7 +10,7 @@ import ContenedorNotificaciones from './ContenedorNotificaciones'
 
 const ServicioAgendadoInfo = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
-  const { servicio, sede, persona, fecha, hora } = servicioAgendado.data
+  const { servicio, sede, persona, fecha, hora, startHour, endHour } = servicioAgendado.data
   return (
     <div className="mt-6 mb-8">
       <ContenedorNotificaciones/>      
@@ -129,9 +129,21 @@ const ServicioAgendadoInfo = () => {
                 <p className="text-gray-500 text-sm">No has seleccionado fecha</p>
               )}
               {hora ? (
-                <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>Hora: {hora}</span>
+                <div className="flex flex-col gap-1 mt-1">
+                  <div className="flex items-center gap-1 text-xs text-gray-700">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span className="font-medium">Hora: {hora}</span>
+                  </div>
+                  {startHour && endHour && (
+                    <div className="flex items-center text-xs text-gray-500 ml-5">
+                      <span>{startHour.substring(0, 5)} hasta {endHour.substring(0, 5)}</span>
+                    </div>
+                  )}
+                  {servicio?.duracion && (
+                    <div className="flex items-center text-xs text-gray-500 ml-5">
+                      <span>Duración: {servicio.duracion} minutos</span>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <p className="text-gray-500 text-xs mt-1">Hora pendiente por seleccionar</p>

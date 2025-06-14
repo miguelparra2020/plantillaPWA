@@ -69,6 +69,8 @@ interface AgendamientoInfo {
   persona: Persona | null
   fecha?: string
   hora?: string
+  startHour?: string
+  endHour?: string
   comentarios?: string
 }
 
@@ -134,13 +136,15 @@ export const seleccionarSede = (sede: Sede) => {
 /**
  * Establece la fecha y hora del agendamiento
  */
-export const establecerFechaHora = (fecha: string, hora: string) => {
+export const establecerFechaHora = (fecha: string, hora: string, startHour?: string, endHour?: string) => {
   servicioAgendadoStore.set({
     ...servicioAgendadoStore.get(),
     data: {
       ...servicioAgendadoStore.get().data,
       fecha,
-      hora
+      hora,
+      startHour,
+      endHour
     }
   })
 }

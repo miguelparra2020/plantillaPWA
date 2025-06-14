@@ -238,7 +238,47 @@ const ServiciosAgendamientoFecha = () => {
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time)
     const currentState = servicioAgendadoStore.get()
-    establecerFechaHora(currentState.data.fecha, time)
+    
+    // Obtenemos la duración del servicio seleccionado
+    const servicio = currentState.data.servicio
+    const duracionServicio = servicio?.duracion || 30 // duración en minutos, por defecto 30 min
+    
+    // Calcular la hora de fin basada en la hora de inicio y la duración del servicio
+    const startHour = time // Formato "HH:MM:SS"
+    
+    try {
+      // Separar horas, minutos y segundos y convertirlos a números
+      const timeParts = startHour.split(':')
+      if (timeParts.length < 3) {
+        throw new Error('Formato de hora no válido')
+      }
+      
+      const hours = parseInt(timeParts[0], 10)
+      const minutes = parseInt(timeParts[1], 10)
+      const seconds = parseInt(timeParts[2], 10)
+      
+      if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+        throw new Error('Valores de hora no válidos')
+      }
+      
+      // Crear un objeto Date para facilitar los cálculos (usar una fecha arbitraria)
+      const startDate = new Date(2023, 0, 1, hours, minutes, seconds)
+      const endDate = new Date(startDate.getTime() + duracionServicio * 60000) // convertir minutos a milisegundos
+      
+      // Formatear la hora de fin como "HH:MM:SS" asegurándose de usar padStart para tener siempre 2 dígitos
+      const endHours = endDate.getHours().toString().padStart(2, '0')
+      const endMinutes = endDate.getMinutes().toString().padStart(2, '0')
+      const endSeconds = endDate.getSeconds().toString().padStart(2, '0')
+      const endHour = `${endHours}:${endMinutes}:${endSeconds}`
+      
+      // Guardar en el store tanto la hora seleccionada como las horas de inicio y fin
+      establecerFechaHora(currentState.data.fecha, time, startHour, endHour)
+      
+    } catch (error) {
+      console.error('Error al calcular la hora de finalización:', error)
+      // En caso de error, al menos guardamos la fecha y hora seleccionada
+      establecerFechaHora(currentState.data.fecha, time)
+    }
   }
 
   const handleContinuar = () => {
