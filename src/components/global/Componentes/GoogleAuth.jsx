@@ -36,7 +36,10 @@ const GoogleAuth = () => {
   const handleLogout = () => {
     setUser(null);
     setToken(null);
-
+    
+    // Eliminar datos de la sesión del localStorage
+    localStorage.removeItem("googleToken");
+    localStorage.removeItem("googleUser");
 
     window.location.reload();
   };
