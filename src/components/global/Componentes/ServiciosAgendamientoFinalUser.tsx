@@ -285,7 +285,7 @@ const ServiciosAgendamientoFinalUser = () => {
       
       // Redireccionar a página de inicio después de un breve momento
       setTimeout(() => {
-        window.location.href = '/'
+        window.location.href = '/usuario'
       }, 2000)
     } catch (error) {
       console.error('Error al crear la cita:', error)
