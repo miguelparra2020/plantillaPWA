@@ -1,13 +1,18 @@
 ---
-import {   LayoutGeneral, GoogleAuth } from "@globals"
-import { ModuelesActives } from "@util/generalConfig"
+import { LayoutGeneral, GoogleAuth, UserCalendars } from "@globals";
+import { ModuelesActives } from "@util/generalConfig";
 if (!ModuelesActives.User) {
-  return Astro.redirect('/crear');
+  return Astro.redirect("/crear");
 }
 ---
 
-    <LayoutGeneral>
-    <div>
-      <GoogleAuth client:idle />
-      </div>
-    </LayoutGeneral>
+<LayoutGeneral>
+  <div>
+    <GoogleAuth client:idle />
+  </div>
+  <div
+    class:list="z-10 bg-white w-full h-full flex flex-col items-center justify-center"
+  >
+    <UserCalendars client:idle />
+  </div>
+</LayoutGeneral>

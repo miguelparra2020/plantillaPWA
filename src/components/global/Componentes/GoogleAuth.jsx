@@ -13,7 +13,7 @@ const GoogleAuth = () => {
       setToken(savedToken);
       setUser(JSON.parse(savedUser));
     }
-  }, []);
+  }, [])
 
   const handleSuccess = (response) => {
     const userToken = response.credential; // El token JWT devuelto por Google
@@ -37,9 +37,6 @@ const GoogleAuth = () => {
     setUser(null);
     setToken(null);
 
-    // Eliminar la sesión de localStorage
-    localStorage.removeItem("googleToken");
-    localStorage.removeItem("googleUser");
 
     window.location.reload();
   };
