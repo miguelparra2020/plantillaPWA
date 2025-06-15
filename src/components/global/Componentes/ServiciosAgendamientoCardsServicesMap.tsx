@@ -89,7 +89,7 @@ const ServiciosAgendamientoCardsServicesMap: React.FC<ServiciosAgendamientoCards
                   seleccionarServicio(servicioParaAgendar)
                   toast.success(`Servicio '${servicio.nombre}' seleccionado para agendar`, {
                     position: "bottom-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -107,7 +107,7 @@ const ServiciosAgendamientoCardsServicesMap: React.FC<ServiciosAgendamientoCards
                     if(servicio.serviceInSede === false && servicio.serviceForPerson === false){
                       window.location.href = '/serviciosagendamientofecha'
                     }
-                  }, 2000)
+                  }, 1000)
                 }}
               >
                 <Calendar className="w-3.5 h-3.5" />

@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { servicioAgendadoStore } from '../../../stores/ServicesScheduling'
 import { useStore } from '@nanostores/react'
-import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle, ChevronDown, ChevronUp, CheckCircle } from 'lucide-react'
 
 // Tipo para los eventos del calendario
 type CalendarEvent = {
@@ -21,7 +21,9 @@ type CalendarEvent = {
     email: string
     displayName?: string
   }>
-  // otros campos según la respuesta real de la API
+  // Campos adicionales para manejo de UI
+  calendarId?: string
+  calendarName?: string
 }
 
 // Tipo para la respuesta paginada
@@ -43,6 +45,14 @@ const CALENDAR_IDS = [
 // Tipos para el filtro de fecha
 type DateFilterType = 'today' | 'week' | 'month' | 'year'
 
+// Tipo para el toast personalizado
+type ToastType = {
+  id: string;
+  message: string;
+  type: 'success' | 'error';
+  duration?: number;
+}
+
 const UserCalendarioConAgendamiento = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
   const [currentYear] = useState(new Date().getFullYear())
@@ -50,6 +60,9 @@ const UserCalendarioConAgendamiento = () => {
   const [dateFilter, setDateFilter] = useState<DateFilterType>('today')
   const [eventToDelete, setEventToDelete] = useState<CalendarEvent | null>(null)
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
+  const [toasts, setToasts] = useState<ToastType[]>([])
 
   // Cargar usuario de localStorage
   useEffect(() => {
@@ -156,7 +169,8 @@ const UserCalendarioConAgendamiento = () => {
     isFetchingNextPage,
     isLoading,
     isError,
-    error
+    error,
+    refetch
   } = useInfiniteQuery({
     queryKey: ['calendarEvents', startDate, endDate],
     queryFn: fetchCalendarEvents,
@@ -198,12 +212,67 @@ const UserCalendarioConAgendamiento = () => {
   }
   
   // Confirmar la eliminación del evento
-  const confirmDeleteEvent = () => {
+  const confirmDeleteEvent = async () => {
     if (eventToDelete) {
-      console.log('Evento a eliminar:', eventToDelete)
-      // Aquí se implementaría la llamada a la API para eliminar el evento
-      // Por ahora solo hacemos console.log como solicitado
-      setEventToDelete(null)
+      try {
+        setIsDeleting(true)
+        setDeleteError(null)
+        
+        // Buscar el calendario correspondiente al evento
+        const calendarInfo = eventToDelete.calendarName ? 
+          CALENDAR_IDS.find(calendar => calendar.name === eventToDelete.calendarName) : null
+          
+        if (!calendarInfo) {
+          throw new Error('No se encontró información del calendario')
+        }
+        
+        // Construir la URL para la eliminación del evento
+        const deleteUrl = `https://mi-express-app.vercel.app/api/calendar/appointments/${eventToDelete.id}?calendarId=${encodeURIComponent(calendarInfo.id)}`
+        
+        console.log('Eliminando evento con URL:', deleteUrl)
+        
+        // Realizar la solicitud DELETE
+        const response = await axios.delete(deleteUrl)
+        
+        console.log('Respuesta de eliminación:', response.data)
+        
+        // Refrescar los datos
+        await refetch()
+        
+        // Mostrar toast personalizado de éxito
+        const newToast = {
+          id: `toast-${Date.now()}`,
+          message: 'Cita cancelada exitosamente',
+          type: 'success' as const,
+          duration: 3000
+        }
+        setToasts(prev => [...prev, newToast])
+        
+        // Eliminar automáticamente después de la duración
+        setTimeout(() => {
+          setToasts(current => current.filter(t => t.id !== newToast.id))
+        }, newToast.duration)
+      } catch (error: any) {
+        console.error('Error al eliminar el evento:', error)
+        setDeleteError(error.message || 'Ocurrió un error al cancelar la cita. Intente nuevamente.')
+        
+        // Mostrar toast personalizado de error
+        const errorToast = {
+          id: `toast-${Date.now()}`,
+          message: 'Error al cancelar la cita: ' + (error.message || 'Intente nuevamente.'),
+          type: 'error' as const,
+          duration: 5000
+        }
+        setToasts(prev => [...prev, errorToast])
+        
+        // Eliminar automáticamente después de la duración
+        setTimeout(() => {
+          setToasts(current => current.filter(t => t.id !== errorToast.id))
+        }, errorToast.duration)
+      } finally {
+        setIsDeleting(false)
+        setEventToDelete(null)
+      }
     }
   }
   
@@ -265,29 +334,75 @@ const UserCalendarioConAgendamiento = () => {
     { id: 'year', label: 'Año' }
   ]
 
+  // Remover un toast específico
+  const removeToast = (id: string) => {
+    setToasts(current => current.filter(toast => toast.id !== id))
+  }
+
+  // Estilos CSS para la animación del toast
+  const toastAnimationStyle = `
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+  `;
+
   return (
     <div className="space-y-4 relative z-20">
+      <style>{toastAnimationStyle}</style>
+      {/* Toasts personalizados */}
+      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
+        {toasts.map(toast => (
+          <div 
+            key={toast.id} 
+            className={`${toast.type === 'success' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'} border rounded-lg shadow-lg py-3 px-4 flex items-center min-w-[280px] max-w-md pointer-events-auto transition-opacity duration-300 ease-in-out`}
+            style={{ animation: 'slideInRight 0.3s ease-out forwards' }}
+          >
+            {toast.type === 'success' ? (
+              <CheckCircle className="w-5 h-5 mr-2" />
+            ) : (
+              <AlertCircle className="w-5 h-5 mr-2" />
+            )}
+            <p className="flex-1">{toast.message}</p>
+            <button 
+              onClick={() => removeToast(toast.id)}
+              className="ml-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+      </div>
       {/* Modal de confirmación para eliminar */}
       {eventToDelete && (
-        <div className="mx-4 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
-            <div className="flex items-start mb-4">
-              <div className="mr-3 bg-red-100 p-2 rounded-full">
-                <AlertCircle className="h-6 w-6 text-red-600" />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-gray-900">Confirmar cancelación</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  ¿Estás seguro que deseas cancelar la cita de "{eventToDelete.summary}"? Esta acción no se puede deshacer.
-                </p>
+        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center text-red-600">
+                <AlertCircle className="w-6 h-6 mr-2" />
+                <h3 className="text-lg font-medium">Cancelar Cita</h3>
               </div>
               <button
-                className="ml-auto bg-white rounded-full p-1 hover:bg-gray-100"
                 onClick={cancelDeleteEvent}
+                className="bg-white rounded-full p-1 hover:bg-gray-100"
               >
                 <X className="h-5 w-5 text-gray-400" />
               </button>
             </div>
+            
+            {deleteError && (
+              <div className="p-3 mb-4 bg-red-50 text-red-700 border border-red-200 rounded">
+                <p>{deleteError}</p>
+              </div>
+            )}
+            
+            <p className="mb-4 text-gray-700">
+              ¿Está seguro de que desea cancelar la cita "{eventToDelete.summary}"?
+            </p>
             <div className="flex justify-end space-x-3">
               <button
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
@@ -296,10 +411,16 @@ const UserCalendarioConAgendamiento = () => {
                 Cancelar
               </button>
               <button
-                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 flex items-center justify-center min-w-[150px]"
                 onClick={confirmDeleteEvent}
+                disabled={isDeleting}
               >
-                Sí, cancelar cita
+                {isDeleting ? (
+                  <>
+                    <div className="h-4 w-4 border-2 border-t-transparent border-white rounded-full animate-spin mr-2"></div>
+                    Procesando...
+                  </>
+                ) : 'Sí, cancelar cita'}
               </button>
             </div>
           </div>

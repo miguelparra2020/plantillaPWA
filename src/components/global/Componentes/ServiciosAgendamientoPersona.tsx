@@ -406,7 +406,7 @@ const ServiciosAgendamientoPersona = () => {
                       })
                       setTimeout(() => {
                         window.location.href = '/serviciosagendamientofecha'
-                      }, 2000)
+                      }, 1000)
                     }}
                   >
                     <User className="w-3.5 h-3.5" />

@@ -71,7 +71,7 @@ const ServiciosAgendamientoSedes = () => {
         <div className="mx-auto max-w-screen-md pt-24">
           <ToastContainer 
             position="top-center"
-            autoClose={3000}
+            autoClose={2000}
             newestOnTop
             closeOnClick
             pauseOnFocusLoss
@@ -254,7 +254,7 @@ const ServiciosAgendamientoSedes = () => {
                     })
                     setTimeout(() => {
                       window.location.href = '/serviciosagendamientopersona'
-                    }, 2000)
+                    }, 1000)
                   }}
                 >
                   <Building className="w-3.5 h-3.5" />
