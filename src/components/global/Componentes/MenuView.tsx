@@ -25,7 +25,7 @@ const MenuView = () => {
       </div>
       )}
       
-    {!openMenu && (
+    {/* {!openMenu && (
     <div>    
       <div className="fixed bottom-20 left-4 z-50">
         <button
@@ -38,7 +38,7 @@ const MenuView = () => {
           <MessageSquareText className="w-6 h-6 text-white" />
         </button>
       </div>
-    </div>)}
+    </div>)} */}
 
 {openMenu && (
     <div id="menu-content" >

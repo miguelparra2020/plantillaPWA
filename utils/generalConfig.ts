@@ -18,19 +18,19 @@ export const getCurrentLanguage = (languajeChoose: string): Idioma => {
 // Modulos que estarán activos
 export const ModuelesActives = {
   Home: true, //Inicio
-  Car: true, //Carrito
+  Car: false, //Carrito
   User: true, //Usuario
-  Us: true, //Nosotros
+  Us: false, //Nosotros
   Services: true, //Servicios
-  Products: true, //Productos
-  Publications: true, //Publicaciones
-  Contact: true, //Contacto
+  Products: false, //Productos
+  Publications: false, //Publicaciones
+  Contact: false, //Contacto
   Location: true, //Ubicación
-  Reservation: true, //Reservas
-  Quotes: true, //Citas
-  Events: true, //Eventos,
+  Reservation: false, //Reservas
+  Quotes: false, //Citas
+  Events: false, //Eventos,
   Photos: true, //Fotos
-  DownloadApp: true, //Descargar
+  DownloadApp: false, //Descargar
   Language: true, //Idioma
 }
 
@@ -928,7 +928,7 @@ export const generalConfig = {
   GeneralMenu: {
     linksPages: [
       { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
-        icon: "bi-box-arrow-in-down",  active: true,
+        icon: "bi-box-arrow-in-down",  active: false,
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
