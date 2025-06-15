@@ -216,9 +216,9 @@ const UserCalendarioConAgendamiento = () => {
     return (
       <div className="flex justify-center items-center p-8">
         <div className="animate-pulse flex space-x-2">
-          <div className="h-3 w-3 bg-blue-500 rounded-full"></div>
-          <div className="h-3 w-3 bg-blue-500 rounded-full"></div>
-          <div className="h-3 w-3 bg-blue-500 rounded-full"></div>
+          <div className="h-3 w-3 bg-slate-500 rounded-full"></div>
+          <div className="h-3 w-3 bg-slate-500 rounded-full"></div>
+          <div className="h-3 w-3 bg-slate-500 rounded-full"></div>
         </div>
         <span className="ml-3 text-gray-600">Cargando calendarios...</span>
       </div>
@@ -308,7 +308,7 @@ const UserCalendarioConAgendamiento = () => {
 
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-lg font-medium">Mis Eventos Agendados</h2>
-        <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
+        <span className="bg-slate-100 text-slate-800 text-xs font-medium px-3 py-1 rounded-full">
           {eventCount} {eventCount === 1 ? 'cita' : 'citas'}
         </span>
       </div>
@@ -320,7 +320,7 @@ const UserCalendarioConAgendamiento = () => {
             key={filter.id}
             onClick={() => setDateFilter(filter.id)}
             className={`flex-1 py-2 px-3 text-sm font-medium rounded-md transition-colors ${dateFilter === filter.id 
-              ? 'bg-white shadow-sm text-blue-600' 
+              ? 'bg-white shadow-sm text-slate-600' 
               : 'text-gray-600 hover:bg-gray-200'}`}
           >
             {filter.label}
@@ -356,7 +356,7 @@ const UserCalendarioConAgendamiento = () => {
                     </h3>
                     <span> {event.summary}</span>
                   </div>
-                    <span className="my-2 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded inline-block">
+                    <span className="my-2 text-xs px-2 py-1 bg-slate-100 text-slate-700 rounded inline-block">
                       {event.calendarName}
                     </span>
                   </div>
