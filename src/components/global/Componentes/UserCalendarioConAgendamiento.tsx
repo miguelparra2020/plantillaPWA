@@ -3,7 +3,9 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { servicioAgendadoStore } from '../../../stores/ServicesScheduling'
 import { useStore } from '@nanostores/react'
-import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle, ChevronDown, ChevronUp, CheckCircle } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Tipo para los eventos del calendario
 type CalendarEvent = {
@@ -45,14 +47,6 @@ const CALENDAR_IDS = [
 // Tipos para el filtro de fecha
 type DateFilterType = 'today' | 'week' | 'month' | 'year'
 
-// Tipo para el toast personalizado
-type ToastType = {
-  id: string;
-  message: string;
-  type: 'success' | 'error';
-  duration?: number;
-}
-
 const UserCalendarioConAgendamiento = () => {
   const servicioAgendado = useStore(servicioAgendadoStore)
   const [currentYear] = useState(new Date().getFullYear())
@@ -62,7 +56,6 @@ const UserCalendarioConAgendamiento = () => {
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
   const [isDeleting, setIsDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState<string | null>(null)
-  const [toasts, setToasts] = useState<ToastType[]>([])
 
   // Cargar usuario de localStorage
   useEffect(() => {
@@ -239,36 +232,14 @@ const UserCalendarioConAgendamiento = () => {
         // Refrescar los datos
         await refetch()
         
-        // Mostrar toast personalizado de éxito
-        const newToast = {
-          id: `toast-${Date.now()}`,
-          message: 'Cita cancelada exitosamente',
-          type: 'success' as const,
-          duration: 3000
-        }
-        setToasts(prev => [...prev, newToast])
-        
-        // Eliminar automáticamente después de la duración
-        setTimeout(() => {
-          setToasts(current => current.filter(t => t.id !== newToast.id))
-        }, newToast.duration)
+        // Mostrar mensaje de éxito
+        toast.success('Cita cancelada exitosamente')
       } catch (error: any) {
         console.error('Error al eliminar el evento:', error)
         setDeleteError(error.message || 'Ocurrió un error al cancelar la cita. Intente nuevamente.')
         
-        // Mostrar toast personalizado de error
-        const errorToast = {
-          id: `toast-${Date.now()}`,
-          message: 'Error al cancelar la cita: ' + (error.message || 'Intente nuevamente.'),
-          type: 'error' as const,
-          duration: 5000
-        }
-        setToasts(prev => [...prev, errorToast])
-        
-        // Eliminar automáticamente después de la duración
-        setTimeout(() => {
-          setToasts(current => current.filter(t => t.id !== errorToast.id))
-        }, errorToast.duration)
+        // Mostrar mensaje de error
+        toast.error('Error al cancelar la cita: ' + (error.message || 'Intente nuevamente.'))
       } finally {
         setIsDeleting(false)
         setEventToDelete(null)
@@ -334,48 +305,25 @@ const UserCalendarioConAgendamiento = () => {
     { id: 'year', label: 'Año' }
   ]
 
-  // Remover un toast específico
-  const removeToast = (id: string) => {
-    setToasts(current => current.filter(toast => toast.id !== id))
-  }
 
-  // Estilos CSS para la animación del toast
-  const toastAnimationStyle = `
-    @keyframes slideInRight {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOutRight {
-      from { transform: translateX(0); opacity: 1; }
-      to { transform: translateX(100%); opacity: 0; }
-    }
-  `;
 
   return (
     <div className="space-y-4 relative z-20">
-      <style>{toastAnimationStyle}</style>
-      {/* Toasts personalizados */}
-      <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">
-        {toasts.map(toast => (
-          <div 
-            key={toast.id} 
-            className={`${toast.type === 'success' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'} border rounded-lg shadow-lg py-3 px-4 flex items-center min-w-[280px] max-w-md pointer-events-auto transition-opacity duration-300 ease-in-out`}
-            style={{ animation: 'slideInRight 0.3s ease-out forwards' }}
-          >
-            {toast.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 mr-2" />
-            ) : (
-              <AlertCircle className="w-5 h-5 mr-2" />
-            )}
-            <p className="flex-1">{toast.message}</p>
-            <button 
-              onClick={() => removeToast(toast.id)}
-              className="ml-2 text-gray-400 hover:text-gray-600 focus:outline-none"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        ))}
+      {/* Contenedor de notificaciones */}
+      <div className="fixed top-0 left-0 right-0 z-50" style={{ pointerEvents: 'none' }}>
+        <div className="mx-auto max-w-screen-md pt-24">
+          <ToastContainer 
+            position="top-center"
+            autoClose={3000}
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            style={{ position: 'relative', top: '0', left: '0', margin: '0 auto', pointerEvents: 'auto' }}
+          />
+        </div>
       </div>
       {/* Modal de confirmación para eliminar */}
       {eventToDelete && (
