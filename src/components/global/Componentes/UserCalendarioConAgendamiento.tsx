@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { servicioAgendadoStore } from '../../../stores/ServicesScheduling'
 import { useStore } from '@nanostores/react'
-import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle } from 'lucide-react'
 
 // Tipo para los eventos del calendario
 type CalendarEvent = {
@@ -48,6 +48,7 @@ const UserCalendarioConAgendamiento = () => {
   const [currentYear] = useState(new Date().getFullYear())
   const [user, setUser] = useState<any>(null)
   const [dateFilter, setDateFilter] = useState<DateFilterType>('today')
+  const [eventToDelete, setEventToDelete] = useState<CalendarEvent | null>(null)
 
   // Cargar usuario de localStorage
   useEffect(() => {
@@ -180,6 +181,26 @@ const UserCalendarioConAgendamiento = () => {
       time: date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
     }
   }
+  
+  // Manejar la eliminación de un evento
+  const handleDeleteEvent = (event: CalendarEvent) => {
+    setEventToDelete(event)
+  }
+  
+  // Confirmar la eliminación del evento
+  const confirmDeleteEvent = () => {
+    if (eventToDelete) {
+      console.log('Evento a eliminar:', eventToDelete)
+      // Aquí se implementaría la llamada a la API para eliminar el evento
+      // Por ahora solo hacemos console.log como solicitado
+      setEventToDelete(null)
+    }
+  }
+  
+  // Cancelar la eliminación
+  const cancelDeleteEvent = () => {
+    setEventToDelete(null)
+  }
 
   if (isLoading && !data) {
     return (
@@ -236,6 +257,45 @@ const UserCalendarioConAgendamiento = () => {
 
   return (
     <div className="space-y-4 relative z-20">
+      {/* Modal de confirmación para eliminar */}
+      {eventToDelete && (
+        <div className="mx-4 fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+            <div className="flex items-start mb-4">
+              <div className="mr-3 bg-red-100 p-2 rounded-full">
+                <AlertCircle className="h-6 w-6 text-red-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900">Confirmar cancelación</h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  ¿Estás seguro que deseas cancelar la cita de "{eventToDelete.summary}"? Esta acción no se puede deshacer.
+                </p>
+              </div>
+              <button
+                className="ml-auto bg-white rounded-full p-1 hover:bg-gray-100"
+                onClick={cancelDeleteEvent}
+              >
+                <X className="h-5 w-5 text-gray-400" />
+              </button>
+            </div>
+            <div className="flex justify-end space-x-3">
+              <button
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                onClick={cancelDeleteEvent}
+              >
+                Cancelar
+              </button>
+              <button
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+                onClick={confirmDeleteEvent}
+              >
+                Sí, cancelar cita
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-lg font-medium">Mis Eventos Agendados</h2>
         <span className="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">
@@ -270,11 +330,14 @@ const UserCalendarioConAgendamiento = () => {
             
             return (
               <div key={event.id} className="bg-white border rounded-md p-4 shadow-sm relative z-30">
-                <div className="flex flex-col justify-start items-start mb-2">
-                  <h3 className="font-medium text-gray-800">{event.summary}</h3> <br />
-                  <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
-                    {event.calendarName}
-                  </span>
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex flex-col">
+                    <h3 className="font-medium text-gray-800">{event.summary}</h3>
+                    <span className="mt-2 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded inline-block">
+                      {event.calendarName}
+                    </span>
+                  </div>
+                  
                 </div>
                 
                 {event.description && (
@@ -298,6 +361,16 @@ const UserCalendarioConAgendamiento = () => {
                     Ubicación: {event.location}
                   </p>
                 )}
+                <div className='flex flex-row items-end justify-end gap-2'>
+                <button 
+                    onClick={() => handleDeleteEvent(event)}
+                    className="flex flex-row items-center gap-1 px-4 right-2 text-red-600 py-2 mt-2 rounded-full bg-red-50 transition-colors"
+                    title="Cancelar cita"
+                  >
+                   Cancelar cita <Trash2 size={18} />
+                  </button>
+                </div>
+                
               </div>
             )
           })}
