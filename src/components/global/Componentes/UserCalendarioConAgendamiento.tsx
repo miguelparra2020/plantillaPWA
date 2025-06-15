@@ -3,7 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { servicioAgendadoStore } from '../../../stores/ServicesScheduling'
 import { useStore } from '@nanostores/react'
-import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Calendar as CalendarIcon, Trash2, X, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react'
 
 // Tipo para los eventos del calendario
 type CalendarEvent = {
@@ -49,6 +49,7 @@ const UserCalendarioConAgendamiento = () => {
   const [user, setUser] = useState<any>(null)
   const [dateFilter, setDateFilter] = useState<DateFilterType>('today')
   const [eventToDelete, setEventToDelete] = useState<CalendarEvent | null>(null)
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
 
   // Cargar usuario de localStorage
   useEffect(() => {
@@ -176,10 +177,19 @@ const UserCalendarioConAgendamiento = () => {
   // Formatear fecha y hora para mostrar
   const formatDateTime = (dateTimeString: string) => {
     const date = new Date(dateTimeString)
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
     return {
-      date: date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      date: date.toLocaleDateString('es-ES', options),
       time: date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
     }
+  }
+  
+  // Extraer solo la hora:minuto:segundo de una cadena ISO 8601
+  const extractTimeOnly = (isoString: string) => {
+    if (!isoString) return ''
+    // Buscar la parte entre la T y el +
+    const matches = isoString.match(/T([^+]+)/)
+    return matches && matches[1] ? matches[1] : ''
   }
   
   // Manejar la eliminación de un evento
@@ -332,16 +342,49 @@ const UserCalendarioConAgendamiento = () => {
               <div key={event.id} className="bg-white border rounded-md p-4 shadow-sm relative z-30">
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex flex-col">
-                    <h3 className="font-medium text-gray-800">{event.summary}</h3>
-                    <span className="mt-2 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded inline-block">
+
+                  <div className="flex flex-row my-2 flex-wrap gap-2">
+                    <h3 className="font-medium text-gray-800">
+                      Id cita:
+                    </h3>
+                    <span> {event.id}</span>
+                  </div>
+                   
+                  <div className="flex flex-row my-2 flex-wrap gap-2">
+                    <h3 className="font-medium text-gray-800">
+                      Creada a nombre de: 
+                    </h3>
+                    <span> {event.summary}</span>
+                  </div>
+                    <span className="my-2 text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded inline-block">
                       {event.calendarName}
                     </span>
                   </div>
                   
                 </div>
-                
                 {event.description && (
-                  <p className="text-sm text-gray-600 mb-3">{event.description}</p>
+                  <div className="border rounded-md border-gray-200 mb-3">
+                    <button 
+                      onClick={() => {
+                        setExpandedDescriptions(prev => ({
+                          ...prev,
+                          [event.id]: !prev[event.id]
+                        }))
+                      }}
+                      className="flex w-full justify-between items-center p-2 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none"
+                    >
+                      <span>Detalles del servicio</span>
+                      {expandedDescriptions[event.id] ? 
+                        <ChevronUp className="w-4 h-4" /> : 
+                        <ChevronDown className="w-4 h-4" />
+                      }
+                    </button>
+                    {expandedDescriptions[event.id] && (
+                      <div className="p-3 border-t border-gray-200 text-sm text-gray-600 bg-white">
+                        {event.description}
+                      </div>
+                    )}
+                  </div>
                 )}
                 
                 <div className="flex items-center text-sm text-gray-500 mb-1">
@@ -351,9 +394,9 @@ const UserCalendarioConAgendamiento = () => {
                 
                 <div className="flex items-center text-sm text-gray-500">
                   <Clock className="w-4 h-4 mr-1" />
-                  <span>{startTime}</span>
+                  <span>{extractTimeOnly(event.start.dateTime)}</span>
                   <ArrowRight className="w-3 h-3 mx-1" />
-                  <span>{endTime}</span>
+                  <span>{extractTimeOnly(event.end.dateTime)}</span>
                 </div>
                 
                 {event.location && (

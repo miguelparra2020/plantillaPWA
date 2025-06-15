@@ -39,14 +39,14 @@ const TeamWork = () => {
       name: "Oscar Rodríguez",
       role: "Barbero Profesional",
       image: Barber1Img,
-      experience: "8+ años",
+      experience: "16+ años",
       specialties: ["Cortes clásicos", "Fade", "Barba"],
     },
     {
       name: "Daniel Stiven Cano",
       role: "Barbero Especialista",
       image: Barber2Img, 
-      experience: "6+ años",
+      experience: "8+ años",
       specialties: ["Diseños", "Afeitado", "Styling"],
     },
   ];
