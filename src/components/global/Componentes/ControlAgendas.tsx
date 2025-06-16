@@ -303,9 +303,13 @@ const ControlAgendas = () => {
       }))
     ) || []
 
+  // Filtrar eventos según los calendarios seleccionados
+  const filteredEvents = allEvents.filter(event => 
+    event.calendarId && selectedCalendars.includes(event.calendarId)
+  )
 
   // Ordenar eventos por fecha de inicio
-  const sortedEvents = [...allEvents].sort((a, b) => 
+  const sortedEvents = [...filteredEvents].sort((a, b) => 
     new Date(a.start.dateTime).getTime() - new Date(b.start.dateTime).getTime()
   )
 
@@ -434,7 +438,7 @@ const ControlAgendas = () => {
         </div>
       </div>
       
-      {allEvents.length === 0 ? (
+      {sortedEvents.length === 0 ? (
         <div className="bg-gray-50 p-4 rounded-md text-center">
           <p className="text-gray-500">No hay eventos agendados para mostrar</p>
         </div>
