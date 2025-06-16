@@ -14,21 +14,21 @@ const ControlAdmin = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const menuOptions: MenuOption[] = [
-    { id: 'resumen', name: 'Resumen', icon: '📊', color: '#5470D6', notifications: 5, isActive: true },
-    { id: 'costos', name: 'Costos de la plataforma', icon: '💲', color: '#D6B156', notifications: 3, isActive: true },
-    { id: 'serviciosGenerales', name: 'Servicios Generales', icon: '⚙️', color: '#4ECB71', notifications: 8, isActive: true },
-    { id: 'pedidosServicios', name: 'Pedidos de Servicios', icon: '📋', color: '#EE8142', notifications: 12, isActive: true },
+    { id: 'resumen', name: 'Resumen', icon: '📊', color: '#5470D6', notifications: 5, isActive: false },
+    { id: 'costos', name: 'Costos de la plataforma', icon: '💲', color: '#D6B156', notifications: 3, isActive: false },
+    { id: 'serviciosGenerales', name: 'Servicios Generales', icon: '⚙️', color: '#4ECB71', notifications: 8, isActive: false },
+    { id: 'pedidosServicios', name: 'Pedidos de Servicios', icon: '📋', color: '#EE8142', notifications: 12, isActive: false },
     { id: 'serviciosAgenda', name: 'Servicios con Agenda', icon: '📅', color: '#9254DE', notifications: 4, isActive: false },
     { id: 'agendas', name: 'Agendas', icon: '🕒', color: '#7265E6', notifications: 7, isActive: true },
-    { id: 'productos', name: 'Productos', icon: '📦', color: '#D53F8C', notifications: 15, isActive: true },
+    { id: 'productos', name: 'Productos', icon: '📦', color: '#D53F8C', notifications: 15, isActive: false },
     { id: 'pedidosProductos', name: 'Pedidos de Productos', icon: '🛒', color: '#DD503F', notifications: 9, isActive: false },
-    { id: 'estadisticas', name: 'Estadísticas', icon: '📈', color: '#47B5BE', notifications: 2, isActive: true },
-    { id: 'ingresos', name: 'Ingresos', icon: '💰', color: '#36C75E', notifications: 6, isActive: true },
-    { id: 'gastos', name: 'Gastos', icon: '💸', color: '#F56C6C', notifications: 10, isActive: true },
+    { id: 'estadisticas', name: 'Estadísticas', icon: '📈', color: '#47B5BE', notifications: 2, isActive: false },
+    { id: 'ingresos', name: 'Ingresos', icon: '💰', color: '#36C75E', notifications: 6, isActive: false },
+    { id: 'gastos', name: 'Gastos', icon: '💸', color: '#F56C6C', notifications: 10, isActive: false },
     { id: 'ganancias', name: 'Ganancias o pérdidas', icon: '📉', color: '#34B3F1', notifications: 1, isActive: false },
-    { id: 'usuarios', name: 'Usuarios', icon: '👤', color: '#6554C0', notifications: 23, isActive: true },
+    { id: 'usuarios', name: 'Usuarios', icon: '👤', color: '#6554C0', notifications: 23, isActive: false },
     { id: 'permisos', name: 'Permisos', icon: '🔒', color: '#FF9800', notifications: 5, isActive: false },
-    { id: 'roles', name: 'Roles', icon: '🔑', color: '#8BC34A', notifications: 4, isActive: true },
+    { id: 'roles', name: 'Roles', icon: '🔑', color: '#8BC34A', notifications: 4, isActive: false },
   ];
 
   const handleOptionSelect = (optionId: string, isActive: boolean) => {
