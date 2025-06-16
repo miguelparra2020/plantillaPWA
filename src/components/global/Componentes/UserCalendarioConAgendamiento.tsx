@@ -408,81 +408,102 @@ const UserCalendarioConAgendamiento = () => {
             const { time: endTime } = formatDateTime(event.end.dateTime)
             
             return (
-              <div key={event.id} className="bg-white border rounded-md p-4 shadow-sm relative z-30">
-                <div className="flex justify-between items-start mb-2">
-                  <div className="flex flex-col">
-
-                  <div className="flex flex-row my-2 flex-wrap gap-2">
-                    <h3 className="font-medium text-gray-800">
-                      Id cita:
-                    </h3>
-                    <span> {event.id}</span>
-                  </div>
-                   
-                  <div className="flex flex-row my-2 flex-wrap gap-2">
-                    <h3 className="font-medium text-gray-800">
-                      Creada a nombre de: 
-                    </h3>
-                    <span> {event.summary}</span>
-                  </div>
-                    <span className="my-2 text-xs px-2 py-1 bg-slate-100 text-slate-700 rounded inline-block">
-                      {event.calendarName}
-                    </span>
-                  </div>
-                  
-                </div>
-                {event.description && (
-                  <div className="border rounded-md border-gray-200 mb-3">
-                    <button 
-                      onClick={() => {
-                        setExpandedDescriptions(prev => ({
-                          ...prev,
-                          [event.id]: !prev[event.id]
-                        }))
-                      }}
-                      className="flex w-full justify-between items-center p-2 text-sm font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 transition-colors focus:outline-none"
-                    >
-                      <span>Detalles del servicio</span>
-                      {expandedDescriptions[event.id] ? 
-                        <ChevronUp className="w-4 h-4" /> : 
-                        <ChevronDown className="w-4 h-4" />
-                      }
-                    </button>
-                    {expandedDescriptions[event.id] && (
-                      <div className="p-3 border-t border-gray-200 text-sm text-gray-600 bg-white">
-                        {event.description}
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                <div className="flex items-center text-sm text-gray-500 mb-1">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  <span>{date}</span>
-                </div>
-                
-                <div className="flex items-center text-sm text-gray-500">
-                  <Clock className="w-4 h-4 mr-1" />
-                  <span>{extractTimeOnly(event.start.dateTime)}</span>
-                  <ArrowRight className="w-3 h-3 mx-1" />
-                  <span>{extractTimeOnly(event.end.dateTime)}</span>
-                </div>
-                
-                {event.location && (
-                  <p className="mt-2 text-xs text-gray-500">
-                    Ubicación: {event.location}
-                  </p>
-                )}
-                <div className='flex flex-row items-end justify-end gap-2'>
-                <button 
+              <div key={event.id} className="bg-white border rounded-lg p-5 shadow-sm relative z-30">
+                {/* Indicador de estado */}
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-sm px-3 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                    Confirmado
+                  </span>
+                  <button 
                     onClick={() => handleDeleteEvent(event)}
-                    className="flex flex-row items-center gap-1 px-4 right-2 text-red-600 py-2 mt-2 rounded-full bg-red-50 transition-colors"
+                    className="text-red-500 hover:text-red-700"
                     title="Cancelar cita"
                   >
-                   Cancelar cita <Trash2 size={18} />
+                    <Trash2 size={20} />
                   </button>
                 </div>
                 
+                {/* Información principal de la cita */}
+                <div className="space-y-4">
+                  {/* Nombre del paciente */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </span>
+                    <span className="text-lg font-medium">{event.organizer.displayName}</span>
+                  </div>
+
+                  {/* Fecha */}
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5 text-gray-600" />
+                    <span className="text-lg">{date}</span>
+                  </div>
+                  
+                  {/* Horario */}
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-gray-600" />
+                    <span className="text-lg">{extractTimeOnly(event.start.dateTime)} - {extractTimeOnly(event.end.dateTime)}</span>
+                  </div>
+                </div>
+                
+                {/* Detalles desplegables */}
+                <div className="mt-4">
+                  <button 
+                    onClick={() => {
+                      setExpandedDescriptions(prev => ({
+                        ...prev,
+                        [event.id]: !prev[event.id]
+                      }))
+                    }}
+                    className="flex w-full justify-between items-center py-2 text-gray-700 font-medium focus:outline-none border-t border-gray-100 pt-3"
+                  >
+                    <span>Detalles del servicio</span>
+                    {expandedDescriptions[event.id] ? 
+                      <ChevronUp className="w-5 h-5" /> : 
+                      <ChevronDown className="w-5 h-5" />
+                    }
+                  </button>
+                  {expandedDescriptions[event.id] && (
+                    <div className="p-4 text-gray-700 bg-gray-50 rounded-md mt-2">
+                      <div className="space-y-3">
+                        {/* Nombre del servicio */}
+                        <div>
+                          <div className="font-medium mb-1">Servicio:</div>
+                          <div>{event.description ? event.description.split('\n')[0] : 'No disponible'}</div>
+                        </div>
+                        
+                        {/* ID y Duración */}
+                        <div className="flex justify-between">
+                          <div>
+                            <span className="font-medium">ID:</span> {event.id.substring(0, 8)}...
+                          </div>
+                          <div>
+                            <span className="font-medium">Duración:</span> {Math.round((new Date(event.end.dateTime).getTime() - new Date(event.start.dateTime).getTime()) / 60000)}min
+                          </div>
+                        </div>
+                        
+                        {/* Email */}
+                        {event.attendees && event.attendees.length > 0 && (
+                          <div className="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span>{event.attendees[0].email}</span>
+                          </div>
+                        )}
+                        
+                        {/* Información adicional si existe */}
+                        {event.location && (
+                          <div className="mt-2">
+                            <span className="font-medium">Ubicación:</span> {event.location}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             )
           })}
