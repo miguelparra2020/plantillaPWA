@@ -1,6 +1,8 @@
 import { UserCalendarioConAgendamiento } from "@globals"
 import React, { useState, useEffect } from 'react'
 import QueryProvider from './QueryProvider'
+import { Button } from "@component/ui/button"
+import { Cog } from "lucide-react"
 
 const UserCalendars = () => {
   // Tabs disponibles
@@ -34,8 +36,25 @@ const UserCalendars = () => {
     return null
   }
 
+  const usersControl = [
+    {"email":"dcano4703@gmail.com"},
+    {"email":"oscarmarinez0802@gmail.com"},
+    {"email":"miguelpaez9612@gmail.com"},    
+  ]
+
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto mt-4 relative z-20">
+      {(user && user.email && usersControl.some(userControl => userControl.email === user.email)) ? <>
+        <Button 
+            className="mx-auto p-4 mt-5 bg-gray-900 hover:bg-gray-800 text-white font-medium py-2 rounded flex items-center justify-center gap-2"
+            onClick={() => window.location.href = "/controlf526f586"}
+          >
+            <Cog className="w-4 h-4" />
+            Control administrativo
+          </Button>
+      </>        
+      :null}
+      <br />
       <h2 className="text-xl font-semibold text-gray-900 mb-4 px-4">Agendas de usuario</h2>      
       {/* Menú de tabs */}
       <div className="border-b border-gray-200 mb-4">
