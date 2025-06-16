@@ -41,3 +41,12 @@ export { default as ServiciosAgendamientoFinalUser } from "./ServiciosAgendamien
 export { default as UserCalendars } from "./UserCalendars"
 export { default as UserCalendarioConAgendamiento } from "./UserCalendarioConAgendamiento"
 export { default as ControlAdmin } from "./ControlAdmin"
+export { default as ControlResumen } from "./ControlResumen"
+export { default as ControlCostosPlataforma } from "./ControlCostosPlataforma"
+export { default as ControlServiciosGenerales } from "./ControlServiciosGenerales"
+export { default as ControlPedidosServicios } from "./ControlPedidosServicios"
+export { default as ControlServiciosAgenda } from "./ControlServiciosAgenda"
+export { default as ControlAgendas } from "./ControlAgendas"
+
+
+
