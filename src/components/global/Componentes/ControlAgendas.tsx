@@ -58,6 +58,8 @@ const ControlAgendas = () => {
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
   const [isDeleting, setIsDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState<string | null>(null)
+  // Estado para los calendarios seleccionados
+  const [selectedCalendars, setSelectedCalendars] = useState<string[]>(CALENDAR_IDS.map(cal => cal.id))
 
   // Cargar usuario de localStorage
   useEffect(() => {
@@ -119,15 +121,18 @@ const ControlAgendas = () => {
 
   // Función para cargar eventos de un calendario
   const fetchCalendarEvents = async ({ pageParam = 0 }) => {
-    // El índice del calendario actual
+    // Filtrar los calendarios seleccionados
+    const filteredCalendars = CALENDAR_IDS.filter(cal => selectedCalendars.includes(cal.id))
+    
+    // El índice del calendario actual dentro de los seleccionados
     const calendarIndex = pageParam
     
-    if (calendarIndex >= CALENDAR_IDS.length) {
-      // Hemos consultado todos los calendarios disponibles
+    if (calendarIndex >= filteredCalendars.length) {
+      // Hemos consultado todos los calendarios seleccionados
       return null
     }
     
-    const calendarId = CALENDAR_IDS[calendarIndex].id
+    const calendarId = filteredCalendars[calendarIndex].id
     
     try {
       const response = await axios.get(`https://mi-express-app.vercel.app/api/calendar/events`, {
@@ -141,7 +146,7 @@ const ControlAgendas = () => {
       return {
         ...response.data,
         calendarId,
-        calendarName: CALENDAR_IDS[calendarIndex].name,
+        calendarName: filteredCalendars[calendarIndex].name,
         nextPage: calendarIndex + 1
       }
     } catch (error) {
@@ -150,7 +155,7 @@ const ControlAgendas = () => {
       return {
         events: [],
         calendarId,
-        calendarName: CALENDAR_IDS[calendarIndex].name,
+        calendarName: filteredCalendars[calendarIndex].name,
         nextPage: calendarIndex + 1
       }
     }
@@ -167,11 +172,12 @@ const ControlAgendas = () => {
     error,
     refetch
   } = useInfiniteQuery({
-    queryKey: ['calendarEvents', startDate, endDate],
+    queryKey: ['calendarEvents', startDate, endDate, selectedCalendars],
     queryFn: fetchCalendarEvents,
     getNextPageParam: (lastPage) => {
       if (!lastPage) return undefined
-      return lastPage.nextPage < CALENDAR_IDS.length ? lastPage.nextPage : undefined
+      const filteredCalendars = CALENDAR_IDS.filter(cal => selectedCalendars.includes(cal.id))
+      return lastPage.nextPage < filteredCalendars.length ? lastPage.nextPage : undefined
     },
     initialPageParam: 0
   })
@@ -254,6 +260,17 @@ const ControlAgendas = () => {
     setEventToDelete(null)
   }
 
+  // Manejar el cambio de selección de calendarios
+  const handleCalendarChange = (calendarId: string) => {
+    setSelectedCalendars(prev => {
+      if (prev.includes(calendarId)) {
+        return prev.filter(id => id !== calendarId)
+      } else {
+        return [...prev, calendarId]
+      }
+    })
+  }
+
   if (isLoading && !data) {
     return (
       <div className="flex justify-center items-center p-8">
@@ -302,8 +319,6 @@ const ControlAgendas = () => {
     { id: 'month', label: 'Mes' },
     { id: 'year', label: 'Año' }
   ]
-
-
 
   return (
     <div className="space-y-4 relative z-20">
@@ -380,22 +395,46 @@ const ControlAgendas = () => {
         </span>
       </div>
       
-      {/* Filtros de fecha */}
-      <div className="flex mb-4 bg-gray-100 p-1 rounded-lg shadow-sm">
-        {dateFilters.map(filter => (
-          <button
-            key={filter.id}
-            onClick={() => setDateFilter(filter.id)}
-            className={`flex-1 py-2 px-3 text-sm font-medium rounded-md transition-colors ${dateFilter === filter.id 
-              ? 'bg-white shadow-sm text-slate-600' 
-              : 'text-gray-600 hover:bg-gray-200'}`}
-          >
-            {filter.label}
-          </button>
-        ))}
+      {/* Filtros */}
+      <div className="mb-4 space-y-4">
+        {/* Filtro de calendarios */}
+        <div className="bg-white rounded-lg px-4 py-3 border border-gray-200">
+          <h3 className="font-medium text-gray-700 mb-2">Filtrar por calendario:</h3>
+          <div className="flex flex-wrap gap-2">
+            {CALENDAR_IDS.map(calendar => (
+              <div key={calendar.id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={`calendar-${calendar.id}`}
+                  checked={selectedCalendars.includes(calendar.id)}
+                  onChange={() => handleCalendarChange(calendar.id)}
+                  className="mr-2 h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                />
+                <label htmlFor={`calendar-${calendar.id}`} className="text-gray-700">
+                  {calendar.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Filtro de fechas */}
+        <div className="bg-gray-100 p-1 rounded-lg shadow-sm">
+          {dateFilters.map(filter => (
+            <button
+              key={filter.id}
+              onClick={() => setDateFilter(filter.id)}
+              className={`flex-1 py-2 px-3 text-sm font-medium rounded-md transition-colors ${dateFilter === filter.id 
+                ? 'bg-white shadow-sm text-slate-600' 
+                : 'text-gray-600 hover:bg-gray-200'}`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
       </div>
       
-      {sortedEvents.length === 0 ? (
+      {allEvents.length === 0 ? (
         <div className="bg-gray-50 p-4 rounded-md text-center">
           <p className="text-gray-500">No hay eventos agendados para mostrar</p>
         </div>
