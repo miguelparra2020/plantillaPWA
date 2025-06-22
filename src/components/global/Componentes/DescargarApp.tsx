@@ -5,8 +5,26 @@ const DescargarApp = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstallable, setIsInstallable] = useState<boolean>(false);
   const [isInstalled, setIsInstalled] = useState<boolean>(false);
+  const [isBrowserCompatible, setIsBrowserCompatible] = useState<boolean>(false);
 
   useEffect(() => {
+    // Verificar si el navegador es compatible con PWA
+    const checkBrowserCompatibility = () => {
+      // Principales navegadores que soportan PWA
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isChrome = /chrome/.test(userAgent) && !/edge|edg/.test(userAgent);
+      const isEdge = /edge|edg/.test(userAgent);
+      const isSafari = /safari/.test(userAgent) && !/chrome|chromium|edg/.test(userAgent);
+      const isFirefox = /firefox/.test(userAgent);
+      const isOpera = /opr/.test(userAgent);
+      const isSamsung = /samsungbrowser/.test(userAgent);
+      
+      // Marcar como compatible si estamos en navegadores comunes con soporte PWA
+      return isChrome || isEdge || isSafari || isFirefox || isOpera || isSamsung;
+    };
+    
+    setIsBrowserCompatible(checkBrowserCompatibility());
+    
     // Verificar si la app ya está instalada
     if (window.matchMedia('(display-mode: standalone)').matches || 
         // La propiedad standalone es específica para Safari en iOS
@@ -45,19 +63,24 @@ const DescargarApp = () => {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
-    // Mostrar el prompt de instalación
-    deferredPrompt.prompt();
+    try {
+      // Mostrar el prompt de instalación
+      deferredPrompt.prompt();
 
-    // Esperar a la respuesta del usuario
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    // Limpiar el evento guardado
-    setDeferredPrompt(null);
+      // Esperar a la respuesta del usuario
+      const { outcome } = await deferredPrompt.userChoice;
+      
+      // Limpiar el evento guardado
+      setDeferredPrompt(null);
 
-    // Verificar si se aceptó la instalación
-    if (outcome === 'accepted') {
-      setIsInstalled(true);
-      setIsInstallable(false);
+      // Verificar si se aceptó la instalación
+      if (outcome === 'accepted') {
+        setIsInstalled(true);
+        setIsInstallable(false);
+      }
+    } catch (error) {
+      console.error('Error al mostrar el prompt de instalación:', error);
+      alert('Hubo un problema al instalar la aplicación. Por favor, intenta usar el botón de instalación en la barra de dirección del navegador.');
     }
   };
 
@@ -93,6 +116,30 @@ const DescargarApp = () => {
           </button>
           <p className="text-sm text-gray-500 mt-2 text-center">
             Instala esta aplicación en tu dispositivo para acceder rápidamente sin necesidad de un navegador.
+          </p>
+        </div>
+      ) : isBrowserCompatible ? (
+        <div className="mt-4">
+          <button
+            onClick={() => {
+              // Intenta utilizar la API de instalación del navegador directamente
+              // En Chrome y Edge modernos, esto puede activar el prompt de instalación
+              if (deferredPrompt) {
+                handleInstallClick();
+              } else {
+                // Mostrar un mensaje instruccional para instalar desde el menú del navegador
+                alert('Para instalar esta aplicación, busca el icono de instalación en la barra de dirección o en el menú del navegador.');
+              }
+            }}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Instalar aplicación
+          </button>
+          <p className="text-sm text-gray-500 mt-2 text-center">
+            Si el botón no funciona, busca el icono de instalación en la barra de dirección o en el menú del navegador.
           </p>
         </div>
       ) : (
