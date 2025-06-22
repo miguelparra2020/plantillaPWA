@@ -47,6 +47,7 @@ export { default as ControlServiciosGenerales } from "./ControlServiciosGenerale
 export { default as ControlPedidosServicios } from "./ControlPedidosServicios"
 export { default as ControlServiciosAgenda } from "./ControlServiciosAgenda"
 export { default as ControlAgendas } from "./ControlAgendas"
+export { default as DescargarApp } from "./DescargarApp"
 
 
 

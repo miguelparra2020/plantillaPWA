@@ -1,5 +1,5 @@
 ---
-import {   LayoutGeneral } from "@globals"
+import {   DescargarApp, LayoutGeneral } from "@globals"
 import { ModuelesActives } from "@util/generalConfig"
 if (!ModuelesActives.DownloadApp) {
   return Astro.redirect('/crear');
@@ -7,7 +7,5 @@ if (!ModuelesActives.DownloadApp) {
 ---
 
     <LayoutGeneral>
-    <div>
-          El resto de la página
-      </div>
+    <DescargarApp client:idle/>
     </LayoutGeneral>

@@ -30,7 +30,7 @@ export const ModuelesActives = {
   Quotes: false, //Citas
   Events: false, //Eventos,
   Photos: true, //Fotos
-  DownloadApp: false, //Descargar
+  DownloadApp: true, //Descargar
   Language: true, //Idioma
 }
 
@@ -928,7 +928,7 @@ export const generalConfig = {
   GeneralMenu: {
     linksPages: [
       { href: "/descargar", id:"downloadApp", text: getTranslation("/es/","downloadApp"), 
-        icon: "bi-box-arrow-in-down",  active: false,
+        icon: "bi-box-arrow-in-down",  active: true,
         path1:pathsIconos.path1downloadApp,
         path2:pathsIconos.path2downloadApp
       },
