@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Store, Globe, FileText } from 'lucide-react'
+import { Store, Globe, FileText, Image, Upload } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
@@ -8,6 +8,13 @@ import { languajePage } from 'src/stores/languajePage'
 import { generalConfig } from "@util/generalConfig"
 import { crearStore, type InfoStage1 } from 'src/stores/crearStore'
 import useSuggestionListActivitiesEs from './useSuggestionListActivitiesEs'
+import { ContenedorNotificaciones } from '@globals'
+import { toast } from 'react-toastify'
+
+interface ResizedIcons {
+  icon192: string;
+  icon512: string;
+}
 
 export const Stage1Settings = () => {
   const { data: dataLanguaje} = useStore(languajePage)
@@ -15,7 +22,20 @@ export const Stage1Settings = () => {
   const [localSettings, setLocalSettings] = useState<InfoStage1>(store.infoStage1 || {
     nombreComercio: '',
     descripcionActividad: '',
-    idiomaPlataforma: ''
+    idiomaPlataforma: '',
+    iconoPlataforma: '',
+    icon192: '',
+    icon512: ''
+  })
+
+  const [previews, setPreviews] = useState<{
+    original: string | null;
+    icon192: string | null;
+    icon512: string | null;
+  }>({
+    original: null,
+    icon192: null,
+    icon512: null
   })
 
   const [descripcionSuggestions, setDescripcionSuggestions] = useState<string[]>([])
@@ -45,12 +65,104 @@ export const Stage1Settings = () => {
       setShowSuggestions(false)
     }
   }
+
+  const resizeImage = (imgSrc: string, width: number, height: number): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement('img')
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          reject(new Error('Failed to get canvas context'))
+          return
+        }
+
+        // Dibujar la imagen redimensionada
+        ctx.drawImage(img, 0, 0, width, height)
+        
+        // Convertir a PNG
+        const resizedImgSrc = canvas.toDataURL('image/png')
+        resolve(resizedImgSrc)
+      }
+      img.onerror = () => {
+        reject(new Error('Error loading image'))
+      }
+      img.src = imgSrc
+    })
+  }
+
+  const handleIconUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.type !== 'image/png') {
+        toast.error(dataLanguaje.languajeChoose === "/es/" ? "Solo se permiten archivos PNG" : 
+              dataLanguaje.languajeChoose === "/en/" ? "Only PNG files are allowed" : 
+              dataLanguaje.languajeChoose === "/pt/" ? "Apenas arquivos PNG são permitidos" : 
+              "Seuls les fichiers PNG sont autorisés")
+        e.target.value = '' 
+        return
+      }
+
+      try {
+        // Mostrar mensaje de procesamiento
+        toast.info(dataLanguaje.languajeChoose === "/es/" ? "Procesando imagen..." : 
+                  dataLanguaje.languajeChoose === "/en/" ? "Processing image..." : 
+                  dataLanguaje.languajeChoose === "/pt/" ? "Processando imagem..." : 
+                  "Traitement de l'image...")
+
+        const reader = new FileReader()
+        reader.onloadend = async () => {
+          const originalBase64 = reader.result as string
+          
+          try {
+            // Redimensionar la imagen a 192x192 y 512x512
+            const icon192 = await resizeImage(originalBase64, 192, 192)
+            const icon512 = await resizeImage(originalBase64, 512, 512)
+            
+            // Actualizar el store con las tres versiones
+            handleSettingsChange('iconoPlataforma', originalBase64)
+            handleSettingsChange('icon192', icon192)
+            handleSettingsChange('icon512', icon512)
+            
+            // Mostrar vista previa de todas las imágenes
+            setPreviews({
+              original: originalBase64,
+              icon192: icon192,
+              icon512: icon512
+            })
+            
+            // Mensaje de éxito
+            toast.success(dataLanguaje.languajeChoose === "/es/" ? "Imagen procesada correctamente" : 
+                        dataLanguaje.languajeChoose === "/en/" ? "Image processed successfully" : 
+                        dataLanguaje.languajeChoose === "/pt/" ? "Imagem processada com sucesso" : 
+                        "Image traitée avec succès")
+          } catch (error) {
+            console.error('Error resizing image:', error)
+            toast.error(dataLanguaje.languajeChoose === "/es/" ? "Error al procesar la imagen" : 
+                       dataLanguaje.languajeChoose === "/en/" ? "Error processing image" : 
+                       dataLanguaje.languajeChoose === "/pt/" ? "Erro ao processar imagem" : 
+                       "Erreur lors du traitement de l'image")
+          }
+        }
+        reader.readAsDataURL(file)
+      } catch (error) {
+        console.error('Error reading file:', error)
+        toast.error(dataLanguaje.languajeChoose === "/es/" ? "Error al leer el archivo" : 
+                   dataLanguaje.languajeChoose === "/en/" ? "Error reading file" : 
+                   dataLanguaje.languajeChoose === "/pt/" ? "Erro ao ler o arquivo" : 
+                   "Erreur lors de la lecture du fichier")
+      }
+    }
+  }
   
 
 
   return (
     <div>
       <form className='flex flex-col gap-4 flex-1 p-4 justify-between'>
+      <ContenedorNotificaciones/> 
         <div className='space-y-4'>
           {/* Nombre de la empresa */}
           <div className='space-y-2'>
@@ -154,6 +266,65 @@ export const Stage1Settings = () => {
                 </SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          {/* Icono de la plataforma */}
+          <div className='space-y-2'>
+            <div className='flex items-center gap-2'>
+              <Image className='w-4 h-4 text-zinc-500' />
+              <span className='text-sm text-zinc-500'>
+                {dataLanguaje.languajeChoose === "/es/" ? "Icono de la plataforma":""}
+                {dataLanguaje.languajeChoose === "/en/" ? "Platform icon":""}
+                {dataLanguaje.languajeChoose === "/pt/" ? "Ícone da plataforma":""}
+                {dataLanguaje.languajeChoose === "/fr/" ? "Icône de la plateforme":""}
+              </span>
+            </div>
+            <div className='relative w-full'>
+              <Input
+                type='file'
+                accept='image/png'
+                onChange={handleIconUpload}
+                className='w-full bg-zinc-100 text-sm text-zinc-900 placeholder:text-zinc-500 rounded-xl focus:outline-none focus-visible:ring-offset-0 focus-visible:ring-0 focus-visible:border-zinc-900'
+              />
+              <Upload className='absolute right-3 top-2 w-4 h-4 text-zinc-500' />
+            </div>
+
+            {previews.original && (
+              <div className='mt-4'>
+                <p className='text-xs font-medium text-zinc-500 mb-2'>
+                  {dataLanguaje.languajeChoose === "/es/" ? "Vista previa de las imágenes":""}
+                  {dataLanguaje.languajeChoose === "/en/" ? "Image previews":""}
+                  {dataLanguaje.languajeChoose === "/pt/" ? "Visualização das imagens":""}
+                  {dataLanguaje.languajeChoose === "/fr/" ? "Aperçu des images":""}
+                </p>
+                <div className='flex flex-wrap gap-4'>
+                  <div className='flex flex-col items-center'>
+                    <div className='rounded-md overflow-hidden border border-zinc-200 w-16 h-16'>
+                      <img src={previews.original} alt="Original" className='w-full h-full object-cover' />
+                    </div>
+                    <span className='text-xs text-zinc-400 mt-1'>Original</span>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <div className='rounded-md overflow-hidden border border-zinc-200'>
+                      <img src={previews.icon192} alt="192x192" className='w-12 h-12' />
+                    </div>
+                    <span className='text-xs text-zinc-400 mt-1'>192x192</span>
+                  </div>
+                  <div className='flex flex-col items-center'>
+                    <div className='rounded-md overflow-hidden border border-zinc-200'>
+                      <img src={previews.icon512} alt="512x512" className='w-12 h-12' />
+                    </div>
+                    <span className='text-xs text-zinc-400 mt-1'>512x512</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            <p className='text-xs text-zinc-400'>
+              {dataLanguaje.languajeChoose === "/es/" ? "Sube un icono para tu plataforma (solo formato PNG)":""}
+              {dataLanguaje.languajeChoose === "/en/" ? "Upload an icon for your platform (PNG format only)":""}
+              {dataLanguaje.languajeChoose === "/pt/" ? "Carregue um ícone para sua plataforma (apenas formato PNG)":""}
+              {dataLanguaje.languajeChoose === "/fr/" ? "Téléchargez une icône pour votre plateforme (format PNG uniquement)":""}
+            </p>
           </div>
         </div>
         {/* Preguntas por que elegirnos */}

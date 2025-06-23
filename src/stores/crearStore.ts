@@ -5,6 +5,9 @@ export interface InfoStage1 {
   nombreComercio: string
   descripcionActividad: string
   idiomaPlataforma: string
+  iconoPlataforma?: string
+  icon192?: string
+  icon512?: string
 }
 
 export interface InfoStage2 {
