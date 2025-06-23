@@ -282,7 +282,7 @@ export const INTRO_CONFIG = {
   },
   LOADING: {
     duration: 5000,
-    intervalMs: 30 * 1000, 
+    intervalMs: 60 * 60 * 1000, 
     autoAdvance: true,
   },
 }
