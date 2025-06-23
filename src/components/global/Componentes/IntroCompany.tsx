@@ -1,34 +1,9 @@
 import React from "react"
 import { useEffect, useRef, useState } from "react"
 import * as THREE from "three"
-import { Scissors, Volume2, VolumeX } from "lucide-react"
+import { Volume2, VolumeX } from "lucide-react"
 import { createPortal } from "react-dom"
-const INTRO_CONFIG = {
-  BACKGROUND_COLORS: {
-    primary: "#1a1a1a",
-    secondary: "#8b4513",
-    accent: "#ffd700",
-  },
-  ELEMENT_COLORS: {
-    particles: 0xffc107, 
-  },
-  PARTICLES: {
-    count: 400, 
-  },
-
-  BRAND: {
-    name: "MIGUEL PÁEZ",
-    tagline: "Donde cada detalle cuenta",
-    description: "Bienvenido a la experiencia de barbería más exclusiva. Tu estilo tiene la última palabra.",
-    icon: Scissors,
-  },
-
-  LOADING: {
-    duration: 5000,
-    intervalMs: 60* 60 * 1000, 
-    autoAdvance: true,
-  },
-}
+import { INTRO_CONFIG } from "../../../../utils/generalConfig"
 
 function IntroCompany() {
   const [initialized, setInitialized] = useState(false)
@@ -235,6 +210,7 @@ function IntroCompany() {
           textAlign: 'center',
           color: 'white',
           marginBottom: '2rem',
+          marginTop: '2rem',
         }}
       >
         <h1

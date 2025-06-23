@@ -9,6 +9,7 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
+import { Scissors } from 'lucide-react'
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
 export const getCurrentLanguage = (languajeChoose: string): Idioma => {
@@ -261,6 +262,29 @@ export const translationGeneralWords = {
 export  const getTranslationGeneralWords = (languajeChoose: string, key: string): string => {
   const currentLanguage = getCurrentLanguage(languajeChoose)
   return translationGeneralWords[currentLanguage][key] || key
+}
+
+export const INTRO_CONFIG = {
+  BACKGROUND_COLORS: {
+    primary: "#1a1a1a",
+    secondary: "#8b4513",
+    accent: "#ffd700",
+  },
+  ELEMENT_COLORS: {
+    particles: 0xffc107, 
+  },
+  PARTICLES: {
+    count: 400, 
+  },
+  BRAND: {
+    name: "MIGUEL PÁEZ",
+    tagline: "Donde cada detalle cuenta",
+  },
+  LOADING: {
+    duration: 5000,
+    intervalMs: 30 * 1000, 
+    autoAdvance: true,
+  },
 }
 
 export const translationCreateProject = {
