@@ -9,7 +9,6 @@ import ImagenGrandeJpg from '@img/inicio/imagen-grande-bienvenida.jpg'
 import ImagenMedianaAvif from '@img/inicio/imagen-mediana-bienvenida.avif'
 import ImagenMedianaWebp from '@img/inicio/imagen-mediana-bienvenida.webp'
 import ImagenMedianaJpg from '@img/inicio/imagen-mediana-bienvenida.jpg'
-import { ButtonGeneral } from '@globals'
 // Idioma del proyecto
 type Idioma = "/en/" | "/es/" | "/pt/" | "/fr/"
 export const getCurrentLanguage = (languajeChoose: string): Idioma => {
@@ -993,7 +992,7 @@ export const generalConfig = {
         path2:pathsIconos.path2contact
       },
       { href: "/crear", id:"crear", text: getTranslation("/es/","crear"), 
-        icon: "bi-pencil-square", active: false,
+        icon: "bi-pencil-square", active: true,
         path1:pathsIconos.path1crear,
         path2:pathsIconos.path2crear
       }

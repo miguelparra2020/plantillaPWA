@@ -10,7 +10,8 @@ import {
   ServiciosConAgendamientoInicio,
   TeamWork,
   Ubicacion,
-  Footer
+  Footer,
+IntroCompany
 } from "@globals";
 import { ModuelesActives } from "@util/generalConfig";
 if (!ModuelesActives.Home) {
@@ -20,6 +21,8 @@ import LanguageSelector from "../components/global/Lenguaje/LanguageIndex"
 ---
 
 <LayoutGeneral>
+  <!-- Intro -->
+   <IntroCompany client:idle/>
   <!-- Bienvenida -->
   <InicioBienvenida />
   <!-- Inicio Redes Sociales -->

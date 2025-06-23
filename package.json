@@ -12,6 +12,7 @@
 	"devDependencies": {
 		"@astrojs/sitemap": "^2.0.2",
 		"@astrojs/tailwind": "^4.0.0",
+		"@types/three": "^0.177.0",
 		"@typescript-eslint/eslint-plugin": "^6.4.0",
 		"@typescript-eslint/parser": "^6.4.0",
 		"astro": "2.10.9",
@@ -49,6 +50,7 @@
 		"react-toastify": "^11.0.5",
 		"solid-js": "^1.9.4",
 		"tailwind-merge": "^3.0.2",
+		"three": "^0.177.0",
 		"yup": "^1.6.1"
 	}
 }
