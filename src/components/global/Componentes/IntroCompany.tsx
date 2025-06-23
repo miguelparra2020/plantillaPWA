@@ -1,26 +1,19 @@
-import React from "react";
-import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import { Scissors, Volume2, VolumeX } from "lucide-react";
-import { createPortal } from "react-dom";
-
-// ===== CONFIGURACIÓN PERSONALIZABLE =====
+import React from "react"
+import { useEffect, useRef, useState } from "react"
+import * as THREE from "three"
+import { Scissors, Volume2, VolumeX } from "lucide-react"
+import { createPortal } from "react-dom"
 const INTRO_CONFIG = {
-  // Colores de fondo
   BACKGROUND_COLORS: {
     primary: "#1a1a1a",
     secondary: "#8b4513",
     accent: "#ffd700",
   },
-
-  // Configuración simplificada para mejor rendimiento
   ELEMENT_COLORS: {
-    particles: 0xffc107, // Amber
+    particles: 0xffc107, 
   },
-
-  // Cantidad de partículas
   PARTICLES: {
-    count: 400, // Muy reducido para mejor rendimiento
+    count: 400, 
   },
 
   BRAND: {
@@ -32,74 +25,60 @@ const INTRO_CONFIG = {
 
   LOADING: {
     duration: 5000,
-    intervalMs: 30 * 1000, // 30 segundos para pruebas
+    intervalMs: 60* 60 * 1000, 
     autoAdvance: true,
   },
-};
+}
 
 function IntroCompany() {
-  // Estados para controlar visibilidad y carga
-  const [initialized, setInitialized] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(true);
-  const isNowBrowser = typeof window !== 'undefined';
-  
-  // Referencias para Three.js
-  const loadingStartTimeRef = useRef<number>(0);
-  const mountRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const animationIdRef = useRef<number | null>(null);
-  const particlesRef = useRef<THREE.Points | null>(null);
-
-  // Efecto para controlar la visibilidad basada en localStorage
+  const [initialized, setInitialized] = useState(false)
+  const [visible, setVisible] = useState(false)
+  const [loadingProgress, setLoadingProgress] = useState(0)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [audioEnabled, setAudioEnabled] = useState(true)
+  const isNowBrowser = typeof window !== 'undefined'
+  const loadingStartTimeRef = useRef<number>(0)
+  const mountRef = useRef<HTMLDivElement>(null)
+  const sceneRef = useRef<THREE.Scene | null>(null)
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
+  const animationIdRef = useRef<number | null>(null)
+  const particlesRef = useRef<THREE.Points | null>(null)
   useEffect(() => {
-    if (!isNowBrowser) return;
-    
-    let shouldShow = true;
+    if (!isNowBrowser) return    
+    let shouldShow = true
     try {
-      const lastShown = localStorage.getItem('intro_last_shown');      
+      const lastShown = localStorage.getItem('intro_last_shown')    
       if (lastShown) {
-        const lastShownTime = parseInt(lastShown, 10);
-        const currentTime = Date.now();
+        const lastShownTime = parseInt(lastShown, 10)
+        const currentTime = Date.now()
         if (currentTime - lastShownTime < INTRO_CONFIG.LOADING.intervalMs) {
-          shouldShow = false;
+          shouldShow = false
         }
-      }
-      
+      }      
       if (shouldShow) {
-        localStorage.setItem('intro_last_shown', Date.now().toString());
-        loadingStartTimeRef.current = Date.now();
-        
-        // Iniciar progreso manualmente con intervalo
+        localStorage.setItem('intro_last_shown', Date.now().toString())
+        loadingStartTimeRef.current = Date.now()
         const progressInterval = setInterval(() => {
           setLoadingProgress((prevProgress) => {
-            const newProgress = prevProgress + 2;
-            
+            const newProgress = prevProgress + 2            
             if (newProgress >= 100) {
-              clearInterval(progressInterval);
-              setTimeout(() => setIsLoaded(true), 500);
-              setTimeout(() => setVisible(false), 1000);
-              return 100;
-            }
-            
-            return newProgress;
-          });
-        }, 100);
+              clearInterval(progressInterval)
+              setTimeout(() => setIsLoaded(true), 500)
+              setTimeout(() => setVisible(false), 1000)
+              return 100
+            }            
+            return newProgress
+          })
+        }, 100)
       }
     } catch (error) {
-      console.error('IntroCompany: Error con localStorage', error);
-      shouldShow = false;
-    }
-    
-    setVisible(shouldShow);
-    setInitialized(true);
-  }, [isNowBrowser]);
-
-  // Inicialización de Three.js
+      console.error('IntroCompany: Error con localStorage', error)
+      shouldShow = false
+    }    
+    setVisible(shouldShow)
+    setInitialized(true)
+  }, [isNowBrowser])
   useEffect(() => {
     if (!visible || !mountRef.current) return;
     
@@ -188,40 +167,29 @@ function IntroCompany() {
         scene.clear();
       };
     }, 100); // Pequeño retraso para no bloquear la UI
-  }, [visible]);
-
-  // Función para crear partículas
+  }, [visible])
   const createParticles = () => {
-    const particleCount = INTRO_CONFIG.PARTICLES.count;
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    
-    // Crear posiciones aleatorias
+    const particleCount = INTRO_CONFIG.PARTICLES.count
+    const geometry = new THREE.BufferGeometry()
+    const vertices = []
     for (let i = 0; i < particleCount; i++) {
-      const x = (Math.random() - 0.5) * 20;
-      const y = (Math.random() - 0.5) * 20;
-      const z = (Math.random() - 0.5) * 20;
-      vertices.push(x, y, z);
+      const x = (Math.random() - 0.5) * 20
+      const y = (Math.random() - 0.5) * 20
+      const z = (Math.random() - 0.5) * 20
+      vertices.push(x, y, z)
     }
-    
-    // Convertir a Float32Array para mejor rendimiento
     geometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute(vertices, 3)
-    );
-    
-    // Material de partículas con menos opciones
+    )
     const material = new THREE.PointsMaterial({
       size: 0.1,
       color: INTRO_CONFIG.ELEMENT_COLORS.particles,
       transparent: true,
       opacity: 0.7,
-    });
-    
-    return new THREE.Points(geometry, material);
-  };
-
-  // Animar partículas
+    })    
+    return new THREE.Points(geometry, material)
+  }
   const animateParticles = (particles: THREE.Points) => {
     if (!particles || !particles.geometry) return;
     
@@ -241,14 +209,10 @@ function IntroCompany() {
     }
     
     positions.needsUpdate = true;
-  };
-
-  // No renderizar nada si no está inicializado o no es visible
-  if (!initialized || !visible) {
-    return null;
   }
-
-  // Portal para que la intro se muestre por encima de todo
+  if (!initialized || !visible) {
+    return null
+  }
   return createPortal(
     <div
       style={{
@@ -266,7 +230,6 @@ function IntroCompany() {
         background: `linear-gradient(135deg, ${INTRO_CONFIG.BACKGROUND_COLORS.primary} 0%, ${INTRO_CONFIG.BACKGROUND_COLORS.secondary} 100%)`,
       }}
     >
-      {/* Logo y Contenido */}
       <div
         style={{
           textAlign: 'center',
@@ -288,8 +251,6 @@ function IntroCompany() {
           {INTRO_CONFIG.BRAND.tagline}
         </p>
       </div>
-      
-      {/* Contenedor Three.js */}
       <div 
         ref={mountRef}
         style={{
@@ -298,8 +259,6 @@ function IntroCompany() {
           position: 'relative',
         }}
       />
-      
-      {/* Barra de progreso */}
       {!isLoaded && (
         <div
           style={{
@@ -323,13 +282,9 @@ function IntroCompany() {
           />
         </div>
       )}
-
-      {/* Texto cargando o completado */}
       <p style={{ color: 'white' }}>
         {!isLoaded ? `Cargando... ${loadingProgress}%` : 'Completado'}
       </p>
-
-      {/* Controles de sonido */}
       <button
         onClick={() => setAudioEnabled(!audioEnabled)}
         style={{
@@ -344,8 +299,6 @@ function IntroCompany() {
       >
         {audioEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </button>
-      
-      {/* Skip/close button */}
       <button
         onClick={() => setVisible(false)}
         style={{
@@ -367,7 +320,7 @@ function IntroCompany() {
       </button>
     </div>,
     document.body
-  );
+  )
 }
 
-export default IntroCompany;
+export default IntroCompany
