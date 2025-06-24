@@ -1,57 +1,69 @@
 ---
-import Layout from "../Layout/Layout.astro"
-import { Header } from "../Header"
-import { Footer } from "../Footer"
-import { generalConfig } from "@util/generalConfig"
-const path = Astro.url.pathname.slice(1)
+import Layout from "../Layout/Layout.astro";
+import { Header } from "../Header";
+import { Footer } from "../Footer";
+import { generalConfig } from "@util/generalConfig";
+const path = Astro.url.pathname.slice(1);
 const capitalizeFirstLetter = (str) => {
   if (!str) return str;
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-const formattedPath = capitalizeFirstLetter(path)
-const pathTitle = formattedPath !== "" ? formattedPath + " - " + generalConfig.name : generalConfig.name
-import { ContextosGlobales } from "../Context/ContextosGlobales"
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+const formattedPath = capitalizeFirstLetter(path);
+const pathTitle =
+  formattedPath !== ""
+    ? formattedPath + " - " + generalConfig.name
+    : generalConfig.name;
+import { ContextosGlobales } from "../Context/ContextosGlobales";
 ---
+
 <Layout title={pathTitle}>
-  
-    <div class="header-overlay">
-      <Header />
-    </div>
-    <div class="content">
-      <slot />
-    </div>
-    <div class="footer-overlay">
-      <Footer />
-    </div>
+  <div class="header-overlay">
+    <Header />
+  </div>
+  <div class="content">
+    <slot />
+  </div>
+  <div class="footer-overlay">
+    <Footer />
+  </div>
 </Layout>
 <style>
-.header-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2000; /* Encima del contenido */
-  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente (opcional) */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para visibilidad */
-}
+  .header-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000; /* Encima del contenido */
+    background: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Fondo blanco semi-transparente (opcional) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para visibilidad */
+  }
 
-/* Estilo para el footer */
-.footer-overlay {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2000; /* Encima del contenido */
-  background: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente (opcional) */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para visibilidad */
-}
+  /* Estilo para el footer */
+  .footer-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000; /* Encima del contenido */
+    background: rgba(
+      255,
+      255,
+      255,
+      0.8
+    ); /* Fondo blanco semi-transparente (opcional) */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra para visibilidad */
+  }
 
-/* Estilo para el contenido */
-.content {
-  position: relative;
-  z-index: 0; /* Por debajo del header y footer */
-  margin-top: 90px; /* Asegúrate de que el contenido no quede oculto bajo el header */
-  margin-bottom: 60px; /* Asegúrate de que el contenido no quede oculto bajo el footer */
-}
-
+  /* Estilo para el contenido */
+  .content {
+    position: relative;
+    z-index: 0; /* Por debajo del header y footer */
+    margin-top: 90px; /* Asegúrate de que el contenido no quede oculto bajo el header */
+    margin-bottom: 60px; /* Asegúrate de que el contenido no quede oculto bajo el footer */
+  }
 </style>
