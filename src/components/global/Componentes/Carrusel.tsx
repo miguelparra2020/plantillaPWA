@@ -91,16 +91,16 @@ const Carrusel = () => {
           className="relative overflow-hidden rounded-2xl max-w-3xl bg-white/80 backdrop-blur-sm border border-slate-200 shadow-xl mx-auto"
         >
           {/* Main Carousel */}
-          <div className="relative h-[600px] sm:h-[350px]  mx-auto">
+          <div className="relative h-[600px] sm:h-[450px] md:h-[500px] lg:h-[450px] mx-auto">
           <div
               className="flex transition-transform duration-700 ease-in-out h-full"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
           {haircuts.map((haircut, index) => (
                 <div key={haircut.id} className="w-full flex-shrink-0 relative">
-                  <div className="flex flex-col lg:grid lg:grid-cols-2 h-full">
+                  <div className="flex flex-col md:grid md:grid-cols-2 h-full">
                     {/* Image Section */}
-                    <div className="relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 lg:h-full h-80 lg:aspect-auto aspect-square">
+                    <div className="relative overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 h-80 md:h-full md:aspect-auto aspect-square">
                       <img
                         src={haircut.image || "/placeholder.svg"}
                         alt={haircut.title}
@@ -123,7 +123,7 @@ const Carrusel = () => {
                     </div>
 
                     {/* Content Section */}
-                    <div className="flex flex-col justify-center p-8 sm:p-12  bg-gradient-to-br from-white to-slate-50">
+                    <div className="flex flex-col justify-center p-8 sm:p-8 md:p-6 lg:p-12 bg-gradient-to-br from-white to-slate-50">
                       <div className="space-y-1">
                         {/* Rating */}
                         <div className="flex items-center gap-2">
@@ -141,13 +141,13 @@ const Carrusel = () => {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-xl lg:text-xl pt-4 sm:pt-8 font-bold text-slate-900 leading-tight">{haircut.title}</h2>
+                        <h2 className="text-xl pt-4 sm:pt-4 md:pt-2 lg:pt-8 font-bold text-slate-900 leading-tight">{haircut.title}</h2>
 
                         {/* Description */}
                         <p className={generalConfig.classParagraphGeneral}>{haircut.description}</p>
 
                         {/* CTA Button */}
-                        <div className="pt-2 sm:pt-10">
+                        <div className="pt-2 sm:pt-4 md:pt-3 lg:pt-10">
                         <ButtonGeneral
             as={generalConfig.Home.Wellcome.ButtonGeneralAs}
             href={generalConfig.Home.Wellcome.ButtonGeneralHref}
