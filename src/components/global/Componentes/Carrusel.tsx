@@ -8,7 +8,7 @@ import Img8 from "@img/carrusel/img8.webp"
 import Img2 from "@img/carrusel/img2.webp"
 
 const Carrusel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   useEffect(() => {

@@ -41,9 +41,9 @@ const MenuView = () => {
     </div>)} */}
 
 {openMenu && (
-    <div id="menu-content" >
-    <div id="drawer-navigation" className="h-[88vh] p-4  overflow-y-auto transition-transform z-2000  bg-white 
-    w-[100%] rounded-lg shadow-xl" aria-labelledby="drawer-navigation-label">
+    <div id="menu-content" className="fixed inset-0 z-[3000] flex items-center justify-center bg-black bg-opacity-50">
+    <div id="drawer-navigation" className="h-[88vh] md:h-[80vh] p-4 overflow-y-auto transition-transform bg-white 
+    w-[95%] max-w-md mx-auto rounded-lg shadow-xl" aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" className="text-base font-semibold text-gray-500 uppercase ">Menu</h5>
         <button onClick={toggleMenu} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 
@@ -81,9 +81,9 @@ const MenuView = () => {
 </div>  
 )}
     {openChat && (
-    <div id="menu-content" >
-    <div id="drawer-navigation" className="h-[88vh] p-4  overflow-y-auto transition-transform z-2000  bg-white 
-    w-[100%] rounded-lg shadow-xl" aria-labelledby="drawer-navigation-label">
+    <div id="menu-content" className="fixed inset-0 z-[3000] flex items-center justify-center bg-black bg-opacity-50">
+    <div id="drawer-navigation" className="h-[88vh] md:h-[80vh] p-4 overflow-y-auto transition-transform bg-white 
+    w-[95%] max-w-md mx-auto rounded-lg shadow-xl" aria-labelledby="drawer-navigation-label">
         <h5 id="drawer-navigation-label" className="text-base font-semibold text-gray-500 uppercase ">Chat</h5>
         <button onClick={toggleChat} type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" 
         className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 
