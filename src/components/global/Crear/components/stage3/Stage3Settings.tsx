@@ -225,7 +225,7 @@ const Stage3Settings = () => {
                     </div>
                   </SelectItem>
                   {colorOptionsButtons.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <SelectItem key={`bg-${color.value}`} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
                         {color.isGradient ? (
                           <div className={`w-4 h-4 rounded-full ${color.gradientClass}`} />
@@ -290,7 +290,7 @@ const Stage3Settings = () => {
                       </div>
                     </SelectItem>
                     {colorOptionsButtons.filter(color => !color.isGradient).map((color) => (
-                      <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <SelectItem key={`bgHover-${color.value}`} value={color.value} className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <div className={`w-4 h-4 rounded-full bg-${color.value}-${infoStage3.bgShadeHover || infoStage3.bgShade}`}></div>
                           <span>{color.name}</span>
@@ -349,7 +349,7 @@ const Stage3Settings = () => {
                     </div>
                   </SelectItem>
                   {colorOptionsButtons.filter(color => !color.isGradient).map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <SelectItem key={`text-${color.value}`} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
                         <div className={`w-4 h-4 rounded-full bg-${color.value}-${infoStage3.textShade || 500}`}></div>
                         <span>{color.name}</span>
@@ -538,7 +538,7 @@ const Stage3Settings = () => {
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px] bg-white">
                   {colorOptionsButtons.map((color) => (
-                    <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                    <SelectItem key={`shadow-${color.value}`} value={color.value} className="flex items-center gap-2">
                       <div className="flex items-center gap-2">
                         <div className={`w-4 h-4 rounded-full bg-${color.value}-${infoStage3.shadowShade || 500}`}></div>
                         <span>{color.name}</span>
@@ -617,7 +617,7 @@ const Stage3Settings = () => {
                   </SelectTrigger>
                   <SelectContent className="max-h-[300px] bg-white">
                     {colorOptionsButtons.map((color) => (
-                      <SelectItem key={color.value} value={color.value} className="flex items-center gap-2">
+                      <SelectItem key={`border-${color.value}`} value={color.value} className="flex items-center gap-2">
                         <div className="flex items-center gap-2">
                           <div className={`w-4 h-4 rounded-full bg-${color.value}-${infoStage3.borderShade}`}></div>
                           <span>{color.name}</span>

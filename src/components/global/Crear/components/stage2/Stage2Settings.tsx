@@ -962,22 +962,95 @@ const Stage2Settings = () => {
   }: { value: string; onChange: (color: string) => void; label: string; colorType: string }) => {
     // Determinar qué colores mostrar según el tipo
     let colorsToShow = tailwindColors
-    let gridCols = "grid-cols-5"
+    const [isOpen, setIsOpen] = useState(false)
+    const dropdownRef = React.useRef<HTMLDivElement>(null)
+    
+    // Cerrar el dropdown cuando se hace clic fuera
+    React.useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setIsOpen(false)
+        }
+      }
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+      }
+    }, [])
 
     if (colorType === "general") {
       // Color de fondo: solo 50-100
       colorsToShow = backgroundColors as typeof tailwindColors
-      gridCols = "grid-cols-2"
     } else if (["titles", "paragraphs", "buttons", "icons"].includes(colorType)) {
       // Títulos, párrafos, botones e iconos: 400-900
       colorsToShow = contentColors as typeof tailwindColors
-      gridCols = "grid-cols-6"
     }
 
     return (
-      <></>
+      <div className="flex items-center justify-between" ref={dropdownRef}>
+        
+        <div className="flex items-center space-x-3">
+          
+          {/* Color selector dropdown */}
+          <div className="relative">
+            <div 
+              className="flex items-center border border-gray-200 rounded-lg px-3 py-2 cursor-pointer"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <div className="flex items-center gap-2">
+                <div 
+                  className="h-5 w-5" 
+                  style={{ backgroundColor: value }}
+                />
+                <span className="text-sm font-medium">{value}</span>
+              </div>
+              <ChevronDown className="ml-2 h-4 w-4 text-gray-500" />
+            </div>
+            
+            {/* Dropdown menu */}
+            {isOpen && (
+              <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-96 overflow-auto">
+                <div className="p-3">
+                  <h4 className="text-sm font-medium text-center mb-2">Seleccionar color para {colorLabels[colorType as keyof typeof colorLabels]?.label.toLowerCase()}</h4>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Colores sólidos</span>
+                    </div>
+                    
+                    {Object.entries(colorsToShow).map(([colorName, shades]) => (
+                      <div key={colorName} className="space-y-1">
+                        <div className="mb-1">
+                          <span className="text-sm font-medium capitalize">{colorName}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {Object.entries(shades).map(([shade, hexColor]) => (
+                            <button
+                              key={`${colorName}-${shade}`}
+                              type="button"
+                              className={`h-8 w-8 rounded ${value === hexColor ? 'ring-2 ring-offset-1 ring-blue-500' : ''} flex items-center justify-center`}
+                              style={{ backgroundColor: hexColor }}
+                              onClick={() => {
+                                onChange(hexColor)
+                                setIsOpen(false)
+                              }}
+                            >
+                              {value === hexColor && <Check className="h-4 w-4 text-white" />}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     )
   }
+  
 
   const buttonStyles = [
     { id: "rounded", name: "Redondeado", preview: "rounded-lg" },
