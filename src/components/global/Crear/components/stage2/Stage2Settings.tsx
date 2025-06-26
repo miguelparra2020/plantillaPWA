@@ -28,8 +28,10 @@ const Stage2Settings = () => {
     focusClass: "",
     textColor: "text-white",
     value: "#3b82f6",
+    roundingClass: "rounded-lg",
   })
   const [selectedButtonStyle, setSelectedButtonStyle] = useState("")
+  const [selectedBoxShadow, setSelectedBoxShadow] = useState("no-shadow")
   const [bordersEnabled, setBordersEnabled] = useState(false)
   const [shadowsEnabled, setShadowsEnabled] = useState(false)
 
@@ -922,27 +924,27 @@ const Stage2Settings = () => {
   }
 
   const handleButtonChange = (option: any) => {
-    if (option.isGradient) {
-      setButtonStyle({
-        isGradient: true,
-        gradientClass: option.gradientClass,
-        hoverClass: option.hoverClass,
-        shadowClass: option.shadowClass,
-        focusClass: option.focusClass,
-        textColor: option.textColor,
-        value: option.value,
-      })
-    } else {
-      setButtonStyle({
-        isGradient: false,
-        gradientClass: "",
-        hoverClass: "",
-        shadowClass: "",
-        focusClass: "",
-        textColor: "text-white",
-        value: option,
-      })
-      setColors((prev) => ({ ...prev, buttons: option }))
+    // Encontrar el estilo de box-shadow seleccionado
+    const selectedShadow = boxShadowStyles.find(shadow => shadow.id === selectedBoxShadow);
+    const shadowClass = selectedShadow ? selectedShadow.preview : "shadow-none";
+    
+    // Encontrar el estilo de redondeo seleccionado
+    const selectedRounding = buttonStyles.find(style => style.id === selectedButtonStyle);
+    const roundingClass = selectedRounding ? selectedRounding.preview : "rounded-lg";
+    
+    setButtonStyle({
+      isGradient: option.isGradient || false,
+      gradientClass: option.gradientClass || "",
+      hoverClass: option.hoverClass || "",
+      shadowClass: shadowClass,
+      focusClass: option.focusClass || "",
+      textColor: option.textColor || "text-white",
+      value: option.isGradient ? option.value : option.hex || colors.buttons,
+      roundingClass: roundingClass,
+    })
+    
+    if (!option.isGradient) {
+      setColors({ ...colors, buttons: option.hex || colors.buttons })
     }
   }
 
@@ -1059,6 +1061,15 @@ const Stage2Settings = () => {
     { id: "subtle", name: "Sutil", preview: "rounded-md" },
   ]
 
+  const boxShadowStyles = [
+    { id: "no-shadow", name: "Sin sombra", preview: "shadow-none" },
+    { id: "shadow-sm", name: "Sombra sutil", preview: "shadow-sm" },
+    { id: "shadow", name: "Sombra estándar", preview: "shadow" },
+    { id: "shadow-md", name: "Sombra media", preview: "shadow-md" },
+    { id: "shadow-lg", name: "Sombra grande", preview: "shadow-lg" },
+    { id: "shadow-xl", name: "Sombra XL", preview: "shadow-xl" }
+  ]
+
   return (
     <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
       <div className="mx-auto max-w-2xl">
@@ -1127,7 +1138,13 @@ const Stage2Settings = () => {
                             }
                             onChange={(color) => {
                               if (key === "buttons") {
-                                handleButtonChange(color)
+                                // Para botones, necesitamos pasar un objeto con la estructura correcta
+                                handleButtonChange({
+                                  isGradient: false,
+                                  hex: color, // Pasamos el color como hex
+                                  gradientClass: "",
+                                  hoverClass: "",
+                                })
                               } else {
                                 handleColorChange(key as keyof typeof colors, color)
                               }
@@ -1286,13 +1303,49 @@ const Stage2Settings = () => {
                           }`}
                         >
                           <div
-                            className={`text-white px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm mb-2 ${style.preview}`}
+                            className={`text-white px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm mb-2 ${style.preview} ${selectedBoxShadow !== "no-shadow" ? boxShadowStyles.find(shadow => shadow.id === selectedBoxShadow)?.preview || '' : ''}`}
                             style={{ backgroundColor: colors.buttons }}
                           >
                             Botón
                           </div>
                           <span className="text-xs sm:text-sm font-medium">{style.name}</span>
                           {selectedButtonStyle === style.id && (
+                            <Check className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 mt-1" />
+                          )}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {/* Box Shadow Options */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <MousePointer className="h-5 w-5 text-gray-600" />
+                  <Label className="text-base font-medium">Opciones de Box Shadow</Label>
+                </div>
+                <RadioGroup value={selectedBoxShadow} onValueChange={setSelectedBoxShadow}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    {boxShadowStyles.map((style) => (
+                      <div key={style.id} className="relative">
+                        <RadioGroupItem value={style.id} id={`shadow-${style.id}`} className="sr-only" />
+                        <Label
+                          htmlFor={`shadow-${style.id}`}
+                          className={`flex flex-col items-center p-3 sm:p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                            selectedBoxShadow === style.id
+                              ? "border-blue-500 bg-blue-50"
+                              : "border-gray-200 hover:border-gray-300"
+                          }`}
+                        >
+                          <div
+                            className={`text-white px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm mb-2 ${style.preview} ${selectedButtonStyle ? buttonStyles.find(btn => btn.id === selectedButtonStyle)?.preview || 'rounded-lg' : 'rounded-lg'}`}
+                            style={{ backgroundColor: colors.buttons }}
+                          >
+                            Botón
+                          </div>
+                          <span className="text-xs sm:text-sm font-medium">{style.name}</span>
+                          {selectedBoxShadow === style.id && (
                             <Check className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 mt-1" />
                           )}
                         </Label>
